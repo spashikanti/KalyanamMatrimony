@@ -30,9 +30,12 @@ C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Vie
 C:\Development\AspNetWebCore\KalyanamMatrimony\bin\Debug\netcoreapp2.1\libman.json
 C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Account\CreateUser.cshtml.g.cs
 C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Account\Login.cshtml.g.cs
-C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.csprojAssemblyReference.cache
 C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_LayoutAdmin.cshtml.g.cs
 C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_LayoutProfile.cshtml.g.cs
 C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.csproj.CoreCompileInputs.cache
 C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Admin\Index.cshtml.g.cs
 C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Account\UserList.cshtml.g.cs
+C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Profile\CreateProfile.cshtml.g.cs
+C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Profile\Index.cshtml.g.cs
+C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.csprojAssemblyReference.cache

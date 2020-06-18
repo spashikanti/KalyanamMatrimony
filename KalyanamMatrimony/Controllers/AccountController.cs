@@ -7,6 +7,7 @@ using KalyanamMatrimony.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using static KalyanamMatrimony.Models.CustomEnums;
 
 namespace KalyanamMatrimony.Controllers
 {
@@ -133,6 +134,38 @@ namespace KalyanamMatrimony.Controllers
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+            }
+
+            return View(model);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> UserList()
+        {
+            var model = new List<UserRoleViewModel>();
+
+            //foreach (var user in userManager.Users)
+            //{
+            //    var userRoleViewModel = new UserRoleViewModel
+            //    {
+            //        UserId = user.Id,
+            //        UserName = user.UserName
+            //    };
+
+            //    model.Add(userRoleViewModel);
+            //}
+            var groupUsers = await userManager.GetUsersInRoleAsync(Enum.GetName(typeof(CustomRole), CustomRole.Profile));
+
+            foreach (var user in groupUsers)
+            {
+                var userRoleViewModel = new UserRoleViewModel
+                {
+                    UserId = user.Id,
+                    UserName = user.UserName
+                };
+
+                model.Add(userRoleViewModel);
             }
 
             return View(model);

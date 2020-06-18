@@ -15,6 +15,7 @@ namespace KalyanamMatrimony.Models
         }
 
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Profile> Profiles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

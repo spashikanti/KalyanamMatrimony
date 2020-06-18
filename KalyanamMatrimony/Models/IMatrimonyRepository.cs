@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace KalyanamMatrimony.Models
 {
-    public enum Dept
+    public interface IMatrimonyRepository
     {
-        HR,
-        IT,
-        Admin
+        IEnumerable<Profile> GetAllProfiles();
+        Profile Add(Profile profile);
     }
 }

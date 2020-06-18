@@ -9,7 +9,7 @@ using static KalyanamMatrimony.Models.CustomEnums;
 
 namespace KalyanamMatrimony.ViewModels
 {
-    public class RegisterViewModel
+    public class UserProfileViewModel: Profile
     {
         [Required]
         [EmailAddress]

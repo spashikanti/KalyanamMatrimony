@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static KalyanamMatrimony.Models.CustomEnums;
 
 namespace KalyanamMatrimony.Models
 {
@@ -24,6 +25,15 @@ namespace KalyanamMatrimony.Models
                     Name = "John",
                     Department = Dept.HR,
                     Email = "john@pragimtech.com"
+                }
+            );
+
+            modelBuilder.Entity<ApplicationUser>().HasData(
+                new ApplicationUser
+                {
+                    UserName = "sunil.pashikanti@gmail.com",
+                    Email = "sunil.pashikanti@gmail.com",
+                    PasswordHash = "AQAAAAEAACcQAAAAEPZ/6w4+04Y/iWjqC9AyZANRUSyhavIYUxDFn4N/VFrWD0a0I4DLkzR64GWgJ8/tXA=="
                 }
             );
         }

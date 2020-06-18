@@ -1,0 +1,45 @@
+﻿@model IEnumerable<KalyanamMatrimony.Models.Profile>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-controller="profile" asp-action="createprofile">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProfileId)
+            </th>
+            <th>
+                Full Name
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProfileId)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName) &nbsp; @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id= item.ProfileId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ProfileId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

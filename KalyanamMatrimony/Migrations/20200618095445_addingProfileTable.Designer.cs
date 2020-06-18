@@ -3,14 +3,16 @@ using System;
 using KalyanamMatrimony.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KalyanamMatrimony.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200618095445_addingProfileTable")]
+    partial class addingProfileTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,10 +69,6 @@ namespace KalyanamMatrimony.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new { Id = "403d4394-9212-4b39-86bc-4d0334afee33", AccessFailedCount = 0, ConcurrencyStamp = "230dfacc-cf07-4aad-b026-4f70cfd72887", Email = "sunil.pashikanti@gmail.com", EmailConfirmed = false, LockoutEnabled = false, PasswordHash = "AQAAAAEAACcQAAAAEPZ/6w4+04Y/iWjqC9AyZANRUSyhavIYUxDFn4N/VFrWD0a0I4DLkzR64GWgJ8/tXA==", PhoneNumberConfirmed = false, TwoFactorEnabled = false, UserName = "sunil.pashikanti@gmail.com" }
-                    );
                 });
 
             modelBuilder.Entity("KalyanamMatrimony.Models.Employee", b =>
@@ -102,110 +100,14 @@ namespace KalyanamMatrimony.Migrations
                     b.Property<string>("ProfileId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AboutFamily");
-
-                    b.Property<string>("AboutYourself");
-
-                    b.Property<int>("Age");
-
-                    b.Property<string>("AnnualIncome");
-
-                    b.Property<string>("AstroProfile");
-
-                    b.Property<string>("BloodGroup");
-
-                    b.Property<string>("BodyType");
-
-                    b.Property<int>("Brothers");
-
-                    b.Property<string>("Caste");
-
-                    b.Property<string>("Complexion");
-
-                    b.Property<string>("CurrentLocation");
-
-                    b.Property<DateTime>("DateOfBirth");
-
-                    b.Property<string>("Diet");
-
-                    b.Property<string>("Drink");
-
-                    b.Property<string>("Education");
-
-                    b.Property<string>("FamilyValues");
-
-                    b.Property<string>("FatherName");
-
-                    b.Property<string>("FatherOccupation");
-
-                    b.Property<string>("FavoriteCuisine");
-
-                    b.Property<string>("FavoriteMovies");
-
-                    b.Property<string>("FavoriteMusic");
-
                     b.Property<string>("FirstName")
                         .IsRequired();
-
-                    b.Property<int>("Gender");
-
-                    b.Property<string>("Gothram");
-
-                    b.Property<bool>("HaveChildren");
-
-                    b.Property<float>("Height");
-
-                    b.Property<string>("Hobbies");
 
                     b.Property<string>("LastName")
                         .IsRequired();
 
-                    b.Property<string>("Manglik");
-
-                    b.Property<string>("MaritalStatus");
-
-                    b.Property<int>("MarriedBrothers");
-
-                    b.Property<int>("MarriedSisters");
-
-                    b.Property<string>("MotherName");
-
-                    b.Property<string>("MotherOccupation");
-
-                    b.Property<string>("MotherTongue");
-
-                    b.Property<string>("Nakshatram");
-
-                    b.Property<string>("Photo1");
-
-                    b.Property<string>("Photo2");
-
-                    b.Property<string>("Photo3");
-
-                    b.Property<string>("PreferredDress");
-
-                    b.Property<string>("Profession");
-
-                    b.Property<string>("Rasi");
-
-                    b.Property<string>("Religion");
-
-                    b.Property<int>("Sisters");
-
-                    b.Property<string>("Smoke");
-
-                    b.Property<string>("SpokenLanguages");
-
-                    b.Property<string>("Sports");
-
-                    b.Property<string>("SubCaste");
-
-                    b.Property<string>("University");
-
                     b.Property<string>("UserId")
                         .IsRequired();
-
-                    b.Property<string>("WorkingAt");
 
                     b.HasKey("ProfileId");
 
