@@ -1,4 +1,5 @@
 ﻿using KalyanamMatrimony.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -30,5 +31,9 @@ namespace KalyanamMatrimony.ViewModels
         public DateTime? EndDate { get; set; }
 
         public string UserRole { get; set; } = Enum.GetName(typeof(CustomRole), CustomRole.Profile);
+
+        public IFormFile PhotoFile1 { get; set; }
+        public IFormFile PhotoFile2 { get; set; }
+        public IFormFile PhotoFile3 { get; set; }
     }
 }

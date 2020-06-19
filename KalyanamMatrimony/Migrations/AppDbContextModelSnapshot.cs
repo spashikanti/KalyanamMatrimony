@@ -69,7 +69,7 @@ namespace KalyanamMatrimony.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
-                        new { Id = "403d4394-9212-4b39-86bc-4d0334afee33", AccessFailedCount = 0, ConcurrencyStamp = "230dfacc-cf07-4aad-b026-4f70cfd72887", Email = "sunil.pashikanti@gmail.com", EmailConfirmed = false, LockoutEnabled = false, PasswordHash = "AQAAAAEAACcQAAAAEPZ/6w4+04Y/iWjqC9AyZANRUSyhavIYUxDFn4N/VFrWD0a0I4DLkzR64GWgJ8/tXA==", PhoneNumberConfirmed = false, TwoFactorEnabled = false, UserName = "sunil.pashikanti@gmail.com" }
+                        new { Id = "cd97120c-9fcf-4b33-aa08-56395ba58017", AccessFailedCount = 0, ConcurrencyStamp = "f112d3bd-7007-494f-a099-c0fa1d435f89", Email = "sunil.pashikanti@gmail.com", EmailConfirmed = false, LockoutEnabled = false, PasswordHash = "AQAAAAEAACcQAAAAEPZ/6w4+04Y/iWjqC9AyZANRUSyhavIYUxDFn4N/VFrWD0a0I4DLkzR64GWgJ8/tXA==", PhoneNumberConfirmed = false, TwoFactorEnabled = false, UserName = "sunil.pashikanti@gmail.com" }
                     );
                 });
 
@@ -106,7 +106,7 @@ namespace KalyanamMatrimony.Migrations
 
                     b.Property<string>("AboutYourself");
 
-                    b.Property<int>("Age");
+                    b.Property<int?>("Age");
 
                     b.Property<string>("AnnualIncome");
 
@@ -116,15 +116,17 @@ namespace KalyanamMatrimony.Migrations
 
                     b.Property<string>("BodyType");
 
-                    b.Property<int>("Brothers");
+                    b.Property<int?>("Brothers");
 
                     b.Property<string>("Caste");
 
                     b.Property<string>("Complexion");
 
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("CurrentLocation");
 
-                    b.Property<DateTime>("DateOfBirth");
+                    b.Property<DateTime?>("DateOfBirth");
 
                     b.Property<string>("Diet");
 
@@ -147,13 +149,13 @@ namespace KalyanamMatrimony.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired();
 
-                    b.Property<int>("Gender");
+                    b.Property<int?>("Gender");
 
                     b.Property<string>("Gothram");
 
                     b.Property<bool>("HaveChildren");
 
-                    b.Property<float>("Height");
+                    b.Property<float?>("Height");
 
                     b.Property<string>("Hobbies");
 
@@ -164,9 +166,9 @@ namespace KalyanamMatrimony.Migrations
 
                     b.Property<string>("MaritalStatus");
 
-                    b.Property<int>("MarriedBrothers");
+                    b.Property<int?>("MarriedBrothers");
 
-                    b.Property<int>("MarriedSisters");
+                    b.Property<int?>("MarriedSisters");
 
                     b.Property<string>("MotherName");
 
@@ -190,7 +192,7 @@ namespace KalyanamMatrimony.Migrations
 
                     b.Property<string>("Religion");
 
-                    b.Property<int>("Sisters");
+                    b.Property<int?>("Sisters");
 
                     b.Property<string>("Smoke");
 
@@ -202,8 +204,7 @@ namespace KalyanamMatrimony.Migrations
 
                     b.Property<string>("University");
 
-                    b.Property<string>("UserId")
-                        .IsRequired();
+                    b.Property<string>("UserId");
 
                     b.Property<string>("WorkingAt");
 

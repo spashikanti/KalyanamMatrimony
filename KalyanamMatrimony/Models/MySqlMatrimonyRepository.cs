@@ -23,7 +23,7 @@ namespace KalyanamMatrimony.Models
 
         public IEnumerable<Profile> GetAllProfiles()
         {
-            return context.Profiles;
+            return context.Profiles.OrderBy(x => x.CreatedDate);
         }
     }
 }

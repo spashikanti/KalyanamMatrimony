@@ -23,6 +23,7 @@ namespace KalyanamMatrimony.Models
 
         public enum ProfileGender
         {
+            None = 0,
             Male,
             Female
         }
