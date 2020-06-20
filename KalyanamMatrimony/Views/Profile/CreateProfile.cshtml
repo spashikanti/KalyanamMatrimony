@@ -5,18 +5,21 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<div class="col-lg-12">
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">@ViewBag.Title</h1>
-        @*<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>
-            Generate Report</a>*@
-    </div>
-
+<div class="container-fluid">
     <div class="card shadow-lg border-0 rounded-lg">
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-md-10">
+                    <h6 class="m-0 font-weight-bold text-primary">@ViewBag.Title</h6>
+                </div>
+                <div class="col-md-2">
+                    <a class="btn btn-success" asp-controller="profile" asp-action="index">View Profiles</a>
+                </div>
+            </div>
+        </div>
         <div class="card-body">
-
             <form method="post" enctype="multipart/form-data">
-                <div asp-validation-summary="All" class="text-danger"></div>
+                <div asp-validation-summary="All" class="text-danger" id="validationSummary"></div>
                 <div class="row">
                     <div class="col-2">
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -87,7 +90,6 @@
 
                             </div>
                             <div class="tab-pane fade" id="v-pills-personalInfo" role="tabpanel" aria-labelledby="v-pills-personalInfo-tab">
-
                                 @*<div class="card-body">*@
                                 <div class="form-row">
                                     <div class="col-md-3">
@@ -192,8 +194,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             @*<label asp-for="Caste" class="small mb-1"></label>
-                                            <input asp-for="Caste" class="form-control" placeholder="Enter Caste" />
-                                            <span asp-validation-for="Caste" class="text-danger"></span>*@
+                                                <input asp-for="Caste" class="form-control" placeholder="Enter Caste" />
+                                                <span asp-validation-for="Caste" class="text-danger"></span>*@
 
                                             <label asp-for="Caste" class="small mb-1"></label>
                                             <select asp-for="Caste" class="custom-select mr-sm-2"></select>
@@ -246,7 +248,6 @@
                                     <button type="button" class="btn btn-primary" onclick="moveNext(3);">Next</button>
                                 </div>
                                 @*</div>*@
-
                             </div>
                             <div class="tab-pane fade" id="v-pills-eduInfo" role="tabpanel" aria-labelledby="v-pills-eduInfo-tab">
                                 <div class="form-row">
@@ -285,6 +286,30 @@
                                             <label asp-for="WorkingAt" class="small mb-1"></label>
                                             <input asp-for="WorkingAt" class="form-control" placeholder="Enter Working At" />
                                             <span asp-validation-for="WorkingAt" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="sidebar-divider">
+                                <div class="form-row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="PhoneNumber" class="small mb-1"></label>
+                                            <input asp-for="PhoneNumber" class="form-control" placeholder="Enter Phone Number" />
+                                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="ContactPersonName" class="small mb-1"></label>
+                                            <input asp-for="ContactPersonName" class="form-control" placeholder="Enter Contact Person Name" />
+                                            <span asp-validation-for="ContactPersonName" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="ContactPersonRelationShip" class="small mb-1"></label>
+                                            <input asp-for="ContactPersonRelationShip" class="form-control" placeholder="Enter Contact Person RelationShip" />
+                                            <span asp-validation-for="ContactPersonRelationShip" class="text-danger"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -377,7 +402,6 @@
                                     <button type="button" class="btn btn-primary" onclick="moveNext(5);">Next</button>
                                 </div>
                             </div>
-
                             <div class="tab-pane fade" id="v-pills-hobbies" role="tabpanel" aria-labelledby="v-pills-hobbies-tab">
                                 <div class="form-row">
                                     <div class="col-md-4">
@@ -482,9 +506,7 @@
                                 </div>
 
                             </div>
-
                             <div class="tab-pane fade" id="v-pills-photos" role="tabpanel" aria-labelledby="v-pills-photos-tab">
-
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -533,7 +555,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -541,22 +562,19 @@
                                             <button type="button" class="btn btn-primary" disabled>Next</button>
                                         </div>
                                     </div>
-
                                 </div>
-
                                 <div class="form-row">
                                     <div class="col-md-3"></div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-primary btn-block">Create Profile</button>
+                                                <button type="submit" class="btn btn-primary btn-block" id="btnCreateProfile">Create Profile</button>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3"></div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -568,7 +586,8 @@
 
 </div>
 
-@section Scripts {
-    <script src="~/js/CustomScript.js"></script>
+@*@section Scripts {
+    <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <script src="~/js/LoadJsonData.js"></script>
-}
+}*@

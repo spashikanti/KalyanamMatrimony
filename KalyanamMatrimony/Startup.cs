@@ -29,7 +29,7 @@ namespace KalyanamMatrimony
             services.AddDbContextPool<AppDbContext>(options =>  
                 options.UseMySql(_config.GetConnectionString("MatrimonyDBConnection"))
             );
-
+            
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
 

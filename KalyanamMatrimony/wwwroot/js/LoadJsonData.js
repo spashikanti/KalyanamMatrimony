@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-
+    debugger;
     var ddlMaritalStatus = $('#MaritalStatus');
     ddlMaritalStatus.empty();
     ddlMaritalStatus.append('<option disabled>Choose Marital Status</option>');
@@ -93,9 +93,7 @@
 
     });
 
-    debugger;
-    $.getJSON('../data/masterData.json', function (jd) {
-        debugger;
+    $.getJSON('../../data/masterData.json', function (jd) {
         loadDropdowns(jd.MaritalStatus, ddlMaritalStatus);
         loadDropdowns(jd.BodyType, ddlBodyType);
         loadDropdowns(jd.Height, ddlHeight);
@@ -115,7 +113,6 @@
 
 function loadDropdowns(jsonObj, dropdown) {
     $.each(jsonObj, function (key, entry) {
-        debugger;
         dropdown.append($('<option></option>').attr('value', entry.item).text(entry.item));
     });
 }

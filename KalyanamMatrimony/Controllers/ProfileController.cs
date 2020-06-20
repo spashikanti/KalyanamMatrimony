@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace KalyanamMatrimony.Controllers
 {
     [Authorize]
-    public class ProfileController : Controller
+    public class ProfileController : BaseController
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
@@ -38,6 +38,7 @@ namespace KalyanamMatrimony.Controllers
 
         public IActionResult Index()
         {
+            ToasterService("success");
             var profile = matrimonyRepository.GetAllProfiles();
             return View(profile);
         }
@@ -112,11 +113,12 @@ namespace KalyanamMatrimony.Controllers
                                 DeleteImage(model.Photo3);
                             }
 
-                            ModelState.AddModelError(string.Empty, "Unable to create profile!!!");
+                            ModelState.AddModelError(string.Empty, "Unable to create profile");
                         }
                         else
                         {
-                            return RedirectToAction("index", "home");
+                            TempData["Message"] = model.Email + " Profile added successfully";
+                            return RedirectToAction("index", "profile");
                         }
                     }
                     else
@@ -142,6 +144,18 @@ namespace KalyanamMatrimony.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> EditProfile(string id)
+        {
+            Profile profile = matrimonyRepository.GetProfileById(id);
+            ApplicationUser userData = await userManager.FindByIdAsync(profile.UserId);
+            UserProfileViewModel userProfileViewModel = CreateUserProfileViewModel(profile);
+            userProfileViewModel.Email = userData.Email;
+            userProfileViewModel.EndDate = userData.EndDate;
+            return View(userProfileViewModel);
+        }
+
 
         private string GenerateProfileNumber()
         {
@@ -238,6 +252,86 @@ namespace KalyanamMatrimony.Controllers
             profile.Photo1 = model.Photo1;
             profile.Photo2 = model.Photo2;
             profile.Photo3 = model.Photo3;
+
+            //ContactInfo
+            profile.PhoneNumber = model.PhoneNumber;
+            profile.ContactPersonName = model.ContactPersonName;
+            profile.ContactPersonRelationShip = model.ContactPersonRelationShip;
+
+            return profile;
+        }
+
+        private UserProfileViewModel CreateUserProfileViewModel(Profile model)
+        {
+            UserProfileViewModel profile = new UserProfileViewModel();
+            profile.FirstName = model.FirstName;
+            profile.LastName = model.LastName;
+            profile.UserId = model.UserId;
+            profile.ProfileId = model.ProfileId;
+
+            profile.Age = model.Age;
+            profile.DateOfBirth = model.DateOfBirth;
+            profile.Gender = model.Gender;
+            profile.Height = model.Height;
+            profile.MaritalStatus = model.MaritalStatus;
+            profile.HaveChildren = model.HaveChildren;
+            profile.BodyType = model.BodyType;
+            profile.Complexion = model.Complexion;
+            profile.MotherTongue = model.MotherTongue;
+            profile.Religion = model.Religion;
+            profile.Caste = model.Caste;
+            profile.SubCaste = model.SubCaste;
+            profile.Diet = model.Diet;
+            profile.Smoke = model.Smoke;
+            profile.Drink = model.Drink;
+            profile.AboutYourself = model.AboutYourself;
+            profile.BloodGroup = model.BloodGroup;
+            profile.CurrentLocation = model.CurrentLocation;
+            profile.SpokenLanguages = model.SpokenLanguages;
+
+            //Education Info
+            profile.Education = model.Education;
+            profile.University = model.University;
+            profile.Profession = model.Profession;
+            profile.AnnualIncome = model.AnnualIncome;
+            profile.WorkingAt = model.WorkingAt;
+
+            //Family Info
+            profile.FatherName = model.FatherName;
+            profile.MotherName = model.MotherName;
+            profile.FatherOccupation = model.FatherOccupation;
+            profile.MotherOccupation = model.MotherOccupation;
+            profile.Brothers = model.Brothers;
+            profile.MarriedBrothers = model.MarriedBrothers;
+            profile.Sisters = model.Sisters;
+            profile.MarriedSisters = model.MarriedSisters;
+            profile.FamilyValues = model.FamilyValues;
+            profile.AboutFamily = model.AboutFamily;
+
+            //Hobbies
+            profile.Hobbies = model.Hobbies;
+            profile.FavoriteMusic = model.FavoriteMusic;
+            profile.FavoriteMovies = model.FavoriteMovies;
+            profile.FavoriteCuisine = model.FavoriteCuisine;
+            profile.Sports = model.Sports;
+            profile.PreferredDress = model.PreferredDress;
+
+            //Horoscope
+            profile.Gothram = model.Gothram;
+            profile.Rasi = model.Rasi;
+            profile.Nakshatram = model.Nakshatram;
+            profile.Manglik = model.Manglik;
+            profile.AstroProfile = model.AstroProfile;
+
+            //Photos
+            profile.Photo1 = model.Photo1;
+            profile.Photo2 = model.Photo2;
+            profile.Photo3 = model.Photo3;
+
+            //ContactInfo
+            profile.PhoneNumber = model.PhoneNumber;
+            profile.ContactPersonName = model.ContactPersonName;
+            profile.ContactPersonRelationShip = model.ContactPersonRelationShip;
 
             return profile;
         }

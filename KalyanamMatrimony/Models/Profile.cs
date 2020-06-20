@@ -15,6 +15,7 @@ namespace KalyanamMatrimony.Models
             DateOfBirth = new DateTime();
         }
         //UserInfo
+        [Display(Name = "Profile Id")]
         public string  ProfileId { get; set; }
         public string  UserId { get; set; }
 
@@ -112,5 +113,13 @@ namespace KalyanamMatrimony.Models
         public string Photo3 { get; set; }
 
         public DateTime CreatedDate { get; set; } = DateTime.Now;
+
+        //Contact Details
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
+        [Display(Name ="Contact Person Name")]
+        public string ContactPersonName { get; set; }
+        [Display(Name = "Contact Person Relationship")]
+        public string ContactPersonRelationShip { get; set; }
     }
 }

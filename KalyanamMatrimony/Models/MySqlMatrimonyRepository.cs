@@ -25,5 +25,10 @@ namespace KalyanamMatrimony.Models
         {
             return context.Profiles.OrderBy(x => x.CreatedDate);
         }
+
+        public Profile GetProfileById(string profileId)
+        {
+            return context.Profiles.FirstOrDefault(x => x.ProfileId == profileId);
+        }
     }
 }

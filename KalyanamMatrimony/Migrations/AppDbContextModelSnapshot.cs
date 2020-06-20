@@ -69,7 +69,7 @@ namespace KalyanamMatrimony.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
-                        new { Id = "cd97120c-9fcf-4b33-aa08-56395ba58017", AccessFailedCount = 0, ConcurrencyStamp = "f112d3bd-7007-494f-a099-c0fa1d435f89", Email = "sunil.pashikanti@gmail.com", EmailConfirmed = false, LockoutEnabled = false, PasswordHash = "AQAAAAEAACcQAAAAEPZ/6w4+04Y/iWjqC9AyZANRUSyhavIYUxDFn4N/VFrWD0a0I4DLkzR64GWgJ8/tXA==", PhoneNumberConfirmed = false, TwoFactorEnabled = false, UserName = "sunil.pashikanti@gmail.com" }
+                        new { Id = "2e303b74-60b2-4f11-9dec-9d59cc56438c", AccessFailedCount = 0, ConcurrencyStamp = "e6c61180-62fb-4a9b-8dfd-45292cfb0bfc", Email = "sunil.pashikanti@gmail.com", EmailConfirmed = false, LockoutEnabled = false, PasswordHash = "AQAAAAEAACcQAAAAEPZ/6w4+04Y/iWjqC9AyZANRUSyhavIYUxDFn4N/VFrWD0a0I4DLkzR64GWgJ8/tXA==", PhoneNumberConfirmed = false, TwoFactorEnabled = false, UserName = "sunil.pashikanti@gmail.com" }
                     );
                 });
 
@@ -121,6 +121,10 @@ namespace KalyanamMatrimony.Migrations
                     b.Property<string>("Caste");
 
                     b.Property<string>("Complexion");
+
+                    b.Property<string>("ContactPersonName");
+
+                    b.Property<string>("ContactPersonRelationShip");
 
                     b.Property<DateTime>("CreatedDate");
 
@@ -177,6 +181,8 @@ namespace KalyanamMatrimony.Migrations
                     b.Property<string>("MotherTongue");
 
                     b.Property<string>("Nakshatram");
+
+                    b.Property<string>("PhoneNumber");
 
                     b.Property<string>("Photo1");
 
