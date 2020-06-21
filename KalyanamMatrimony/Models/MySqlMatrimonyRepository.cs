@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,6 +30,14 @@ namespace KalyanamMatrimony.Models
         public Profile GetProfileById(string profileId)
         {
             return context.Profiles.FirstOrDefault(x => x.ProfileId == profileId);
+        }
+
+        public Profile Update(Profile profile)
+        {
+            context.Profiles.Update(profile);
+            context.Entry(profile).State = EntityState.Modified;
+            context.SaveChanges();
+            return profile;
         }
     }
 }

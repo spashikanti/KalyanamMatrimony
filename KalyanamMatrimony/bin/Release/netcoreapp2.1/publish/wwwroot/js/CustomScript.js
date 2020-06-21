@@ -2,7 +2,6 @@
 $(document).ready(function () {
 
     $("#btnCreateProfile").click(function (event) {
-        debugger;
         $('#v-pills-tab a[href="#v-pills-userinfo"]').tab('show');
         validateCreateProfile(event);
     });
@@ -11,16 +10,28 @@ $(document).ready(function () {
         readURL(this);
     });
 
+    $.getJSON('../../data/masterData.json', function (jd) {
+        debugger;
+        $("#hdFileSizeLimit").val(jd.FileSizeLimit);
+    });
+
 });
 
 function readURL(input) {
-    debugger;
-    var fileName = $(input).val().split("\\").pop();
-    $(input).next('.custom-file-label').html(fileName);
-
     if (input.files && input.files[0]) {
-        var reader = new FileReader();
+        debugger;
+        var fileSizeLimit = $("#hdFileSizeLimit").val();
+        if (input.files[0].size > fileSizeLimit) {
+            var actualSizeLimit = parseInt(fileSizeLimit) / 1024;
+            alert('File Size Limit exceeded, Please upload photo below ' + actualSizeLimit + ' kb only.')
+            $(input).val('');
+            return false;
+        }
 
+        var fileName = $(input).val().split("\\").pop();
+        $(input).next('.custom-file-label').html(fileName);
+
+        var reader = new FileReader();
         reader.onload = function (e) {
             if (input.id === "PhotoFile1")
                 $('#imgProfile1').attr('src', e.target.result);
@@ -62,7 +73,6 @@ function moveNext(showTab) {
 }
 
 function validateCreateProfile(event) {
-    debugger;
     var errors = {
         Messages: []
     };
@@ -93,7 +103,6 @@ function validateCreateProfile(event) {
 }
 
 function displayToast(jsonObj) {
-    debugger;
     if (jsonObj != null) {
         switch (jsonObj.type) {
             case "info":

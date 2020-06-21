@@ -9,6 +9,5 @@ namespace KalyanamMatrimony.ViewModels
     {
         public string UserId { get; set; }
         public string UserName { get; set; }
-
     }
 }

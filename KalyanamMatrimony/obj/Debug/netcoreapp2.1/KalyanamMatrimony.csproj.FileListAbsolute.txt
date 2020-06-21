@@ -40,3 +40,6 @@ C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamM
 C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.csproj.CopyComplete
 C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Partials\_ProfileCreateUpdate.cshtml.g.cs
 C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Profile\EditProfile.cshtml.g.cs
+C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.csprojAssemblyReference.cache
+C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Partials\_ProfileView.cshtml.g.cs
+C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Profile\ViewProfile.cshtml.g.cs

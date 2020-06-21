@@ -1,5 +1,4 @@
-﻿var fileSizeLimit = 100;
-
+﻿
 $(document).ready(function () {
 
     $("#btnCreateProfile").click(function (event) {
@@ -11,14 +10,17 @@ $(document).ready(function () {
         readURL(this);
     });
 
-    $.getJSON('../data/masterData.json', function (jd) {
-        fileSizeLimit = jd.FileSizeLimit;
+    $.getJSON('../../data/masterData.json', function (jd) {
+        debugger;
+        $("#hdFileSizeLimit").val(jd.FileSizeLimit);
     });
 
 });
 
 function readURL(input) {
     if (input.files && input.files[0]) {
+        debugger;
+        var fileSizeLimit = $("#hdFileSizeLimit").val();
         if (input.files[0].size > fileSizeLimit) {
             var actualSizeLimit = parseInt(fileSizeLimit) / 1024;
             alert('File Size Limit exceeded, Please upload photo below ' + actualSizeLimit + ' kb only.')

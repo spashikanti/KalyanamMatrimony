@@ -150,12 +150,111 @@ namespace KalyanamMatrimony.Controllers
         {
             Profile profile = matrimonyRepository.GetProfileById(id);
             ApplicationUser userData = await userManager.FindByIdAsync(profile.UserId);
-            UserProfileViewModel userProfileViewModel = CreateUserProfileViewModel(profile);
+            EditUserProfileViewModel userProfileViewModel = EditUserProfileViewModel(profile);
             userProfileViewModel.Email = userData.Email;
             userProfileViewModel.EndDate = userData.EndDate;
+            userProfileViewModel.ExistingPhotoPath1 = userProfileViewModel.Photo1;
+            userProfileViewModel.ExistingPhotoPath2 = userProfileViewModel.Photo2;
+            userProfileViewModel.ExistingPhotoPath3 = userProfileViewModel.Photo3;
+
             return View(userProfileViewModel);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> EditProfile(EditUserProfileViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.EndDate != null)
+                {
+                    ApplicationUser user = await userManager.FindByIdAsync(model.UserId);
+                    if (user.EndDate != model.EndDate)
+                    {
+                        user.EndDate = model.EndDate;
+                        // Store user data in AspNetUsers database table
+                        var result = await userManager.UpdateAsync(user);
+
+                        if (!result.Succeeded)
+                        {
+                            foreach (var error in result.Errors)
+                            {
+                                ModelState.AddModelError(string.Empty, error.Description);
+                                TempData["Message"] = error.Description;
+                            }
+                        }
+                    }
+                }
+
+                if (model.PhotoFile1 != null && model.PhotoFile1.Length > 0)
+                {
+                    model.Photo1 = UploadImage(model.PhotoFile1);
+                }
+                else
+                {
+                    model.Photo1 = model.ExistingPhotoPath1;
+                }
+                if (model.PhotoFile2 != null && model.PhotoFile2.Length > 0)
+                {
+                    model.Photo2 = UploadImage(model.PhotoFile2);
+                }
+                else
+                {
+                    model.Photo2 = model.ExistingPhotoPath2;
+                }
+                if (model.PhotoFile3 != null && model.PhotoFile3.Length > 0)
+                {
+                    model.Photo3 = UploadImage(model.PhotoFile3);
+                }
+                else
+                {
+                    model.Photo3 = model.ExistingPhotoPath3;
+                }
+
+                var repoResult = matrimonyRepository.Update(EditUserProfileViewModel(model));
+
+                if (repoResult == null)
+                {
+                    //Delete the created images
+                    if (model.PhotoFile1 != null && model.PhotoFile1.Length > 0)
+                    {
+                        DeleteImage(model.Photo1);
+                    }
+                    if (model.PhotoFile2 != null && model.PhotoFile2.Length > 0)
+                    {
+                        DeleteImage(model.Photo2);
+                    }
+                    if (model.PhotoFile3 != null && model.PhotoFile3.Length > 0)
+                    {
+                        DeleteImage(model.Photo3);
+                    }
+
+                    ModelState.AddModelError(string.Empty, "Unable to update profile");
+                    TempData["Message"] = model.Email + " Unable to update profile";
+                }
+                else
+                {
+                    TempData["Message"] = model.Email + " Profile updated successfully";
+                    return RedirectToAction("index", "profile");
+                }
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ViewProfile(string id)
+        {
+            Profile profile = matrimonyRepository.GetProfileById(id);
+            ApplicationUser userData = await userManager.FindByIdAsync(profile.UserId);
+            EditUserProfileViewModel userProfileViewModel = EditUserProfileViewModel(profile);
+            userProfileViewModel.Email = userData.Email;
+            userProfileViewModel.EndDate = userData.EndDate;
+            userProfileViewModel.ExistingPhotoPath1 = userProfileViewModel.Photo1;
+            userProfileViewModel.ExistingPhotoPath2 = userProfileViewModel.Photo2;
+            userProfileViewModel.ExistingPhotoPath3 = userProfileViewModel.Photo3;
+
+            return View(userProfileViewModel);
+        }
 
         private string GenerateProfileNumber()
         {
@@ -191,8 +290,12 @@ namespace KalyanamMatrimony.Controllers
             Profile profile = new Profile();
             profile.FirstName = model.FirstName;
             profile.LastName = model.LastName;
-            profile.UserId = model.UserId;
-            profile.ProfileId = GenerateProfileNumber();
+            
+            if (model.ProfileId == null)
+            {
+                profile.UserId = model.UserId;
+                profile.ProfileId = GenerateProfileNumber();
+            }
 
             profile.Age = model.Age;
             profile.DateOfBirth = model.DateOfBirth;
@@ -258,12 +361,14 @@ namespace KalyanamMatrimony.Controllers
             profile.ContactPersonName = model.ContactPersonName;
             profile.ContactPersonRelationShip = model.ContactPersonRelationShip;
 
+            profile.CreatedDate = DateTime.Now;
+
             return profile;
         }
 
-        private UserProfileViewModel CreateUserProfileViewModel(Profile model)
+        private EditUserProfileViewModel EditUserProfileViewModel(Profile model)
         {
-            UserProfileViewModel profile = new UserProfileViewModel();
+            EditUserProfileViewModel profile = new EditUserProfileViewModel();
             profile.FirstName = model.FirstName;
             profile.LastName = model.LastName;
             profile.UserId = model.UserId;
@@ -335,5 +440,7 @@ namespace KalyanamMatrimony.Controllers
 
             return profile;
         }
+    
+        
     }
 }

@@ -10,5 +10,6 @@ namespace KalyanamMatrimony.Models
         IEnumerable<Profile> GetAllProfiles();
         Profile Add(Profile profile);
         Profile GetProfileById(string profileId);
+        Profile Update(Profile profile);
     }
 }

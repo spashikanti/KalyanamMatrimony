@@ -35,5 +35,9 @@ namespace KalyanamMatrimony.ViewModels
         public IFormFile PhotoFile1 { get; set; }
         public IFormFile PhotoFile2 { get; set; }
         public IFormFile PhotoFile3 { get; set; }
+
+        public string ExistingPhotoPath1 { get; set; }
+        public string ExistingPhotoPath2 { get; set; }
+        public string ExistingPhotoPath3 { get; set; }
     }
 }

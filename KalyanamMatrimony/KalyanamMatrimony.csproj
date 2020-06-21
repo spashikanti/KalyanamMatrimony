@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\js\datatables\" />
+    <Folder Include="wwwroot\js\aos\" />
   </ItemGroup>
 
 </Project>

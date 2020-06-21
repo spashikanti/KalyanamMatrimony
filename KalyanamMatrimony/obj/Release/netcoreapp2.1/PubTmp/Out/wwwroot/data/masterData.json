@@ -1,5 +1,5 @@
 {
-
+  "FileSizeLimit": "102400",
   "MaritalStatus": [
     {
       "item": "Single"
@@ -288,7 +288,7 @@
     {
       "item": "Inter-Religion",
       "Caste": [
-        
+
       ]
     }
   ]

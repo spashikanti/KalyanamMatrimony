@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-    debugger;
     var ddlMaritalStatus = $('#MaritalStatus');
     ddlMaritalStatus.empty();
     ddlMaritalStatus.append('<option disabled>Choose Marital Status</option>');
@@ -76,17 +75,18 @@
             religion = $(this).text();
         });
 
-        $.getJSON('../data/masterData.json', function (jd) {
+        $.getJSON('../../data/masterData.json', function (jd) {
             $.each(jd.Religion, function (key, entry) {
-                debugger;
-                console.log(key, entry);
                 if (entry.item == religion) {
-
                     ddlCaste.empty();
                     ddlCaste.append('<option disabled>Choose Caste</option>');
                     ddlCaste.prop('selectedIndex', 0);
 
                     loadDropdowns(entry.Caste, ddlCaste);
+                    //Set Dropdowns if hiddenfields has value
+                    if ($("#hdCaste") != null && $("#hdCaste").val() != undefined) {
+                        document.getElementById("Caste").value = $("#hdCaste").val();
+                    }
                 }
             });
         });
@@ -94,9 +94,9 @@
     });
 
     $.getJSON('../../data/masterData.json', function (jd) {
+        loadDropdowns(jd.Height, ddlHeight);
         loadDropdowns(jd.MaritalStatus, ddlMaritalStatus);
         loadDropdowns(jd.BodyType, ddlBodyType);
-        loadDropdowns(jd.Height, ddlHeight);
         loadDropdowns(jd.Complexion, ddlComplexion);
         loadDropdowns(jd.MotherTongue, ddlMotherTongue);
         loadDropdowns(jd.BloodGroup, ddlBloodGroup);
@@ -107,6 +107,48 @@
         loadDropdowns(jd.Rasi, ddlRasi);
         loadDropdowns(jd.Nakshatram, ddlNakshatram);    
         loadDropdowns(jd.Religion, ddlReligion);
+
+        //Set Dropdowns if hiddenfields has value
+        if ($("#hdHeight") != null && $("#hdHeight").val() != undefined) {
+            document.getElementById("Height").value = $("#hdHeight").val();
+        }
+        if ($("#hdMaritalStatus") != null && $("#hdMaritalStatus").val() != undefined) {
+            document.getElementById("MaritalStatus").value = $("#hdMaritalStatus").val();
+        }
+        if ($("#hdBodyType") != null && $("#hdBodyType").val() != undefined) {
+            document.getElementById("BodyType").value = $("#hdBodyType").val();
+        }
+        if ($("#hdComplexion") != null && $("#hdComplexion").val() != undefined) {
+            document.getElementById("Complexion").value = $("#hdComplexion").val();
+        }
+        if ($("#hdMotherTongue") != null && $("#hdMotherTongue").val() != undefined) {
+            document.getElementById("MotherTongue").value = $("#hdMotherTongue").val();
+        }
+        if ($("#hdBloodGroup") != null && $("#hdBloodGroup").val() != undefined) {
+            document.getElementById("BloodGroup").value = $("#hdBloodGroup").val();
+        }
+        if ($("#hdDiet") != null && $("#hdDiet").val() != undefined) {
+            document.getElementById("Diet").value = $("#hdDiet").val();
+        }
+        if ($("#hdSmoke") != null && $("#hdSmoke").val() != undefined) {
+            document.getElementById("Smoke").value = $("#hdSmoke").val();
+        }
+        if ($("#hdDrink") != null && $("#hdDrink").val() != undefined) {
+            document.getElementById("Drink").value = $("#hdDrink").val();
+        }
+        if ($("#hdFamilyValues") != null && $("#hdFamilyValues").val() != undefined) {
+            document.getElementById("FamilyValues").value = $("#hdFamilyValues").val();
+        }
+        if ($("#hdRasi") != null && $("#hdRasi").val() != undefined) {
+            document.getElementById("Rasi").value = $("#hdRasi").val();
+        }
+        if ($("#hdNakshatram") != null && $("#hdNakshatram").val() != undefined) {
+            document.getElementById("Nakshatram").value = $("#hdNakshatram").val();
+        }
+        if ($("#hdReligion") != null && $("#hdReligion").val() != undefined) {
+            document.getElementById("Religion").value = $("#hdReligion").val();
+            $('#Religion').trigger('change');
+        }
      });
 
 });

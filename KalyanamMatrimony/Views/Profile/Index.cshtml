@@ -112,12 +112,12 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.PhoneNumber)
                                     </td>
-                                    <td style="display:none">
+                                    <td>
                                         @Html.DisplayFor(modelItem => item.CreatedDate)
                                     </td>
                                     <td>
                                         @Html.ActionLink("Edit", "EditProfile", new { id = item.ProfileId }) |
-                                        @Html.ActionLink("Details", "Details", new { id = item.ProfileId }) |
+                                        @Html.ActionLink("View", "ViewProfile", new { id = item.ProfileId }) |
                                         @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
                                     </td>
                                 </tr>
@@ -137,8 +137,10 @@
     <script>
         $(document).ready(function () {
             $('#dataTable').DataTable({
-                "order": [[3, "desc"]]
+                "order": [[4, "desc"]],//order by createddate desc - 4th column
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
             });
         });
+
     </script>
 }

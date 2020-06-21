@@ -1,15 +1,37 @@
-﻿@model KalyanamMatrimony.ViewModels.UserProfileViewModel
+﻿@model KalyanamMatrimony.ViewModels.EditUserProfileViewModel
+
+@{
+    var photoPath1 = "/images/" + (Model.ExistingPhotoPath1 ?? "noimageThumb400.jpg");
+    var photoPath2 = "/images/" + (Model.ExistingPhotoPath2 ?? "noimageThumb400.jpg");
+    var photoPath3 = "/images/" + (Model.ExistingPhotoPath3 ?? "noimageThumb400.jpg");
+}
+
+<input type="hidden" id="hdFileSizeLimit" />
+<input type="hidden" id="hdHeight" asp-for="Height" />
+<input type="hidden" id="hdMaritalStatus" asp-for="MaritalStatus" />
+<input type="hidden" id="hdBodyType" asp-for="BodyType" />
+<input type="hidden" id="hdComplexion" asp-for="Complexion" />
+<input type="hidden" id="hdMotherTongue" asp-for="MotherTongue" />
+<input type="hidden" id="hdBloodGroup" asp-for="BloodGroup" />
+<input type="hidden" id="hdReligion" asp-for="Religion" />
+<input type="hidden" id="hdCaste" asp-for="Caste" />
+<input type="hidden" id="hdDiet" asp-for="Diet" />
+<input type="hidden" id="hdSmoke" asp-for="Smoke" />
+<input type="hidden" id="hdDrink" asp-for="Drink" />
+<input type="hidden" id="hdFamilyValues" asp-for="FamilyValues" />
+<input type="hidden" id="hdRasi" asp-for="Rasi" />
+<input type="hidden" id="hdNakshatram" asp-for="Nakshatram" />
 
 <div class="container-fluid">
     <div class="card shadow-lg border-0 rounded-lg">
         <div class="card-header py-3">
             <div class="row">
-                <div class="col-md-10">
+                <div class="col-md-12">
                     <h6 class="m-0 font-weight-bold text-primary">@ViewBag.Title</h6>
                 </div>
-                <div class="col-md-2">
-                    <a class="btn btn-success" asp-controller="profile" asp-action="index">View Profiles</a>
-                </div>
+                @*<div class="col-md-2">
+                        <a class="btn btn-success" asp-controller="profile" asp-action="index">View Profiles</a>
+                    </div>*@
             </div>
         </div>
         <div class="card-body">
@@ -50,25 +72,25 @@
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="Email" class="small mb-1"></label>
-                                    <input asp-for="Email" class="form-control" placeholder="Enter Email Address" />
+                                    <input asp-for="Email" disabled class="form-control" placeholder="Enter Email Address" />
                                     <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label asp-for="Password" class="small mb-1"></label>
-                                            <input asp-for="Password" class="form-control" placeholder="Enter Password" />
-                                            <span asp-validation-for="Password" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label asp-for="ConfirmPassword" class="small mb-1"></label>
-                                            <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password" />
-                                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                                        </div>
-                                    </div>
+                                @*<div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Password" class="small mb-1"></label>
+                                    <input asp-for="Password" class="form-control" placeholder="Enter Password" />
+                                    <span asp-validation-for="Password" class="text-danger"></span>
                                 </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="ConfirmPassword" class="small mb-1"></label>
+                                    <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password" />
+                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>*@
                                 <div class="form-group">
                                     <label asp-for="EndDate" class="small mb-1"></label>
                                     <input asp-for="EndDate" class="form-control" type="date" />
@@ -189,8 +211,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             @*<label asp-for="Caste" class="small mb-1"></label>
-                                                <input asp-for="Caste" class="form-control" placeholder="Enter Caste" />
-                                                <span asp-validation-for="Caste" class="text-danger"></span>*@
+                                    <input asp-for="Caste" class="form-control" placeholder="Enter Caste" />
+                                    <span asp-validation-for="Caste" class="text-danger"></span>*@
 
                                             <label asp-for="Caste" class="small mb-1"></label>
                                             <select asp-for="Caste" class="custom-select mr-sm-2"></select>
@@ -469,8 +491,8 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             @*<label asp-for="Nakshatram" class="small mb-1"></label>
-                                                <input asp-for="Nakshatram" class="form-control " placeholder="Enter Nakshatram" />
-                                                <span asp-validation-for="Nakshatram" class="text-danger"></span>*@
+                                    <input asp-for="Nakshatram" class="form-control " placeholder="Enter Nakshatram" />
+                                    <span asp-validation-for="Nakshatram" class="text-danger"></span>*@
 
                                             <label asp-for="Nakshatram" class="small mb-1"></label>
                                             <select asp-for="Nakshatram" class="custom-select mr-sm-2"></select>
@@ -505,7 +527,7 @@
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <img class="img-thumbnail" id="imgProfile1" src="~/images/noimageThumb400.jpg" />
+                                            <img class="img-thumbnail" id="imgProfile1" src="@photoPath1" asp-append-version="true" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -521,7 +543,7 @@
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <img class="img-thumbnail" id="imgProfile2" src="~/images/noimageThumb400.jpg" />
+                                            <img class="img-thumbnail" id="imgProfile2" src="@photoPath2" asp-append-version="true" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -537,7 +559,7 @@
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <img class="img-thumbnail" id="imgProfile3" src="~/images/noimageThumb400.jpg" />
+                                            <img class="img-thumbnail" id="imgProfile3" src="@photoPath3" asp-append-version="true" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -563,7 +585,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-primary btn-block" id="btnCreateProfile">Create Profile</button>
+                                                <button type="submit" class="btn btn-primary btn-block" id="btnCreateProfile">
+                                                Save Profile</button>
                                             </div>
                                         </div>
                                     </div>
@@ -573,6 +596,12 @@
                         </div>
                     </div>
                 </div>
+                <input asp-for="ProfileId" type="hidden" />
+                <input asp-for="UserId" type="hidden" />
+                <input asp-for="Email" type="hidden" />
+                <input type="hidden" id="hdExistingPhotoPath1" asp-for="ExistingPhotoPath1" />
+                <input type="hidden" id="hdExistingPhotoPath2" asp-for="ExistingPhotoPath2" />
+                <input type="hidden" id="hdExistingPhotoPath3" asp-for="ExistingPhotoPath3" />
             </form>
 
         </div>
