@@ -152,6 +152,8 @@ namespace KalyanamMatrimony.Controllers
         [HttpGet]
         public async Task<IActionResult> EditProfile(string id)
         {
+            ToasterServiceDisplay();
+
             Profile profile = matrimonyRepository.GetProfileById(id);
             ApplicationUser userData = await userManager.FindByIdAsync(profile.UserId);
             EditUserProfileViewModel userProfileViewModel = EditUserProfileViewModel(profile);
@@ -250,7 +252,7 @@ namespace KalyanamMatrimony.Controllers
                 else
                 {
                     ToasterServiceCreate(model.FirstName + " profile updated successfully", CustomEnums.ToastType.Success);
-                    return RedirectToAction("index", "profile");
+                    return RedirectToAction("editprofile", "profile", new { id = model.ProfileId } );
                 }
             }
 
@@ -284,6 +286,180 @@ namespace KalyanamMatrimony.Controllers
             }
 
             return View(userProfileViewModel);
+        }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
+        public async Task<string> GetCurrentUserId()
+        {
+            ApplicationUser user = await GetCurrentUserAsync();
+            return user?.Id;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ViewMyProfile()
+        {
+            ToasterServiceDisplay();
+
+            string currentUserId = await GetCurrentUserId();
+            ApplicationUser userData = await userManager.FindByIdAsync(currentUserId);
+            Profile profile = matrimonyRepository.GetProfileByUserId(currentUserId);
+            EditUserProfileViewModel userProfileViewModel = new EditUserProfileViewModel();
+
+            if (profile != null)
+            {
+                userProfileViewModel = EditUserProfileViewModel(profile);
+                userProfileViewModel.Email = userData.Email;
+                userProfileViewModel.EndDate = userData.EndDate;
+                userProfileViewModel.ExistingPhotoPath1 = userProfileViewModel.Photo1;
+                userProfileViewModel.ExistingPhotoPath2 = userProfileViewModel.Photo2;
+                userProfileViewModel.ExistingPhotoPath3 = userProfileViewModel.Photo3;
+                userProfileViewModel.profileImages = new List<string>();
+
+                if (userProfileViewModel.Photo1 != null)
+                {
+                    userProfileViewModel.profileImages.Add(userProfileViewModel.Photo1);
+                }
+                if (userProfileViewModel.Photo2 != null)
+                {
+                    userProfileViewModel.profileImages.Add(userProfileViewModel.Photo2);
+                }
+                if (userProfileViewModel.Photo3 != null)
+                {
+                    userProfileViewModel.profileImages.Add(userProfileViewModel.Photo3);
+                }
+            }
+
+            return View(userProfileViewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditMyProfile()
+        {
+            ToasterServiceDisplay();
+
+            string currentUserId = await GetCurrentUserId();
+            ApplicationUser userData = await userManager.FindByIdAsync(currentUserId);
+            Profile profile = matrimonyRepository.GetProfileByUserId(currentUserId);
+            EditUserProfileViewModel userProfileViewModel = new EditUserProfileViewModel();
+
+            if (profile != null)
+            {
+                userProfileViewModel = EditUserProfileViewModel(profile);
+                userProfileViewModel.Email = userData.Email;
+                userProfileViewModel.EndDate = userData.EndDate;
+                userProfileViewModel.ExistingPhotoPath1 = userProfileViewModel.Photo1;
+                userProfileViewModel.ExistingPhotoPath2 = userProfileViewModel.Photo2;
+                userProfileViewModel.ExistingPhotoPath3 = userProfileViewModel.Photo3;
+                userProfileViewModel.profileImages = new List<string>();
+
+                if (userProfileViewModel.Photo1 != null)
+                {
+                    userProfileViewModel.profileImages.Add(userProfileViewModel.Photo1);
+                }
+                if (userProfileViewModel.Photo2 != null)
+                {
+                    userProfileViewModel.profileImages.Add(userProfileViewModel.Photo2);
+                }
+                if (userProfileViewModel.Photo3 != null)
+                {
+                    userProfileViewModel.profileImages.Add(userProfileViewModel.Photo3);
+                }
+            }
+
+            return View(userProfileViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditMyProfile(EditUserProfileViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.EndDate != null)
+                {
+                    ApplicationUser user = await userManager.FindByIdAsync(model.UserId);
+                    if (user.EndDate != model.EndDate)
+                    {
+                        user.EndDate = model.EndDate;
+                        // Store user data in AspNetUsers database table
+                        var result = await userManager.UpdateAsync(user);
+
+                        if (!result.Succeeded)
+                        {
+                            foreach (var error in result.Errors)
+                            {
+                                ModelState.AddModelError(string.Empty, error.Description);
+                                ToasterServiceCreate(error.Description, CustomEnums.ToastType.Error);
+                            }
+                        }
+                    }
+                }
+
+                if (model.PhotoFile1 != null && model.PhotoFile1.Length > 0)
+                {
+                    model.Photo1 = UploadImage(model.PhotoFile1);
+                    if (model.ExistingPhotoPath1 != null)
+                    {
+                        DeleteImage(model.ExistingPhotoPath1);
+                    }
+                }
+                else
+                {
+                    model.Photo1 = model.ExistingPhotoPath1;
+                }
+                if (model.PhotoFile2 != null && model.PhotoFile2.Length > 0)
+                {
+                    model.Photo2 = UploadImage(model.PhotoFile2);
+                    if (model.ExistingPhotoPath2 != null)
+                    {
+                        DeleteImage(model.ExistingPhotoPath2);
+                    }
+                }
+                else
+                {
+                    model.Photo2 = model.ExistingPhotoPath2;
+                }
+                if (model.PhotoFile3 != null && model.PhotoFile3.Length > 0)
+                {
+                    model.Photo3 = UploadImage(model.PhotoFile3);
+                    if (model.ExistingPhotoPath3 != null)
+                    {
+                        DeleteImage(model.ExistingPhotoPath3);
+                    }
+                }
+                else
+                {
+                    model.Photo3 = model.ExistingPhotoPath3;
+                }
+
+                var repoResult = matrimonyRepository.Update(EditUserProfileViewModel(model));
+
+                if (repoResult == null)
+                {
+                    //Delete the created images
+                    if (model.PhotoFile1 != null && model.PhotoFile1.Length > 0)
+                    {
+                        DeleteImage(model.Photo1);
+                    }
+                    if (model.PhotoFile2 != null && model.PhotoFile2.Length > 0)
+                    {
+                        DeleteImage(model.Photo2);
+                    }
+                    if (model.PhotoFile3 != null && model.PhotoFile3.Length > 0)
+                    {
+                        DeleteImage(model.Photo3);
+                    }
+
+                    ModelState.AddModelError(string.Empty, "Unable to update profile");
+                    ToasterServiceCreate(model.FirstName + " unable to update profile", CustomEnums.ToastType.Error);
+                }
+                else
+                {
+                    ToasterServiceCreate(model.FirstName + " profile updated successfully", CustomEnums.ToastType.Success);
+                    return RedirectToAction("viewmyprofile", "profile");
+                }
+            }
+
+            return View(model);
         }
 
         private string GenerateProfileNumber()
@@ -467,6 +643,9 @@ namespace KalyanamMatrimony.Controllers
             profile.PhoneNumber = model.PhoneNumber;
             profile.ContactPersonName = model.ContactPersonName;
             profile.ContactPersonRelationShip = model.ContactPersonRelationShip;
+
+            profile.strDateOfBirth = model.DateOfBirth != null ? model.DateOfBirth.Value.ToString("dd/MMM/yyyy") : "";
+            profile.strHaveChildren = model.HaveChildren == true ? "Yes" : "No";
 
             return profile;
         }

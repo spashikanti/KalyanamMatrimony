@@ -132,15 +132,13 @@
 <!-- /.container-fluid -->
 
 @section Scripts {
-
+    <script src="~/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/js/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/CustomScript.js"></script>
     @*For toast*@
     <link href="/lib/toastr/toastr.min.css" rel="stylesheet" />
     <script src="/lib/toastr/toastr.min.js"></script>
 
-    <script src="~/js/datatables/jquery.dataTables.min.js"></script>
-    <script src="~/js/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <script src="~/js/CustomScript.js"></script>
     <script>
         $(document).ready(function () {
             $('#dataTable').DataTable({

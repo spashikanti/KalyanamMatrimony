@@ -32,6 +32,11 @@ namespace KalyanamMatrimony.Models
             return context.Profiles.FirstOrDefault(x => x.ProfileId == profileId);
         }
 
+        public Profile GetProfileByUserId(string userId)
+        {
+            return context.Profiles.FirstOrDefault(x => x.UserId == userId);
+        }
+
         public Profile Update(Profile profile)
         {
             context.Profiles.Update(profile);

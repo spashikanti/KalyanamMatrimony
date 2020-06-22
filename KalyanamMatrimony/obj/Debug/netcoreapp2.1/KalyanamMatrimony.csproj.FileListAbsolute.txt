@@ -43,3 +43,5 @@ C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Vie
 C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.csprojAssemblyReference.cache
 C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Partials\_ProfileView.cshtml.g.cs
 C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Profile\ViewProfile.cshtml.g.cs
+C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Profile\ViewMyProfile.cshtml.g.cs
+C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Profile\EditMyProfile.cshtml.g.cs

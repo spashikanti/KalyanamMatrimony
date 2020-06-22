@@ -108,6 +108,7 @@
         loadDropdowns(jd.Nakshatram, ddlNakshatram);    
         loadDropdowns(jd.Religion, ddlReligion);
 
+        debugger;
         //Set Dropdowns if hiddenfields has value
         if ($("#hdHeight") != null && $("#hdHeight").val() != undefined) {
             document.getElementById("Height").value = $("#hdHeight").val();

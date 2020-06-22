@@ -30,5 +30,8 @@ namespace KalyanamMatrimony.ViewModels
         public string ExistingPhotoPath3 { get; set; }
 
         public List<string> profileImages { get; set; }
+
+        public string strDateOfBirth { get; set; }
+        public string strHaveChildren { get; set; }
     }
 }
