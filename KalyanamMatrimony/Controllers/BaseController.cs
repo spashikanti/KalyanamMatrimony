@@ -9,15 +9,20 @@ namespace KalyanamMatrimony.Controllers
 {
     public class BaseController: Controller
     {
-        protected void ToasterService(string toastType)
+        protected void ToasterServiceDisplay()
         {
             if (TempData["Message"] != null)
             {
-                Toaster t = new Toaster();
-                t.Type = toastType;
-                t.Message = TempData["Message"].ToString();
-                ViewBag.Message = t;
+                ViewBag.Message = TempData["Message"];
             }
+        }
+
+        protected void ToasterServiceCreate(string message, CustomEnums.ToastType toastType)
+        {
+            Toaster t = new Toaster();
+            t.Message = message;
+            t.Type = toastType;
+            TempData["Message"] = Newtonsoft.Json.JsonConvert.SerializeObject(t);
         }
     }
 }

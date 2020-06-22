@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-    <input type="hidden" id="hdFileSizeLimit" />
+<input type="hidden" id="hdFileSizeLimit" />
 <div class="container-fluid">
     <div class="card shadow-lg border-0 rounded-lg">
         <div class="card-header py-3">
@@ -587,8 +587,11 @@
 
 </div>
 
-@*@section Scripts {
+@section Scripts {
+    <!-- Page level custom scripts -->
     <script src="~/lib/jquery-validate/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+    <script src="/js/CustomScript.js"></script>
     <script src="~/js/LoadJsonData.js"></script>
-}*@
+}

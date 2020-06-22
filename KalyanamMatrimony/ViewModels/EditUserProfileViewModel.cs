@@ -28,5 +28,7 @@ namespace KalyanamMatrimony.ViewModels
         public string ExistingPhotoPath1 { get; set; }
         public string ExistingPhotoPath2 { get; set; }
         public string ExistingPhotoPath3 { get; set; }
+
+        public List<string> profileImages { get; set; }
     }
 }

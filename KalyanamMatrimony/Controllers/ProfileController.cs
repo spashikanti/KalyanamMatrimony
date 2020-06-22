@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace KalyanamMatrimony.Controllers
 {
@@ -38,7 +39,7 @@ namespace KalyanamMatrimony.Controllers
 
         public IActionResult Index()
         {
-            ToasterService("success");
+            ToasterServiceDisplay();
             var profile = matrimonyRepository.GetAllProfiles();
             return View(profile);
         }
@@ -114,10 +115,11 @@ namespace KalyanamMatrimony.Controllers
                             }
 
                             ModelState.AddModelError(string.Empty, "Unable to create profile");
+                            ToasterServiceCreate(model.FirstName + " unable to create profile", CustomEnums.ToastType.Error);
                         }
                         else
                         {
-                            TempData["Message"] = model.Email + " Profile added successfully";
+                            ToasterServiceCreate(model.FirstName + " profile added successfully", CustomEnums.ToastType.Success);
                             return RedirectToAction("index", "profile");
                         }
                     }
@@ -128,6 +130,7 @@ namespace KalyanamMatrimony.Controllers
                         foreach (var error in roleResult.Errors)
                         {
                             ModelState.AddModelError(string.Empty, error.Description);
+                            ToasterServiceCreate(error.Description, CustomEnums.ToastType.Error);
                         }
                     }
                 }
@@ -138,6 +141,7 @@ namespace KalyanamMatrimony.Controllers
                     foreach (var error in result.Errors)
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
+                        ToasterServiceCreate(error.Description, CustomEnums.ToastType.Error);
                     }
                 }
             }
@@ -179,7 +183,7 @@ namespace KalyanamMatrimony.Controllers
                             foreach (var error in result.Errors)
                             {
                                 ModelState.AddModelError(string.Empty, error.Description);
-                                TempData["Message"] = error.Description;
+                                ToasterServiceCreate(error.Description, CustomEnums.ToastType.Error);
                             }
                         }
                     }
@@ -188,6 +192,10 @@ namespace KalyanamMatrimony.Controllers
                 if (model.PhotoFile1 != null && model.PhotoFile1.Length > 0)
                 {
                     model.Photo1 = UploadImage(model.PhotoFile1);
+                    if(model.ExistingPhotoPath1 != null)
+                    {
+                        DeleteImage(model.ExistingPhotoPath1);
+                    }
                 }
                 else
                 {
@@ -196,6 +204,10 @@ namespace KalyanamMatrimony.Controllers
                 if (model.PhotoFile2 != null && model.PhotoFile2.Length > 0)
                 {
                     model.Photo2 = UploadImage(model.PhotoFile2);
+                    if (model.ExistingPhotoPath2 != null)
+                    {
+                        DeleteImage(model.ExistingPhotoPath2);
+                    }
                 }
                 else
                 {
@@ -204,6 +216,10 @@ namespace KalyanamMatrimony.Controllers
                 if (model.PhotoFile3 != null && model.PhotoFile3.Length > 0)
                 {
                     model.Photo3 = UploadImage(model.PhotoFile3);
+                    if (model.ExistingPhotoPath3 != null)
+                    {
+                        DeleteImage(model.ExistingPhotoPath3);
+                    }
                 }
                 else
                 {
@@ -229,11 +245,11 @@ namespace KalyanamMatrimony.Controllers
                     }
 
                     ModelState.AddModelError(string.Empty, "Unable to update profile");
-                    TempData["Message"] = model.Email + " Unable to update profile";
+                    ToasterServiceCreate(model.FirstName + " unable to update profile", CustomEnums.ToastType.Error);
                 }
                 else
                 {
-                    TempData["Message"] = model.Email + " Profile updated successfully";
+                    ToasterServiceCreate(model.FirstName + " profile updated successfully", CustomEnums.ToastType.Success);
                     return RedirectToAction("index", "profile");
                 }
             }
@@ -252,6 +268,20 @@ namespace KalyanamMatrimony.Controllers
             userProfileViewModel.ExistingPhotoPath1 = userProfileViewModel.Photo1;
             userProfileViewModel.ExistingPhotoPath2 = userProfileViewModel.Photo2;
             userProfileViewModel.ExistingPhotoPath3 = userProfileViewModel.Photo3;
+            userProfileViewModel.profileImages = new List<string>();
+
+            if (userProfileViewModel.Photo1 != null)
+            {
+                userProfileViewModel.profileImages.Add(userProfileViewModel.Photo1);
+            }
+            if (userProfileViewModel.Photo2 != null)
+            {
+                userProfileViewModel.profileImages.Add(userProfileViewModel.Photo2);
+            }
+            if (userProfileViewModel.Photo3 != null)
+            {
+                userProfileViewModel.profileImages.Add(userProfileViewModel.Photo3);
+            }
 
             return View(userProfileViewModel);
         }

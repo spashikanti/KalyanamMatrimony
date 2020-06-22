@@ -103,19 +103,20 @@ function validateCreateProfile(event) {
 }
 
 function displayToast(jsonObj) {
+    jsonObj = JSON.parse(jsonObj);
     if (jsonObj != null) {
-        switch (jsonObj.type) {
-            case "info":
-                toastr.info(jsonObj.message);
+        switch (jsonObj.Type) {
+            case 0:
+                toastr.info(jsonObj.Message);
                 break;
-            case "success":
-                toastr.success(jsonObj.message);
+            case 1:
+                toastr.warning(jsonObj.Message);
                 break;
-            case "error":
-                toastr.error(jsonObj.message);
+            case 2:
+                toastr.error(jsonObj.Message);
                 break;
-            case "warning":
-                toastr.warning(jsonObj.message);
+            case 3:
+                toastr.success(jsonObj.Message);
                 break;
             default:
         }

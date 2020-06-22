@@ -28,30 +28,12 @@ namespace KalyanamMatrimony.Models
             Female
         }
 
-        public enum ProfileMaritalStatus
+        public enum ToastType
         {
-            Single,
-            Married,
-            Widowed,
-            Divorced
-        }
-
-        public enum ProfileBodyType
-        {
-            Athletic,
-            Average,
-            Heavy,
-            Slim
-        }
-
-        public enum ProfileComplexion
-        { 
-            Dark,
-            Fair,
-            Medium,
-            Very,
-            fair,
-            Wheatish
+            Info,
+            Warning,
+            Error,
+            Success
         }
     }
 }
