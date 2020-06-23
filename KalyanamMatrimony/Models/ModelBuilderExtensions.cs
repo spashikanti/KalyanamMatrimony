@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,14 +29,23 @@ namespace KalyanamMatrimony.Models
                 }
             );
 
-            modelBuilder.Entity<ApplicationUser>().HasData(
-                new ApplicationUser
-                {
-                    UserName = "sunil.pashikanti@gmail.com",
-                    Email = "sunil.pashikanti@gmail.com",
-                    PasswordHash = "AQAAAAEAACcQAAAAEPZ/6w4+04Y/iWjqC9AyZANRUSyhavIYUxDFn4N/VFrWD0a0I4DLkzR64GWgJ8/tXA=="
-                }
-            );
+            //modelBuilder.Entity<IdentityRole>().HasData(
+            //    new IdentityRole
+            //    {
+            //        Id = "1",
+            //        Name = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin)
+            //    },
+            //    new IdentityRole
+            //    {
+            //        Id = "2",
+            //        Name = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin)
+            //    },
+            //    new IdentityRole
+            //    {
+            //        Id = "3",
+            //        Name = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Profile)
+            //    }
+            //);
         }
     }
 }

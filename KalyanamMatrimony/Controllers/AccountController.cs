@@ -11,7 +11,6 @@ using static KalyanamMatrimony.Models.CustomEnums;
 
 namespace KalyanamMatrimony.Controllers
 {
-    [Authorize(Roles ="SuperAdmin, Admin")]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
@@ -53,13 +52,13 @@ namespace KalyanamMatrimony.Controllers
         {
             if (ModelState.IsValid)
             {
-                //assign Role to user
-                var role = await roleManager.FindByNameAsync(model.UserRole);
-                if (role == null)
-                {
-                    ModelState.AddModelError(string.Empty, $"Role = {model.UserRole} not be found! Unable to add user");
-                    return View();
-                }
+                ////assign Role to user
+                //var role = await roleManager.FindByNameAsync(model.UserRole);
+                //if (role == null)
+                //{
+                //    ModelState.AddModelError(string.Empty, $"Role = {model.UserRole} not be found! Unable to add user");
+                //    return View();
+                //}
 
                 // Copy data from RegisterViewModel to IdentityUser
                 var user = new ApplicationUser
@@ -77,18 +76,18 @@ namespace KalyanamMatrimony.Controllers
                 // SignInManager and redirect to index action of HomeController
                 if (result.Succeeded)
                 {
-                    var roleResult = await userManager.AddToRoleAsync(user, model.UserRole);
-                    if (roleResult.Succeeded)
-                    {
-                        return RedirectToAction("index", "home");
-                    }
+                    //var roleResult = await userManager.AddToRoleAsync(user, model.UserRole);
+                    //if (roleResult.Succeeded)
+                    //{
+                    //    return RedirectToAction("index", "home");
+                    //}
 
-                    // If there are any errors, add them to the ModelState object
-                    // which will be displayed by the validation summary tag helper
-                    foreach (var error in roleResult.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
+                    //// If there are any errors, add them to the ModelState object
+                    //// which will be displayed by the validation summary tag helper
+                    //foreach (var error in roleResult.Errors)
+                    //{
+                    //    ModelState.AddModelError(string.Empty, error.Description);
+                    //}
 
                     return View(model);
                 }
