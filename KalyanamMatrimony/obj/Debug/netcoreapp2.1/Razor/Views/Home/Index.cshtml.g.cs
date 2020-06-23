@@ -101,7 +101,11 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("</h3>\r\n                </div>\r\n                ");
             EndContext();
             BeginContext(403, 81, false);
+<<<<<<< HEAD
             __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "c6693f66dabc4b4599f6e9de10171a04", async() => {
+=======
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "42e2cb4fc37a4535a1aef102560a3270", async() => {
+>>>>>>> 82fb99093c5511571d19db377fc200468cc4f580
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -129,7 +133,11 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_ImageTagHelper.AppendVersion = true;
             WriteLiteral("\r\n                <div class=\"card-footer text-center\">\r\n                    ");
             EndContext();
             BeginContext(561, 130, false);
+<<<<<<< HEAD
             __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "302abee4d62e40629e6f651e95d414d4", async() => {
+=======
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "62da627d955840eeb12ec9ad88b6ec82", async() => {
+>>>>>>> 82fb99093c5511571d19db377fc200468cc4f580
                 BeginContext(683, 4, true);
                 WriteLiteral("View");
                 EndContext();

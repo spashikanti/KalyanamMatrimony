@@ -36,3 +36,10 @@ C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Release\netcoreapp2.1\Razor\V
 C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Release\netcoreapp2.1\Razor\Views\Shared\_LayoutAdmin.cshtml.g.cs
 C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Release\netcoreapp2.1\Razor\Views\Shared\_LayoutProfile.cshtml.g.cs
 C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Release\netcoreapp2.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Release\netcoreapp2.1\Razor\Views\Account\UserList.cshtml.g.cs
+C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Release\netcoreapp2.1\Razor\Views\Profile\CreateProfile.cshtml.g.cs
+C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Release\netcoreapp2.1\Razor\Views\Profile\Index.cshtml.g.cs
+C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Release\netcoreapp2.1\Razor\Views\Partials\_ProfileCreateUpdate.cshtml.g.cs
+C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Release\netcoreapp2.1\Razor\Views\Partials\_ProfileView.cshtml.g.cs
+C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Release\netcoreapp2.1\Razor\Views\Profile\EditProfile.cshtml.g.cs
+C:\Development\AspNetWebCore\KalyanamMatrimony\obj\Release\netcoreapp2.1\Razor\Views\Profile\ViewProfile.cshtml.g.cs

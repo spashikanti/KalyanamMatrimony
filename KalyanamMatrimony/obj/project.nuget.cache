@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "pUZqdE+bXWckNV0ycGOu/ZaSG6u4dlc/gTRaG7cgPQzcNGz0V6GFBxkgimZDNnDwX0dpTEQ5PJ6j09/lKWkabw==",
+  "dgSpecHash": "oplxC6tfLs9/pY6l0hmJAGlopFBbHGdAEMgKE1jwht/GZpYOzFngi/Y1VJyGjoutiEpM4pCjj/OG9yHCGPFSkQ==",
   "success": true,
   "projectFilePath": "F:\\Sunil\\Deployment\\AspNetCore\\KalyanamMatrimony\\KalyanamMatrimony\\KalyanamMatrimony.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Sunil\\.nuget\\packages\\jquery\\1.6.3\\jquery.1.6.3.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.6\\microsoft.aspnet.webapi.client.5.2.6.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\microsoft.aspnetcore\\2.1.1\\microsoft.aspnetcore.2.1.1.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\microsoft.aspnetcore.antiforgery\\2.1.1\\microsoft.aspnetcore.antiforgery.2.1.1.nupkg.sha512",
@@ -301,7 +302,8 @@
     "C:\\Users\\Sunil\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\system.xml.xpath\\4.3.0\\system.xml.xpath.4.3.0.nupkg.sha512",
-    "C:\\Users\\Sunil\\.nuget\\packages\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512"
+    "C:\\Users\\Sunil\\.nuget\\packages\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\Sunil\\.nuget\\packages\\toastr\\2.1.1\\toastr.2.1.1.nupkg.sha512"
   ],
   "logs": []
 }

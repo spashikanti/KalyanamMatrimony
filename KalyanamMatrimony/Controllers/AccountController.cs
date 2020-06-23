@@ -103,8 +103,8 @@ namespace KalyanamMatrimony.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [Authorize]
+        [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
@@ -143,17 +143,6 @@ namespace KalyanamMatrimony.Controllers
         public async Task<IActionResult> UserList()
         {
             var model = new List<UserRoleViewModel>();
-
-            //foreach (var user in userManager.Users)
-            //{
-            //    var userRoleViewModel = new UserRoleViewModel
-            //    {
-            //        UserId = user.Id,
-            //        UserName = user.UserName
-            //    };
-
-            //    model.Add(userRoleViewModel);
-            //}
             var groupUsers = await userManager.GetUsersInRoleAsync(Enum.GetName(typeof(CustomRole), CustomRole.Profile));
 
             foreach (var user in groupUsers)

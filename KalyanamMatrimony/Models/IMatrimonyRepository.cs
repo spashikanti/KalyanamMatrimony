@@ -9,5 +9,8 @@ namespace KalyanamMatrimony.Models
     {
         IEnumerable<Profile> GetAllProfiles();
         Profile Add(Profile profile);
+        Profile GetProfileById(string profileId);
+        Profile GetProfileByUserId(string userId);
+        Profile Update(Profile profile);
     }
 }
