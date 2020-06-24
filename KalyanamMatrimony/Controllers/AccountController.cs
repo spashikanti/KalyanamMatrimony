@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using KalyanamMatrimony.Models;
 using KalyanamMatrimony.ViewModels;
@@ -18,7 +17,7 @@ namespace KalyanamMatrimony.Controllers
         private readonly RoleManager<IdentityRole> roleManager;
 
         public AccountController(UserManager<ApplicationUser> userManager,
-                                SignInManager<ApplicationUser> signInManager, 
+                                SignInManager<ApplicationUser> signInManager,
                                 RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
@@ -41,12 +40,14 @@ namespace KalyanamMatrimony.Controllers
             }
         }
 
+        [Authorize(Roles = "SuperAdmin")]
         [HttpGet]
         public IActionResult CreateUser()
         {
             return View();
         }
 
+        [Authorize(Roles = "SuperAdmin")]
         [HttpPost]
         public async Task<IActionResult> CreateUser(RegisterViewModel model)
         {
@@ -65,7 +66,7 @@ namespace KalyanamMatrimony.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    
+
                 };
                 //EndDate = model.EndDate
 
@@ -103,8 +104,8 @@ namespace KalyanamMatrimony.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [Authorize]
+        [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
@@ -120,15 +121,27 @@ namespace KalyanamMatrimony.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
+                var user = await userManager.FindByEmailAsync(model.Email);
+
+                if (user != null && !user.EmailConfirmed && (await userManager.CheckPasswordAsync(user, model.Password)))
+                {
+                    ModelState.AddModelError(string.Empty, "Email not confirmed yet");
+                    return View(model);
+                }
+
                 var result = await signInManager.PasswordSignInAsync(
                     model.Email, model.Password, model.RememberMe, false);
 
                 if (result.Succeeded)
                 {
+                    if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
                     return RedirectToAction("index", "home");
                 }
 
@@ -138,22 +151,11 @@ namespace KalyanamMatrimony.Controllers
             return View(model);
         }
 
-
+        [Authorize(Roles = "SuperAdmin")]
         [HttpGet]
         public async Task<IActionResult> UserList()
         {
             var model = new List<UserRoleViewModel>();
-
-            //foreach (var user in userManager.Users)
-            //{
-            //    var userRoleViewModel = new UserRoleViewModel
-            //    {
-            //        UserId = user.Id,
-            //        UserName = user.UserName
-            //    };
-
-            //    model.Add(userRoleViewModel);
-            //}
             var groupUsers = await userManager.GetUsersInRoleAsync(Enum.GetName(typeof(CustomRole), CustomRole.Profile));
 
             foreach (var user in groupUsers)
@@ -168,6 +170,32 @@ namespace KalyanamMatrimony.Controllers
             }
 
             return View(model);
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            if (userId == null || token == null)
+            {
+                ViewBag.ErrorTitle = "Invalid Token, Please contact Administrator";
+                return View("Error");
+            }
+
+            var user = await userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"The User ID {userId} is invalid";
+                return View("NotFound");
+            }
+
+            var result = await userManager.ConfirmEmailAsync(user, token);
+            if (result.Succeeded)
+            {
+                return View();
+            }
+
+            ViewBag.ErrorTitle = "Email cannot be confirmed";
+            return View("Error");
         }
     }
 }

@@ -94,7 +94,6 @@ F:\Sunil\Development\AspNetCore\New\KalyanamMatrimony\KalyanamMatrimony\bin\Debu
 F:\Sunil\Development\AspNetCore\New\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.csprojAssemblyReference.cache
 F:\Sunil\Development\AspNetCore\New\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.AssemblyInfoInputs.cache
 F:\Sunil\Development\AspNetCore\New\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.AssemblyInfo.cs
-F:\Sunil\Development\AspNetCore\New\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.csproj.CoreCompileInputs.cache
 F:\Sunil\Development\AspNetCore\New\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.RazorAssemblyInfo.cache
 F:\Sunil\Development\AspNetCore\New\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.RazorAssemblyInfo.cs
 F:\Sunil\Development\AspNetCore\New\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.TagHelpers.input.cache
@@ -121,3 +120,15 @@ F:\Sunil\Development\AspNetCore\New\KalyanamMatrimony\KalyanamMatrimony\obj\Debu
 F:\Sunil\Development\AspNetCore\New\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.pdb
 F:\Sunil\Development\AspNetCore\New\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.genruntimeconfig.cache
 F:\Sunil\Development\AspNetCore\New\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.csproj.CopyComplete
+F:\Sunil\Development\AspNetCore\New\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.csproj.CoreCompileInputs.cache
+F:\Sunil\Development\AspNetCore\New\KalyanamMatrimony\KalyanamMatrimony\bin\Debug\netcoreapp2.1\nlog.config
+F:\Sunil\Development\AspNetCore\New\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Account\ConfirmEmail.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\New\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Error\Error.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\New\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Error\NotFound.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\New\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Partials\_ProfileCreateUpdate.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\New\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Partials\_ProfileView.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\New\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Partials\_ProgressBar.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\New\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Profile\EditMyProfile.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\New\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Profile\EditProfile.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\New\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Profile\ViewMyProfile.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\New\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Profile\ViewProfile.cshtml.g.cs

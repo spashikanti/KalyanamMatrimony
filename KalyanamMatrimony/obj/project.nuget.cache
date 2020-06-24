@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "jlA9XDb26hSebBRhUJ5mB+NXA9WjOYUSCRE0GslnK05YUx2O1vAvFTU+XssC3kvzP0m1Zh3zbC1p4ClKuPb8gg==",
+  "dgSpecHash": "sJ7HRubDYwhSUxBCHO8IW1U7SOx5TAdZOuOdM9C1SkzbA/mG+iOpl0foQ2wVACpuUOHV3gbSIID7jdKFBE/Ayg==",
   "success": true,
   "projectFilePath": "F:\\Sunil\\Development\\AspNetCore\\New\\KalyanamMatrimony\\KalyanamMatrimony\\KalyanamMatrimony.csproj",
   "expectedPackageFiles": [
@@ -183,6 +183,9 @@
     "C:\\Users\\Sunil\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\newtonsoft.json.bson\\1.0.1\\newtonsoft.json.bson.1.0.1.nupkg.sha512",
+    "C:\\Users\\Sunil\\.nuget\\packages\\nlog\\4.6.8\\nlog.4.6.8.nupkg.sha512",
+    "C:\\Users\\Sunil\\.nuget\\packages\\nlog.extensions.logging\\1.6.2\\nlog.extensions.logging.1.6.2.nupkg.sha512",
+    "C:\\Users\\Sunil\\.nuget\\packages\\nlog.web.aspnetcore\\4.9.2\\nlog.web.aspnetcore.4.9.2.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\nuget.frameworks\\4.7.0\\nuget.frameworks.4.7.0.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\2.1.4\\pomelo.entityframeworkcore.mysql.2.1.4.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\pomelo.jsonobject\\2.0.0\\pomelo.jsonobject.2.0.0.nupkg.sha512",
