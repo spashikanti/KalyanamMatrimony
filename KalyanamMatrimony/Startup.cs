@@ -30,8 +30,12 @@ namespace KalyanamMatrimony
                 options.UseMySql(_config.GetConnectionString("MatrimonyDBConnection"))
             );
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.SignIn.RequireConfirmedEmail = true;
+            })
+            .AddEntityFrameworkStores<AppDbContext>()
+            .AddDefaultTokenProviders();
 
             services.AddMvc().AddXmlSerializerFormatters();
             services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
@@ -44,6 +48,11 @@ namespace KalyanamMatrimony
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseStatusCodePagesWithReExecute("/Error/{0}");
+                app.UseExceptionHandler("/Error");
             }
 
             app.UseStaticFiles();

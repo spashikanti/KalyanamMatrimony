@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pUZqdE+bXWckNV0ycGOu/ZaSG6u4dlc/gTRaG7cgPQzcNGz0V6GFBxkgimZDNnDwX0dpTEQ5PJ6j09/lKWkabw==",
+  "dgSpecHash": "jlA9XDb26hSebBRhUJ5mB+NXA9WjOYUSCRE0GslnK05YUx2O1vAvFTU+XssC3kvzP0m1Zh3zbC1p4ClKuPb8gg==",
   "success": true,
-  "projectFilePath": "F:\\Sunil\\Deployment\\AspNetCore\\KalyanamMatrimony\\KalyanamMatrimony\\KalyanamMatrimony.csproj",
+  "projectFilePath": "F:\\Sunil\\Development\\AspNetCore\\New\\KalyanamMatrimony\\KalyanamMatrimony\\KalyanamMatrimony.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Sunil\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.6\\microsoft.aspnet.webapi.client.5.2.6.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\microsoft.aspnetcore\\2.1.1\\microsoft.aspnetcore.2.1.1.nupkg.sha512",
