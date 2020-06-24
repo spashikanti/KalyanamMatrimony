@@ -12726,11 +12726,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Sunil\\Development\\AspNetCore\\New\\KalyanamMatrimony\\KalyanamMatrimony\\KalyanamMatrimony.csproj",
+      "projectUniqueName": "F:\\Sunil\\Development\\AspNetCore\\Branch\\KalyanamMatrimony\\KalyanamMatrimony\\KalyanamMatrimony.csproj",
       "projectName": "KalyanamMatrimony",
-      "projectPath": "F:\\Sunil\\Development\\AspNetCore\\New\\KalyanamMatrimony\\KalyanamMatrimony\\KalyanamMatrimony.csproj",
+      "projectPath": "F:\\Sunil\\Development\\AspNetCore\\Branch\\KalyanamMatrimony\\KalyanamMatrimony\\KalyanamMatrimony.csproj",
       "packagesPath": "C:\\Users\\Sunil\\.nuget\\packages\\",
-      "outputPath": "F:\\Sunil\\Development\\AspNetCore\\New\\KalyanamMatrimony\\KalyanamMatrimony\\obj\\",
+      "outputPath": "F:\\Sunil\\Development\\AspNetCore\\Branch\\KalyanamMatrimony\\KalyanamMatrimony\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Sunil\\AppData\\Roaming\\NuGet\\NuGet.Config",
