@@ -1,0 +1,91 @@
+﻿@model IEnumerable<KalyanamMatrimony.Models.Profile>
+
+@{
+    ViewData["Title"] = "Search";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+
+<link href="~/js/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+<!-- Begin Page Content -->
+<div >
+
+    <!-- Page Heading -->
+    @*<h1 class="h3 mb-2 text-gray-800">Tables</h1>
+        <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>*@
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-md-10">
+                    <h6 class="m-0 font-weight-bold text-primary">Search Profiles</h6>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Profile Details</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                                var photoPath1 = "/images/" + (item.Photo1 ?? "noimageThumb400.jpg");
+                            <tr>
+                                <td>
+                                    <div class="card mb-3" style="max-width: 540px;">
+                                        <div class="row no-gutters">
+                                            <div class="col-md-4">
+                                                <img class="img-fluid" src="@photoPath1" asp-append-version="true" data-aos="fade-right" />
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</h5>
+                                                    <p class="card-text">Profile ID: @Html.DisplayFor(modelItem => item.ProfileId)</p>
+                                                    <p class="card-text"><small class="text-muted">@Html.DisplayFor(modelItem => item.Gender)</small></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->
+
+@section Scripts {
+    <script src="~/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/js/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/CustomScript.js"></script>
+    @*For toast*@
+    <link href="/lib/toastr/toastr.min.css" rel="stylesheet" />
+    <script src="/lib/toastr/toastr.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable({
+                //"order": [[4, "desc"]],//order by createddate desc - 4th column
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+            });
+        });
+
+        //For toast
+        var msg = @Html.Raw(Json.Serialize(ViewBag.Message));
+        if (msg != null) {
+            debugger;
+            displayToast(msg);
+        }
+
+    </script>
+}

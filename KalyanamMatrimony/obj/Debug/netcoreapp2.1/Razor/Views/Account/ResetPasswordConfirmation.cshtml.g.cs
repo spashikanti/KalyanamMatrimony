@@ -77,7 +77,7 @@ using Microsoft.AspNetCore.Identity;
                                 Your password is reset. Please click ");
             EndContext();
             BeginContext(650, 39, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fd68d8568ccc4b36bb721464f16b70bb", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "dd720f4c78894039b8c168788c488285", async() => {
                 BeginContext(672, 13, true);
                 WriteLiteral("here to login");
                 EndContext();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using KalyanamMatrimony.Models;
 using KalyanamMatrimony.ViewModels;
@@ -671,6 +672,42 @@ namespace KalyanamMatrimony.Controllers
             return profile;
         }
 
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> Search()
+        {
+            List<Profile> profilesList = new List<Profile>();
+            var user = await userManager.GetUserAsync(User);
 
+            if (user != null)
+            {
+                var strSuperAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin);
+                var strAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin);
+
+                if (await userManager.IsInRoleAsync(user, strSuperAdminRole) || await userManager.IsInRoleAsync(user, strAdminRole))
+                {
+                    profilesList = matrimonyRepository.GetAllProfiles().ToList();
+                    return View(profilesList);
+                }
+
+                var userProfile = matrimonyRepository.GetProfileByUserId(user.Id);
+                if (userProfile != null)
+                {
+                    if (userProfile.Gender == CustomEnums.ProfileGender.Male)
+                    {
+                        //get details of female
+                        profilesList = matrimonyRepository.GetAllProfiles().Where(x => x.Gender == CustomEnums.ProfileGender.Female).ToList();
+                    }
+                    else if (userProfile.Gender == CustomEnums.ProfileGender.Female)
+                    {
+                        //get details of males
+                        profilesList = matrimonyRepository.GetAllProfiles().Where(x => x.Gender == CustomEnums.ProfileGender.Male).ToList();
+                    }
+                }
+            }
+
+            //var model = _employeeRepository.GetAllEmployee();
+            return View(profilesList);
+        }
     }
 }
