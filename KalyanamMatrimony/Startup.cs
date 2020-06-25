@@ -37,6 +37,12 @@ namespace KalyanamMatrimony
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
 
+            ////To change the default access denied route
+            //services.ConfigureApplicationCookie(options =>
+            //{
+            //    options.AccessDeniedPath = new PathString("/Administration/AccessDenied");
+            //});
+
             services.AddMvc().AddXmlSerializerFormatters();
             services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
             services.AddScoped<IMatrimonyRepository, MySqlMatrimonyRepository>();
