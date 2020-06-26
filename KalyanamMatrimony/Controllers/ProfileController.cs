@@ -316,20 +316,29 @@ namespace KalyanamMatrimony.Controllers
 
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> ViewMyProfile()
+        public async Task<IActionResult> ViewMyProfile(string id)
         {
             ToasterServiceDisplay();
+            Profile profile = null;
 
-            string currentUserId = await GetCurrentUserId();
-            ApplicationUser userData = await userManager.FindByIdAsync(currentUserId);
-            Profile profile = matrimonyRepository.GetProfileByUserId(currentUserId);
+            if (string.IsNullOrEmpty(id))
+            {
+                string currentUserId = await GetCurrentUserId();
+                ApplicationUser userData = await userManager.FindByIdAsync(currentUserId);
+                profile = matrimonyRepository.GetProfileByUserId(currentUserId);
+            }
+            else
+            {
+                profile = matrimonyRepository.GetProfileById(id);
+            }
+
             EditUserProfileViewModel userProfileViewModel = new EditUserProfileViewModel();
 
             if (profile != null)
             {
                 userProfileViewModel = EditUserProfileViewModel(profile);
-                userProfileViewModel.Email = userData.Email;
-                userProfileViewModel.EndDate = userData.EndDate;
+                //userProfileViewModel.Email = userData.Email;
+                //userProfileViewModel.EndDate = userData.EndDate;
                 userProfileViewModel.ExistingPhotoPath1 = userProfileViewModel.Photo1;
                 userProfileViewModel.ExistingPhotoPath2 = userProfileViewModel.Photo2;
                 userProfileViewModel.ExistingPhotoPath3 = userProfileViewModel.Photo3;
@@ -708,6 +717,43 @@ namespace KalyanamMatrimony.Controllers
 
             //var model = _employeeRepository.GetAllEmployee();
             return View(profilesList);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult ViewSearchProfile(string id)
+        {
+            if (!string.IsNullOrEmpty(id))
+            {
+                Profile profile = matrimonyRepository.GetProfileById(id);
+                EditUserProfileViewModel userProfileViewModel = new EditUserProfileViewModel();
+
+                if (profile != null)
+                {
+                    userProfileViewModel = EditUserProfileViewModel(profile);
+                    userProfileViewModel.ExistingPhotoPath1 = userProfileViewModel.Photo1;
+                    userProfileViewModel.ExistingPhotoPath2 = userProfileViewModel.Photo2;
+                    userProfileViewModel.ExistingPhotoPath3 = userProfileViewModel.Photo3;
+                    userProfileViewModel.profileImages = new List<string>();
+
+                    if (userProfileViewModel.Photo1 != null)
+                    {
+                        userProfileViewModel.profileImages.Add(userProfileViewModel.Photo1);
+                    }
+                    if (userProfileViewModel.Photo2 != null)
+                    {
+                        userProfileViewModel.profileImages.Add(userProfileViewModel.Photo2);
+                    }
+                    if (userProfileViewModel.Photo3 != null)
+                    {
+                        userProfileViewModel.profileImages.Add(userProfileViewModel.Photo3);
+                    }
+
+                    return View(userProfileViewModel);
+                }
+            }
+
+            return RedirectToAction("NotFound", "Error");
         }
     }
 }

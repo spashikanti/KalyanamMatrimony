@@ -6,10 +6,17 @@
     var photoPath3 = "/images/" + (Model.ExistingPhotoPath3 ?? "noimageThumb400.jpg");
 }
 
-<div class="container">
     <div class=" shadow-lg border-0 rounded-lg" style="width:100%">
         <div class="card-header">
-            <h2>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h2>
+            <div class="row">
+                <div class="col-sm-10">
+                    <h5 class="card-title">@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName) - @Html.DisplayFor(model => model.ProfileId) </h5>
+                </div>
+                <div class="col-sm-2">
+                    <a class="btn btn-success" asp-controller="profile" asp-action="Search">
+                    Back To Search</a>
+                </div>
+            </div>
         </div>
         <div class="card-body">
             <p class="card-text" data-aos="fade-right">
@@ -56,10 +63,7 @@
         </div>
     </div>
 
-</div>
-
 <section id="allSections" style="margin-top:10px;">
-    <div class="container">
         <div class="card-columns">
             <div class="card shadow-lg border-0 rounded-lg">
                 <div class="card-header py-3">
@@ -213,7 +217,6 @@
             </div>
 
         </div>
-    </div>
 </section>
 
 @if (Model.profileImages != null && Model.profileImages.Count > 0)

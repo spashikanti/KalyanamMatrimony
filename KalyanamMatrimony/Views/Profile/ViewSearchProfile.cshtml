@@ -1,0 +1,28 @@
+﻿@model KalyanamMatrimony.ViewModels.EditUserProfileViewModel
+
+@{
+    ViewData["Title"] = "View Search Profile";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+
+<partial name="~/Views/Partials/_ProfileView.cshtml" />
+
+@section Scripts {
+    <link href="~/css/aos.css" rel="stylesheet" />
+    <script src="~/js/aos/aos.js"></script>
+    <script src="~/js/CustomScript.js"></script>
+    @*For toast*@
+    <link href="/lib/toastr/toastr.min.css" rel="stylesheet" />
+    <script src="/lib/toastr/toastr.min.js"></script>
+
+    <script>
+        AOS.init();
+        //For toast
+        var msg = @Html.Raw(Json.Serialize(ViewBag.Message));
+        if (msg != null) {
+            debugger;
+            displayToast(msg);
+        }
+
+    </script>
+}

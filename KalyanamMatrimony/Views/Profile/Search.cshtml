@@ -8,18 +8,69 @@
 <link href="~/js/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
 
 <!-- Begin Page Content -->
-<div >
 
-    <!-- Page Heading -->
-    @*<h1 class="h3 mb-2 text-gray-800">Tables</h1>
-        <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>*@
+<div class="accordion" id="accordionExample">
+    <div class="card">
+        <div class="card-header" id="headingTwo">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left collapsed text-right" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Advanced Search
+                </button>
+            </h2>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group col-md-3" data-column="1">
+                        <label for="profileId">Profile ID</label>
+                        <input type="text" class="form-control form-control-sm column_filter" id="ProfileId">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="MaritalStatus">Marital Status</label>
+                        <div id="ddlMaritalStatus"></div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="AgeFrom">Age From</label>
+                        <input type="text" class="form-control form-control-sm" id="txtAgeFrom">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="AgeTo">Age To</label>
+                        <input type="text" class="form-control form-control-sm" id="txtAgeTo">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="MotherTongue">Mother Tongue</label>
+                        <div id="ddlMotherTongue"></div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="Location">Location</label>
+                        <div id="ddlLocation"></div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="Religion">Religion</label>
+                        <div id="ddlReligion"></div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="Caste">Caste</label>
+                        <div id="ddlCaste"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div>
+
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row">
                 <div class="col-md-10">
-                    <h6 class="m-0 font-weight-bold text-primary">Search Profiles</h6>
+                    <h5 class="m-0 font-weight-bold text-primary">Search Profiles</h5>
                 </div>
             </div>
         </div>
@@ -29,31 +80,71 @@
                     <thead>
                         <tr>
                             <th>Profile Details</th>
+                            <th style="display:none">ProfileId</th>
+                            <th style="display:none">Age</th>
+                            <th style="display:none">Mother Tongue</th>
+                            <th style="display:none">Religion</th>
+                            <th style="display:none">Caste</th>
+                            <th style="display:none">Marital Status</th>
+                            <th style="display:none">Location</th>
                         </tr>
                     </thead>
-                    
+
                     <tbody>
                         @foreach (var item in Model)
                         {
-                                var photoPath1 = "/images/" + (item.Photo1 ?? "noimageThumb400.jpg");
-                            <tr>
-                                <td>
-                                    <div class="card mb-3" style="max-width: 540px;">
-                                        <div class="row no-gutters">
-                                            <div class="col-md-4">
-                                                <img class="img-fluid" src="@photoPath1" asp-append-version="true" data-aos="fade-right" />
+                            var photoPath1 = "/images/" + (item.Photo1 ?? "noimageThumb400.jpg");
+                        <tr>
+                            <td>
+                                <div class="card mb-3">
+                                    <div class="row no-gutters">
+                                        <div class="col-sm-3">
+                                            <img class="img-fluid" src="@photoPath1" asp-append-version="true" data-aos="fade-right" />
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div class="card-header">
+                                                <div class="row">
+                                                    <div class="col-sm-9">
+                                                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</h5>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <a class="btn btn-success" asp-controller="profile" asp-action="ViewSearchProfile"
+                                                           asp-route-id="@item.ProfileId">@Html.DisplayFor(modelItem => item.ProfileId)</a>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-md-8">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</h5>
-                                                    <p class="card-text">Profile ID: @Html.DisplayFor(modelItem => item.ProfileId)</p>
-                                                    <p class="card-text"><small class="text-muted">@Html.DisplayFor(modelItem => item.Gender)</small></p>
+                                            <div class="form-row">
+                                                <div class="card-body form-group col-sm-6">
+                                                    <ul data-aos="fade-right">
+                                                        <li><i class="icofont-rounded-right"></i> <strong>Age/Height:</strong> @Html.DisplayFor(model => item.Age)/@Html.DisplayFor(model => item.Height) Foot</li>
+                                                        <li><i class="icofont-rounded-right"></i> <strong>Body Type:</strong> @Html.DisplayFor(model => item.BodyType)</li>
+                                                        <li><i class="icofont-rounded-right"></i> <strong>Mother Tongue:</strong> @Html.DisplayFor(model => item.MotherTongue)</li>
+                                                        <li><i class="icofont-rounded-right"></i> <strong>Religion:</strong> @Html.DisplayFor(model => item.Religion)</li>
+                                                        <li><i class="icofont-rounded-right"></i> <strong>Caste:</strong> @Html.DisplayFor(model => item.Caste)</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="card-body form-group col-sm-6">
+                                                    <ul data-aos="fade-left">
+                                                        <li><i class="icofont-rounded-right"></i> <strong>Marital Status:</strong> @Html.DisplayFor(model => item.MaritalStatus)</li>
+                                                        <li><i class="icofont-rounded-right"></i> <strong>Complexion:</strong> @Html.DisplayFor(model => item.Complexion)</li>
+                                                        <li><i class="icofont-rounded-right"></i> <strong>Current Location:</strong> @Html.DisplayFor(model => item.CurrentLocation)</li>
+                                                        <li><i class="icofont-rounded-right"></i> <strong>Education:</strong> @Html.DisplayFor(model => item.Education)</li>
+                                                        <li><i class="icofont-rounded-right"></i> <strong>Profession:</strong> @Html.DisplayFor(model => item.Profession)</li>
+                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </td>
-                            </tr>
+                                </div>
+                            </td>
+                            <td style="display:none">@Html.DisplayFor(modelItem => item.ProfileId) </td>
+                            <td style="display:none">@Html.DisplayFor(modelItem => item.Age) </td>
+                            <td style="display:none">@Html.DisplayFor(modelItem => item.MotherTongue)</td>
+                            <td style="display:none">@Html.DisplayFor(modelItem => item.Religion)</td>
+                            <td style="display:none">@Html.DisplayFor(modelItem => item.Caste)</td>
+                            <td style="display:none">@Html.DisplayFor(modelItem => item.MaritalStatus)</td>
+                            <td style="display:none">@Html.DisplayFor(modelItem => item.CurrentLocation)</td>
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -73,17 +164,111 @@
     <script src="/lib/toastr/toastr.min.js"></script>
 
     <script>
+        function filterGlobal() {
+            $('#example').DataTable().search(
+                $('#global_filter').val(),
+                //$('#global_regex').prop('checked'),
+                //$('#global_smart').prop('checked')
+            ).draw();
+        }
+
+        function filterColumn(i, obj) {
+            $('#example').DataTable().column(i).search(
+                $('#col' + i + '_filter').val(),
+                //$('#col' + i + '_regex').prop('checked'),
+                //$('#col' + i + '_smart').prop('checked')
+            ).draw();
+
+            $('#dataTable').DataTable().column(i).search(
+                $('#' + obj.id).val(),
+                //$('#col' + i + '_regex').prop('checked'),
+                //$('#col' + i + '_smart').prop('checked')
+            ).draw();
+        }
+
+        /* Custom filtering function which will search data in column four between two values */
+        $.fn.dataTable.ext.search.push(
+            function (settings, data, dataIndex) {
+                var min = parseInt($('#txtAgeFrom').val(), 10);
+                var max = parseInt($('#txtAgeTo').val(), 10);
+                var age = parseFloat(data[2]) || 0; // use data for the age column
+
+                if ((isNaN(min) && isNaN(max)) ||
+                    (isNaN(min) && age <= max) ||
+                    (min <= age && isNaN(max)) ||
+                    (min <= age && age <= max)) {
+                    return true;
+                }
+                return false;
+            }
+        );
+
         $(document).ready(function () {
+            $('input.global_filter').on('keyup click', function () {
+                filterGlobal();
+            });
+
+            $('input.column_filter').on('keyup click', function () {
+                filterColumn($(this).parents('div').attr('data-column'), this);
+            });
+
+            $('#example').DataTable();
+
             $('#dataTable').DataTable({
-                //"order": [[4, "desc"]],//order by createddate desc - 4th column
-                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+
+                initComplete: function () {
+                    this.api().columns().every(function () {
+                        var column = this;
+                        if (column.header().innerHTML != "Profile Details") {
+                            var controlID = "";
+                            if (column.header().innerHTML == "Marital Status") {
+                                controlID = "ddlMaritalStatus";
+                            }
+                            else if (column.header().innerHTML == "Mother Tongue") {
+                                controlID = "ddlMotherTongue";
+                            }
+                            else if (column.header().innerHTML == "Religion") {
+                                controlID = "ddlReligion";
+                            }
+                            else if (column.header().innerHTML == "Caste") {
+                                controlID = "ddlCaste";
+                            }
+                            else if (column.header().innerHTML == "Location") {
+                                controlID = "ddlLocation";
+                            }
+                            
+                            if (controlID != "") {
+                                var select = $('<select class="form-control form-control-sm"><option value=""></option></select>')
+                                    .appendTo($("#" + controlID))
+                                    .on('change', function () {
+                                        var val = $.fn.dataTable.util.escapeRegex(
+                                            $(this).val()
+                                        );
+
+                                        column
+                                            .search(val ? '^' + val + '$' : '', true, false)
+                                            .draw();
+                                    });
+
+                                column.data().unique().sort().each(function (d, j) {
+                                    select.append('<option value="' + d + '">' + d + '</option>')
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+
+            // Event listener to the two range filtering inputs to redraw on input
+            $('#txtAgeFrom, #txtAgeTo').keyup(function () {
+                $('#dataTable').DataTable().draw();
             });
         });
 
         //For toast
         var msg = @Html.Raw(Json.Serialize(ViewBag.Message));
         if (msg != null) {
-            debugger;
             displayToast(msg);
         }
 

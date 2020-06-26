@@ -90,7 +90,7 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("!\r\n    <p class=\"lead\">Welcome back home. Click the below button to search profiles</p>\r\n    <hr class=\"my-4\">\r\n        <div>");
             EndContext();
             BeginContext(1331, 113, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "168e12b6192541e2a497dd28daafc77d", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a411c9a7be924bb8b92f9dbeb2d51474", async() => {
                 BeginContext(1425, 15, true);
                 WriteLiteral("Search Profiles");
                 EndContext();
@@ -166,7 +166,7 @@ WriteAttributeValue("", 2312, className, 2312, 10, false);
             WriteLiteral(">\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"card card-body text-white\">\r\n                                    ");
             EndContext();
             BeginContext(2487, 67, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "ba47d3b8a97a487ab6395e223a2bad18", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "4c9293e726e246ae9e62eaf4b8967afa", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_ImageTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.ImageTagHelper>();
@@ -283,7 +283,7 @@ else
                 WriteLiteral("\r\n        ");
                 EndContext();
                 BeginContext(3918, 47, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("link", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "9e8cd939771d4a33b5ce0ed8cd94cdf0", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("link", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "b5fba225fdf14e4bb166b42af6a22ee6", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
