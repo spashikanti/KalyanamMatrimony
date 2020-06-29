@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace KalyanamMatrimony.Models
 {
@@ -9,5 +10,7 @@ namespace KalyanamMatrimony.Models
         Profile GetProfileById(string profileId);
         Profile GetProfileByUserId(string userId);
         Profile Update(Profile profile);
+        IEnumerable<Profile> GetActiveProfiles(IQueryable<ApplicationUser> userList);
+        IEnumerable<Profile> GetDeActivedProfiles(IQueryable<ApplicationUser> userList);
     }
 }

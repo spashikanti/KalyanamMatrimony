@@ -45,18 +45,20 @@ namespace KalyanamMatrimony.Controllers
             //Active Profiles Only
             ToasterServiceDisplay();
             ProfilesViewModel profilesModel = new ProfilesViewModel();
-            profilesModel.ActiveProfiles = GetActiveOrInActiveProfiles(true);
-            profilesModel.InActiveProfiles = GetActiveOrInActiveProfiles(false);
+            //profilesModel.ActiveProfiles = GetActiveOrInActiveProfiles(true);
+            //profilesModel.InActiveProfiles = GetActiveOrInActiveProfiles(false);
+            profilesModel.ActiveProfiles = matrimonyRepository.GetActiveProfiles(userManager.Users);
+            profilesModel.DeActivedProfiles = matrimonyRepository.GetDeActivedProfiles(userManager.Users);
             return View(profilesModel);
         }
 
-        private IEnumerable<Profile> GetActiveOrInActiveProfiles(bool isActive)
-        {
-            List<ApplicationUser> users = isActive == true ? 
-                userManager.Users.Where(x => x.EndDate.Value > DateTime.Now).ToList() : 
-                userManager.Users.Where(x => x.EndDate.Value < DateTime.Now).ToList();
-            return matrimonyRepository.GetAllProfiles().Where(profile => users.Any(user => user.Id == profile.UserId));
-        }
+        //private IEnumerable<Profile> GetActiveOrInActiveProfiles(bool isActive)
+        //{
+        //    List<ApplicationUser> users = isActive == true ? 
+        //        userManager.Users.Where(x => x.EndDate.Value > DateTime.Now).ToList() : 
+        //        userManager.Users.Where(x => x.EndDate.Value < DateTime.Now).ToList();
+        //    return matrimonyRepository.GetAllProfiles().Where(profile => users.Any(user => user.Id == profile.UserId));
+        //}
 
         [Authorize(Roles = "SuperAdmin, Admin")]
         [HttpGet]

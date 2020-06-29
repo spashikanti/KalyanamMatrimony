@@ -20,9 +20,27 @@ namespace KalyanamMatrimony.Models
             return profile;
         }
 
+        public IEnumerable<Profile> GetActiveProfiles(IQueryable<ApplicationUser> usersList)
+        {
+            return GetActiveOrInActiveProfiles(true, usersList);
+        }
+
         public IEnumerable<Profile> GetAllProfiles()
         {
             return context.Profiles.OrderBy(x => x.CreatedDate);
+        }
+
+        public IEnumerable<Profile> GetDeActivedProfiles(IQueryable<ApplicationUser> usersList)
+        {
+            return GetActiveOrInActiveProfiles(false, usersList);
+        }
+
+        private IEnumerable<Profile> GetActiveOrInActiveProfiles(bool isActive, IQueryable<ApplicationUser> usersList)
+        {
+            List<ApplicationUser> users = isActive == true ?
+                usersList.Where(x => x.EndDate != null && x.EndDate.Value > System.DateTime.Now).ToList() :
+                usersList.Where(x => x.EndDate != null && x.EndDate.Value < System.DateTime.Now).ToList();
+            return GetAllProfiles().Where(profile => users.Any(user => user.Id == profile.UserId));
         }
 
         //public IEnumerable<Profile> GetLatestProfiles(CustomEnums.ProfileGender gender)

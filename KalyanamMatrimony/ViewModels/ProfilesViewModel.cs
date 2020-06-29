@@ -9,6 +9,11 @@ namespace KalyanamMatrimony.ViewModels
     public class ProfilesViewModel
     {
         public IEnumerable<Profile> ActiveProfiles { get; set; }
-        public IEnumerable<Profile> InActiveProfiles { get; set; }
+        public IEnumerable<Profile> DeActivedProfiles { get; set; }
+
+        public int ActiveProfilesCount { get; set; }
+        public int DeActivedProfilesCount { get; set; }
+        public int MaleProfilesCount { get; set; }
+        public int FemaleProfilesCount { get; set; }
     }
 }
