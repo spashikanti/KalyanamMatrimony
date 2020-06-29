@@ -59,7 +59,10 @@
                         <div class="@className">
                             <div class="col-md-4">
                                 <div class="card card-body text-white">
-                                    <img class="img-fluid" src="@photoPath1" asp-append-version="true">
+                                    <a asp-controller="profile" asp-action="ViewSearchProfile"
+                                                           asp-route-id="@profile.ProfileId">
+                                        <img class="img-fluid" src="@photoPath1" asp-append-version="true">
+                                    </a>
                                     <div class="card-img-overlay" style="-webkit-text-stroke: 0.5px Red; opacity:1.0">
                                         <h4 class="card-title" >@profile.FirstName @profile.LastName</h4>
                                         <p class="card-text" >Age: @profile.Age | Profession: @profile.Profession</p>

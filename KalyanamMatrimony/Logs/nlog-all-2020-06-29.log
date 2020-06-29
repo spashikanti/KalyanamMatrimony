@@ -1,0 +1,4 @@
+2020-06-29 16:56:37.8993|WARN|Microsoft.AspNetCore.Server.Kestrel|Connection processing ended abnormally.
+2020-06-29 17:31:06.3764|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-06-29 18:05:43.0976|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-06-29 19:13:09.3645|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.

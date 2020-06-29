@@ -34,10 +34,11 @@ namespace KalyanamMatrimony.Controllers
             {
                 var strSuperAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin);
                 var strAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin);
+                List<ApplicationUser> users = userManager.Users.Where(x => x.EndDate.Value > DateTime.Now).ToList();
 
                 if (await userManager.IsInRoleAsync(user, strSuperAdminRole) || await userManager.IsInRoleAsync(user, strAdminRole))
                 {
-                    profilesList = matrimonyRepository.GetAllProfiles().Take(10);
+                    profilesList = matrimonyRepository.GetAllProfiles().Where(profile => users.Any(userData => userData.Id == profile.UserId)).Take(10);
                     return View(profilesList);
                 }
 
@@ -47,12 +48,14 @@ namespace KalyanamMatrimony.Controllers
                     if (userProfile.Gender == CustomEnums.ProfileGender.Male)
                     {
                         //get details of female
-                        profilesList = matrimonyRepository.GetAllProfiles().Where(x => x.Gender == CustomEnums.ProfileGender.Female).Take(10);
+                        profilesList = matrimonyRepository.GetAllProfiles().Where(profile => profile.Gender == CustomEnums.ProfileGender.Female &&
+                        users.Any(userData => userData.Id == profile.UserId)).Take(10);
                     }
                     else if (userProfile.Gender == CustomEnums.ProfileGender.Female)
                     {
                         //get details of males
-                        profilesList = matrimonyRepository.GetAllProfiles().Where(x => x.Gender == CustomEnums.ProfileGender.Male).Take(10);
+                        profilesList = matrimonyRepository.GetAllProfiles().Where(profile => profile.Gender == CustomEnums.ProfileGender.Male &&
+                        users.Any(userData => userData.Id == profile.UserId)).Take(10);
                     }
                 }
             }

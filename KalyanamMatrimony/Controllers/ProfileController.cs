@@ -42,10 +42,20 @@ namespace KalyanamMatrimony.Controllers
         [Authorize(Roles = "SuperAdmin, Admin")]
         public IActionResult Index()
         {
+            //Active Profiles Only
             ToasterServiceDisplay();
+            ProfilesViewModel profilesModel = new ProfilesViewModel();
+            profilesModel.ActiveProfiles = GetActiveOrInActiveProfiles(true);
+            profilesModel.InActiveProfiles = GetActiveOrInActiveProfiles(false);
+            return View(profilesModel);
+        }
 
-            var profile = matrimonyRepository.GetAllProfiles();
-            return View(profile);
+        private IEnumerable<Profile> GetActiveOrInActiveProfiles(bool isActive)
+        {
+            List<ApplicationUser> users = isActive == true ? 
+                userManager.Users.Where(x => x.EndDate.Value > DateTime.Now).ToList() : 
+                userManager.Users.Where(x => x.EndDate.Value < DateTime.Now).ToList();
+            return matrimonyRepository.GetAllProfiles().Where(profile => users.Any(user => user.Id == profile.UserId));
         }
 
         [Authorize(Roles = "SuperAdmin, Admin")]
@@ -692,10 +702,11 @@ namespace KalyanamMatrimony.Controllers
             {
                 var strSuperAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin);
                 var strAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin);
+                List<ApplicationUser> users = userManager.Users.Where(x => x.EndDate.Value > DateTime.Now).ToList();
 
                 if (await userManager.IsInRoleAsync(user, strSuperAdminRole) || await userManager.IsInRoleAsync(user, strAdminRole))
                 {
-                    profilesList = matrimonyRepository.GetAllProfiles().ToList();
+                    profilesList = matrimonyRepository.GetAllProfiles().Where(profile => users.Any(userData => userData.Id == profile.UserId)).ToList();
                     return View(profilesList);
                 }
 
@@ -705,12 +716,14 @@ namespace KalyanamMatrimony.Controllers
                     if (userProfile.Gender == CustomEnums.ProfileGender.Male)
                     {
                         //get details of female
-                        profilesList = matrimonyRepository.GetAllProfiles().Where(x => x.Gender == CustomEnums.ProfileGender.Female).ToList();
+                        profilesList = matrimonyRepository.GetAllProfiles().Where(profile => profile.Gender == CustomEnums.ProfileGender.Female &&
+                        users.Any(userData => userData.Id == profile.UserId)).ToList();
                     }
                     else if (userProfile.Gender == CustomEnums.ProfileGender.Female)
                     {
                         //get details of males
-                        profilesList = matrimonyRepository.GetAllProfiles().Where(x => x.Gender == CustomEnums.ProfileGender.Male).ToList();
+                        profilesList = matrimonyRepository.GetAllProfiles().Where(profile => profile.Gender == CustomEnums.ProfileGender.Male &&
+                        users.Any(userData => userData.Id == profile.UserId)).ToList();
                     }
                 }
             }
