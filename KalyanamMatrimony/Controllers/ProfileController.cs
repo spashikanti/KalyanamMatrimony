@@ -23,13 +23,15 @@ namespace KalyanamMatrimony.Controllers
         private readonly IMatrimonyRepository matrimonyRepository;
         private readonly IHostingEnvironment hostingEnvironment;
         private readonly ILogger<ProfileController> logger;
+        private readonly IEmailSender emailSender;
 
         public ProfileController(UserManager<ApplicationUser> userManager,
                                 SignInManager<ApplicationUser> signInManager,
                                 RoleManager<IdentityRole> roleManager,
                                 IMatrimonyRepository matrimonyRepository,
                                 IHostingEnvironment hostingEnvironment,
-                                ILogger<ProfileController> logger)
+                                ILogger<ProfileController> logger,
+                                IEmailSender emailSender)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -37,6 +39,7 @@ namespace KalyanamMatrimony.Controllers
             this.matrimonyRepository = matrimonyRepository;
             this.hostingEnvironment = hostingEnvironment;
             this.logger = logger;
+            this.emailSender = emailSender;
         }
 
         [Authorize(Roles = "SuperAdmin, Admin")]
@@ -106,6 +109,7 @@ namespace KalyanamMatrimony.Controllers
 
                         // Log the password reset link
                         logger.Log(LogLevel.Warning, confirmationLink);
+                        await SendEmail(model.Email, confirmationLink);
 
                         model.UserId = user.Id;
                         if (model.PhotoFile1 != null && model.PhotoFile1.Length > 0)
@@ -174,6 +178,17 @@ namespace KalyanamMatrimony.Controllers
             }
 
             return View(model);
+        }
+
+        private async Task SendEmail(string email, string confirmationLink)
+        {
+            var content = "Thanks for signing up with our portal! You must follow this link to activate your account:<br/><br/>" +
+                "<a href='" + confirmationLink + "' >Click Here to Confirm</a><br/><br/>" +
+                "Happy searching!!!<br/><br/>" +
+                "The Matrimony Team";
+            var message = new Message(new string[] { email }, "Email Confirmation", content);
+            //emailSender.SendEmail(message);
+            await emailSender.SendEmailAsync(message);
         }
 
         [Authorize(Roles = "SuperAdmin, Admin")]

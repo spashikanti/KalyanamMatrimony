@@ -51,6 +51,7 @@ namespace KalyanamMatrimony
             services.AddMvc().AddXmlSerializerFormatters();
             services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
             services.AddScoped<IMatrimonyRepository, MySqlMatrimonyRepository>();
+            services.AddScoped<IEmailSender, EmailSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

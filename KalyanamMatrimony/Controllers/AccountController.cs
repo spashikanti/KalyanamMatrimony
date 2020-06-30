@@ -17,16 +17,19 @@ namespace KalyanamMatrimony.Controllers
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly ILogger<AccountController> logger;
+        private readonly IEmailSender emailSender;
 
         public AccountController(UserManager<ApplicationUser> userManager,
                                 SignInManager<ApplicationUser> signInManager,
                                 RoleManager<IdentityRole> roleManager,
-                                ILogger<AccountController> logger)
+                                ILogger<AccountController> logger,
+                                IEmailSender emailSender)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.roleManager = roleManager;
             this.logger = logger;
+            this.emailSender = emailSender;
         }
 
         [AcceptVerbs("Get", "Post")]
@@ -234,6 +237,7 @@ namespace KalyanamMatrimony.Controllers
 
                     // Log the password reset link
                     logger.Log(LogLevel.Warning, passwordResetLink);
+                    await SendEmail(model.Email, passwordResetLink);
 
                     // Send the user to Forgot Password Confirmation view
                     return View("ForgotPasswordConfirmation");
@@ -245,6 +249,18 @@ namespace KalyanamMatrimony.Controllers
             }
 
             return View(model);
+        }
+
+        private async Task SendEmail(string email, string passwordResetLink)
+        {
+            var content = "Hi " + email + "<br/><br/>" +
+                "We got a request to reset your password. <br/><br/>" +
+                "<a href='" + passwordResetLink + "' >Click Here to Reset Password</a><br/><br/>" +
+                "<br/><br/>" +
+                "The Matrimony Team";
+            var message = new Message(new string[] { email }, "Reset Your Password", content);
+            //emailSender.SendEmail(message);
+            await emailSender.SendEmailAsync(message);
         }
 
         [HttpGet]
@@ -343,7 +359,5 @@ namespace KalyanamMatrimony.Controllers
         {
             return View();
         }
-
-
     }
 }
