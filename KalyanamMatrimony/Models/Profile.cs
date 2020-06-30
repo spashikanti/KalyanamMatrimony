@@ -46,6 +46,7 @@ namespace KalyanamMatrimony.Models
         public string Smoke { get; set; }
         public string Drink { get; set; }
         [Display(Name = "About Yourself")]
+        [StringLength(200, ErrorMessage = "The About Yourself value cannot exceed 200 characters. ")]
         public string AboutYourself { get; set; }
         [Display(Name = "Blood Group")]
         public string BloodGroup { get; set; }
@@ -81,6 +82,7 @@ namespace KalyanamMatrimony.Models
         [Display(Name = "Family Values")]
         public string FamilyValues { get; set; }
         [Display(Name = "About Family")]
+        [StringLength(200, ErrorMessage = "The About Family value cannot exceed 200 characters. ")]
         public string AboutFamily { get; set; }
 
         //Hobbies
@@ -101,6 +103,7 @@ namespace KalyanamMatrimony.Models
         public string Nakshatram { get; set; }
         public string Manglik { get; set; }
         [Display(Name = "Astrology Profile")]
+        [StringLength(200, ErrorMessage = "The Astrology Profile value cannot exceed 200 characters. ")]
         public string AstroProfile { get; set; }
 
         //Photos

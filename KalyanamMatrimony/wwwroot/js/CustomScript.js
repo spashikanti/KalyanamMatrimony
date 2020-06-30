@@ -11,7 +11,6 @@ $(document).ready(function () {
     });
 
     $.getJSON('../../data/masterData.json', function (jd) {
-        debugger;
         $("#hdFileSizeLimit").val(jd.FileSizeLimit);
     });
 
@@ -20,7 +19,6 @@ $(document).ready(function () {
 
 function readURL(input) {
     if (input.files && input.files[0]) {
-        debugger;
         var fileSizeLimit = $("#hdFileSizeLimit").val();
         if (input.files[0].size > fileSizeLimit) {
             var actualSizeLimit = parseInt(fileSizeLimit) / 1024;
@@ -46,7 +44,6 @@ function readURL(input) {
 }
 
 function moveNext(showTab) {
-    debugger;
     switch (showTab) {
         case 1:
             $('#v-pills-tab a[href="#v-pills-userinfo"]').tab('show');
@@ -86,10 +83,19 @@ function validateCreateProfile(event) {
     if (document.getElementById('Email').value == "") {
         errors.Messages.push("The Email field is required.");
     }
-    if (document.getElementById('Password').value == "") {
+    if (document.getElementById('Password') != null && document.getElementById('Password').value == "") {
         errors.Messages.push("The Password field is required.");
     }
-
+    if (document.getElementById('AboutYourself').value.length > 200) {
+        errors.Messages.push("The About Yourself field value cannot exceed 200 characters.");
+    }
+    if (document.getElementById('AboutFamily').value.length > 200) {
+        errors.Messages.push("The About Family field value cannot exceed 200 characters.");
+    }
+    if (document.getElementById('AstroProfile').value.length > 200) {
+        errors.Messages.push("The Astrology Profile field value cannot exceed 200 characters.");
+    }
+    
     if (errors.Messages.length > 0) {
         var ul = document.createElement('ul');
         for (var i = 0; i < errors.Messages.length; i++) {
@@ -97,11 +103,11 @@ function validateCreateProfile(event) {
             li.innerHTML = errors.Messages[i];
             ul.appendChild(li);
         }
+        $("#validationSummary").empty();
         $("#validationSummary").append(ul);
         event.preventDefault();
         displayProgressBar(false);
     }
-    
 }
 
 function displayToast(jsonObj) {
