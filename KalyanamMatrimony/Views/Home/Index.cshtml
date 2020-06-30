@@ -40,7 +40,7 @@
 @if (Model.Any())
 {
     <div class="container text-center my-3">
-        <h2 class="font-weight-light">Latest Profiles</h2>
+        <h2 class="font-weight-light bg-primary text-white"><strong>Latest Profiles</strong></h2>
         <div class="row mx-auto my-auto">
             <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
                 <div class="carousel-inner w-100" role="listbox">
@@ -58,15 +58,15 @@
                         }
                         <div class="@className">
                             <div class="col-md-4">
-                                <div class="card card-body text-white">
+                                <div class="card card-body">
                                     <a asp-controller="profile" asp-action="ViewSearchProfile"
-                                                           asp-route-id="@profile.ProfileId">
-                                        <img class="img-fluid" src="@photoPath1" asp-append-version="true">
+                                       asp-route-id="@profile.ProfileId">
+                                        <img class="img-fluid" style="width:312px; height:244px" src="@photoPath1" asp-append-version="true">
                                     </a>
-                                    <div class="card-img-overlay" style="-webkit-text-stroke: 0.5px Red; opacity:1.0">
-                                        <h4 class="card-title" >@profile.FirstName @profile.LastName</h4>
-                                        <p class="card-text" >Age: @profile.Age | Profession: @profile.Profession</p>
-                                    </div>
+                                </div>
+                                <div class="card-header">
+                                    <h5 class="card-title">@profile.FirstName @profile.LastName</h5>
+                                    <p class="card-text">Age: @profile.Age | Profession: @profile.Profession</p>
                                 </div>
                             </div>
                         </div>
@@ -91,6 +91,9 @@ else
     <div>No Latest Profiles</div>
 }
 
+<div>
+    &nbsp;
+</div>
     @section Scripts{
         <link href="~/css/site.css" rel="stylesheet" />
         <script>

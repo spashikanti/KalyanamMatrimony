@@ -166,6 +166,7 @@ namespace KalyanamMatrimony.Controllers
                     // which will be displayed by the validation summary tag helper
                     foreach (var error in result.Errors)
                     {
+                        logger.Log(LogLevel.Error, error.Description);
                         ModelState.AddModelError(string.Empty, error.Description);
                         ToasterServiceCreate(error.Description, CustomEnums.ToastType.Error);
                     }
@@ -212,6 +213,7 @@ namespace KalyanamMatrimony.Controllers
                         {
                             foreach (var error in result.Errors)
                             {
+                                logger.Log(LogLevel.Error, error.Description);
                                 ModelState.AddModelError(string.Empty, error.Description);
                                 ToasterServiceCreate(error.Description, CustomEnums.ToastType.Error);
                             }
@@ -274,6 +276,7 @@ namespace KalyanamMatrimony.Controllers
                         DeleteImage(model.Photo3);
                     }
 
+                    logger.Log(LogLevel.Error, "Unable to update profile");
                     ModelState.AddModelError(string.Empty, "Unable to update profile");
                     ToasterServiceCreate(model.FirstName + " unable to update profile", CustomEnums.ToastType.Error);
                 }
@@ -293,30 +296,35 @@ namespace KalyanamMatrimony.Controllers
         {
             ToasterServiceDisplay();
 
-            Profile profile = matrimonyRepository.GetProfileById(id);
-            ApplicationUser userData = await userManager.FindByIdAsync(profile.UserId);
-            EditUserProfileViewModel userProfileViewModel = EditUserProfileViewModel(profile);
-            userProfileViewModel.Email = userData.Email;
-            userProfileViewModel.EndDate = userData.EndDate;
-            userProfileViewModel.ExistingPhotoPath1 = userProfileViewModel.Photo1;
-            userProfileViewModel.ExistingPhotoPath2 = userProfileViewModel.Photo2;
-            userProfileViewModel.ExistingPhotoPath3 = userProfileViewModel.Photo3;
-            userProfileViewModel.profileImages = new List<string>();
+            if (!string.IsNullOrEmpty(id))
+            {
+                Profile profile = matrimonyRepository.GetProfileById(id);
+                ApplicationUser userData = await userManager.FindByIdAsync(profile.UserId);
+                EditUserProfileViewModel userProfileViewModel = EditUserProfileViewModel(profile);
+                userProfileViewModel.Email = userData.Email;
+                userProfileViewModel.EndDate = userData.EndDate;
+                userProfileViewModel.ExistingPhotoPath1 = userProfileViewModel.Photo1;
+                userProfileViewModel.ExistingPhotoPath2 = userProfileViewModel.Photo2;
+                userProfileViewModel.ExistingPhotoPath3 = userProfileViewModel.Photo3;
+                userProfileViewModel.profileImages = new List<string>();
 
-            if (userProfileViewModel.Photo1 != null)
-            {
-                userProfileViewModel.profileImages.Add(userProfileViewModel.Photo1);
-            }
-            if (userProfileViewModel.Photo2 != null)
-            {
-                userProfileViewModel.profileImages.Add(userProfileViewModel.Photo2);
-            }
-            if (userProfileViewModel.Photo3 != null)
-            {
-                userProfileViewModel.profileImages.Add(userProfileViewModel.Photo3);
+                if (userProfileViewModel.Photo1 != null)
+                {
+                    userProfileViewModel.profileImages.Add(userProfileViewModel.Photo1);
+                }
+                if (userProfileViewModel.Photo2 != null)
+                {
+                    userProfileViewModel.profileImages.Add(userProfileViewModel.Photo2);
+                }
+                if (userProfileViewModel.Photo3 != null)
+                {
+                    userProfileViewModel.profileImages.Add(userProfileViewModel.Photo3);
+                }
+
+                return View(userProfileViewModel);
             }
 
-            return View(userProfileViewModel);
+            return RedirectToAction("NotFound", "Error", new { statusCode = 404 });
         }
 
         private Task<ApplicationUser> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
@@ -430,6 +438,7 @@ namespace KalyanamMatrimony.Controllers
                         {
                             foreach (var error in result.Errors)
                             {
+                                logger.Log(LogLevel.Error, error.Description);
                                 ModelState.AddModelError(string.Empty, error.Description);
                                 ToasterServiceCreate(error.Description, CustomEnums.ToastType.Error);
                             }
@@ -492,6 +501,7 @@ namespace KalyanamMatrimony.Controllers
                         DeleteImage(model.Photo3);
                     }
 
+                    logger.Log(LogLevel.Error, "Unable to update profile");
                     ModelState.AddModelError(string.Empty, "Unable to update profile");
                     ToasterServiceCreate(model.FirstName + " unable to update profile", CustomEnums.ToastType.Error);
                 }
@@ -769,6 +779,74 @@ namespace KalyanamMatrimony.Controllers
             }
 
             return RedirectToAction("NotFound", "Error");
+        }
+
+        [Authorize(Roles = "SuperAdmin, Admin")]
+        [HttpPost]
+        public async Task<IActionResult> DeleteProfile(string userId)
+        {
+            string userIds = HttpContext.Request.Query["userId"].ToString();
+            if (string.IsNullOrEmpty(userId))
+            {
+                ModelState.AddModelError(string.Empty, "Invalid Request");
+                return RedirectToAction("ViewProfile", "Profile", new { id = userId });
+            }
+            else
+            {
+                var user = await userManager.FindByIdAsync(userId);
+                if (user == null)
+                {
+                    return RedirectToAction("NotFound", "Error", new { statusCode = 404 });
+                }
+                else
+                {
+                    //Get User and Profile Details
+                    var profile = matrimonyRepository.GetProfileByUserId(userId);
+
+                    //Delete images - DONE
+                    if (!string.IsNullOrEmpty(profile.Photo1))
+                    {
+                        DeleteImage(profile.Photo1);
+                    }
+                    if (!string.IsNullOrEmpty(profile.Photo2))
+                    {
+                        DeleteImage(profile.Photo2);
+                    }
+                    if (!string.IsNullOrEmpty(profile.Photo3))
+                    {
+                        DeleteImage(profile.Photo3);
+                    }
+
+                    //Delete Profile
+                    matrimonyRepository.DeleteProfileById(profile.ProfileId);
+                    //Delete UserRole
+                    var roles = await userManager.GetRolesAsync(user);
+                    var result = await userManager.RemoveFromRolesAsync(user, roles);
+                    if (!result.Succeeded)
+                    {
+                        logger.Log(LogLevel.Error, "Cannot remove user existing roles");
+                        ModelState.AddModelError("", "Cannot remove user existing roles");
+                        return RedirectToAction("NotFound", "Error", new { statusCode = 404 });
+                    }
+                    else
+                    {
+                        //Delete User
+                        var resultUser = await userManager.DeleteAsync(user);
+
+                        if (!resultUser.Succeeded)
+                        {
+                            logger.Log(LogLevel.Error, "Cannot remove user");
+                            ModelState.AddModelError("", "Cannot remove user");
+                            return RedirectToAction("NotFound", "Error", new { statusCode = 404 });
+                        }
+                        else
+                        {
+                            ToasterServiceCreate("Profile deleted successfully", CustomEnums.ToastType.Success);
+                            return RedirectToAction("index", "profile");
+                        }
+                    }
+                }
+            }
         }
     }
 }

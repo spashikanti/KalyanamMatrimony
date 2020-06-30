@@ -26,6 +26,11 @@ namespace KalyanamMatrimony
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            var emailConfig = _config
+                            .GetSection("EmailConfiguration")
+                            .Get<EmailConfiguration>();
+            services.AddSingleton(emailConfig);
+
             services.AddDbContextPool<AppDbContext>(options =>  
                 options.UseMySql(_config.GetConnectionString("MatrimonyDBConnection"))
             );

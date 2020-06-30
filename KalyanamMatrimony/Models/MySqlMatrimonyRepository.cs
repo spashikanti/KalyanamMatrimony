@@ -75,5 +75,12 @@ namespace KalyanamMatrimony.Models
             context.SaveChanges();
             return profile;
         }
+
+        public int DeleteProfileById(string profileId)
+        {
+            var profile = GetProfileById(profileId);
+            context.Profiles.Remove(profile);
+            return context.SaveChanges();
+        }
     }
 }

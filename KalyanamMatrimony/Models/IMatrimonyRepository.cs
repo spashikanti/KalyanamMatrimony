@@ -12,5 +12,6 @@ namespace KalyanamMatrimony.Models
         Profile Update(Profile profile);
         IEnumerable<Profile> GetActiveProfiles(IQueryable<ApplicationUser> userList);
         IEnumerable<Profile> GetDeActivedProfiles(IQueryable<ApplicationUser> userList);
+        int DeleteProfileById(string profileId);
     }
 }

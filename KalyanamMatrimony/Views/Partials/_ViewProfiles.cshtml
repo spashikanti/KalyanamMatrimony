@@ -63,7 +63,7 @@
                             <td>
                                 @Html.ActionLink("Edit", "EditProfile", new { id = item.ProfileId }) |
                                 @Html.ActionLink("View", "ViewProfile", new { id = item.ProfileId }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
+                                @Html.ActionLink("Delete", "ViewProfile", new { id = item.ProfileId, userId = item.UserId })
                             </td>
                         </tr>
                     }
