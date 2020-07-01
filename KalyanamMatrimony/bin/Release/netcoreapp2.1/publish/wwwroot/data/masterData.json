@@ -1,0 +1,295 @@
+{
+  "FileSizeLimit": "102400",
+  "MaritalStatus": [
+    {
+      "item": "Single"
+    },
+    {
+      "item": "Separated"
+    },
+    {
+      "item": "Divorced"
+    },
+    {
+      "item": "Widowed"
+    }
+  ],
+
+  "BodyType": [
+    {
+      "item": "Athletic"
+    },
+    {
+      "item": "Average"
+    },
+    {
+      "item": "Heavy"
+    },
+    {
+      "item": "Slim"
+    }
+  ],
+
+  "Height": [
+    { "item": "4.1" },
+    { "item": "4.2" },
+    { "item": "4.3" },
+    { "item": "4.4" },
+    { "item": "4.5" },
+    { "item": "4.6" },
+    { "item": "4.7" },
+    { "item": "4.8" },
+    { "item": "4.9" },
+    { "item": "4.10" },
+    { "item": "4.11" },
+    { "item": "5" },
+    { "item": "5.1" },
+    { "item": "5.2" },
+    { "item": "5.3" },
+    { "item": "5.4" },
+    { "item": "5.5" },
+    { "item": "5.6" },
+    { "item": "5.7" },
+    { "item": "5.8" },
+    { "item": "5.9" },
+    { "item": "5.10" },
+    { "item": "5.11" },
+    { "item": "6" },
+    { "item": "6.1" },
+    { "item": "6.2" },
+    { "item": "6.3" },
+    { "item": "6.4" },
+    { "item": "6.5" },
+    { "item": "6.6" },
+    { "item": "6.7" },
+    { "item": "6.8" },
+    { "item": "6.9" },
+    { "item": "6.10" },
+    { "item": "6.11" },
+    { "item": "7" }
+  ],
+
+  "Complexion": [
+    { "item": "Dark" },
+    { "item": "Medium" },
+    { "item": "Fair" },
+    { "item": "Very Fair" },
+    { "item": "Wheatish" }
+  ],
+
+  "MotherTongue": [
+    { "item": "Hindi" },
+    { "item": "Bengali" },
+    { "item": "Marathi" },
+    { "item": "Telugu" },
+    { "item": "Tamil" },
+    { "item": "Gujarati" },
+    { "item": "Urdu" },
+    { "item": "Kannada" },
+    { "item": "Odia" },
+    { "item": "Malayalam" },
+    { "item": "Punjabi" },
+    { "item": "Assamese" },
+    { "item": "Maithili" },
+    { "item": "Bhili/Bhilodi" },
+    { "item": "Santali" },
+    { "item": "Kashmiri" },
+    { "item": "Gondi" },
+    { "item": "Nepali" },
+    { "item": "Sindhi" },
+    { "item": "Dogri" },
+    { "item": "Konkani" },
+    { "item": "Kurukh" },
+    { "item": "Khandeshi" },
+    { "item": "Tulu" },
+    { "item": "Meitei (Manipuri)" },
+    { "item": "Bodo" },
+    { "item": "Khasi" },
+    { "item": "Ho" },
+    { "item": "Garo" },
+    { "item": "Mundari" },
+    { "item": "Tripuri" }
+  ],
+
+  "BloodGroup": [
+    { "item": "A+" },
+    { "item": "A-" },
+    { "item": "B+" },
+    { "item": "B-" },
+    { "item": "O+" },
+    { "item": "O-" },
+    { "item": "AB+" },
+    { "item": "AB-" }
+  ],
+
+  "Diet": [
+    { "item": "Veg" },
+    { "item": "Non-Veg" }
+  ],
+
+  "Smoke": [
+    { "item": "No" },
+    { "item": "Yes" },
+    { "item": "Occassionally" }
+  ],
+
+  "Drink": [
+    { "item": "No" },
+    { "item": "Yes" },
+    { "item": "Occassionally" }
+  ],
+
+  "FamilyValues": [
+    { "item": "Traditional" },
+    { "item": "Moderate" },
+    { "item": "Liberal" },
+    { "item": "Orthodox" }
+  ],
+
+  "Rasi": [
+    { "item": "Aries" },
+    { "item": "Taurus" },
+    { "item": "Gemini" },
+    { "item": "Cancer" },
+    { "item": "Leo" },
+    { "item": "Virgo" },
+    { "item": "Libra" },
+    { "item": "Scorpio" },
+    { "item": "Saggitarius" },
+    { "item": "Capricorn" },
+    { "item": "Aquarius" },
+    { "item": "Pisces" }
+  ],
+
+  "Nakshatram": [
+    { "item": "Anuradha" },
+    { "item": "Ardra" },
+    { "item": "Ashlesha" },
+    { "item": "Ashvini" },
+    { "item": "Bharani" },
+    { "item": "Chitra" },
+    { "item": "Dhanishtha" },
+    { "item": "Hasta" },
+    { "item": "Jyeshtha" },
+    { "item": "Krittika" },
+    { "item": "Magha" },
+    { "item": "Mrigashirsha" },
+    { "item": "Mula" },
+    { "item": "Punarvasu" },
+    { "item": "Purva Ashadha" },
+    { "item": "Purva Bhadrapada" },
+    { "item": "Purva Phalguni" },
+    { "item": "Pushya" },
+    { "item": "Revati" },
+    { "item": "Rohini" },
+    { "item": "Shatabhisha" },
+    { "item": "Shravana" },
+    { "item": "Swati" },
+    { "item": "Uttara Ashadha" },
+    { "item": "Uttara Bhadrapada" },
+    { "item": "Uttara Phalguni" },
+    { "item": "Vishakha" }
+  ],
+
+  "Religion": [
+    {
+      "item": "Hindu",
+      "Caste": [
+        { "item": "Adaviyar" },
+        { "item": "Adi Dravidar" },
+        { "item": "Arunthathiyar" },
+        { "item": "Badaga" },
+        { "item": "Boyar" },
+        { "item": "Brahmin - All" },
+        { "item": "Brahmin - Gurukkal" },
+        { "item": "Brahmin - Iyengar" },
+        { "item": "Brahmin - Iyer" },
+        { "item": "Brahmin - Others " },
+        { "item": "Caste no bar " },
+        { "item": "Chattada Sri Vaishnava" },
+        { "item": "Chettiar" },
+        { "item": "Devandra Kula Vellalar" },
+        { "item": "Devar/Thevar/Mukkulathor" },
+        { "item": "Gounder" },
+        { "item": "Gramani" },
+        { "item": "Intercaste" },
+        { "item": "Karuneegar" },
+        { "item": "Krishnavaka" },
+        { "item": "Kulalar" },
+        { "item": "Kuravan" },
+        { "item": "Kurumbar" },
+        { "item": "Maruthuvar" },
+        { "item": "Meenavar" },
+        { "item": "Mudaliyar" },
+        { "item": "Muthuraja" },
+        { "item": "Nadar" },
+        { "item": "Naicker" },
+        { "item": "Naidu" },
+        { "item": "Padmashali" },
+        { "item": "Pandaram" },
+        { "item": "Parkava Kulam" },
+        { "item": "Pillai" },
+        { "item": "Reddiar" },
+        { "item": "SC" },
+        { "item": "ST" },
+        { "item": "Senai Thalaivar" },
+        { "item": "Sourashtra" },
+        { "item": "Valluvan" },
+        { "item": "Vannar" },
+        { "item": "Vannia Kula Kshatriyar" },
+        { "item": "Veera Saivam" },
+        { "item": "Vellalar" },
+        { "item": "Vishwakarma" },
+        { "item": "Vokkaliga" },
+        { "item": "Yadav" },
+        { "item": "Maravar" },
+        { "item": "Ezhava-Thiyya" },
+        { "item": "Others" }
+      ]
+    },
+    {
+      "item": "Muslim",
+      "Caste": [
+        { "item": "Muslim" },
+        { "item": "Others" }
+      ]
+    },
+    {
+      "item": "Christian",
+      "Caste": [
+        { "item": "Catholic" },
+        { "item": "Orthodox" },
+        { "item": "Protestant" },
+        { "item": "Others" }
+      ]
+    },
+    {
+      "item": "Jain",
+      "Caste": [
+        { "item": "Digambar" },
+        { "item": "Shwetambar" },
+        { "item": "Others" }
+      ]
+    },
+    {
+      "item": "Parsi",
+      "Caste": [
+        { "item": "Parsi" },
+        { "item": "Others" }
+      ]
+    },
+    {
+      "item": "Buddhist",
+      "Caste": [
+        { "item": "Buddhist" },
+        { "item": "Others" }
+      ]
+    },
+    {
+      "item": "Inter-Religion",
+      "Caste": [
+
+      ]
+    }
+  ]
+}

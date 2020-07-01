@@ -17,7 +17,7 @@
     "optimize": false,
     "keyFile": "",
     "emitEntryPoint": true,
-    "xmlDoc": false,
+    "xmlDoc": true,
     "debugType": "portable"
   },
   "targets": {
@@ -28,7 +28,7 @@
           "Microsoft.AspNetCore.Razor.Design": "2.1.2",
           "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.1.10",
-          "NETCore.MailKit": "2.0.2",
+          "NETCore.MailKit": "1.1.0",
           "NLog.Web.AspNetCore": "4.9.2",
           "Pomelo.EntityFrameworkCore.MySql": "2.1.4"
         },
@@ -39,14 +39,13 @@
           "KalyanamMatrimony.dll": {}
         }
       },
-      "MailKit/2.0.1": {
+      "MailKit/1.16.1": {
         "dependencies": {
-          "MimeKit": "2.0.1",
+          "MimeKit": "1.16.1",
           "NETStandard.Library": "2.0.3",
-          "Portable.BouncyCastle": "1.8.1.3",
+          "Portable.BouncyCastle": "1.8.1.2",
           "System.Data.Common": "4.3.0",
           "System.Globalization.Extensions": "4.3.0",
-          "System.Net.Http": "4.3.0",
           "System.Net.NameResolution": "4.3.0",
           "System.Net.NetworkInformation": "4.3.0",
           "System.Net.Security": "4.3.0",
@@ -55,13 +54,13 @@
           "System.Text.Encoding.CodePages": "4.5.0"
         },
         "runtime": {
-          "lib/netstandard2.0/MailKit.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.1.0"
+          "lib/netstandard1.3/MailKit.dll": {
+            "assemblyVersion": "1.16.0.0",
+            "fileVersion": "1.16.1.0"
           }
         },
         "compile": {
-          "lib/netstandard2.0/MailKit.dll": {}
+          "lib/netstandard1.3/MailKit.dll": {}
         }
       },
       "Microsoft.AspNetCore.Razor.Design/2.1.2": {},
@@ -276,13 +275,12 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "MimeKit/2.0.1": {
+      "MimeKit/1.16.1": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
-          "Portable.BouncyCastle": "1.8.1.3",
+          "Portable.BouncyCastle": "1.8.1.2",
           "System.Data.Common": "4.3.0",
           "System.Globalization.Extensions": "4.3.0",
-          "System.Net.Http": "4.3.0",
           "System.Net.NameResolution": "4.3.0",
           "System.Net.NetworkInformation": "4.3.0",
           "System.Reflection.TypeExtensions": "4.3.0",
@@ -290,13 +288,13 @@
           "System.Text.Encoding.CodePages": "4.5.0"
         },
         "runtime": {
-          "lib/netstandard2.0/MimeKit.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.1.0"
+          "lib/netstandard1.3/MimeKit.dll": {
+            "assemblyVersion": "1.16.0.0",
+            "fileVersion": "1.16.1.0"
           }
         },
         "compile": {
-          "lib/netstandard2.0/MimeKit.dll": {}
+          "lib/netstandard1.3/MimeKit.dll": {}
         }
       },
       "MySqlConnector/0.47.1": {
@@ -310,19 +308,20 @@
           "lib/netcoreapp2.1/MySqlConnector.dll": {}
         }
       },
-      "NETCore.MailKit/2.0.2": {
+      "NETCore.MailKit/1.1.0": {
         "dependencies": {
-          "MailKit": "2.0.1",
-          "Microsoft.Extensions.DependencyInjection": "2.1.1"
+          "MailKit": "1.16.1",
+          "Microsoft.Extensions.DependencyInjection": "2.1.1",
+          "Microsoft.NETCore.App": "2.1.0"
         },
         "runtime": {
-          "lib/netstandard2.0/NETCore.MailKit.dll": {
-            "assemblyVersion": "2.0.2.0",
-            "fileVersion": "2.0.2.0"
+          "lib/netcoreapp1.1/NETCore.MailKit.dll": {
+            "assemblyVersion": "1.1.0.0",
+            "fileVersion": "1.1.0.0"
           }
         },
         "compile": {
-          "lib/netstandard2.0/NETCore.MailKit.dll": {}
+          "lib/netcoreapp1.1/NETCore.MailKit.dll": {}
         }
       },
       "NLog/4.6.8": {
@@ -413,15 +412,18 @@
           "lib/netstandard2.0/Pomelo.JsonObject.dll": {}
         }
       },
-      "Portable.BouncyCastle/1.8.1.3": {
+      "Portable.BouncyCastle/1.8.1.2": {
+        "dependencies": {
+          "NETStandard.Library": "2.0.3"
+        },
         "runtime": {
-          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {
+          "lib/netstandard1.3/BouncyCastle.Crypto.dll": {
             "assemblyVersion": "1.8.1.0",
-            "fileVersion": "1.8.1.146"
+            "fileVersion": "1.8.1.0"
           }
         },
         "compile": {
-          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {}
+          "lib/netstandard1.3/BouncyCastle.Crypto.dll": {}
         }
       },
       "Remotion.Linq/2.2.0": {
@@ -3790,12 +3792,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "MailKit/2.0.1": {
+    "MailKit/1.16.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-eRzHd5EN+ST3hGUED4QH44nINxnALQbFozPDVlZODydIWgYO19+m6/txvbV69qF4cpjXwlxO7ivpIcB+/97X2A==",
-      "path": "mailkit/2.0.1",
-      "hashPath": "mailkit.2.0.1.nupkg.sha512"
+      "sha512": "sha512-1X68UT4Nx9RmItCM9nkUGIYAsYLMghCQ+bm1ZOlkYTrobvx8KbyvH7C99Us0gISbbcWNIMo0lroV0wIjCi6w2g==",
+      "path": "mailkit/1.16.1",
+      "hashPath": "mailkit.1.16.1.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Razor.Design/2.1.2": {
       "type": "package",
@@ -3909,12 +3911,12 @@
       "path": "microsoft.win32.primitives/4.3.0",
       "hashPath": "microsoft.win32.primitives.4.3.0.nupkg.sha512"
     },
-    "MimeKit/2.0.1": {
+    "MimeKit/1.16.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-b71yNg43rxCjg9YJyHdHIYLLken8cwg05AcqzM+paLkqD6hbWCJ8zfcb7b0g0kCLfcIqvv9meHzUWJpEciyC9Q==",
-      "path": "mimekit/2.0.1",
-      "hashPath": "mimekit.2.0.1.nupkg.sha512"
+      "sha512": "sha512-5d0AImzeQ3VCpLuo3BHRTogmSxZ6LQMklNg0JHzVylgqeenogX47JAK6s9P1DcEUW7EHeWcHW07fASC4HmKbWg==",
+      "path": "mimekit/1.16.1",
+      "hashPath": "mimekit.1.16.1.nupkg.sha512"
     },
     "MySqlConnector/0.47.1": {
       "type": "package",
@@ -3923,12 +3925,12 @@
       "path": "mysqlconnector/0.47.1",
       "hashPath": "mysqlconnector.0.47.1.nupkg.sha512"
     },
-    "NETCore.MailKit/2.0.2": {
+    "NETCore.MailKit/1.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Hs5PBogh0AGAbitU4BlTbDg7tG71Q+HL8H0V60TDxGypXV1FFQ7EkRE/lcIz5CwTjonMKH4H0xXk/9jmuGFvig==",
-      "path": "netcore.mailkit/2.0.2",
-      "hashPath": "netcore.mailkit.2.0.2.nupkg.sha512"
+      "sha512": "sha512-oJwL84MfzEy1TwKMgqPhulgh5JpzQGD/gEq8lIbt2hfm2YOYSORbmwU/KY0DZdkHSIRF1E+XO9gIqMGzXLYXWQ==",
+      "path": "netcore.mailkit/1.1.0",
+      "hashPath": "netcore.mailkit.1.1.0.nupkg.sha512"
     },
     "NLog/4.6.8": {
       "type": "package",
@@ -3972,12 +3974,12 @@
       "path": "pomelo.jsonobject/2.0.0",
       "hashPath": "pomelo.jsonobject.2.0.0.nupkg.sha512"
     },
-    "Portable.BouncyCastle/1.8.1.3": {
+    "Portable.BouncyCastle/1.8.1.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-1jUpszv0ETm+hl78HKnYgY3wPzt6qRtjxaPENNrGCuB8nondbR/j75WAKdd6sxXzOzBcX07WMZhZEYc4s5jVWg==",
-      "path": "portable.bouncycastle/1.8.1.3",
-      "hashPath": "portable.bouncycastle.1.8.1.3.nupkg.sha512"
+      "sha512": "sha512-G0pWrYwtjjiyka+twqqphegc4ddDWskvf2uWu2YiAUNdaAz0UYa/eXBlt+xjafby5Opa6J1ySw5MPezwiGi9aQ==",
+      "path": "portable.bouncycastle/1.8.1.2",
+      "hashPath": "portable.bouncycastle.1.8.1.2.nupkg.sha512"
     },
     "Remotion.Linq/2.2.0": {
       "type": "package",
