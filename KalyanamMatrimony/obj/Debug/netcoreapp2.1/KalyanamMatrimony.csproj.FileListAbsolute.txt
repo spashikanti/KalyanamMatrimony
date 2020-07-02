@@ -254,7 +254,8 @@ C:\Development\AspNetWebCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debu
 C:\Development\AspNetWebCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.pdb
 C:\Development\AspNetWebCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.genruntimeconfig.cache
 C:\Development\AspNetWebCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.csproj.CopyComplete
-F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.csprojAssemblyReference.cache
 C:\Development\AspNetWebCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Partials\_ProfilePicCarousel.cshtml.g.cs
 C:\Development\AspNetWebCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.csprojAssemblyReference.cache
 C:\Development\AspNetWebCore\Branch\KalyanamMatrimony\KalyanamMatrimony\bin\Debug\netcoreapp2.1\KalyanamMatrimony.xml
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\bin\Debug\netcoreapp2.1\KalyanamMatrimony.xml
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Partials\_ProfilePicCarousel.cshtml.g.cs

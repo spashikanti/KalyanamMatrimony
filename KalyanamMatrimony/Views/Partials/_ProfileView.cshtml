@@ -8,86 +8,85 @@
     string userId = Context.Request.Query["userId"].ToString();
 }
 
-<div class=" shadow-lg border-0 rounded-lg" style="width:100%">
-    <div class="card-header">
-        <div class="row">
-            <div class="col-sm-8">
-                <h5 class="card-title">
-                    <strong>
-                        @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)
-                    </strong>- @Html.DisplayFor(model => model.ProfileId) </h5>
-            </div>
-            <div class="col-sm-4">
-                @if (userId == string.Empty)
-                {
-                    <a class="btn btn-success" asp-controller="profile" asp-action="Search">
-                        Search Profiles
-                    </a>
-                }
-                else
-                {
-                    <a href="#" class="btn btn-danger" onclick="getProfileDetails(this)"
-                       data-toggle="modal" data-target="#deleteModal"
-                       data-id="@Model.UserId" data-fullname="@Model.FirstName @Model.LastName">
-                        Delete Profile
-                    </a>
-                }
-
-            </div>
-        </div>
-    </div>
-    <div class="card-body">
-        <p class="card-text" data-aos="fade-right">
-            @Html.DisplayFor(model => model.AboutYourself)
-        </p>
-        <div class="card-group">
-            <div>
-                <div class="card-body" style="width:312px; height:auto">
-                    <img class="img-fluid" id="imgProfile1" src="@photoPath1" asp-append-version="true" data-aos="fade-right" />
+    <div class="card shadow-lg border-0 rounded-lg" style="width:100%">
+        <div class="card-header bg-dark text-white">
+            <div class="row">
+                <div class="col-md-10">
+                    <h5 class="text-white">
+                        <strong>
+                            @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)
+                        </strong>- @Html.DisplayFor(model => model.ProfileId)
+                    </h5>
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <ul data-aos="fade-right">
-                        <li><i class="icofont-rounded-right"></i> <strong>Age:</strong> @Html.DisplayFor(model => model.Age)</li>
-                        <li><i class="icofont-rounded-right"></i> <strong>Gender:</strong> @Html.DisplayFor(model => model.Gender)</li>
-                        <li><i class="icofont-rounded-right"></i> <strong>Marital Status:</strong> @Html.DisplayFor(model => model.MaritalStatus)</li>
-                        <li><i class="icofont-rounded-right"></i> <strong>Body Type:</strong> @Html.DisplayFor(model => model.BodyType)</li>
-                    </ul>
-                    <ul data-aos="fade-right">
-                        <li><i class="icofont-rounded-right"></i> <strong>Mother Tongue:</strong> @Html.DisplayFor(model => model.MotherTongue)</li>
-                        <li><i class="icofont-rounded-right"></i> <strong>Blood Group:</strong> @Html.DisplayFor(model => model.BloodGroup)</li>
-                        <li><i class="icofont-rounded-right"></i> <strong>Religion:</strong> @Html.DisplayFor(model => model.Religion)</li>
-                        <li><i class="icofont-rounded-right"></i> <strong>Caste:</strong> @Html.DisplayFor(model => model.Caste)</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <ul data-aos="fade-left">
-                        <li><i class="icofont-rounded-right"></i> <strong>Birthday:</strong> @Html.DisplayFor(model => model.strDateOfBirth)</li>
-                        <li><i class="icofont-rounded-right"></i> <strong>Height:</strong> @Html.DisplayFor(model => model.Height)</li>
-                        <li><i class="icofont-rounded-right"></i> <strong>Have Children:</strong> @Html.DisplayFor(model => model.strHaveChildren)</li>
-                        <li><i class="icofont-rounded-right"></i> <strong>Complexion:</strong> @Html.DisplayFor(model => model.Complexion)</li>
-                    </ul>
-                    <ul data-aos="fade-left">
-                        <li><i class="icofont-rounded-right"></i> <strong>Spoken Languages:</strong> @Html.DisplayFor(model => model.SpokenLanguages)</li>
-                        <li><i class="icofont-rounded-right"></i> <strong>Current Location:</strong> @Html.DisplayFor(model => model.CurrentLocation)</li>
-                        <li><i class="icofont-rounded-right"></i> <strong>Sub Caste:</strong> @Html.DisplayFor(model => model.SubCaste)</li>
-                    </ul>
+                <div class="col-md-2">
+                    @if (userId == string.Empty)
+                    {
+                        <a class="btn btn-success" asp-controller="profile" asp-action="Search">
+                            <strong>Search Profiles</strong>
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="#" class="btn btn-danger" onclick="getProfileDetails(this)"
+                           data-toggle="modal" data-target="#deleteModal"
+                           data-id="@Model.UserId" data-fullname="@Model.FirstName @Model.LastName">
+                            <strong>Delete Profile</strong>
+                        </a>
+                    }
                 </div>
             </div>
         </div>
+        
+        <div class="card-body">
+            <p class="card-text" data-aos="fade-right">
+                @Html.DisplayFor(model => model.AboutYourself)
+            </p>
+            <div class="card-group">
+                <div>
+                    <div class="card-body" style="width:312px; height:auto">
+                        <img class="img-fluid" id="imgProfile1" src="@photoPath1" asp-append-version="true" data-aos="fade-right" />
+                    </div>
+                </div>
+                <div class="card border-dark mb-3">
+                    <div class="card-body">
+                        <ul data-aos="fade-right">
+                            <li><i class="icofont-rounded-right"></i> <strong>Age:</strong> @Html.DisplayFor(model => model.Age)</li>
+                            <li><i class="icofont-rounded-right"></i> <strong>Gender:</strong> @Html.DisplayFor(model => model.Gender)</li>
+                            <li><i class="icofont-rounded-right"></i> <strong>Marital Status:</strong> @Html.DisplayFor(model => model.MaritalStatus)</li>
+                            <li><i class="icofont-rounded-right"></i> <strong>Body Type:</strong> @Html.DisplayFor(model => model.BodyType)</li>
+                        </ul>
+                        <ul data-aos="fade-right">
+                            <li><i class="icofont-rounded-right"></i> <strong>Mother Tongue:</strong> @Html.DisplayFor(model => model.MotherTongue)</li>
+                            <li><i class="icofont-rounded-right"></i> <strong>Blood Group:</strong> @Html.DisplayFor(model => model.BloodGroup)</li>
+                            <li><i class="icofont-rounded-right"></i> <strong>Religion:</strong> @Html.DisplayFor(model => model.Religion)</li>
+                            <li><i class="icofont-rounded-right"></i> <strong>Caste:</strong> @Html.DisplayFor(model => model.Caste)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card border-dark mb-3">
+                    <div class="card-body">
+                        <ul data-aos="fade-left">
+                            <li><i class="icofont-rounded-right"></i> <strong>Birthday:</strong> @Html.DisplayFor(model => model.strDateOfBirth)</li>
+                            <li><i class="icofont-rounded-right"></i> <strong>Height:</strong> @Html.DisplayFor(model => model.Height)</li>
+                            <li><i class="icofont-rounded-right"></i> <strong>Have Children:</strong> @Html.DisplayFor(model => model.strHaveChildren)</li>
+                            <li><i class="icofont-rounded-right"></i> <strong>Complexion:</strong> @Html.DisplayFor(model => model.Complexion)</li>
+                        </ul>
+                        <ul data-aos="fade-left">
+                            <li><i class="icofont-rounded-right"></i> <strong>Spoken Languages:</strong> @Html.DisplayFor(model => model.SpokenLanguages)</li>
+                            <li><i class="icofont-rounded-right"></i> <strong>Current Location:</strong> @Html.DisplayFor(model => model.CurrentLocation)</li>
+                            <li><i class="icofont-rounded-right"></i> <strong>Sub Caste:</strong> @Html.DisplayFor(model => model.SubCaste)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 
 <section id="allSections" style="margin-top:10px;">
     <div class="card-columns">
         <div class="card shadow-lg border-0 rounded-lg">
-            <div class="card-header py-3">
-                <div class="section-title">
+            <div class="card-header py-3 bg-primary text-white">
                     <strong>Education Details</strong>
-                </div>
             </div>
             <div class="card-body">
                 <div class="col-lg-12 pt-4 pt-lg-0 content" data-aos="fade-left">
@@ -109,10 +108,8 @@
             </div>
         </div>
         <div class="card shadow-lg border-0 rounded-lg">
-            <div class="card-header py-3">
-                <div class="section-title">
+            <div class="card-header py-3 bg-dark text-white">
                     <strong>Hobbies</strong>
-                </div>
             </div>
             <div class="card-body">
                 <div class="col-lg-12 pt-4 pt-lg-0 content" data-aos="fade-left">
@@ -121,10 +118,8 @@
             </div>
         </div>
         <div class="card shadow-lg border-0 rounded-lg">
-            <div class="card-header py-3">
-                <div class="section-title">
+            <div class="card-header py-3 bg-success text-white">
                     <strong>Favorite Music</strong>
-                </div>
             </div>
             <div class="card-body">
                 <div class="col-lg-12 pt-4 pt-lg-0 content" data-aos="fade-left">
@@ -133,10 +128,8 @@
             </div>
         </div>
         <div class="card shadow-lg border-0 rounded-lg">
-            <div class="card-header py-3">
-                <div class="section-title">
+            <div class="card-header py-3 bg-primary text-white">
                     <strong>Family Details</strong>
-                </div>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -163,10 +156,8 @@
             </div>
         </div>
         <div class="card shadow-lg border-0 rounded-lg">
-            <div class="card-header py-3">
-                <div class="section-title">
+            <div class="card-header py-3 bg-dark text-white">
                     <strong>Favorite Movies</strong>
-                </div>
             </div>
             <div class="card-body">
                 <div class="col-lg-12 pt-4 pt-lg-0 content" data-aos="fade-left">
@@ -175,10 +166,8 @@
             </div>
         </div>
         <div class="card shadow-lg border-0 rounded-lg">
-            <div class="card-header py-3">
-                <div class="section-title">
+            <div class="card-header py-3 bg-success text-white">
                     <strong>Favorite Cuisine</strong>
-                </div>
             </div>
             <div class="card-body">
                 <div class="col-lg-12 pt-4 pt-lg-0 content" data-aos="fade-left">
@@ -187,10 +176,8 @@
             </div>
         </div>
         <div class="card shadow-lg border-0 rounded-lg">
-            <div class="card-header py-3">
-                <div class="section-title">
+            <div class="card-header py-3 bg-primary text-white">
                     <strong>Sports</strong>
-                </div>
             </div>
             <div class="card-body">
                 <div class="col-lg-12 pt-4 pt-lg-0 content" data-aos="fade-left">
@@ -199,10 +186,8 @@
             </div>
         </div>
         <div class="card shadow-lg border-0 rounded-lg">
-            <div class="card-header py-3">
-                <div class="section-title">
+            <div class="card-header py-3 bg-dark text-white">
                     <strong>Preferred Dress</strong>
-                </div>
             </div>
             <div class="card-body">
                 <div class="col-lg-12 pt-4 pt-lg-0 content" data-aos="fade-left">
@@ -211,10 +196,8 @@
             </div>
         </div>
         <div class="card shadow-lg border-0 rounded-lg">
-            <div class="card-header py-3">
-                <div class="section-title">
+            <div class="card-header py-3 bg-success text-white">
                     <strong>Horoscope</strong>
-                </div>
             </div>
             <div class="card-body">
                 <div class="col-lg-12 pt-4 pt-lg-0 content" data-aos="fade-left">
@@ -329,3 +312,4 @@
         $(".modal-body #userFullName").html(fullName);
     }
 </script>
+

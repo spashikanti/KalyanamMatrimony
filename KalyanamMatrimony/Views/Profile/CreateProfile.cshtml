@@ -8,13 +8,13 @@
 <input type="hidden" id="hdFileSizeLimit" />
 <div class="container-fluid">
     <div class="card shadow-lg border-0 rounded-lg">
-        <div class="card-header py-3">
+        <div class="card-header bg-primary text-white">
             <div class="row">
                 <div class="col-md-10">
-                    <h6 class="m-0 font-weight-bold text-primary">@ViewBag.Title</h6>
+                    <h5 class="font-weight-bold text-white">@ViewBag.Title</h5>
                 </div>
                 <div class="col-md-2">
-                    <a class="btn btn-success" asp-controller="profile" asp-action="index">View Profiles</a>
+                    <a class="btn btn-success" asp-controller="profile" asp-action="index"><strong>View Profiles</strong></a>
                 </div>
             </div>
         </div>
@@ -195,8 +195,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             @*<label asp-for="Caste" class="small mb-1"></label>
-                                                <input asp-for="Caste" class="form-control" placeholder="Enter Caste" />
-                                                <span asp-validation-for="Caste" class="text-danger"></span>*@
+                                            <input asp-for="Caste" class="form-control" placeholder="Enter Caste" />
+                                            <span asp-validation-for="Caste" class="text-danger"></span>*@
 
                                             <label asp-for="Caste" class="small mb-1"></label>
                                             <select asp-for="Caste" class="custom-select mr-sm-2"></select>
@@ -475,8 +475,8 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             @*<label asp-for="Nakshatram" class="small mb-1"></label>
-                                                <input asp-for="Nakshatram" class="form-control " placeholder="Enter Nakshatram" />
-                                                <span asp-validation-for="Nakshatram" class="text-danger"></span>*@
+                                            <input asp-for="Nakshatram" class="form-control " placeholder="Enter Nakshatram" />
+                                            <span asp-validation-for="Nakshatram" class="text-danger"></span>*@
 
                                             <label asp-for="Nakshatram" class="small mb-1"></label>
                                             <select asp-for="Nakshatram" class="custom-select mr-sm-2"></select>
@@ -569,7 +569,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-primary btn-block" id="btnCreateProfile">Save Profile</button>
+                                                <button type="submit" class="btn btn-success btn-block" id="btnCreateProfile">
+                                                    <strong>Save Profile</strong></button>
                                             </div>
                                         </div>
                                     </div>

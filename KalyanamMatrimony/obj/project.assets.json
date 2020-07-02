@@ -13473,27 +13473,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\developer\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Sunil\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Development\\AspNetWebCore\\Branch\\KalyanamMatrimony\\KalyanamMatrimony\\KalyanamMatrimony.csproj",
+      "projectUniqueName": "F:\\Sunil\\Development\\AspNetCore\\Branch\\KalyanamMatrimony\\KalyanamMatrimony\\KalyanamMatrimony.csproj",
       "projectName": "KalyanamMatrimony",
-      "projectPath": "C:\\Development\\AspNetWebCore\\Branch\\KalyanamMatrimony\\KalyanamMatrimony\\KalyanamMatrimony.csproj",
-      "packagesPath": "C:\\Users\\developer\\.nuget\\packages\\",
-      "outputPath": "C:\\Development\\AspNetWebCore\\Branch\\KalyanamMatrimony\\KalyanamMatrimony\\obj\\",
+      "projectPath": "F:\\Sunil\\Development\\AspNetCore\\Branch\\KalyanamMatrimony\\KalyanamMatrimony\\KalyanamMatrimony.csproj",
+      "packagesPath": "C:\\Users\\Sunil\\.nuget\\packages\\",
+      "outputPath": "F:\\Sunil\\Development\\AspNetCore\\Branch\\KalyanamMatrimony\\KalyanamMatrimony\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\",
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\developer\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\Sunil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.1"

@@ -4,20 +4,22 @@
     string dataTableName = (string)ViewData["DataTable"];
 }
 
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
+<div class="card shadow mb-4 border-primary">
+    <div class="card-header bg-primary text-white">
         <div class="row">
             <div class="col-md-10">
-                <h6 class="m-0 font-weight-bold text-primary">Profiles</h6>
+                <h5 class="font-weight-bold text-white">Search Profiles</h5>
             </div>
             <div class="col-md-2">
-                <a class="btn btn-success" asp-controller="profile" asp-action="createprofile">Create Profile</a>
+                <a class="btn btn-success" asp-controller="profile" asp-action="createprofile">
+                    <strong>Create Profile</strong>
+                </a>
             </div>
         </div>
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="@dataTableName" width="100%" cellspacing="0">
+            <table class="table table-bordered border-dark" id="@dataTableName" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>@Html.DisplayNameFor(model => model.ProfileId)</th>
