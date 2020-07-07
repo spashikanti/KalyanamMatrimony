@@ -1,5 +1,6 @@
 ﻿using KalyanamMatrimony.Models;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -35,7 +36,7 @@ namespace KalyanamMatrimony
             })
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
-
+            
             ////To change the default access denied route
             //services.ConfigureApplicationCookie(options =>
             //{
@@ -43,7 +44,6 @@ namespace KalyanamMatrimony
             //});
 
             services.AddMvc().AddXmlSerializerFormatters();
-            services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
             services.AddScoped<IMatrimonyRepository, MySqlMatrimonyRepository>();
             services.AddScoped<IEmailSender, EmailSender>();
         }

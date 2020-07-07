@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using KalyanamMatrimony.Models;
 using KalyanamMatrimony.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Logging;
 using static KalyanamMatrimony.Models.CustomEnums;
 
@@ -18,18 +22,21 @@ namespace KalyanamMatrimony.Controllers
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly ILogger<AccountController> logger;
         private readonly IEmailSender emailSender;
+        private readonly IMatrimonyRepository matrimonyRepository;
 
         public AccountController(UserManager<ApplicationUser> userManager,
                                 SignInManager<ApplicationUser> signInManager,
                                 RoleManager<IdentityRole> roleManager,
                                 ILogger<AccountController> logger,
-                                IEmailSender emailSender)
+                                IEmailSender emailSender,
+                                IMatrimonyRepository matrimonyRepository)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.roleManager = roleManager;
             this.logger = logger;
             this.emailSender = emailSender;
+            this.matrimonyRepository = matrimonyRepository;
         }
 
         [AcceptVerbs("Get", "Post")]
@@ -356,6 +363,114 @@ namespace KalyanamMatrimony.Controllers
         [HttpGet]
         [AllowAnonymous]
         public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult SignUp()
+        {
+            //Get License Types, bind to SingUpViewModel
+            //SignUpViewModel signUpViewModel = new SignUpViewModel();
+            //signUpViewModel.LicenseTypes = new SelectList(new List<string>()); // empty list of anything...
+            //ViewBag.LicenseTypes = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(matrimonyRepository.GetAllLicenses(), "LicenseId", "Description");
+            ViewBag.LicenseTypes = matrimonyRepository.GetAllLicenses();
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> SignUp(SignUpViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Organisation org = new Organisation();
+
+                if (model.LicenseId > 0)
+                {
+                    //Calculate End Date for org end date
+                    License license = matrimonyRepository.GetLicenseById(model.LicenseId);
+                    var NoOfDays = license.MonthsCount * 31;//Converting to Number of Days
+                    org.EndDate = DateTime.Now.AddDays(NoOfDays);
+                }
+                
+                org.LicenseId = model.LicenseId;
+                org.OrgName = model.OrgName;
+                org.OrgDesc = model.OrgDesc;
+                org.FullName = model.FullName;
+                org.Phone = model.Phone;
+
+                //Insert Data Into Organisation table - get OrgId
+                var repoResult = matrimonyRepository.AddOrganisation(org);
+
+                if(repoResult == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Unable to create org");
+                    ToasterServiceCreate(model.OrgName + " unable to create org", CustomEnums.ToastType.Error);
+
+                    ViewBag.LicenseTypes = matrimonyRepository.GetAllLicenses();
+                    return View(model);
+                }
+
+                //Insert Data Into User Table with OrgId
+                //assign Role to user
+                var strRole = Enum.GetName(typeof(CustomEnums.CustomRole), model.UserRole);
+                var role = await roleManager.FindByNameAsync(strRole);
+                if (role == null)
+                {
+                    ModelState.AddModelError(string.Empty, $"Role = {strRole} not be found! Unable to add user");
+                    return View();
+                }
+
+                // Copy data from RegisterViewModel to IdentityUser
+                var user = new ApplicationUser();
+                user.UserName = model.Email;
+                user.Email = model.Email;
+                user.OrgId = repoResult.OrgId;
+                //No end date for admin, he should login for renewal
+
+                // Store user data in AspNetUsers database table
+                var result = await userManager.CreateAsync(user, model.Password);
+
+                // If user is successfully created, sign-in the user using
+                // SignInManager and redirect to index action of HomeController
+                if (result.Succeeded)
+                {
+                    var roleResult = await userManager.AddToRoleAsync(user, strRole);
+                    if (roleResult.Succeeded)
+                    {
+                        //Generate token for confirmation
+                        var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                        var confirmationLink = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, token = token }, Request.Scheme);
+
+                        // Log the password reset link
+                        logger.Log(LogLevel.Warning, confirmationLink);
+                        await SendEmail(model.Email, confirmationLink);
+
+                        ToasterServiceCreate("Please check your email and click on the confirmation link in the email shared by us.", CustomEnums.ToastType.Info);
+                        return RedirectToAction("acknowledge", "account");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Unable to Assign Role");
+                        ToasterServiceCreate(model.OrgName + " unable to signup", CustomEnums.ToastType.Error);
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Unable to Create User");
+                    ToasterServiceCreate(model.OrgName + " unable to signup", CustomEnums.ToastType.Error);
+                }
+            }
+
+            ViewBag.LicenseTypes = matrimonyRepository.GetAllLicenses();
+            return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Acknowledge()
         {
             return View();
         }

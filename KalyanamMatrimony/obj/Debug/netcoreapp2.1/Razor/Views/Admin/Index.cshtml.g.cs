@@ -85,7 +85,7 @@ using Microsoft.AspNetCore.Identity;
                 ");
             EndContext();
             BeginContext(523, 668, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "818b6f65da764d62965359461302bc85", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "01916f7e678a4b81b2a44a426e9114bc", async() => {
                 BeginContext(587, 332, true);
                 WriteLiteral(@"
                     <div class=""row no-gutters align-items-center"">
@@ -129,7 +129,7 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <!-- DeActivated Users Card -->\r\n    <div class=\"col-xl-3 col-md-6 mb-4\">\r\n        <div class=\"card border-left-success shadow h-100 py-2\">\r\n            <div class=\"card-body\">\r\n                ");
             EndContext();
             BeginContext(1441, 682, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1c147b9b0be94edeb48f22d12197022c", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fffdc7128d674ae2903879bcf4c7c260", async() => {
                 BeginContext(1505, 337, true);
                 WriteLiteral(@"
                     <div class=""row no-gutters align-items-center"">

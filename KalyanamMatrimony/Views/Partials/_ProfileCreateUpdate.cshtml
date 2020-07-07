@@ -1,9 +1,16 @@
 ﻿@model KalyanamMatrimony.ViewModels.EditUserProfileViewModel
 
 @{
-    var photoPath1 = "/images/" + (Model.ExistingPhotoPath1 ?? "noimageThumb400.jpg");
-    var photoPath2 = "/images/" + (Model.ExistingPhotoPath2 ?? "noimageThumb400.jpg");
-    var photoPath3 = "/images/" + (Model.ExistingPhotoPath3 ?? "noimageThumb400.jpg");
+    var photoPath1 = string.Empty;
+    var photoPath2 = string.Empty;
+    var photoPath3 = string.Empty;
+
+    if (Model != null)
+    {
+        photoPath1 = "/images/" + (Model.ExistingPhotoPath1 ?? "noimageThumb400.jpg");
+        photoPath2 = "/images/" + (Model.ExistingPhotoPath2 ?? "noimageThumb400.jpg");
+        photoPath3 = "/images/" + (Model.ExistingPhotoPath3 ?? "noimageThumb400.jpg");
+    }
 }
 
 <input type="hidden" id="hdFileSizeLimit" />

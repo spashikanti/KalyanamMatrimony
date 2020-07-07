@@ -125,7 +125,7 @@ namespace KalyanamMatrimony.Controllers
                             model.Photo3 = UploadImage(model.PhotoFile3);
                         }
 
-                        var repoResult = matrimonyRepository.Add(CreateProfileModel(model));
+                        var repoResult = matrimonyRepository.AddProfile(CreateProfileModel(model));
 
                         if (repoResult == null)
                         {
@@ -273,7 +273,7 @@ namespace KalyanamMatrimony.Controllers
                     model.Photo3 = model.ExistingPhotoPath3;
                 }
 
-                var repoResult = matrimonyRepository.Update(EditUserProfileViewModel(model));
+                var repoResult = matrimonyRepository.UpdateProfile(EditUserProfileViewModel(model));
 
                 if (repoResult == null)
                 {
@@ -498,7 +498,7 @@ namespace KalyanamMatrimony.Controllers
                     model.Photo3 = model.ExistingPhotoPath3;
                 }
 
-                var repoResult = matrimonyRepository.Update(EditUserProfileViewModel(model));
+                var repoResult = matrimonyRepository.UpdateProfile(EditUserProfileViewModel(model));
 
                 if (repoResult == null)
                 {
@@ -728,7 +728,7 @@ namespace KalyanamMatrimony.Controllers
             if (user != null)
             {
                 var strSuperAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin);
-                var strAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin);
+                var strAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin);
                 List<ApplicationUser> users = userManager.Users.Where(x => x.EndDate.Value > DateTime.Now).ToList();
 
                 if (await userManager.IsInRoleAsync(user, strSuperAdminRole) || await userManager.IsInRoleAsync(user, strAdminRole))
@@ -863,5 +863,7 @@ namespace KalyanamMatrimony.Controllers
                 }
             }
         }
+
+
     }
 }

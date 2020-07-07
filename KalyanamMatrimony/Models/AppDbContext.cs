@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace KalyanamMatrimony.Models
 {
@@ -12,13 +13,13 @@ namespace KalyanamMatrimony.Models
             this.options = options;
         }
 
-        public DbSet<Employee> Employees { get; set; }
         public DbSet<Profile> Profiles { get; set; }
+        public DbSet<Organisation> Organisations { get; set; }
+        public DbSet<License> Licenses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
             modelBuilder.Seed();
         }
     }

@@ -9,28 +9,9 @@ namespace KalyanamMatrimony.Models
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Employee>().HasData(
-                new Employee
-                {
-                    Id = 1,
-                    Name = "Mark",
-                    Department = Dept.IT,
-                    Email = "mark@pragimtech.com"
-                },
-                new Employee
-                {
-                    Id = 2,
-                    Name = "John",
-                    Department = Dept.HR,
-                    Email = "john@pragimtech.com"
-                }
-            );
-
             var hasher = new PasswordHasher<ApplicationUser>();
             string superAdminId = Guid.NewGuid().ToString();
             string superAdminEmail = "sunil.pashikanti@gmail.com";
-            string adminId = Guid.NewGuid().ToString();
-            string adminEmail = "sunil8120@gmail.com";
 
             modelBuilder.Entity<ApplicationUser>().HasData(
                 new ApplicationUser
@@ -42,18 +23,8 @@ namespace KalyanamMatrimony.Models
                     NormalizedEmail = superAdminEmail.ToUpper(),
                     EmailConfirmed = true,
                     PasswordHash = hasher.HashPassword(null, "Welcome@12345"),
-                    SecurityStamp = string.Empty
-                },
-                new ApplicationUser
-                {
-                    Id = adminId,
-                    UserName = adminEmail,
-                    Email = adminEmail,
-                    NormalizedUserName = adminEmail.ToUpper(),
-                    NormalizedEmail = adminEmail.ToUpper(),
-                    EmailConfirmed = true,
-                    PasswordHash = hasher.HashPassword(null, "Welcome@12345"),
-                    SecurityStamp = string.Empty
+                    SecurityStamp = "TXEFASMBK2TBWRP42UFH6KKKHHLFKAXD",
+                    ConcurrencyStamp = "e7777f79-47db-4972-9075-e7631052ce98"
                 }
             );
 
@@ -84,11 +55,6 @@ namespace KalyanamMatrimony.Models
                     RoleId = "1",
                     UserId = superAdminId
 
-                },
-                new IdentityUserRole<string>
-                {
-                    RoleId = "2",
-                    UserId = adminId
                 }
             );
 

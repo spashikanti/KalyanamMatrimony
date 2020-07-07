@@ -1,0 +1,39 @@
+﻿@{
+
+    ViewData["Title"] = "Edit License";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<partial name="~/Views/Partials/_LicenseCreateUpdate.cshtml" />
+
+
+@section Scripts {
+    <!-- Page level custom scripts -->
+    <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+    <script src="~/js/CustomScript.js"></script>
+    <script src="~/js/LoadJsonData.js"></script>
+    @*For toast*@
+    <link href="/lib/toastr/toastr.min.css" rel="stylesheet" />
+    <script src="/lib/toastr/toastr.min.js"></script>
+
+    <script>
+        //For toast
+        var msg = @Html.Raw(Json.Serialize(ViewBag.Message));
+        if (msg != null) {
+            displayToast(msg);
+        }
+
+        debugger;
+        var qs = location.search;
+
+        if (qs != null && qs != undefined) {
+            if (qs.split("=")[1] == "view") {
+                $("#btnCreateLicense").hide();
+                $(".btn-danger").hide();
+            }
+        }
+
+    </script>
+}

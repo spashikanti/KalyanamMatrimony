@@ -70,6 +70,33 @@ function moveNext(showTab) {
     }
 }
 
+function profileMoveNext(showTab) {
+    switch (showTab) {
+        case 1:
+            $('#pills-tab a[href="#pills-userinfo"]').tab('show');
+            break;
+        case 2:
+            $('#pills-tab a[href="#pills-personalInfo"]').tab('show');
+            break;
+        case 3:
+            $('#pills-tab a[href="#pills-eduInfo"]').tab('show');
+            break;
+        case 4:
+            $('#pills-tab a[href="#pills-familyInfo"]').tab('show');
+            break;
+        case 5:
+            $('#pills-tab a[href="#pills-hobbies"]').tab('show');
+            break;
+        case 6:
+            $('#pills-tab a[href="#pills-horoscope"]').tab('show');
+            break;
+        case 7:
+            $('#pills-tab a[href="#pills-photos"]').tab('show');
+            break;
+        default:
+    }
+}
+
 function validateCreateProfile(event) {
     var errors = {
         Messages: []

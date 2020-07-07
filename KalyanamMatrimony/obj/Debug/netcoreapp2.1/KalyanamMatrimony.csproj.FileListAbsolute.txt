@@ -160,7 +160,6 @@ F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\D
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Error\NotFound.cshtml.g.cs
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Home\Details.cshtml.g.cs
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Home\Index.cshtml.g.cs
-F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Partials\_ProfileCreateUpdate.cshtml.g.cs
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Partials\_ProfileView.cshtml.g.cs
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Partials\_ProgressBar.cshtml.g.cs
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Profile\CreateProfile.cshtml.g.cs
@@ -259,3 +258,13 @@ C:\Development\AspNetWebCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debu
 C:\Development\AspNetWebCore\Branch\KalyanamMatrimony\KalyanamMatrimony\bin\Debug\netcoreapp2.1\KalyanamMatrimony.xml
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\bin\Debug\netcoreapp2.1\KalyanamMatrimony.xml
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Partials\_ProfilePicCarousel.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Partials\_ViewLicenses.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Partials\_LicenseCreateUpdate.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\SuperAdmin\CreateLicense.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\SuperAdmin\ViewLicenses.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Partials\_ProfileCreateUpdate.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\SuperAdmin\EditLicense.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Account\SignUp.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Partials\_SignUpCreateUpdate.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Account\Acknowledge.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.csprojAssemblyReference.cache

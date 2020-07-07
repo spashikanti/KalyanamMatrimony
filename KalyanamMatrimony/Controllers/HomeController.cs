@@ -13,14 +13,12 @@ namespace KalyanamMatrimony.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly IEmployeeRepository _employeeRepository;
         private readonly IMatrimonyRepository matrimonyRepository;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public HomeController(IEmployeeRepository employeeRepository, IMatrimonyRepository matrimonyRepository, 
+        public HomeController(IMatrimonyRepository matrimonyRepository, 
             UserManager<ApplicationUser> userManager)
         {
-            _employeeRepository = employeeRepository;
             this.matrimonyRepository = matrimonyRepository;
             this.userManager = userManager;
         }
@@ -68,7 +66,6 @@ namespace KalyanamMatrimony.Controllers
         {
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
             {
-                Employee = _employeeRepository.GetEmployee(id??1),
                 PageTitle = "Employee Details"
             };
             return View(homeDetailsViewModel);

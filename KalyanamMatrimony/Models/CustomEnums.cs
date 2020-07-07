@@ -30,6 +30,11 @@
             Error,
             Success
         }
-    }
 
+        public enum LicenseType
+        {
+            Free,
+            Paid
+        }
+    }
 }

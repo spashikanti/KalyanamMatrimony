@@ -13,7 +13,7 @@ namespace KalyanamMatrimony.Models
             this.context = context;
         }
 
-        public Profile Add(Profile profile)
+        public Profile AddProfile(Profile profile)
         {
             context.Profiles.Add(profile);
             context.SaveChanges();
@@ -68,7 +68,7 @@ namespace KalyanamMatrimony.Models
             return context.Profiles.FirstOrDefault(x => x.UserId == userId);
         }
 
-        public Profile Update(Profile profile)
+        public Profile UpdateProfile(Profile profile)
         {
             context.Profiles.Update(profile);
             context.Entry(profile).State = EntityState.Modified;
@@ -81,6 +81,56 @@ namespace KalyanamMatrimony.Models
             var profile = GetProfileById(profileId);
             context.Profiles.Remove(profile);
             return context.SaveChanges();
+        }
+
+        public IEnumerable<License> GetAllLicenses()
+        {
+            return context.Licenses;
+        }
+
+        public License AddLicense(License license)
+        {
+            context.Licenses.Add(license);
+            context.SaveChanges();
+            return license;
+        }
+
+        public License GetLicenseById(int licenseId)
+        {
+            return context.Licenses.FirstOrDefault(x => x.LicenseId == licenseId);
+        }
+
+        public License UpdateLicense(License license)
+        {
+            context.Licenses.Update(license);
+            context.Entry(license).State = EntityState.Modified;
+            context.SaveChanges();
+            return license;
+        }
+
+        public IEnumerable<Organisation> GetAllOrganisations()
+        {
+            return context.Organisations.ToList();
+        }
+
+        public Organisation AddOrganisation(Organisation organisation)
+        {
+            context.Organisations.Add(organisation);
+            context.SaveChanges();
+            return organisation;
+        }
+
+        public Organisation GetOrganisationById(int orgId)
+        {
+            return context.Organisations.FirstOrDefault(x => x.OrgId == orgId);
+        }
+
+        public Organisation UpdateOrganisation(Organisation organisation)
+        {
+            context.Organisations.Update(organisation);
+            context.Entry(organisation).State = EntityState.Modified;
+            context.SaveChanges();
+            return organisation;
         }
     }
 }

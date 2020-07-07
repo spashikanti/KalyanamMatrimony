@@ -111,7 +111,8 @@ namespace KalyanamMatrimony.Models
         public string Photo2 { get; set; }
         public string Photo3 { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        [Display(Name = "Created Date")]
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         //Contact Details
         [Display(Name = "Phone Number")]

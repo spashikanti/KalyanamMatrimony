@@ -1,0 +1,97 @@
+﻿@model KalyanamMatrimony.Models.License
+
+
+<div class="container-fluid">
+    <div class="card shadow-lg border-0 rounded-lg">
+        <div class="card-header bg-primary text-white">
+            <div class="row">
+                <div class="col-md-10">
+                    <h5 class="font-weight-bold text-white">@ViewBag.Title</h5>
+                </div>
+                <div class="col-md-2">
+                    <a class="btn btn-success" asp-controller="superadmin" asp-action="viewlicenses"><strong>View Licenses</strong></a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="All" class="text-danger" id="validationSummary"></div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="LicenseName" class="small mb-1"></label>
+                            <input asp-for="LicenseName" class="form-control" placeholder="Enter License Name" />
+                            <span asp-validation-for="LicenseName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="LicenseType" class="small mb-1"></label>
+                            <select asp-for="LicenseType" class="custom-select mr-sm-2"
+                                    asp-items="Html.GetEnumSelectList<KalyanamMatrimony.Models.CustomEnums.LicenseType>()">
+                            </select>
+                            <span asp-validation-for="LicenseType" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label asp-for="Description" class="small mb-1"></label>
+                            <textarea asp-for="Description" class="form-control" placeholder="Enter Description"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="IsActive" class="small mb-1"></label>
+                            <input asp-for="IsActive" class="form-control" />
+                            <span asp-validation-for="IsActive" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="UsersCount" class="small mb-1"></label>
+                            <input asp-for="UsersCount" class="form-control" />
+                            <span asp-validation-for="UsersCount" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="MonthsCount" class="small mb-1"></label>
+                            <input asp-for="MonthsCount" class="form-control" />
+                            <span asp-validation-for="MonthsCount" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Price" class="small mb-1"></label>
+                            <input asp-for="Price" class="form-control" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success btn-block" id="btnCreateLicense">
+                                <strong>Save License</strong>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <a class="btn btn-danger btn-block" asp-controller="SuperAdmin" asp-action="ViewLicenses"><strong>Cancel</strong></a>
+                        </div>
+                    </div>
+                </div>
+                @if (@Model != null && @Model.LicenseId > 0)
+                {
+                    <input asp-for="LicenseId" type="hidden" />
+                }
+            </form>
+        </div>
+    </div>
+</div>

@@ -8,5 +8,7 @@ namespace KalyanamMatrimony.Models
     {
         [Display(Name = "End Date")]
         public DateTime? EndDate { get; set; }
+        [Display(Name = "Organisation Id")]
+        public int OrgId { get; set; }
     }
 }

@@ -22,7 +22,7 @@
   },
   "targets": {
     ".NETCoreApp,Version=v2.1": {
-      "KalyanamMatrimony/1.0.0": {
+      "KalyanamMatrimony/1.1.0": {
         "dependencies": {
           "Microsoft.AspNetCore.App": "2.1.1",
           "Microsoft.AspNetCore.Razor.Design": "2.1.2",
@@ -3787,7 +3787,7 @@
     }
   },
   "libraries": {
-    "KalyanamMatrimony/1.0.0": {
+    "KalyanamMatrimony/1.1.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

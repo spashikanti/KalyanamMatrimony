@@ -1,0 +1,21 @@
+2020-07-07 00:28:29.4146|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-07-07 00:39:48.7735|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-07-07 11:29:02.4514|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-07-07 11:37:29.6251|WARN|KalyanamMatrimony.Controllers.ProfileController|http://localhost:49831/Account/ConfirmEmail?userId=075504fe-ff4d-47a0-8a02-8289894c5e33&token=CfDJ8EYzYgCxuI9CkhzAozXBnV%2FU5j21g1dNYeSFNXvgIYMbE246ugveqkakS0PgYJUhlhx%2FzAnFpP7ymDaaEBsqSwI5g9cPvfPb5ElqgHE8m0f04uJJnudrHL60MFbDlCXBZMsURrTlPUgY835waV30OocLtaR%2FZL%2FsTWfeeMcWM6BHrKfL%2B0D8QpWzjHZJMyJzobVtrpef5H0mlsXmdkAkWApFuYo8AlDPAbxIN%2FTkIH5YP5Y7jfOWAKSBaFP9IDqy%2BQ%3D%3D
+2020-07-07 14:58:59.3744|WARN|KalyanamMatrimony.Controllers.ProfileController|http://localhost:49831/Account/ConfirmEmail?userId=de087457-4e66-4edb-a81c-3db80bf4dbab&token=CfDJ8EYzYgCxuI9CkhzAozXBnV9orSGqOxys0gqX%2B9iNqI8W9unPm9oL6UknjQAw958x8SzRLUa4mLi0QUCf7KiaK3DFLtZLRngHAEM4AAWB6ppX9WyFT40SzfHL%2FYws7MhSJwb%2BcUVHY4qI%2FD1n3ATyQynQvb1hdpxDDK4ajnh6kjn6Dq3AH8GhR0llE8ZCc3fNRt5qNCsYqWFRq68us%2FLDfW8%2FRNtj2BNy0KghYr%2Fv64YEs0VXyLIPyMtPq3TocmJgbQ%3D%3D
+2020-07-07 18:55:46.1827|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-07-07 21:35:23.2514|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-07-07 21:42:43.3611|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-07-07 21:43:42.2474|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-07-07 21:44:06.2875|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-07-07 21:46:27.6207|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-07-07 21:54:07.1385|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-07-07 21:56:35.5156|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-07-07 22:54:57.5638|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-07-07 22:57:17.7345|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-07-07 23:03:08.4568|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-07-07 23:04:42.1802|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-07-07 23:15:58.3057|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-07-07 23:33:44.2738|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-07-07 23:34:53.1380|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-07-07 23:48:35.5772|WARN|KalyanamMatrimony.Controllers.AccountController|http://localhost:49831/Account/ConfirmEmail?userId=42e8bd9d-e98d-40d3-b1d8-ca4a7f0b1694&token=CfDJ8EYzYgCxuI9CkhzAozXBnV%2BosqcA%2FDyi24%2FmG3rv1zuMDSJ1%2BsFVJ5LVPePI4o9zZerZRi4YWJcGZ%2FzjgEC2oNxtOluiXgrU0HN5Zla6CmcnR9ea7aHa%2BPxVZOAgaOCi%2Bip9jWQifV0jvptxUZf1WDaYL6oOxDgojsoCbEEevCA5ln1Pyhsj4IwmJH%2B4g1PZUp255Hlal1Zydjoz780vw8EVJZtmd%2BvIN7P6lVmNuyZH16THfy6hHRHSzLwy3gbzsw%3D%3D

@@ -1,0 +1,19 @@
+2020-07-06 17:12:31.2323|WARN|KalyanamMatrimony.Controllers.AccountController|http://localhost:49831/Account/ResetPassword?email=sunil.pashikanti@gmail.com&token=CfDJ8EYzYgCxuI9CkhzAozXBnV%2FDLinvr7ap%2BgHhM3Qq1W3g2m0Vw%2FoFyghKRi80T50vG8eWDbG%2BvvpWX0NZB7d4UB%2FIo6dBuR1V9cs6zv1RQh5rRitgrkZinK294QfkklOAcIHtF8vSoZh4QBEo1KwFg08R2gSju1C39qyzoGtHzYe4JewIudRghMeekTsQkk2U9g%3D%3D
+2020-07-06 17:14:13.3800|WARN|Microsoft.AspNetCore.Identity.UserManager|VerifyUserTokenAsync() failed with purpose: ResetPassword for user 7e29499a-b46f-4cf5-8432-cc136d098b65.
+2020-07-06 17:22:39.7108|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-07-06 17:23:32.2922|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-07-06 17:24:38.3233|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-07-06 17:28:57.3375|WARN|KalyanamMatrimony.Controllers.AccountController|http://localhost:49831/Account/ResetPassword?email=sunil.pashikanti@gmail.com&token=CfDJ8EYzYgCxuI9CkhzAozXBnV8pte13hRicdQnMEioNAbVKRMX4Wm0bk45OETWRIeMR8UdgjtzctYehRUCVQ5lFmefcwii%2BFBAcdMLDSgnw%2BYWxoElH4UgfYu%2B%2BO3HYnpz%2B1LzVZFYfnf4UgH9t6Mrg78KR0Ud%2BdldYRD%2Bz44THJ73k10sHfGD3mtcAcLdF6NGBuw%3D%3D
+2020-07-06 18:15:04.5549|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-07-06 18:17:14.0300|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-07-06 18:58:01.8271|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2020-07-06 19:14:03.5184|WARN|KalyanamMatrimony.Controllers.AccountController|http://localhost:49831/Account/ResetPassword?email=sunil.pashikanti@gmail.com&token=CfDJ8EYzYgCxuI9CkhzAozXBnV%2Bz0o8WVnIiBQENzzAPRwOZu%2BG16eQ1zh4xjf7%2Fr9APkwWxMs94qp27pBC5VD7AuYvm5nuKGieoSDx5L4PxY1GGPOVMPXK%2FI1Y7cqmyJ41e2MKjMu96IpJ6uSpaJXhk2EX5aTLcVGjuzy0wcJRKMc6fOyQOmrP12%2FqktAzEPykFX4QfkNL6REGpWG8XFnzQd21M3jX2tr8dj4m1xBJBMGzj
+2020-07-06 19:51:44.1707|WARN|KalyanamMatrimony.Controllers.AccountController|http://localhost:49831/Account/ResetPassword?email=sunil.pashikanti@gmail.com&token=CfDJ8EYzYgCxuI9CkhzAozXBnV%2BVGxHwwSfPx6bHz5PKOqtMfJV12WvG%2BDNBF1E72m7OmgiBjYGj9u9NPSZu%2BJefESNnJsY%2BJVXcFKAdVtu2gic%2BIlUhOV6S5oPO2zEiEFo%2FY8mi%2Fn5V5kEsDt6mQFwxco5l0%2B7Y4jv4uC0Z5JWgsB32sdqqxgbjaPRcp8zdS4B5sKlm3sWpDkA9dJI71ODYHflmF2vk2GaON%2B6yx9oXZR9Z
+2020-07-06 22:58:30.8770|ERROR|Microsoft.EntityFrameworkCore.Database.Command|Failed executing DbCommand (229ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+ALTER TABLE `Profile` ADD `ContactPersonName` longtext NULL;
+2020-07-06 23:06:16.6442|ERROR|Microsoft.EntityFrameworkCore.Database.Command|Failed executing DbCommand (14ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DROP TABLE `Employees`;
+2020-07-06 23:07:54.6872|ERROR|Microsoft.EntityFrameworkCore.Database.Command|Failed executing DbCommand (16ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DELETE FROM `AspNetUsers`
+WHERE `Id` = '403d4394-9212-4b39-86bc-4d0334afee33' AND `ConcurrencyStamp` = '230dfacc-cf07-4aad-b026-4f70cfd72887';
+SELECT ROW_COUNT();

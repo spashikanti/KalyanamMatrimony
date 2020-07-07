@@ -1,0 +1,9 @@
+2020-07-04 21:51:06.7205|ERROR|Microsoft.EntityFrameworkCore.Database.Command|Failed executing DbCommand (429ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE `AspNetUserLogins` (
+    `LoginProvider` varchar(255) NOT NULL,
+    `ProviderKey` varchar(255) NOT NULL,
+    `ProviderDisplayName` longtext NULL,
+    `UserId` varchar(255) NOT NULL,
+    CONSTRAINT `PK_AspNetUserLogins` PRIMARY KEY (`LoginProvider`, `ProviderKey`),
+    CONSTRAINT `FK_AspNetUserLogins_AspNetUsers_UserId` FOREIGN KEY (`UserId`) REFERENCES `AspNetUsers` (`Id`) ON DELETE CASCADE
+);

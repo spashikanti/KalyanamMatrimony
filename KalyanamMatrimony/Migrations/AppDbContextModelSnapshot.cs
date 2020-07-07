@@ -44,6 +44,8 @@ namespace KalyanamMatrimony.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256);
 
+                    b.Property<int>("OrgId");
+
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PhoneNumber");
@@ -69,32 +71,58 @@ namespace KalyanamMatrimony.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
-                        new { Id = "403d4394-9212-4b39-86bc-4d0334afee33", AccessFailedCount = 0, ConcurrencyStamp = "230dfacc-cf07-4aad-b026-4f70cfd72887", Email = "sunil.pashikanti@gmail.com", EmailConfirmed = false, LockoutEnabled = false, PasswordHash = "AQAAAAEAACcQAAAAEPZ/6w4+04Y/iWjqC9AyZANRUSyhavIYUxDFn4N/VFrWD0a0I4DLkzR64GWgJ8/tXA==", PhoneNumberConfirmed = false, TwoFactorEnabled = false, UserName = "sunil.pashikanti@gmail.com" }
+                        new { Id = "43b2650e-d67f-440b-97a2-bdedbcfe4880", AccessFailedCount = 0, ConcurrencyStamp = "e7777f79-47db-4972-9075-e7631052ce98", Email = "sunil.pashikanti@gmail.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "SUNIL.PASHIKANTI@GMAIL.COM", NormalizedUserName = "SUNIL.PASHIKANTI@GMAIL.COM", OrgId = 0, PasswordHash = "AQAAAAEAACcQAAAAEKZNAs8etuTUkX5o4QzqIxaYEtXAHOkSI2KQul0WbH9bWWc4WVQir7PvShGwqasirA==", PhoneNumberConfirmed = false, SecurityStamp = "TXEFASMBK2TBWRP42UFH6KKKHHLFKAXD", TwoFactorEnabled = false, UserName = "sunil.pashikanti@gmail.com" }
                     );
                 });
 
-            modelBuilder.Entity("KalyanamMatrimony.Models.Employee", b =>
+            modelBuilder.Entity("KalyanamMatrimony.Models.License", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("LicenseId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Department");
+                    b.Property<DateTime>("CreatedDate");
 
-                    b.Property<string>("Email")
-                        .IsRequired();
+                    b.Property<string>("Description");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<bool>("IsActive");
 
-                    b.HasKey("Id");
+                    b.Property<string>("LicenseName");
 
-                    b.ToTable("Employees");
+                    b.Property<int>("LicenseType");
 
-                    b.HasData(
-                        new { Id = 1, Department = 1, Email = "mark@pragimtech.com", Name = "Mark" },
-                        new { Id = 2, Department = 0, Email = "john@pragimtech.com", Name = "John" }
-                    );
+                    b.Property<float>("MonthsCount");
+
+                    b.Property<float>("Price");
+
+                    b.Property<int>("UsersCount");
+
+                    b.HasKey("LicenseId");
+
+                    b.ToTable("Licenses");
+                });
+
+            modelBuilder.Entity("KalyanamMatrimony.Models.Organisation", b =>
+                {
+                    b.Property<int>("OrgId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<DateTime>("EndDate");
+
+                    b.Property<string>("FullName");
+
+                    b.Property<int>("LicenseId");
+
+                    b.Property<string>("OrgDesc");
+
+                    b.Property<string>("OrgName");
+
+                    b.Property<string>("Phone");
+
+                    b.HasKey("OrgId");
+
+                    b.ToTable("Organisations");
                 });
 
             modelBuilder.Entity("KalyanamMatrimony.Models.Profile", b =>
@@ -102,29 +130,38 @@ namespace KalyanamMatrimony.Migrations
                     b.Property<string>("ProfileId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AboutFamily");
+                    b.Property<string>("AboutFamily")
+                        .HasMaxLength(200);
 
-                    b.Property<string>("AboutYourself");
+                    b.Property<string>("AboutYourself")
+                        .HasMaxLength(200);
 
-                    b.Property<int>("Age");
+                    b.Property<int?>("Age");
 
                     b.Property<string>("AnnualIncome");
 
-                    b.Property<string>("AstroProfile");
+                    b.Property<string>("AstroProfile")
+                        .HasMaxLength(200);
 
                     b.Property<string>("BloodGroup");
 
                     b.Property<string>("BodyType");
 
-                    b.Property<int>("Brothers");
+                    b.Property<int?>("Brothers");
 
                     b.Property<string>("Caste");
 
                     b.Property<string>("Complexion");
 
+                    b.Property<string>("ContactPersonName");
+
+                    b.Property<string>("ContactPersonRelationShip");
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("CurrentLocation");
 
-                    b.Property<DateTime>("DateOfBirth");
+                    b.Property<DateTime?>("DateOfBirth");
 
                     b.Property<string>("Diet");
 
@@ -147,13 +184,13 @@ namespace KalyanamMatrimony.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired();
 
-                    b.Property<int>("Gender");
+                    b.Property<int?>("Gender");
 
                     b.Property<string>("Gothram");
 
                     b.Property<bool>("HaveChildren");
 
-                    b.Property<float>("Height");
+                    b.Property<float?>("Height");
 
                     b.Property<string>("Hobbies");
 
@@ -164,9 +201,9 @@ namespace KalyanamMatrimony.Migrations
 
                     b.Property<string>("MaritalStatus");
 
-                    b.Property<int>("MarriedBrothers");
+                    b.Property<int?>("MarriedBrothers");
 
-                    b.Property<int>("MarriedSisters");
+                    b.Property<int?>("MarriedSisters");
 
                     b.Property<string>("MotherName");
 
@@ -175,6 +212,8 @@ namespace KalyanamMatrimony.Migrations
                     b.Property<string>("MotherTongue");
 
                     b.Property<string>("Nakshatram");
+
+                    b.Property<string>("PhoneNumber");
 
                     b.Property<string>("Photo1");
 
@@ -190,7 +229,7 @@ namespace KalyanamMatrimony.Migrations
 
                     b.Property<string>("Religion");
 
-                    b.Property<int>("Sisters");
+                    b.Property<int?>("Sisters");
 
                     b.Property<string>("Smoke");
 
@@ -202,8 +241,7 @@ namespace KalyanamMatrimony.Migrations
 
                     b.Property<string>("University");
 
-                    b.Property<string>("UserId")
-                        .IsRequired();
+                    b.Property<string>("UserId");
 
                     b.Property<string>("WorkingAt");
 
@@ -233,6 +271,12 @@ namespace KalyanamMatrimony.Migrations
                         .HasName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new { Id = "1", ConcurrencyStamp = "0b91f2bf-9bfa-43ca-ae7e-ca77eadba356", Name = "SuperAdmin", NormalizedName = "SUPERADMIN" },
+                        new { Id = "2", ConcurrencyStamp = "bfe817a2-9e49-43db-a84f-aaf13a558bd3", Name = "Admin", NormalizedName = "ADMIN" },
+                        new { Id = "3", ConcurrencyStamp = "51330a42-2be1-4845-aa82-502eb5012b4e", Name = "Profile", NormalizedName = "PROFILE" }
+                    );
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -302,6 +346,10 @@ namespace KalyanamMatrimony.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new { UserId = "43b2650e-d67f-440b-97a2-bdedbcfe4880", RoleId = "1" }
+                    );
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
