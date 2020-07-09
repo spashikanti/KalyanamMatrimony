@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace KalyanamMatrimony.Controllers
 {
@@ -23,42 +24,73 @@ namespace KalyanamMatrimony.Controllers
             this.userManager = userManager;
         }
 
+        private Task<ApplicationUser> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
+        private async Task<string> GetCurrentUserId()
+        {
+            ApplicationUser user = await GetCurrentUserAsync();
+            return user?.Id;
+        }
+        private async Task<int> GetCurrentOrgId()
+        {
+            ApplicationUser user = await GetCurrentUserAsync();
+            return user.OrgId;
+        }
+        private async Task<string> GetCurrentUserRole()
+        {
+            ApplicationUser user = await GetCurrentUserAsync();
+            IList<string> roles = await userManager.GetRolesAsync(user);
+            return roles[0];
+        }
+
         public async Task<IActionResult> Index()
         {
             IEnumerable<Profile> profilesList = new List<Profile>();
-            var user = await userManager.GetUserAsync(User);
+            string userRole = await GetCurrentUserRole();
+            string userId = await GetCurrentUserId();
+            int orgId = await GetCurrentOrgId();
 
-            if (user != null)
+            var strSuperAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin);
+            var strAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin);
+
+            //Get search data for the current organisation, active users only
+            List<ApplicationUser> users = null;
+
+            if (userRole == strSuperAdminRole)
             {
-                var strSuperAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin);
-                var strAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin);
-                List<ApplicationUser> users = userManager.Users.Where(x => x.EndDate.Value > DateTime.Now).ToList();
+                //users = userManager.Users.Where(x => x.EndDate.Value > DateTime.Now).ToList();
+                //profilesList = matrimonyRepository.GetAllProfiles().Where(profile => users.Any(userData => userData.Id == profile.UserId)).Take(10);
+                //return View(profilesList);
+                profilesList = matrimonyRepository.GetLatestProfilesForSuperAdmin();
+                return View(profilesList);
+            }
+            else if (userRole == strAdminRole)
+            {
+                //users = userManager.Users.Where(x => x.EndDate.Value > DateTime.Now && x.OrgId == orgId).ToList();
+                //profilesList = matrimonyRepository.GetAllProfiles().Where(profile => users.Any(userData => userData.Id == profile.UserId)).Take(10);
+                //return View(profilesList);
+                profilesList = matrimonyRepository.GetLatestProfilesForAdmin(orgId);
+                return View(profilesList);
+            }
 
-                if (await userManager.IsInRoleAsync(user, strSuperAdminRole) || await userManager.IsInRoleAsync(user, strAdminRole))
+            var userProfile = matrimonyRepository.GetProfileByUserId(userId);
+            if (userProfile != null)
+            {
+                if (userProfile.Gender == CustomEnums.ProfileGender.Male)
                 {
-                    profilesList = matrimonyRepository.GetAllProfiles().Where(profile => users.Any(userData => userData.Id == profile.UserId)).Take(10);
-                    return View(profilesList);
+                    //get details of female
+                    //profilesList = matrimonyRepository.GetAllProfiles().Where(profile => profile.Gender == CustomEnums.ProfileGender.Female &&
+                    //users.Any(userData => userData.Id == profile.UserId && userData.OrgId == orgId)).Take(10);
+                    profilesList = matrimonyRepository.GetLatestFemaleProfiles(orgId);
                 }
-
-                var userProfile = matrimonyRepository.GetProfileByUserId(user.Id);
-                if (userProfile != null)
+                else if (userProfile.Gender == CustomEnums.ProfileGender.Female)
                 {
-                    if (userProfile.Gender == CustomEnums.ProfileGender.Male)
-                    {
-                        //get details of female
-                        profilesList = matrimonyRepository.GetAllProfiles().Where(profile => profile.Gender == CustomEnums.ProfileGender.Female &&
-                        users.Any(userData => userData.Id == profile.UserId)).Take(10);
-                    }
-                    else if (userProfile.Gender == CustomEnums.ProfileGender.Female)
-                    {
-                        //get details of males
-                        profilesList = matrimonyRepository.GetAllProfiles().Where(profile => profile.Gender == CustomEnums.ProfileGender.Male &&
-                        users.Any(userData => userData.Id == profile.UserId)).Take(10);
-                    }
+                    //get details of males
+                    //profilesList = matrimonyRepository.GetAllProfiles().Where(profile => profile.Gender == CustomEnums.ProfileGender.Male &&
+                    //users.Any(userData => userData.Id == profile.UserId && userData.OrgId == orgId)).Take(10);
+                    profilesList = matrimonyRepository.GetLatestMaleProfiles(orgId);
                 }
             }
 
-            //var model = _employeeRepository.GetAllEmployee();
             return View(profilesList);
         }
 

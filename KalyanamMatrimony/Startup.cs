@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace KalyanamMatrimony
 {
@@ -36,7 +37,7 @@ namespace KalyanamMatrimony
             })
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
-            
+
             ////To change the default access denied route
             //services.ConfigureApplicationCookie(options =>
             //{
@@ -46,6 +47,11 @@ namespace KalyanamMatrimony
             services.AddMvc().AddXmlSerializerFormatters();
             services.AddScoped<IMatrimonyRepository, MySqlMatrimonyRepository>();
             services.AddScoped<IEmailSender, EmailSender>();
+
+            services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +69,7 @@ namespace KalyanamMatrimony
 
             app.UseStaticFiles();
             app.UseAuthentication();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

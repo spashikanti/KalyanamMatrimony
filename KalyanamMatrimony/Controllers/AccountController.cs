@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 using KalyanamMatrimony.Models;
 using KalyanamMatrimony.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Logging;
 using static KalyanamMatrimony.Models.CustomEnums;
 
@@ -157,6 +154,7 @@ namespace KalyanamMatrimony.Controllers
 
                 if (result.Succeeded)
                 {
+                    //Get User Roles and store it in Session object to get it in across application
                     if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                     {
                         return Redirect(returnUrl);
@@ -244,7 +242,7 @@ namespace KalyanamMatrimony.Controllers
 
                     // Log the password reset link
                     logger.Log(LogLevel.Warning, passwordResetLink);
-                    await SendEmail(model.Email, passwordResetLink);
+                    await SendEmail(model.Email, passwordResetLink, "Reset your password");
 
                     // Send the user to Forgot Password Confirmation view
                     return View("ForgotPasswordConfirmation");
@@ -256,18 +254,6 @@ namespace KalyanamMatrimony.Controllers
             }
 
             return View(model);
-        }
-
-        private async Task SendEmail(string email, string passwordResetLink)
-        {
-            var content = "Hi " + email + "<br/><br/>" +
-                "We got a request to reset your password. <br/><br/>" +
-                "<a href='" + passwordResetLink + "' >Click Here to Reset Password</a><br/><br/>" +
-                "<br/><br/>" +
-                "The Matrimony Team";
-            var message = new Message(new string[] { email }, "Reset Your Password", content);
-            //emailSender.SendEmail(message);
-            await emailSender.SendEmailAsync(message);
         }
 
         [HttpGet]
@@ -318,12 +304,20 @@ namespace KalyanamMatrimony.Controllers
         }
 
         [HttpGet]
+        public IActionResult ResetPasswordConfirmation()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize]
         public IActionResult ChangePassword()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (ModelState.IsValid)
@@ -391,7 +385,7 @@ namespace KalyanamMatrimony.Controllers
                 {
                     //Calculate End Date for org end date
                     License license = matrimonyRepository.GetLicenseById(model.LicenseId);
-                    var NoOfDays = license.MonthsCount * 31;//Converting to Number of Days
+                    var NoOfDays = license.MonthsCount * 30;//Converting to Number of Days
                     org.EndDate = DateTime.Now.AddDays(NoOfDays);
                 }
                 
@@ -446,7 +440,7 @@ namespace KalyanamMatrimony.Controllers
 
                         // Log the password reset link
                         logger.Log(LogLevel.Warning, confirmationLink);
-                        await SendEmail(model.Email, confirmationLink);
+                        await SendEmail(model.Email, confirmationLink, "Verify your Email");
 
                         ToasterServiceCreate("Please check your email and click on the confirmation link in the email shared by us.", CustomEnums.ToastType.Info);
                         return RedirectToAction("acknowledge", "account");
@@ -473,6 +467,33 @@ namespace KalyanamMatrimony.Controllers
         public IActionResult Acknowledge()
         {
             return View();
+        }
+
+        private async Task SendEmail(string email, string encryptedLink, string subject)
+        {
+            var content = "";
+            if (subject.Contains("Verify"))
+            {
+                content = "Hi " + email + ", <br/><br/>" +
+                    "Thank you for signing up with our matrimony services to run your business.<br/> We are excited to provide you industry best standard services.<br/><br/>" +
+                    "To activate your account & to start using our services, please click on the below button to verify your email now.<br/><br/>" +
+                    "<a href='" + encryptedLink + "'  class='btn btn-success'>Verify your email</a><br/><br/>" +
+                    "Happy Matrimony!!!<br/><br/>" +
+                    "Regards,<br/>" +
+                    "The Matrimony Team.";
+            }
+            else if (subject.Contains("Reset"))
+            {
+                content = "Hi " + email + "<br/><br/>" +
+                    "We got a request to reset your password.<br/><br/>" +
+                    "<a href='" + encryptedLink + "' >Click Here to Reset Password</a><br/><br/>" +
+                    "Happy Matrimony!!!<br/><br/>" +
+                    "Regards,<br/>" +
+                    "The Matrimony Team.";
+            }
+
+            var message = new Message(new string[] { email }, subject, content);
+            await emailSender.SendEmailAsync(message);
         }
     }
 }

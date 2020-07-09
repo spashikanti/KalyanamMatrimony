@@ -1,16 +1,26 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace KalyanamMatrimony.Models
 {
     public class MySqlMatrimonyRepository : IMatrimonyRepository
     {
         private readonly AppDbContext context;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
-        public MySqlMatrimonyRepository(AppDbContext context)
+        public MySqlMatrimonyRepository(AppDbContext context,
+                                UserManager<ApplicationUser> userManager,
+                                RoleManager<IdentityRole> roleManager)
         {
             this.context = context;
+            this.userManager = userManager;
+            this.roleManager = roleManager;
         }
 
         public Profile AddProfile(Profile profile)
@@ -20,19 +30,14 @@ namespace KalyanamMatrimony.Models
             return profile;
         }
 
-        public IEnumerable<Profile> GetActiveProfiles(IQueryable<ApplicationUser> usersList)
+        public IEnumerable<Profile> GetActiveProfiles(int orgId)
         {
-            return GetActiveOrInActiveProfiles(true, usersList);
+            return GetActiveOrInActiveProfiles(true, userManager.Users.Where(x => x.OrgId == orgId));
         }
 
-        public IEnumerable<Profile> GetAllProfiles()
+        public IEnumerable<Profile> GetDeActivedProfiles(int orgId)
         {
-            return context.Profiles.OrderBy(x => x.CreatedDate);
-        }
-
-        public IEnumerable<Profile> GetDeActivedProfiles(IQueryable<ApplicationUser> usersList)
-        {
-            return GetActiveOrInActiveProfiles(false, usersList);
+            return GetActiveOrInActiveProfiles(false, userManager.Users.Where(x => x.OrgId == orgId));
         }
 
         private IEnumerable<Profile> GetActiveOrInActiveProfiles(bool isActive, IQueryable<ApplicationUser> usersList)
@@ -40,23 +45,8 @@ namespace KalyanamMatrimony.Models
             List<ApplicationUser> users = isActive == true ?
                 usersList.Where(x => x.EndDate != null && x.EndDate.Value > System.DateTime.Now).ToList() :
                 usersList.Where(x => x.EndDate != null && x.EndDate.Value < System.DateTime.Now).ToList();
-            return GetAllProfiles().Where(profile => users.Any(user => user.Id == profile.UserId));
+            return context.Profiles.Where(profile => users.Any(user => user.Id == profile.UserId));
         }
-
-        //public IEnumerable<Profile> GetLatestProfiles(CustomEnums.ProfileGender gender)
-        //{
-        //    if (gender == CustomEnums.ProfileGender.Male)
-        //    {
-        //        //get details of female
-        //        return GetAllProfiles().Where(x => x.Gender == CustomEnums.ProfileGender.Female).Take(10);
-        //    }
-        //    else if (gender == CustomEnums.ProfileGender.Female)
-        //    {
-        //        //get details of males
-        //        return GetAllProfiles().Where(x => x.Gender == CustomEnums.ProfileGender.Male).Take(10);
-        //    }
-        //    return GetAllProfiles().Take(10);
-        //}
 
         public Profile GetProfileById(string profileId)
         {
@@ -131,6 +121,80 @@ namespace KalyanamMatrimony.Models
             context.Entry(organisation).State = EntityState.Modified;
             context.SaveChanges();
             return organisation;
+        }
+
+        //SuperAdmin
+        public IEnumerable<Profile> GetLatestProfilesForSuperAdmin()
+        {
+            //Get Top 10 latest active profiles across org
+            return GetAllProfilesForSuperAdmin().Take(10);
+        }
+        public IEnumerable<Profile> GetAllProfilesForSuperAdmin()
+        {
+            //Get all active profiles across org
+            var users = userManager.Users.Where(x => x.EndDate.Value > System.DateTime.Now).ToList();
+            return context.Profiles
+                .Where(profile => users.Any(userData => userData.Id == profile.UserId))
+                .OrderBy(x => x.CreatedDate);
+        }
+
+        //Admin
+        public IEnumerable<Profile> GetLatestProfilesForAdmin(int orgId)
+        {
+            //Get Top 10 latest active profiles for the current org
+            return GetAllActiveProfilesForAdmin(orgId).Take(10);
+        }
+        public IEnumerable<Profile> GetAllActiveProfilesForAdmin(int orgId)
+        {
+            //Get all active profiles for the current org
+            var users = userManager.Users.Where(x => x.EndDate.Value > System.DateTime.Now && x.OrgId == orgId).ToList();
+            return context.Profiles
+                .Where(profile => users.Any(userData => userData.Id == profile.UserId))
+                .OrderBy(x => x.CreatedDate);
+        }
+        public IEnumerable<Profile> GetAllProfilesForAdmin(int orgId)
+        {
+            //Get all active profiles for the current org
+            var users = userManager.Users.Where(x => x.OrgId == orgId).ToList();
+            return context.Profiles
+                .Where(profile => users.Any(userData => userData.Id == profile.UserId))
+                .OrderBy(x => x.CreatedDate);
+        }
+        public int GetTotalMaleProfilesCountForAdmin(int orgId)
+        {
+            return GetAllProfilesForAdmin(orgId).Where(x => x.Gender == CustomEnums.ProfileGender.Male).Count();
+        }
+        public int GetTotalFemaleProfilesCountForAdmin(int orgId)
+        {
+            return GetAllProfilesForAdmin(orgId).Where(x => x.Gender == CustomEnums.ProfileGender.Female).Count();
+        }
+
+        //Profiles
+        public IEnumerable<Profile> GetLatestMaleProfiles(int orgId)
+        {
+            //Get Top 10 latest active male profiles for the current org
+            return GetAllMaleProfiles(orgId).Take(10);
+        }
+        public IEnumerable<Profile> GetLatestFemaleProfiles(int orgId)
+        {
+            //Get Top 10 latest active female profiles for the current org
+            return GetAllFemaleProfiles(orgId).Take(10);
+        }
+        public IEnumerable<Profile> GetAllMaleProfiles(int orgId)
+        {
+            //Get all active male profiles for the current org
+            var users = userManager.Users.Where(x => x.EndDate.Value > System.DateTime.Now && x.OrgId == orgId);
+            return context.Profiles
+                .Where(profile => users.Any(userdata => profile.UserId == userdata.Id) && profile.Gender == CustomEnums.ProfileGender.Male)
+                .OrderBy(x => x.CreatedDate);
+        }
+        public IEnumerable<Profile> GetAllFemaleProfiles(int orgId)
+        {
+            //Get all active female profiles for the current org
+            var users = userManager.Users.Where(x => x.EndDate.Value > System.DateTime.Now && x.OrgId == orgId);
+            return context.Profiles
+                .Where(profile => users.Any(userdata => profile.UserId == userdata.Id) && profile.Gender == CustomEnums.ProfileGender.Female)
+                .OrderBy(x => x.CreatedDate);
         }
     }
 }

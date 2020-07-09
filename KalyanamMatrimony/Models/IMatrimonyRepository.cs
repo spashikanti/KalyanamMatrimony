@@ -5,13 +5,13 @@ namespace KalyanamMatrimony.Models
 {
     public interface IMatrimonyRepository
     {
-        IEnumerable<Profile> GetAllProfiles();
+        
         Profile AddProfile(Profile profile);
         Profile GetProfileById(string profileId);
         Profile GetProfileByUserId(string userId);
         Profile UpdateProfile(Profile profile);
-        IEnumerable<Profile> GetActiveProfiles(IQueryable<ApplicationUser> userList);
-        IEnumerable<Profile> GetDeActivedProfiles(IQueryable<ApplicationUser> userList);
+        IEnumerable<Profile> GetActiveProfiles(int orgId);
+        IEnumerable<Profile> GetDeActivedProfiles(int orgId);
         int DeleteProfileById(string profileId);
 
         IEnumerable<License> GetAllLicenses();
@@ -23,5 +23,24 @@ namespace KalyanamMatrimony.Models
         Organisation AddOrganisation(Organisation organisation);
         Organisation GetOrganisationById(int orgId);
         Organisation UpdateOrganisation(Organisation organisation);
+
+
+        //SuperAdminRole
+        IEnumerable<Profile> GetLatestProfilesForSuperAdmin();
+        IEnumerable<Profile> GetAllProfilesForSuperAdmin();
+
+        //AdminRole
+        IEnumerable<Profile> GetLatestProfilesForAdmin(int orgId);
+        IEnumerable<Profile> GetAllActiveProfilesForAdmin(int orgId);
+        IEnumerable<Profile> GetAllProfilesForAdmin(int orgId);
+        int GetTotalMaleProfilesCountForAdmin(int orgId);
+        int GetTotalFemaleProfilesCountForAdmin(int orgId);
+
+        //Profile
+        IEnumerable<Profile> GetLatestMaleProfiles(int orgId);
+        IEnumerable<Profile> GetLatestFemaleProfiles(int orgId);
+        IEnumerable<Profile> GetAllMaleProfiles(int orgId);
+        IEnumerable<Profile> GetAllFemaleProfiles(int orgId);
+
     }
 }

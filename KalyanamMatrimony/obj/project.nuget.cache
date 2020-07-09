@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "vXtGHThDQ8vJtanApPmVYoorFWPTeWqTKaY7BReAfED+S8F7qk6Viu4OctVxMRlm8huO5RHbgsCgv9UKb3dpGg==",
+  "dgSpecHash": "RpD2t8H9Kw1+U7R/mtiRPhC8aKTFlvZBEob3hKuB9foyDQNMBKU4wC86kUAch7k6M7ArcLCj0o00Q+3+NPOTBQ==",
   "success": true,
   "projectFilePath": "F:\\Sunil\\Development\\AspNetCore\\Branch\\KalyanamMatrimony\\KalyanamMatrimony\\KalyanamMatrimony.csproj",
   "expectedPackageFiles": [
@@ -26,10 +26,10 @@
     "C:\\Users\\Sunil\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions\\2.1.1\\microsoft.aspnetcore.connections.abstractions.2.1.1.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\microsoft.aspnetcore.cookiepolicy\\2.1.1\\microsoft.aspnetcore.cookiepolicy.2.1.1.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\microsoft.aspnetcore.cors\\2.1.1\\microsoft.aspnetcore.cors.2.1.1.nupkg.sha512",
-    "C:\\Users\\Sunil\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\2.1.1\\microsoft.aspnetcore.cryptography.internal.2.1.1.nupkg.sha512",
+    "C:\\Users\\Sunil\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.5\\microsoft.aspnetcore.cryptography.internal.3.1.5.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\2.1.1\\microsoft.aspnetcore.cryptography.keyderivation.2.1.1.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\microsoft.aspnetcore.dataprotection\\2.1.1\\microsoft.aspnetcore.dataprotection.2.1.1.nupkg.sha512",
-    "C:\\Users\\Sunil\\.nuget\\packages\\microsoft.aspnetcore.dataprotection.abstractions\\2.1.1\\microsoft.aspnetcore.dataprotection.abstractions.2.1.1.nupkg.sha512",
+    "C:\\Users\\Sunil\\.nuget\\packages\\microsoft.aspnetcore.dataprotection.abstractions\\2.2.0\\microsoft.aspnetcore.dataprotection.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\microsoft.aspnetcore.dataprotection.extensions\\2.1.1\\microsoft.aspnetcore.dataprotection.extensions.2.1.1.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\microsoft.aspnetcore.diagnostics\\2.1.1\\microsoft.aspnetcore.diagnostics.2.1.1.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\microsoft.aspnetcore.diagnostics.abstractions\\2.1.1\\microsoft.aspnetcore.diagnostics.abstractions.2.1.1.nupkg.sha512",
@@ -319,5 +319,26 @@
     "C:\\Users\\Sunil\\.nuget\\packages\\system.xml.xpath\\4.3.0\\system.xml.xpath.4.3.0.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1608",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Detected package version outside of dependency constraint: Microsoft.AspNetCore.App 2.1.1 requires Microsoft.AspNetCore.Cryptography.Internal (>= 2.1.1 && < 2.2.0) but version Microsoft.AspNetCore.Cryptography.Internal 3.1.5 was resolved.",
+      "libraryId": "Microsoft.AspNetCore.Cryptography.Internal",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.1"
+      ]
+    },
+    {
+      "code": "NU1608",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Detected package version outside of dependency constraint: Microsoft.AspNetCore.App 2.1.1 requires Microsoft.AspNetCore.DataProtection.Abstractions (>= 2.1.1 && < 2.2.0) but version Microsoft.AspNetCore.DataProtection.Abstractions 2.2.0 was resolved.",
+      "libraryId": "Microsoft.AspNetCore.DataProtection.Abstractions",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.1"
+      ]
+    }
+  ]
 }

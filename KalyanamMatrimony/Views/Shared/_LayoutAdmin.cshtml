@@ -42,7 +42,7 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+            @if (User.IsInRole(Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin)))
             {
                 <!-- Heading -->
                 <div class="sidebar-heading">

@@ -1,9 +1,13 @@
 ﻿using KalyanamMatrimony.Models;
 using KalyanamMatrimony.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace KalyanamMatrimony.Controllers
 {
@@ -19,13 +23,32 @@ namespace KalyanamMatrimony.Controllers
             this.userManager = userManager;
         }
 
-        public IActionResult Index()
+        private Task<ApplicationUser> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
+        private async Task<string> GetCurrentUserId()
+        {
+            ApplicationUser user = await GetCurrentUserAsync();
+            return user?.Id;
+        }
+        private async Task<int> GetCurrentOrgId()
+        {
+            ApplicationUser user = await GetCurrentUserAsync();
+            return user.OrgId;
+        }
+        private async Task<string> GetCurrentUserRole()
+        {
+            ApplicationUser user = await GetCurrentUserAsync();
+            IList<string> roles = await userManager.GetRolesAsync(user);
+            return roles[0];
+        }
+
+        public async Task<IActionResult> Index()
         {
             ProfilesViewModel profilesViewModel = new ProfilesViewModel();
-            profilesViewModel.ActiveProfilesCount = matrimonyRepository.GetActiveProfiles(userManager.Users).Count();
-            profilesViewModel.DeActivedProfilesCount = matrimonyRepository.GetDeActivedProfiles(userManager.Users).Count();
-            profilesViewModel.MaleProfilesCount = matrimonyRepository.GetAllProfiles().Where(x => x.Gender == CustomEnums.ProfileGender.Male).Count();
-            profilesViewModel.FemaleProfilesCount = matrimonyRepository.GetAllProfiles().Where(x => x.Gender == CustomEnums.ProfileGender.Female).Count();
+            int orgId = await GetCurrentOrgId();
+            profilesViewModel.ActiveProfilesCount = matrimonyRepository.GetActiveProfiles(orgId).Count();
+            profilesViewModel.DeActivedProfilesCount = matrimonyRepository.GetDeActivedProfiles(orgId).Count();
+            profilesViewModel.MaleProfilesCount = matrimonyRepository.GetTotalMaleProfilesCountForAdmin(orgId);
+            profilesViewModel.FemaleProfilesCount = matrimonyRepository.GetTotalFemaleProfilesCountForAdmin(orgId);
             return View(profilesViewModel);
         }
     }

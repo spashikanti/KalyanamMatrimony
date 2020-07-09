@@ -42,26 +42,35 @@ namespace KalyanamMatrimony.Controllers
             this.emailSender = emailSender;
         }
 
+        private Task<ApplicationUser> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
+        private async Task<string> GetCurrentUserId()
+        {
+            ApplicationUser user = await GetCurrentUserAsync();
+            return user?.Id;
+        }
+        private async Task<int> GetCurrentOrgId()
+        {
+            ApplicationUser user = await GetCurrentUserAsync();
+            return user.OrgId;
+        }
+        private async Task<string> GetCurrentUserRole()
+        {
+            ApplicationUser user = await GetCurrentUserAsync();
+            IList<string> roles = await userManager.GetRolesAsync(user);
+            return roles[0];
+        }
+
         [Authorize(Roles = "SuperAdmin, Admin")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             //Active Profiles Only
             ToasterServiceDisplay();
             ProfilesViewModel profilesModel = new ProfilesViewModel();
-            //profilesModel.ActiveProfiles = GetActiveOrInActiveProfiles(true);
-            //profilesModel.InActiveProfiles = GetActiveOrInActiveProfiles(false);
-            profilesModel.ActiveProfiles = matrimonyRepository.GetActiveProfiles(userManager.Users);
-            profilesModel.DeActivedProfiles = matrimonyRepository.GetDeActivedProfiles(userManager.Users);
+            int orgId = await GetCurrentOrgId();
+            profilesModel.ActiveProfiles = matrimonyRepository.GetActiveProfiles(orgId);
+            profilesModel.DeActivedProfiles = matrimonyRepository.GetDeActivedProfiles(orgId);
             return View(profilesModel);
         }
-
-        //private IEnumerable<Profile> GetActiveOrInActiveProfiles(bool isActive)
-        //{
-        //    List<ApplicationUser> users = isActive == true ? 
-        //        userManager.Users.Where(x => x.EndDate.Value > DateTime.Now).ToList() : 
-        //        userManager.Users.Where(x => x.EndDate.Value < DateTime.Now).ToList();
-        //    return matrimonyRepository.GetAllProfiles().Where(profile => users.Any(user => user.Id == profile.UserId));
-        //}
 
         [Authorize(Roles = "SuperAdmin, Admin")]
         [HttpGet]
@@ -92,6 +101,7 @@ namespace KalyanamMatrimony.Controllers
                 {
                     user.EndDate = model.EndDate;
                 }
+                user.OrgId = await GetCurrentOrgId();
 
                 // Store user data in AspNetUsers database table
                 var result = await userManager.CreateAsync(user, model.Password);
@@ -109,7 +119,7 @@ namespace KalyanamMatrimony.Controllers
 
                         // Log the password reset link
                         logger.Log(LogLevel.Warning, confirmationLink);
-                        await SendEmail(model.Email, confirmationLink);
+                        await SendEmail(model.Email, confirmationLink, "Email Confirmation");
 
                         model.UserId = user.Id;
                         if (model.PhotoFile1 != null && model.PhotoFile1.Length > 0)
@@ -148,8 +158,8 @@ namespace KalyanamMatrimony.Controllers
                         }
                         else
                         {
-                            ToasterServiceCreate(model.FirstName + " profile added successfully", CustomEnums.ToastType.Success);
-                            ToasterServiceCreate("Please ask user to click on the confirmation link in the email shared", CustomEnums.ToastType.Info);
+                            //ToasterServiceCreate(model.FirstName + " profile added successfully", CustomEnums.ToastType.Success);
+                            ToasterServiceCreate(model.FirstName + " profile added successfully" + " Please ask user to check email to verify account.", CustomEnums.ToastType.Info);
                             return RedirectToAction("index", "profile");
                         }
                     }
@@ -178,17 +188,6 @@ namespace KalyanamMatrimony.Controllers
             }
 
             return View(model);
-        }
-
-        private async Task SendEmail(string email, string confirmationLink)
-        {
-            var content = "Thanks for signing up with our portal! You must follow this link to activate your account:<br/><br/>" +
-                "<a href='" + confirmationLink + "' >Click Here to Confirm</a><br/><br/>" +
-                "Happy searching!!!<br/><br/>" +
-                "The Matrimony Team";
-            var message = new Message(new string[] { email }, "Email Confirmation", content);
-            //emailSender.SendEmail(message);
-            await emailSender.SendEmailAsync(message);
         }
 
         [Authorize(Roles = "SuperAdmin, Admin")]
@@ -221,7 +220,6 @@ namespace KalyanamMatrimony.Controllers
                     if (user.EndDate != model.EndDate)
                     {
                         user.EndDate = model.EndDate;
-                        // Store user data in AspNetUsers database table
                         var result = await userManager.UpdateAsync(user);
 
                         if (!result.Succeeded)
@@ -342,13 +340,6 @@ namespace KalyanamMatrimony.Controllers
             return RedirectToAction("NotFound", "Error", new { statusCode = 404 });
         }
 
-        private Task<ApplicationUser> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
-        private async Task<string> GetCurrentUserId()
-        {
-            ApplicationUser user = await GetCurrentUserAsync();
-            return user?.Id;
-        }
-
         [Authorize]
         [HttpGet]
         public async Task<IActionResult> ViewMyProfile(string id)
@@ -359,7 +350,6 @@ namespace KalyanamMatrimony.Controllers
             if (string.IsNullOrEmpty(id))
             {
                 string currentUserId = await GetCurrentUserId();
-                ApplicationUser userData = await userManager.FindByIdAsync(currentUserId);
                 profile = matrimonyRepository.GetProfileByUserId(currentUserId);
             }
             else
@@ -446,7 +436,6 @@ namespace KalyanamMatrimony.Controllers
                     if (user.EndDate != model.EndDate)
                     {
                         user.EndDate = model.EndDate;
-                        // Store user data in AspNetUsers database table
                         var result = await userManager.UpdateAsync(user);
 
                         if (!result.Succeeded)
@@ -516,7 +505,7 @@ namespace KalyanamMatrimony.Controllers
                         DeleteImage(model.Photo3);
                     }
 
-                    logger.Log(LogLevel.Error, "Unable to update profile");
+                    logger.Log(LogLevel.Error, model.Email + " Unable to update profile");
                     ModelState.AddModelError(string.Empty, "Unable to update profile");
                     ToasterServiceCreate(model.FirstName + " unable to update profile", CustomEnums.ToastType.Error);
                 }
@@ -723,39 +712,37 @@ namespace KalyanamMatrimony.Controllers
         public async Task<IActionResult> Search()
         {
             List<Profile> profilesList = new List<Profile>();
-            var user = await userManager.GetUserAsync(User);
+            string userRole = await GetCurrentUserRole();
+            string userId = await GetCurrentUserId();
+            int orgId = await GetCurrentOrgId();
 
-            if (user != null)
+            var strSuperAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin);
+            var strAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin);
+
+            if (userRole == strSuperAdminRole)
             {
-                var strSuperAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin);
-                var strAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin);
-                List<ApplicationUser> users = userManager.Users.Where(x => x.EndDate.Value > DateTime.Now).ToList();
+                profilesList = matrimonyRepository.GetAllProfilesForSuperAdmin().ToList();
+                return View(profilesList);
+            }
+            else if (userRole == strAdminRole)
+            {
+                profilesList = matrimonyRepository.GetAllActiveProfilesForAdmin(orgId).ToList();
+                return View(profilesList);
+            }
 
-                if (await userManager.IsInRoleAsync(user, strSuperAdminRole) || await userManager.IsInRoleAsync(user, strAdminRole))
+            var userProfile = matrimonyRepository.GetProfileByUserId(userId);
+            if (userProfile != null)
+            {
+                if (userProfile.Gender == CustomEnums.ProfileGender.Male)
                 {
-                    profilesList = matrimonyRepository.GetAllProfiles().Where(profile => users.Any(userData => userData.Id == profile.UserId)).ToList();
-                    return View(profilesList);
+                    profilesList = matrimonyRepository.GetAllFemaleProfiles(orgId).ToList();
                 }
-
-                var userProfile = matrimonyRepository.GetProfileByUserId(user.Id);
-                if (userProfile != null)
+                else if (userProfile.Gender == CustomEnums.ProfileGender.Female)
                 {
-                    if (userProfile.Gender == CustomEnums.ProfileGender.Male)
-                    {
-                        //get details of female
-                        profilesList = matrimonyRepository.GetAllProfiles().Where(profile => profile.Gender == CustomEnums.ProfileGender.Female &&
-                        users.Any(userData => userData.Id == profile.UserId)).ToList();
-                    }
-                    else if (userProfile.Gender == CustomEnums.ProfileGender.Female)
-                    {
-                        //get details of males
-                        profilesList = matrimonyRepository.GetAllProfiles().Where(profile => profile.Gender == CustomEnums.ProfileGender.Male &&
-                        users.Any(userData => userData.Id == profile.UserId)).ToList();
-                    }
+                    profilesList = matrimonyRepository.GetAllMaleProfiles(orgId).ToList();
                 }
             }
 
-            //var model = _employeeRepository.GetAllEmployee();
             return View(profilesList);
         }
 
@@ -800,7 +787,7 @@ namespace KalyanamMatrimony.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteProfile(string userId)
         {
-            string userIds = HttpContext.Request.Query["userId"].ToString();
+            //string userIds = HttpContext.Request.Query["userId"].ToString();
             if (string.IsNullOrEmpty(userId))
             {
                 ModelState.AddModelError(string.Empty, "Invalid Request");
@@ -864,6 +851,21 @@ namespace KalyanamMatrimony.Controllers
             }
         }
 
+        private async Task SendEmail(string email, string encryptedLink, string subject)
+        {
+            var content = "";
+             if (subject.Contains("Email Confirmation"))
+            {
+                content = "Hi " + email + ", <br/><br/>" +
+                    "Thank you for signing up with our portal! You must follow this link to activate your account:<br/><br/>" +
+                    "<a href='" + encryptedLink + "' >Confirm your email</a><br/><br/>" +
+                    "Happy Matrimony!!!<br/><br/>" +
+                    "Regards<br/>" +
+                    "The Matrimony Team";
+            }
 
+            var message = new Message(new string[] { email }, subject, content);
+            await emailSender.SendEmailAsync(message);
+        }
     }
 }
