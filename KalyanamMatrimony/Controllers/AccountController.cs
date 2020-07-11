@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using static KalyanamMatrimony.Models.CustomEnums;
 
@@ -20,13 +21,15 @@ namespace KalyanamMatrimony.Controllers
         private readonly ILogger<AccountController> logger;
         private readonly IEmailSender emailSender;
         private readonly IMatrimonyRepository matrimonyRepository;
+        private readonly IConfiguration configuration;
 
         public AccountController(UserManager<ApplicationUser> userManager,
                                 SignInManager<ApplicationUser> signInManager,
                                 RoleManager<IdentityRole> roleManager,
                                 ILogger<AccountController> logger,
                                 IEmailSender emailSender,
-                                IMatrimonyRepository matrimonyRepository)
+                                IMatrimonyRepository matrimonyRepository,
+                                IConfiguration configuration)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -34,7 +37,30 @@ namespace KalyanamMatrimony.Controllers
             this.logger = logger;
             this.emailSender = emailSender;
             this.matrimonyRepository = matrimonyRepository;
+            this.configuration = configuration;
         }
+
+        #region LoggedIn User Details
+
+        //private Task<ApplicationUser> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
+        //private async Task<string> GetCurrentUserId()
+        //{
+        //    ApplicationUser user = await GetCurrentUserAsync();
+        //    return user?.Id;
+        //}
+        //private async Task<int> GetCurrentOrgId()
+        //{
+        //    ApplicationUser user = await GetCurrentUserAsync();
+        //    return user.OrgId;
+        //}
+        private async Task<string> GetCurrentUserRole(ApplicationUser user)
+        {
+            //ApplicationUser user = await GetCurrentUserAsync();
+            IList<string> roles = await userManager.GetRolesAsync(user);
+            return roles[0];
+        }
+
+        #endregion
 
         [AcceptVerbs("Get", "Post")]
         public async Task<IActionResult> IsEmailInUse(string email)
@@ -149,11 +175,25 @@ namespace KalyanamMatrimony.Controllers
                     return View(model);
                 }
 
-                var result = await signInManager.PasswordSignInAsync(
-                    model.Email, model.Password, model.RememberMe, false);
+                var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
 
                 if (result.Succeeded)
                 {
+                    SetSessionOrgId(user.OrgId);
+                    string userRole = await GetCurrentUserRole(user);
+                    Organisation org = matrimonyRepository.GetOrganisationById(user.OrgId);
+
+                    if(org != null)
+                    {
+                        SetSessionOrgName(org.OrgName);
+                    }
+                    else
+                    {
+                        SetSessionOrgName(configuration.GetSection("OrgConfiguration").GetSection("OrgName").Value);
+                    }
+                    SetSessionUserId(user.Id);
+                    SetSessionUserRole(userRole);
+
                     //Get User Roles and store it in Session object to get it in across application
                     if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                     {

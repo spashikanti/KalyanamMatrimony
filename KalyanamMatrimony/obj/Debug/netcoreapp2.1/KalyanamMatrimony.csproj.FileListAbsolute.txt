@@ -209,7 +209,6 @@ F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\bin\D
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\bin\Debug\netcoreapp2.1\KalyanamMatrimony.xml
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\bin\Debug\netcoreapp2.1\KalyanamMatrimony.Views.dll
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\bin\Debug\netcoreapp2.1\KalyanamMatrimony.Views.pdb
-F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.csprojAssemblyReference.cache
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.AssemblyInfoInputs.cache
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.AssemblyInfo.cs
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.csproj.CoreCompileInputs.cache
@@ -268,3 +267,7 @@ F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\D
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.pdb
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.genruntimeconfig.cache
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.csproj.CopyComplete
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Partials\_ViewOrganisations.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\SuperAdmin\ViewOrganisations.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\SuperAdmin\CreateOrganisation.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\SuperAdmin\Index.cshtml.g.cs

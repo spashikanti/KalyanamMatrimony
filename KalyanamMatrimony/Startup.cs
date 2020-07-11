@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +23,12 @@ namespace KalyanamMatrimony
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.Configure<CookiePolicyOptions>(options =>
+            //{
+            //    options.CheckConsentNeeded = context => false;
+            //    options.MinimumSameSitePolicy = SameSiteMode.None;
+            //});
+
             var emailConfig = _config
                             .GetSection("EmailConfiguration")
                             .Get<EmailConfiguration>();
@@ -69,6 +76,7 @@ namespace KalyanamMatrimony
 
             app.UseStaticFiles();
             app.UseAuthentication();
+            app.UseCookiePolicy();
             app.UseSession();
 
             app.UseMvc(routes =>

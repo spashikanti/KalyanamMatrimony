@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace KalyanamMatrimony.ViewModels
 {
-    public class ProfilesViewModel
+    public class SuperAdminDashboardViewModel
     {
-        public IEnumerable<Profile> ActiveProfiles { get; set; }
-        public IEnumerable<Profile> DeActivedProfiles { get; set; }
+        public int ActiveOrganisationsCount { get; set; }
+        public int InActiveOrganisationsCount { get; set; }
     }
 }

@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using KalyanamMatrimony.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -78,6 +80,16 @@ namespace KalyanamMatrimony.Models
             return context.Licenses;
         }
 
+        public IEnumerable<License> GetAllActiveLicenses()
+        {
+            return GetAllLicenses().Where(e => e.IsActive == true);
+        }
+
+        public IEnumerable<License> GetAllInActiveLicenses()
+        {
+            return GetAllLicenses().Where(e => e.IsActive == false);
+        }
+
         public License AddLicense(License license)
         {
             context.Licenses.Add(license);
@@ -98,9 +110,33 @@ namespace KalyanamMatrimony.Models
             return license;
         }
 
-        public IEnumerable<Organisation> GetAllOrganisations()
+        public IEnumerable<OrganisationViewModel> GetAllOrganisations()
         {
-            return context.Organisations.ToList();
+            //send org with its license
+            List<License> licenses = context.Licenses.ToList();
+            List<Organisation> organisations = context.Organisations.ToList();
+            return organisations.Join(licenses, org => org.LicenseId, lic => lic.LicenseId, 
+                (org, lic) => new OrganisationViewModel{
+                    OrgId = org.OrgId,
+                    OrgName = org.OrgName,
+                    FullName = org.FullName,
+                    Phone = org.Phone,
+                    CreatedDate = org.CreatedDate,
+                    EndDate = org.EndDate,
+                    LicenseId = org.LicenseId,
+                    LicenseName = lic.LicenseName,
+                    Description = lic.Description
+            }).ToList();
+        }
+
+        public IEnumerable<OrganisationViewModel> GetAllActiveOrganisations()
+        {
+            return GetAllOrganisations().Where(x => x.EndDate > DateTime.Now).ToList();
+        }
+
+        public IEnumerable<OrganisationViewModel> GetAllInActiveOrganisations()
+        {
+            return GetAllOrganisations().Where(x => x.EndDate < DateTime.Now).ToList();
         }
 
         public Organisation AddOrganisation(Organisation organisation)

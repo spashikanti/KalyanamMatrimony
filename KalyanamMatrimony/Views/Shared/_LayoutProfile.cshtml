@@ -1,5 +1,7 @@
 ﻿@inject SignInManager<ApplicationUser> signInManager
 @inject RoleManager<IdentityRole> roleManager
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpContextAccessor
 
 <html>
 <head>
@@ -53,6 +55,7 @@
         rounded-circle {
             border-radius: 50% !important;
         }
+
         .img-profile {
             height: 2rem;
             width: 2rem;
@@ -60,10 +63,17 @@
     </style>
 </head>
 <body>
+    @{
+        string OrgName = string.Empty;
+        if (httpContextAccessor.HttpContext.Session.GetString("OrgName") != null)
+        {
+            OrgName = httpContextAccessor.HttpContext.Session.GetString("OrgName");
+        }
+    }
     @*Navigation*@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a class="navbar-brand" asp-controller="home" asp-action="index">Kalyanam Matrimony</a>
+            <a class="navbar-brand" asp-controller="home" asp-action="index">@OrgName</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -75,20 +85,36 @@
                     <li class="nav-item active">
                         <a class="nav-link" asp-controller="profile" asp-action="search">Search</a>
                     </li>
+                    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-controller="admin" asp-action="index">Admin Dashboard</a>
+                        </li>
+                        @*<a class="dropdown-item" asp-controller="admin" asp-action="index">
+                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Dashboard
+                        </a>*@
+                    }
+                    @if (User.IsInRole("SuperAdmin"))
+                    {
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-controller="superadmin" asp-action="index">Super Admin Dashboard</a>
+                        </li>
+                    }
                     @*<li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </li>*@
+            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+        </li>*@
                     @*<li class="nav-item">
-                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                        </li>*@
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>*@
                 </ul>
                 @*<form class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -109,14 +135,7 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     My Profile
                                 </a>
-                                @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
-                                {
-                                    <a class="dropdown-item" asp-controller="admin" asp-action="index">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Dashboard
-                                    </a>
-                                }
-                                else
+                                @if (User.IsInRole("Profile"))
                                 {
                                     <a class="dropdown-item" asp-controller="profile" asp-action="editmyprofile">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -159,7 +178,7 @@
             <span>&copy; 2020. All Rights Reserved.</span>
         </div>
     </footer>
-    
+
 
     <div id="divProgressBar">
         <partial name="~/Views/Partials/_ProgressBar.cshtml" />

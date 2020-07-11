@@ -42,34 +42,16 @@ namespace KalyanamMatrimony.Controllers
             this.emailSender = emailSender;
         }
 
-        private Task<ApplicationUser> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
-        private async Task<string> GetCurrentUserId()
-        {
-            ApplicationUser user = await GetCurrentUserAsync();
-            return user?.Id;
-        }
-        private async Task<int> GetCurrentOrgId()
-        {
-            ApplicationUser user = await GetCurrentUserAsync();
-            return user.OrgId;
-        }
-        private async Task<string> GetCurrentUserRole()
-        {
-            ApplicationUser user = await GetCurrentUserAsync();
-            IList<string> roles = await userManager.GetRolesAsync(user);
-            return roles[0];
-        }
-
         [Authorize(Roles = "SuperAdmin, Admin")]
         public async Task<IActionResult> Index()
         {
             //Active Profiles Only
             ToasterServiceDisplay();
-            ProfilesViewModel profilesModel = new ProfilesViewModel();
-            int orgId = await GetCurrentOrgId();
-            profilesModel.ActiveProfiles = matrimonyRepository.GetActiveProfiles(orgId);
-            profilesModel.DeActivedProfiles = matrimonyRepository.GetDeActivedProfiles(orgId);
-            return View(profilesModel);
+            ProfilesViewModel profilesViewModel = new ProfilesViewModel();
+            int orgId = GetSessionOrgId();
+            profilesViewModel.ActiveProfiles = matrimonyRepository.GetActiveProfiles(orgId);
+            profilesViewModel.DeActivedProfiles = matrimonyRepository.GetDeActivedProfiles(orgId);
+            return View(profilesViewModel);
         }
 
         [Authorize(Roles = "SuperAdmin, Admin")]
@@ -101,7 +83,7 @@ namespace KalyanamMatrimony.Controllers
                 {
                     user.EndDate = model.EndDate;
                 }
-                user.OrgId = await GetCurrentOrgId();
+                user.OrgId = GetSessionOrgId();
 
                 // Store user data in AspNetUsers database table
                 var result = await userManager.CreateAsync(user, model.Password);
@@ -349,7 +331,7 @@ namespace KalyanamMatrimony.Controllers
 
             if (string.IsNullOrEmpty(id))
             {
-                string currentUserId = await GetCurrentUserId();
+                string currentUserId = GetSessionUserId();
                 profile = matrimonyRepository.GetProfileByUserId(currentUserId);
             }
             else
@@ -392,7 +374,7 @@ namespace KalyanamMatrimony.Controllers
         {
             ToasterServiceDisplay();
 
-            string currentUserId = await GetCurrentUserId();
+            string currentUserId = GetSessionUserId();
             ApplicationUser userData = await userManager.FindByIdAsync(currentUserId);
             Profile profile = matrimonyRepository.GetProfileByUserId(currentUserId);
             EditUserProfileViewModel userProfileViewModel = new EditUserProfileViewModel();
@@ -712,9 +694,9 @@ namespace KalyanamMatrimony.Controllers
         public async Task<IActionResult> Search()
         {
             List<Profile> profilesList = new List<Profile>();
-            string userRole = await GetCurrentUserRole();
-            string userId = await GetCurrentUserId();
-            int orgId = await GetCurrentOrgId();
+            string userRole = GetSessionUserRole();
+            string userId = GetSessionUserId();
+            int orgId = GetSessionOrgId();
 
             var strSuperAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin);
             var strAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin);

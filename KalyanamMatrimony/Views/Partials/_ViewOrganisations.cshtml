@@ -1,0 +1,78 @@
+﻿@model IEnumerable<KalyanamMatrimony.ViewModels.OrganisationViewModel>
+
+@{
+    string dataTableName = (string)ViewData["DataTable"];
+}
+
+<div class="card shadow mb-4 border-primary">
+    <div class="card-header bg-primary text-white">
+        <div class="row">
+            <div class="col-md-10">
+                <h5 class="font-weight-bold text-white">View Organisations</h5>
+            </div>
+            <div class="col-md-2">
+                <a class="btn btn-success" asp-controller="superadmin" asp-action="CreateOrganisation">
+                    <strong>Create Organisation</strong>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered border-dark" id="@dataTableName" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.OrgName)</th>
+                        <th>@Html.DisplayNameFor(model => model.FullName)</th>
+                        <th>@Html.DisplayNameFor(model => model.Phone)</th>
+                        <th>@Html.DisplayNameFor(model => model.CreatedDate)</th>
+                        <th>@Html.DisplayNameFor(model => model.EndDate)</th>
+                        <th>@Html.DisplayNameFor(model => model.LicenseName)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.OrgName)</th>
+                        <th>@Html.DisplayNameFor(model => model.FullName)</th>
+                        <th>@Html.DisplayNameFor(model => model.Phone)</th>
+                        <th>@Html.DisplayNameFor(model => model.CreatedDate)</th>
+                        <th>@Html.DisplayNameFor(model => model.EndDate)</th>
+                        <th>@Html.DisplayNameFor(model => model.LicenseName)</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OrgName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndDate)
+                        </td>
+                        <td>
+                            
+                            @Html.ActionLink(item.Description, "EditLicense", new { id = item.LicenseId, mode = "view" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("View", "CreateOrganisation", new { id = item.OrgId, mode = "view" }) |
+                            @Html.ActionLink("Renew", "EditLicense", new { id = item.OrgId })
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -20,7 +20,10 @@ namespace KalyanamMatrimony.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            SuperAdminDashboardViewModel superAdminDashboardViewModel = new SuperAdminDashboardViewModel();
+            superAdminDashboardViewModel.ActiveOrganisationsCount = matrimonyRepository.GetAllActiveOrganisations().Count();
+            superAdminDashboardViewModel.InActiveOrganisationsCount = matrimonyRepository.GetAllInActiveOrganisations().Count();
+            return View(superAdminDashboardViewModel);
         }
 
         //CRUD Licenses (D is inactive - soft delete)
@@ -32,8 +35,8 @@ namespace KalyanamMatrimony.Controllers
             //Active Profiles Only
             ToasterServiceDisplay();
             LicencesViewModel licensesModel = new LicencesViewModel();
-            licensesModel.ActiveLicenses = matrimonyRepository.GetAllLicenses().Where(e => e.IsActive == true);
-            licensesModel.DeActivedLicenses = matrimonyRepository.GetAllLicenses().Where(e => e.IsActive == false);
+            licensesModel.ActiveLicenses = matrimonyRepository.GetAllActiveLicenses();
+            licensesModel.DeActivedLicenses = matrimonyRepository.GetAllInActiveLicenses();
             return View(licensesModel);
         }
 
@@ -93,6 +96,26 @@ namespace KalyanamMatrimony.Controllers
             }
 
             return View(model);
+        }
+
+        //Organisation
+        [Authorize(Roles = "SuperAdmin")]
+        [HttpGet]
+        public async Task<IActionResult> ViewOrganisations()
+        {
+            ToasterServiceDisplay();
+            OrgLicenseViewModel organisationModel = new OrgLicenseViewModel();
+            organisationModel.ActiveOrganisation = matrimonyRepository.GetAllActiveOrganisations();
+            organisationModel.InActiveOrganisation = matrimonyRepository.GetAllInActiveOrganisations();
+            return View(organisationModel);
+        }
+
+        [Authorize(Roles = "SuperAdmin")]
+        [HttpGet]
+        public async Task<IActionResult> CreateOrganisation()
+        {
+            ViewBag.LicenseTypes = matrimonyRepository.GetAllLicenses();
+            return View();
         }
     }
 }
