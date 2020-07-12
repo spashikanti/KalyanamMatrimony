@@ -5,4 +5,155 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <partial name="~/Views/Partials/_SignUpCreateUpdate.cshtml" model="Model" view-data="ViewData" />
+<!--   Big container   -->
+    <div class="row">
+        <div class="col-sm-12">
+            <!--      Wizard container        -->
+            <div class="wizard-container">
+                <div class="card wizard-card" data-color="azure" id="wizard">
+                    <form method="post">
+                        <!--        You can switch " data-color="azure" "  with one of the next bright colors: "blue", "green", "orange", "red"           -->
+                        @*<div class="wizard-header">
+                                <h3 class="wizard-title">Find your next desk</h3>
+                                <p class="category">Book from thousands of unique work and meeting spaces.</p>
+                            </div>*@
+                        <div class="wizard-navigation">
+                            <div class="progress-with-circle">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3" style="width: 21%;"></div>
+                            </div>
+                            <ul>
+                                <li>
+                                    <a href="#details" data-toggle="tab">
+                                        <div class="icon-circle">
+                                            <i class="ti-pencil"></i>
+                                        </div>
+                                        Plan
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#captain" data-toggle="tab">
+                                        <div class="icon-circle">
+                                            <i class="ti-map"></i>
+                                        </div>
+                                        Sign Up
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#description" data-toggle="tab">
+                                        <div class="icon-circle">
+                                            <i class="ti-money"></i>
+                                        </div>
+                                        Payment
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane" id="details">
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="LicenseId" class="small mb-1"></label>
+                                            <select asp-for="LicenseId" class="form-control"
+                                                    asp-items="@(new SelectList(@ViewBag.LicenseTypes, "Price", "Description"))">
+                                            </select>
+                                            <span asp-validation-for="LicenseId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <br />
+                                        <div class="form-group">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <strong>Order Summary</strong>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="form-row">
+                                                        <div class="col-md-9">
+                                                            <div class="form-group">
+                                                                <div id="lblLicense"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <div id="lblPrice"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr />
+                                                    <div class="form-row">
+                                                        <div class="col-md-9">
+                                                            <div class="form-group">
+                                                                <strong>Total</strong>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <div id="lblTotal"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    Subtotal does not include applicable taxes.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="captain">
+                                <partial name="~/Views/Partials/_SignUpCreateUpdate.cshtml" model="Model" view-data="ViewData" />
+                            </div>
+                            <div class="tab-pane" id="description">
+                                <div class="row">
+                                    <h5 class="info-text"> Tell us about your ideal working space. </h5>
+                                    <div class="col-sm-6 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <label>Desk description</label>
+                                            <textarea class="form-control" placeholder="" rows="9"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Example</label>
+                                            <p class="description">"If you're heavily armed with a mug, smartphone and a laptop, then our hot desks will provide the pure functionality and space needed to get your work done and move on to the next one."</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wizard-footer">
+                            <div class="pull-right">
+                                <input type='button' class='btn btn-next btn-fill btn-primary btn-wd' name='next' value='Next' />
+                                <input type='button' class='btn btn-finish btn-fill btn-primary btn-wd' name='finish' value='Finish' />
+                            </div>
+
+                            <div class="pull-left">
+                                <input type='button' class='btn btn-previous btn-default btn-wd' name='previous' value='Previous' />
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </form>
+                </div>
+            </div> <!-- wizard container -->
+        </div>
+    </div> <!-- row -->
+
+<!--  big container -->
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+            $("#LicenseId").on("change", function (e) {
+                debugger;
+                console.log(e);
+                var optionSelected = $("option:selected", this);
+                $("#lblPrice").text("₹" + this.value);// + this.value selected value
+                $("#lblTotal").text("₹" + this.value);// + this.value selected value
+                $("#lblLicense").text(optionSelected[0].text);//selected text
+            });
+
+            $("#LicenseId").trigger("change");
+        });
+    </script>
+}

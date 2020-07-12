@@ -5,19 +5,34 @@
     <meta name="viewport" content="width=device-width" />
     <!-- Custom styles for this template-->
     <link href="~/css/admin.min.css" rel="stylesheet" />
+
+    <link href="~/wizard/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/wizard/css/paper-bootstrap-wizard.css" rel="stylesheet" />
+    <!-- Fonts and Icons -->
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+    <link href="~/wizard/css/themify-icons.css" rel="stylesheet" />
+
+    <!--   Core JS Files   -->
+
+    <script src="~/wizard/js/jquery-2.2.4.min.js"></script>
+    <script src="~/wizard/js/bootstrap.min.js"></script>
+    <script src="~/wizard/js/jquery.bootstrap.wizard.js"></script>
+    @*<script src="~/wizard/js/demo.js"></script>*@
+    <script src="~/wizard/js/paper-bootstrap-wizard.js"></script>
+    <script src="~/wizard/js/jquery.validate.min.js"></script>
+
     <title>@ViewBag.Title</title>
 </head>
 <body class="bg-gradient-primary">
-    <div class="container pt-2">
-        <!-- Outer Row -->
-        <div class="pt-5">
+    <div class="container">
             @RenderBody()
-        </div>
     </div>
     @if (IsSectionDefined("Scripts"))
     {
         @RenderSection("Scripts", required: true)
     }
+    
 </body>
 </html>
 
