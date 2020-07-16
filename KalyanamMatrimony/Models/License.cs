@@ -30,5 +30,7 @@ namespace KalyanamMatrimony.Models
         public CustomEnums.LicenseType LicenseType { get; set; }
         [Display(Name = "Price")]
         public float Price { get; set; }
+
+        public string PayLink { get; set; }
     }
 }

@@ -14,19 +14,29 @@
     <li class="nav-item">
         <a class="nav-link" id="pills-DeActivated-tab" data-toggle="pill" href="#pills-DeActivated" role="tab" aria-controls="pills-DeActivated" aria-selected="false">InActivated Organisations</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-LicenseNotMapped-tab" data-toggle="pill" href="#pills-LicenseNotMapped" role="tab" aria-controls="pills-LicenseNotMapped" aria-selected="false">
+        License Not Mapped</a>
+    </li>
 </ul>
 <div class="tab-content" id="pills-tabContent">
     <div class="tab-pane fade show active" id="pills-Active" role="tabpanel" aria-labelledby="pills-Active-tab">
         @{
             ViewData["DataTable"] = "DataTableActive";
         }
-        <partial name="~/Views/Partials/_ViewOrganisations.cshtml" model="Model.ActiveOrganisation" view-data="ViewData" />
+        <partial name="~/Views/Partials/_OrganisationsView.cshtml" model="Model.ActiveOrganisation" view-data="ViewData" />
     </div>
     <div class="tab-pane fade" id="pills-DeActivated" role="tabpanel" aria-labelledby="pills-DeActivated-tab">
         @{
             ViewData["DataTable"] = "DataTableDeActived";
         }
-        <partial name="~/Views/Partials/_ViewOrganisations.cshtml" model="Model.InActiveOrganisation" view-data="ViewData" />
+        <partial name="~/Views/Partials/_OrganisationsView.cshtml" model="Model.InActiveOrganisation" view-data="ViewData" />
+    </div>
+    <div class="tab-pane fade" id="pills-LicenseNotMapped" role="tabpanel" aria-labelledby="pills-LicenseNotMapped-tab">
+        @{
+            ViewData["DataTable"] = "DataTableLicenseNotMapped";
+        }
+        <partial name="~/Views/Partials/_OrganisationsView.cshtml" model="Model.LicenseNotMappedOrganisations" view-data="ViewData" />
     </div>
 </div>
 

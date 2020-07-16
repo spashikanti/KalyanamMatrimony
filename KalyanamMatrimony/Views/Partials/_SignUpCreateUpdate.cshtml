@@ -1,7 +1,6 @@
 ﻿@model SignUpViewModel
 
-<div class="col-sm-12">
-    <div class="card o-hidden border-0 shadow-lg">
+
         <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
             <div class="row">
@@ -11,7 +10,7 @@
                         @*<div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">@ViewData["Title"]</h1>
                         </div>*@
-                        @*<form method="post" class="user">*@
+                        <form method="post" class="user">
                             <div asp-validation-summary="All" class="text-danger"></div>
                             <div class="form-row">
                                 <div class="col-md-4">
@@ -60,20 +59,34 @@
                                 </div>
                             </div>
                             @*<div class="form-row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="LicenseId" class="small mb-1"></label>
+                    <select asp-for="LicenseId" class="form-control"
+                            asp-items="@(new SelectList(@ViewBag.LicenseTypes, "Price", "Description"))">
+
+                    </select>
+                    <span asp-validation-for="LicenseId" class="text-danger"></span>
+                </div>
+            </div>
+        </div>*@
+                            @*<button id="btnSignUp" type="submit" class="btn btn-primary btn-block">
+                                Save
+                            </button>*@
+                            <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label asp-for="LicenseId" class="small mb-1"></label>
-                                        <select asp-for="LicenseId" class="form-control"
-                                                asp-items="@(new SelectList(@ViewBag.LicenseTypes, "Price", "Description"))">
-
-                                        </select>
-                                        <span asp-validation-for="LicenseId" class="text-danger"></span>
+                                        <button type="submit" class="btn btn-success btn-block" id="btnSignUp">
+                                            <strong>Save</strong>
+                                        </button>
                                     </div>
                                 </div>
-                            </div>*@
-                            @*<button id="btnSignUp" type="submit" class="btn btn-primary btn-user btn-block">
-                                Sign Up
-                            </button>*@
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <a class="btn btn-danger btn-block" asp-controller="SuperAdmin" asp-action="ViewLicenses"><strong>Cancel</strong></a>
+                                    </div>
+                                </div>
+                            </div>
                             @if (@Model != null && @Model.OrgId > 0)
                             {
                                 <input asp-for="OrgId" type="hidden" />
@@ -82,17 +95,11 @@
                             {
                                 <input asp-for="UserId" type="hidden" />
                             }
-                        @*</form>*@
-                        <hr>
-                        @*<div class="text-center">
-                                <a class="small" asp-action="ForgotPassword">Forgot Password?</a>
-                            </div>*@
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
 @section Scripts{
     <script>
@@ -104,5 +111,16 @@
                 x.append("Please provide login credentials!!!");
             }
         });
+
+        debugger;
+        var qs = location.search;
+
+        if (qs != null && qs != undefined) {
+            if (qs.split("=")[1] == "view") {
+                $("#btnSignUp").hide();
+                $(".danger").hide();
+            }
+        }
+
     </script>
 }

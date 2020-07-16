@@ -9,5 +9,6 @@ namespace KalyanamMatrimony.ViewModels
     {
         public IEnumerable<OrganisationViewModel> ActiveOrganisation { get; set; }
         public IEnumerable<OrganisationViewModel> InActiveOrganisation { get; set; }
+        public IEnumerable<OrganisationViewModel> LicenseNotMappedOrganisations { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using KalyanamMatrimony.Models;
 using KalyanamMatrimony.ViewModels;
@@ -182,10 +183,12 @@ namespace KalyanamMatrimony.Controllers
                     SetSessionOrgId(user.OrgId);
                     string userRole = await GetCurrentUserRole(user);
                     Organisation org = matrimonyRepository.GetOrganisationById(user.OrgId);
+                    SetSessionOrgDetails(org);
 
-                    if(org != null)
+                    if (org != null)
                     {
                         SetSessionOrgName(org.OrgName);
+                        SetSessionLicenseId(org.LicenseId);
                     }
                     else
                     {
@@ -199,6 +202,15 @@ namespace KalyanamMatrimony.Controllers
                     {
                         return Redirect(returnUrl);
                     }
+                    //Validate license for shared 
+                    string orgType = configuration.GetSection("OrgConfiguration").GetSection("OrgType").Value;
+                    bool isValidLicense = IsValidLicense(orgType);
+                    if (!isValidLicense && 
+                        userRole != Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin))
+                    {
+                        return RedirectToAction("AccessDenied", "Account");
+                    }
+
                     return RedirectToAction("index", "home");
                 }
 
@@ -248,11 +260,64 @@ namespace KalyanamMatrimony.Controllers
             var result = await userManager.ConfirmEmailAsync(user, token);
             if (result.Succeeded)
             {
+                string orgType = configuration.GetSection("OrgConfiguration").GetSection("OrgType").Value;
+                if(orgType == "Shared")
+                {
+                    //if orgtype is shared
+                    //check if logged in user is admin
+                    string adminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin);
+                    string userRole = await GetCurrentUserRole(user);
+                    if (userRole.ToLower().Equals(adminRole.ToLower()))
+                    {
+                        //if admin, chk org table for licenseid
+                        Organisation org = matrimonyRepository.GetOrganisationById(user.OrgId);
+                        SetSessionOrgDetails(org);
+                        if(org.LicenseId == 0)
+                        {
+                            //if license id is 0, then navigate to update license 
+                            //toaster message for acknowledging confirming email
+                            ToasterServiceCreate("Thanks for confirming your email account. Please complete the licencing process.", ToastType.Success);
+                            //Auto login, update session variables which are updated in login screen
+                            await signInManager.SignInAsync(user, false, null);
+                            SetSessionOrgId(user.OrgId);
+                            SetSessionOrgName(org.OrgName);
+                            SetSessionLicenseId(org.LicenseId);
+                            SetSessionUserId(user.Id);
+                            SetSessionUserRole(userRole);
+                            return View("UpdateLicense");
+                        }
+                    }
+
+                }
                 return View();
             }
 
             ViewBag.ErrorTitle = "Email cannot be confirmed";
             return View("Error");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "SuperAdmin, Admin")]
+        public IActionResult UpdateLicense()
+        {
+            int licenseId = GetSessionLicenseId();
+            if (licenseId == 0)
+            {
+                ViewBag.LicenseTypes = matrimonyRepository.GetAllLicenses();
+            }
+            else
+            {
+                ViewBag.LicenseTypes = matrimonyRepository.GetAllLicenses().Where(x => x.LicenseType != LicenseType.Free);
+            }
+            //Get FullName, Phone, OrgId - GetOrganisation by OrgId
+            //Purpose is license Text
+            //Total amount is the amount
+
+            //GetLicenses
+            ViewBag.UsersCount = matrimonyRepository.GetAllActiveLicenses().Select(uc => uc.UsersCount).Distinct();
+            IEnumerable<License> licenses = matrimonyRepository.GetAllActiveLicenses();
+            ToasterServiceDisplay();
+            return View(licenses);
         }
 
         [HttpGet]
@@ -409,6 +474,8 @@ namespace KalyanamMatrimony.Controllers
             //SignUpViewModel signUpViewModel = new SignUpViewModel();
             //signUpViewModel.LicenseTypes = new SelectList(new List<string>()); // empty list of anything...
             //ViewBag.LicenseTypes = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(matrimonyRepository.GetAllLicenses(), "LicenseId", "Description");
+            ViewData["Title"] = configuration.GetSection("OrgConfiguration").GetSection("OrgName").Value;
+            SetSessionOrgName(configuration.GetSection("OrgConfiguration").GetSection("OrgName").Value);
             ViewBag.LicenseTypes = matrimonyRepository.GetAllLicenses();
             return View();
         }
@@ -421,15 +488,16 @@ namespace KalyanamMatrimony.Controllers
             {
                 Organisation org = new Organisation();
 
+                //license will be choose after confirmation email in a different function?
                 if (model.LicenseId > 0)
                 {
                     //Calculate End Date for org end date
+                    org.LicenseId = model.LicenseId;
                     License license = matrimonyRepository.GetLicenseById(model.LicenseId);
                     var NoOfDays = license.MonthsCount * 30;//Converting to Number of Days
                     org.EndDate = DateTime.Now.AddDays(NoOfDays);
                 }
-                
-                org.LicenseId = model.LicenseId;
+
                 org.OrgName = model.OrgName;
                 org.OrgDesc = model.OrgDesc;
                 org.FullName = model.FullName;
@@ -509,6 +577,105 @@ namespace KalyanamMatrimony.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ViewAssistant()
+        {
+            //Active Profiles Only
+            ToasterServiceDisplay();
+            AssistantListViewModel model = new AssistantListViewModel();
+            int orgId = GetSessionOrgId();
+            model.ActiveAssistants = await GetAdminAssistantUsers(matrimonyRepository.GetActiveAdminAssitants(orgId));
+            model.DeActivedAssistants = await GetAdminAssistantUsers(matrimonyRepository.GetDeActivedAdminAssitants(orgId));
+            return View(model);
+        }
+
+        private async Task<IList<AssistantViewModel>> GetAdminAssistantUsers(IEnumerable<AssistantViewModel> users)
+        {
+            string userRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.AdminAssistant);
+            IList<ApplicationUser> adminAssistantUsers = await userManager.GetUsersInRoleAsync(userRole);
+            List<AssistantViewModel> filteredUsers = users.Where(user => adminAssistantUsers.Any(aUser => aUser.Id == user.UserId)).ToList();
+            return filteredUsers;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateAssistant()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAssistant(AssistantViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                //Insert Data Into User Table with OrgId
+                //assign Role to user
+                var strRole = model.UserRole;
+                var role = await roleManager.FindByNameAsync(strRole);
+                if (role == null)
+                {
+                    ModelState.AddModelError(string.Empty, $"Role = {strRole} not be found! Unable to add user");
+                    return View();
+                }
+
+                // Copy data from RegisterViewModel to IdentityUser
+                var user = new ApplicationUser();
+                user.UserName = model.Email;
+                user.Email = model.Email;
+                user.OrgId = GetSessionOrgId();
+                if (model.EndDate != null)
+                {
+                    user.EndDate = model.EndDate;
+                }
+
+                // Store user data in AspNetUsers database table
+                var result = await userManager.CreateAsync(user, model.Password);
+
+                // If user is successfully created, sign-in the user using
+                // SignInManager and redirect to index action of HomeController
+                if (result.Succeeded)
+                {
+                    var roleResult = await userManager.AddToRoleAsync(user, strRole);
+                    if (roleResult.Succeeded)
+                    {
+                        //Generate token for confirmation
+                        var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                        var confirmationLink = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, token = token }, Request.Scheme);
+
+                        // Log the password reset link
+                        logger.Log(LogLevel.Warning, confirmationLink);
+                        await SendEmail(model.Email, confirmationLink, "Verify your Email");
+
+                        ToasterServiceCreate("Please check your email and click on the confirmation link in the email shared by us.", CustomEnums.ToastType.Info);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Unable to Assign Role");
+                        ToasterServiceCreate(model.UserRole + " unable to Assign User Role", CustomEnums.ToastType.Error);
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Unable to Create User");
+                    ToasterServiceCreate(model.Email + " unable to create user", CustomEnums.ToastType.Error);
+                }
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditAssistant(int id)
+        {
+            //if (id != null)
+            //{
+            //    ToasterServiceDisplay();
+            //    License license = matrimonyRepository.GetLicenseById(id);
+            //    return View(license);
+            //}
+
+            return RedirectToAction("NotFound", "Error");
+        }
         private async Task SendEmail(string email, string encryptedLink, string subject)
         {
             var content = "";

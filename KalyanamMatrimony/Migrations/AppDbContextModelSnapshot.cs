@@ -71,7 +71,8 @@ namespace KalyanamMatrimony.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
-                        new { Id = "43b2650e-d67f-440b-97a2-bdedbcfe4880", AccessFailedCount = 0, ConcurrencyStamp = "e7777f79-47db-4972-9075-e7631052ce98", Email = "sunil.pashikanti@gmail.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "SUNIL.PASHIKANTI@GMAIL.COM", NormalizedUserName = "SUNIL.PASHIKANTI@GMAIL.COM", OrgId = 0, PasswordHash = "AQAAAAEAACcQAAAAEKZNAs8etuTUkX5o4QzqIxaYEtXAHOkSI2KQul0WbH9bWWc4WVQir7PvShGwqasirA==", PhoneNumberConfirmed = false, SecurityStamp = "TXEFASMBK2TBWRP42UFH6KKKHHLFKAXD", TwoFactorEnabled = false, UserName = "sunil.pashikanti@gmail.com" }
+                        new { Id = "fcadcc1c-990b-4419-88da-651520f14ada", AccessFailedCount = 0, ConcurrencyStamp = "e7777f79-47db-4972-9075-e7631052ce98", Email = "sunil.pashikanti@gmail.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "SUNIL.PASHIKANTI@GMAIL.COM", NormalizedUserName = "SUNIL.PASHIKANTI@GMAIL.COM", OrgId = 0, PasswordHash = "AQAAAAEAACcQAAAAELQf1eXgYmil1ZRHPgBONx8J4c4+uNPPelUPY6hf4HGfT8p4f2FWDNR2cROBZvsJVg==", PhoneNumberConfirmed = false, SecurityStamp = "TXEFASMBK2TBWRP42UFH6KKKHHLFKAXD", TwoFactorEnabled = false, UserName = "sunil.pashikanti@gmail.com" },
+                        new { Id = "ebef2fec-69dd-4c71-be0e-b8f6bb658df9", AccessFailedCount = 0, ConcurrencyStamp = "b8613dba-00ba-4458-954b-31a160196789", Email = "", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "", NormalizedUserName = "", OrgId = 0, PasswordHash = "AQAAAAEAACcQAAAAEMFsljM5p0mbOgFdoKMtk6+MjpaxF/1hkQfgDAEmSvoOchgpTB+DYoQvIJjZYDB5ag==", PhoneNumberConfirmed = false, SecurityStamp = "UE2YZGPQD4ZJIX35FVVKTMKJT43XF3OM", TwoFactorEnabled = false, UserName = "" }
                     );
                 });
 
@@ -91,6 +92,8 @@ namespace KalyanamMatrimony.Migrations
                     b.Property<int>("LicenseType");
 
                     b.Property<float>("MonthsCount");
+
+                    b.Property<string>("PayLink");
 
                     b.Property<float>("Price");
 
@@ -273,9 +276,10 @@ namespace KalyanamMatrimony.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "1", ConcurrencyStamp = "0b91f2bf-9bfa-43ca-ae7e-ca77eadba356", Name = "SuperAdmin", NormalizedName = "SUPERADMIN" },
-                        new { Id = "2", ConcurrencyStamp = "bfe817a2-9e49-43db-a84f-aaf13a558bd3", Name = "Admin", NormalizedName = "ADMIN" },
-                        new { Id = "3", ConcurrencyStamp = "51330a42-2be1-4845-aa82-502eb5012b4e", Name = "Profile", NormalizedName = "PROFILE" }
+                        new { Id = "1", ConcurrencyStamp = "8028eddf-dace-43d6-a807-c4eceddb0898", Name = "SuperAdmin", NormalizedName = "SUPERADMIN" },
+                        new { Id = "2", ConcurrencyStamp = "de60b495-f7ef-4eb8-8034-0821abdb3346", Name = "Admin", NormalizedName = "ADMIN" },
+                        new { Id = "3", ConcurrencyStamp = "3cf2e293-f606-4351-95c7-d1c873d00cf9", Name = "AdminAssistant", NormalizedName = "ADMINASSISTANT" },
+                        new { Id = "4", ConcurrencyStamp = "9916c136-d127-4ff2-bf89-d57f3cd0aefe", Name = "Profile", NormalizedName = "PROFILE" }
                     );
                 });
 
@@ -348,7 +352,7 @@ namespace KalyanamMatrimony.Migrations
                     b.ToTable("AspNetUserRoles");
 
                     b.HasData(
-                        new { UserId = "43b2650e-d67f-440b-97a2-bdedbcfe4880", RoleId = "1" }
+                        new { UserId = "fcadcc1c-990b-4419-88da-651520f14ada", RoleId = "1" }
                     );
                 });
 

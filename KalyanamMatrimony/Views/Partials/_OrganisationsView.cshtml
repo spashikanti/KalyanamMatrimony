@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<KalyanamMatrimony.ViewModels.OrganisationViewModel>
 
 @{
+    ViewData["Title"] = "View Organisations";
     string dataTableName = (string)ViewData["DataTable"];
 }
 
@@ -8,7 +9,7 @@
     <div class="card-header bg-primary text-white">
         <div class="row">
             <div class="col-md-10">
-                <h5 class="font-weight-bold text-white">View Organisations</h5>
+                <h5 class="font-weight-bold text-white">@ViewData["Title"]</h5>
             </div>
             <div class="col-md-2">
                 <a class="btn btn-success" asp-controller="superadmin" asp-action="CreateOrganisation">

@@ -10,5 +10,6 @@ namespace KalyanamMatrimony.ViewModels
     {
         public int ActiveOrganisationsCount { get; set; }
         public int InActiveOrganisationsCount { get; set; }
+        public int LicenseNotMappedOrganisationsCount { get; set; }
     }
 }

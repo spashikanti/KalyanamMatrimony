@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace KalyanamMatrimony.Controllers
@@ -24,6 +25,7 @@ namespace KalyanamMatrimony.Controllers
         private readonly IHostingEnvironment hostingEnvironment;
         private readonly ILogger<ProfileController> logger;
         private readonly IEmailSender emailSender;
+        private readonly IConfiguration configuration;
 
         public ProfileController(UserManager<ApplicationUser> userManager,
                                 SignInManager<ApplicationUser> signInManager,
@@ -31,7 +33,8 @@ namespace KalyanamMatrimony.Controllers
                                 IMatrimonyRepository matrimonyRepository,
                                 IHostingEnvironment hostingEnvironment,
                                 ILogger<ProfileController> logger,
-                                IEmailSender emailSender)
+                                IEmailSender emailSender,
+                                IConfiguration configuration)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -40,6 +43,7 @@ namespace KalyanamMatrimony.Controllers
             this.hostingEnvironment = hostingEnvironment;
             this.logger = logger;
             this.emailSender = emailSender;
+            this.configuration = configuration;
         }
 
         [Authorize(Roles = "SuperAdmin, Admin")]
@@ -67,12 +71,20 @@ namespace KalyanamMatrimony.Controllers
         {
             if (ModelState.IsValid)
             {
+                string orgType = configuration.GetSection("OrgConfiguration").GetSection("OrgType").Value;
+                bool isValidLicense = IsValidLicense(orgType);
+                if(!isValidLicense)
+                {
+                    ModelState.AddModelError("", "Your license is expired!!! Please renew your license.");
+                    return RedirectToAction("UpdateLicense", "Account");
+                }
+
                 //assign Role to user
                 var role = await roleManager.FindByNameAsync(model.UserRole);
                 if (role == null)
                 {
                     ModelState.AddModelError(string.Empty, $"Role = {model.UserRole} not be found! Unable to add user");
-                    return View();
+                    return View(model);
                 }
 
                 // Copy data from RegisterViewModel to IdentityUser

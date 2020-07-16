@@ -17,9 +17,11 @@ namespace KalyanamMatrimony.Models
         License GetLicenseById(int licenseId);
         License UpdateLicense(License license);
 
-        IEnumerable<OrganisationViewModel> GetAllOrganisations();
+        IEnumerable<Organisation> GetAllOrganisations();
+        IEnumerable<OrganisationViewModel> GetAllLicensedOrganisations();
         IEnumerable<OrganisationViewModel> GetAllActiveOrganisations();
         IEnumerable<OrganisationViewModel> GetAllInActiveOrganisations();
+        IEnumerable<OrganisationViewModel> GetAllLicenseNotMappedOrganisations();
         Organisation AddOrganisation(Organisation organisation);
         Organisation GetOrganisationById(int orgId);
         Organisation UpdateOrganisation(Organisation organisation);
@@ -37,6 +39,10 @@ namespace KalyanamMatrimony.Models
         Profile UpdateProfile(Profile profile);
         IEnumerable<Profile> GetActiveProfiles(int orgId);
         IEnumerable<Profile> GetDeActivedProfiles(int orgId);
+        IEnumerable<Profile> GetActiveOrInActiveProfiles(bool isActive, IQueryable<ApplicationUser> usersList);
+        IEnumerable<ApplicationUser> GetActiveOrInActiveApplicationUsers(bool isActive, IQueryable<ApplicationUser> usersList);
+        IEnumerable<AssistantViewModel> GetActiveAdminAssitants(int orgId);
+        IEnumerable<AssistantViewModel> GetDeActivedAdminAssitants(int orgId);
         int DeleteProfileById(string profileId);
 
         //Profile

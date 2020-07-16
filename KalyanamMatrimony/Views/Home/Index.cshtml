@@ -22,7 +22,16 @@
                 <div data-aos="fade-up" data-aos-delay="800">
                     <a class="btn btn-success btn-lg" role="button" asp-controller="profile" asp-action="search">Search Profiles</a>
                 </div>
-            </div>
+                <div>&nbsp;</div>
+                @if (User.IsInRole(Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin)))
+                {
+                    <div data-aos="fade-up" data-aos-delay="800">
+                        <a class="btn btn-primary btn-lg" role="button" asp-controller="account" asp-action="updatelicense">
+                            Update License To Create Profile
+                        </a>
+                    </div>
+                }
+                </div>
             <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="fade-left" data-aos-delay="200">
                 <img src="~/images/hero-img.png" class="img-fluid animated" alt="" />
             </div>

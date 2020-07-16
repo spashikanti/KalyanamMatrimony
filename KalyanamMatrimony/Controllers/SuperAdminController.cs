@@ -23,6 +23,7 @@ namespace KalyanamMatrimony.Controllers
             SuperAdminDashboardViewModel superAdminDashboardViewModel = new SuperAdminDashboardViewModel();
             superAdminDashboardViewModel.ActiveOrganisationsCount = matrimonyRepository.GetAllActiveOrganisations().Count();
             superAdminDashboardViewModel.InActiveOrganisationsCount = matrimonyRepository.GetAllInActiveOrganisations().Count();
+            superAdminDashboardViewModel.LicenseNotMappedOrganisationsCount = matrimonyRepository.GetAllLicenseNotMappedOrganisations().Count();
             return View(superAdminDashboardViewModel);
         }
 
@@ -107,6 +108,7 @@ namespace KalyanamMatrimony.Controllers
             OrgLicenseViewModel organisationModel = new OrgLicenseViewModel();
             organisationModel.ActiveOrganisation = matrimonyRepository.GetAllActiveOrganisations();
             organisationModel.InActiveOrganisation = matrimonyRepository.GetAllInActiveOrganisations();
+            organisationModel.LicenseNotMappedOrganisations = matrimonyRepository.GetAllLicenseNotMappedOrganisations();
             return View(organisationModel);
         }
 

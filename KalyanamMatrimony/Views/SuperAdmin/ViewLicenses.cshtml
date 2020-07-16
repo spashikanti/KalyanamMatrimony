@@ -20,13 +20,13 @@
         @{
             ViewData["DataTable"] = "DataTableActive";
         }
-        <partial name="~/Views/Partials/_ViewLicenses.cshtml" model="Model.ActiveLicenses" view-data="ViewData" />
+        <partial name="~/Views/Partials/_LicensesView.cshtml" model="Model.ActiveLicenses" view-data="ViewData" />
     </div>
     <div class="tab-pane fade" id="pills-DeActivated" role="tabpanel" aria-labelledby="pills-DeActivated-tab">
         @{
             ViewData["DataTable"] = "DataTableDeActived";
         }
-        <partial name="~/Views/Partials/_ViewLicenses.cshtml" model="Model.DeActivedLicenses" view-data="ViewData" />
+        <partial name="~/Views/Partials/_LicensesView.cshtml" model="Model.DeActivedLicenses" view-data="ViewData" />
     </div>
 </div>
 

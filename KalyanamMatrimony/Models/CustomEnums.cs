@@ -13,7 +13,8 @@
         {
             SuperAdmin = 1,
             Admin = 2,
-            Profile = 3
+            AdminAssistant = 3,
+            Profile = 4
         }
 
         public enum ProfileGender

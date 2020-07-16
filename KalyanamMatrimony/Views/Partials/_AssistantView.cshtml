@@ -1,0 +1,63 @@
+﻿@model IEnumerable<KalyanamMatrimony.ViewModels.AssistantViewModel>
+
+@{
+    ViewData["Title"] = "View Admin Assitants";
+    string dataTableName = (string)ViewData["DataTable"];
+}
+
+<div class="card shadow mb-4 border-primary">
+    <div class="card-header bg-primary text-white">
+        <div class="row">
+            <div class="col-md-10">
+                <h5 class="font-weight-bold text-white">@ViewData["Title"]</h5>
+            </div>
+            <div class="col-md-2">
+                <a class="btn btn-success" asp-controller="account" asp-action="CreateAssistant">
+                    <strong>Create Assistant</strong>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered border-dark" id="@dataTableName" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Email)</th>
+                        <th>@Html.DisplayNameFor(model => model.CreatedDate)</th>
+                        <th>@Html.DisplayNameFor(model => model.EndDate)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Email)</th>
+                        <th>@Html.DisplayNameFor(model => model.CreatedDate)</th>
+                        <th>@Html.DisplayNameFor(model => model.EndDate)</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndDate)
+                        </td>
+                        <td>
+                            @Html.ActionLink("View", "CreateAssistant", new { id = item.UserId, mode = "view" }) |
+                            @Html.ActionLink("Edit", "CreateAssistant", new { id = item.UserId })
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

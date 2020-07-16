@@ -42,12 +42,62 @@ namespace KalyanamMatrimony.Models
             return GetActiveOrInActiveProfiles(false, userManager.Users.Where(x => x.OrgId == orgId));
         }
 
-        private IEnumerable<Profile> GetActiveOrInActiveProfiles(bool isActive, IQueryable<ApplicationUser> usersList)
+        public IEnumerable<Profile> GetActiveOrInActiveProfiles(bool isActive, IQueryable<ApplicationUser> usersList)
         {
-            List<ApplicationUser> users = isActive == true ?
+            List<ApplicationUser> users = GetActiveOrInActiveApplicationUsers(isActive, usersList).ToList();
+            return context.Profiles.Where(profile => users.Any(user => user.Id == profile.UserId));
+        }
+
+        public IEnumerable<ApplicationUser> GetActiveOrInActiveApplicationUsers(bool isActive, IQueryable<ApplicationUser> usersList)
+        {
+            IEnumerable<ApplicationUser> users = isActive == true ?
                 usersList.Where(x => x.EndDate != null && x.EndDate.Value > System.DateTime.Now).ToList() :
                 usersList.Where(x => x.EndDate != null && x.EndDate.Value < System.DateTime.Now).ToList();
-            return context.Profiles.Where(profile => users.Any(user => user.Id == profile.UserId));
+            return users;
+        }
+        public IEnumerable<AssistantViewModel> GetActiveAdminAssitants(int orgId)
+        {
+            List<AssistantViewModel> model = new List<AssistantViewModel>();
+            List<ApplicationUser> users = GetActiveOrInActiveApplicationUsers(true, userManager.Users.Where(x => x.OrgId == orgId)).ToList();
+
+            if (users != null && users.Count() > 0)
+            {
+                foreach (var user in users)
+                {
+                    model.Add(new AssistantViewModel { 
+                        Email = user.Email,
+                        UserId = user.Id,
+                        EndDate = user.EndDate
+                    });
+                }
+            }
+            return model;
+        }
+        //private async Task<IList<ApplicationUser>> GetAdminAssistantUsers(int orgId)
+        //{
+        //    List<ApplicationUser> users = GetActiveOrInActiveApplicationUsers(true, userManager.Users.Where(x => x.OrgId == orgId)).ToList();
+        //    string userRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.AdminAssistant);
+        //    IList<ApplicationUser> adminAssistantUsers = await userManager.GetUsersInRoleAsync(userRole);
+        //    IList<ApplicationUser> filteredUsers = users.Where(user => adminAssistantUsers.Any(aUser => aUser.Id == user.Id)).ToList();
+        //    return filteredUsers;
+        //}
+        public IEnumerable<AssistantViewModel> GetDeActivedAdminAssitants(int orgId)
+        {
+            List<AssistantViewModel> model = new List<AssistantViewModel>();
+            IEnumerable<ApplicationUser> users = GetActiveOrInActiveApplicationUsers(false, userManager.Users.Where(x => x.OrgId == orgId));
+            if (users != null && users.Count() > 0)
+            {
+                foreach (var user in users)
+                {
+                    model.Add(new AssistantViewModel
+                    {
+                        Email = user.Email,
+                        UserId = user.Id,
+                        EndDate = user.EndDate
+                    });
+                }
+            }
+            return model;
         }
 
         public Profile GetProfileById(string profileId)
@@ -110,11 +160,16 @@ namespace KalyanamMatrimony.Models
             return license;
         }
 
-        public IEnumerable<OrganisationViewModel> GetAllOrganisations()
+        public IEnumerable<Organisation> GetAllOrganisations()
+        {
+            return context.Organisations;
+        }
+
+        public IEnumerable<OrganisationViewModel> GetAllLicensedOrganisations()
         {
             //send org with its license
             List<License> licenses = context.Licenses.ToList();
-            List<Organisation> organisations = context.Organisations.ToList();
+            List<Organisation> organisations = GetAllOrganisations().ToList();
             return organisations.Join(licenses, org => org.LicenseId, lic => lic.LicenseId, 
                 (org, lic) => new OrganisationViewModel{
                     OrgId = org.OrgId,
@@ -131,12 +186,37 @@ namespace KalyanamMatrimony.Models
 
         public IEnumerable<OrganisationViewModel> GetAllActiveOrganisations()
         {
-            return GetAllOrganisations().Where(x => x.EndDate > DateTime.Now).ToList();
+            return GetAllLicensedOrganisations().Where(x => x.EndDate > DateTime.Now).ToList();
         }
 
         public IEnumerable<OrganisationViewModel> GetAllInActiveOrganisations()
         {
-            return GetAllOrganisations().Where(x => x.EndDate < DateTime.Now).ToList();
+            return GetAllLicensedOrganisations().Where(x => x.EndDate < DateTime.Now).ToList();
+        }
+        public IEnumerable<OrganisationViewModel> GetAllLicenseNotMappedOrganisations()
+        {
+            List<Organisation> organisations = GetAllOrganisations().Where(x => x.LicenseId == 0).ToList();
+            List<OrganisationViewModel> organisationViewModel = new List<OrganisationViewModel>();
+
+            if(organisations.Count() > 0)
+            {
+                foreach (var org in organisations)
+                {
+                    organisationViewModel.Add(new OrganisationViewModel {
+                        OrgId = org.OrgId,
+                        OrgName = org.OrgName,
+                        FullName = org.FullName,
+                        Phone = org.Phone,
+                        CreatedDate = org.CreatedDate,
+                        EndDate = org.EndDate,
+                        LicenseId = org.LicenseId,
+                        LicenseName = "No License",
+                        Description = "No License"
+                    });
+                }
+            }
+            
+            return organisationViewModel;
         }
 
         public Organisation AddOrganisation(Organisation organisation)
@@ -232,5 +312,7 @@ namespace KalyanamMatrimony.Models
                 .Where(profile => users.Any(userdata => profile.UserId == userdata.Id) && profile.Gender == CustomEnums.ProfileGender.Female)
                 .OrderBy(x => x.CreatedDate);
         }
+
+        
     }
 }
