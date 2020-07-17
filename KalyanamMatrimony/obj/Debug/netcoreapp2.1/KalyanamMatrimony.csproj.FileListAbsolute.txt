@@ -268,12 +268,12 @@ F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\D
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\SuperAdmin\ViewOrganisations.cshtml.g.cs
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\SuperAdmin\CreateOrganisation.cshtml.g.cs
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\SuperAdmin\Index.cshtml.g.cs
-F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Account\UpdateLicense.cshtml.g.cs
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Partials\_LicensesView.cshtml.g.cs
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Partials\_OrganisationsView.cshtml.g.cs
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Partials\_ProfilesView.cshtml.g.cs
-F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.csprojAssemblyReference.cache
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Partials\_AssistantCreateUpdate.cshtml.g.cs
-F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Account\CreateAssistant.cshtml.g.cs
-F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Account\ViewAssistant.cshtml.g.cs
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Partials\_AssistantView.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_LayoutLicense.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\License\UpdateLicense.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Admin\CreateAssistant.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Admin\ViewAssistant.cshtml.g.cs

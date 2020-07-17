@@ -89,7 +89,7 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("</h5>\r\n                </div>\r\n                <div class=\"col-md-2\">\r\n                    ");
             EndContext();
             BeginContext(508, 125, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2e09e4acb6164b04b73d33eef4581e23", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3f1fe65539fb43de8398a8bf0959956e", async() => {
                 BeginContext(594, 35, true);
                 WriteLiteral("<strong>View Organisations</strong>");
                 EndContext();
@@ -114,7 +114,7 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("\r\n                </div>\r\n            </div>\r\n        </div>\r\n        ");
             EndContext();
             BeginContext(703, 97, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "5edfa2167c5e4998a6992ff051b05d3b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "af4ce09621bc41dfb4bd75fa35bce101", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_PartialTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper>();

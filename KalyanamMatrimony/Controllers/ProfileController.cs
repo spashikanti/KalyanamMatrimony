@@ -72,12 +72,12 @@ namespace KalyanamMatrimony.Controllers
             if (ModelState.IsValid)
             {
                 string orgType = configuration.GetSection("OrgConfiguration").GetSection("OrgType").Value;
-                bool isValidLicense = IsValidLicense(orgType);
-                if(!isValidLicense)
-                {
-                    ModelState.AddModelError("", "Your license is expired!!! Please renew your license.");
-                    return RedirectToAction("UpdateLicense", "Account");
-                }
+                //bool isValidLicense = IsValidLicense(orgType);
+                //if(!isValidLicense)
+                //{
+                //    ModelState.AddModelError("", "Your license is expired!!! Please renew your license.");
+                //    return RedirectToAction("UpdateLicense", "Account");
+                //}
 
                 //assign Role to user
                 var role = await roleManager.FindByNameAsync(model.UserRole);

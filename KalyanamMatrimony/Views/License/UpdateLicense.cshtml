@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Update License";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Views/Shared/_LayoutLicense.cshtml";
 }
 
 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -104,6 +104,7 @@
                             <label class="small mb-1">Users Count</label>
                             <select id="UsersCount" class="form-control"
                                     asp-items="@(new SelectList(@ViewBag.UsersCount))">
+                                <option selected="selected">All</option>
                             </select>
                         </div>
                     </div>
@@ -178,7 +179,7 @@
             $("#LicenseId").trigger("change");
 
             $("#UsersCount").on("change", function (e) {
-                hideLicenses();
+                hideLicenses(this.value);
                 var optionSelected = $("option:selected", this);
                 $("."+this.value).show();
             });
@@ -186,8 +187,13 @@
             $("#UsersCount").trigger("change");
         });
 
-        function hideLicenses() {
-            $(".licenses").hide();
+        function hideLicenses(val) {
+            if (val != "All") {
+                $(".licenses").hide();
+            }
+            else {
+                $(".licenses").show();
+            }
         }
 
         function nextTab() {

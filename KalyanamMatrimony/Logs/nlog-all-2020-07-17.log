@@ -54,3 +54,28 @@
 2020-07-17 00:44:30.6098|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where {from ApplicationUser userData in __users_0 where ([userData].Id == [profile].UserId) select [userData] => Any()}' could not be translated and will be evaluated locally.
 2020-07-17 00:44:30.6098|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where ([userData].Id == [profile].UserId)' could not be translated and will be evaluated locally.
 2020-07-17 00:44:30.6098|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Any()' could not be translated and will be evaluated locally.
+2020-07-17 21:11:21.0864|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where ([userData].Id == [profile].UserId)' could not be translated and will be evaluated locally.
+2020-07-17 21:11:21.3398|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Any()' could not be translated and will be evaluated locally.
+2020-07-17 21:11:21.3462|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where {from ApplicationUser userData in __users_0 where ([userData].Id == [profile].UserId) select [userData] => Any()}' could not be translated and will be evaluated locally.
+2020-07-17 21:11:21.3462|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where ([userData].Id == [profile].UserId)' could not be translated and will be evaluated locally.
+2020-07-17 21:11:21.3462|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Any()' could not be translated and will be evaluated locally.
+2020-07-17 21:55:46.5782|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where ([user].Id == [profile].UserId)' could not be translated and will be evaluated locally.
+2020-07-17 21:55:46.5782|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Any()' could not be translated and will be evaluated locally.
+2020-07-17 21:55:46.5782|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where {from ApplicationUser user in __users_0 where ([user].Id == [profile].UserId) select [user] => Any()}' could not be translated and will be evaluated locally.
+2020-07-17 21:55:46.5954|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where ([user].Id == [profile].UserId)' could not be translated and will be evaluated locally.
+2020-07-17 21:55:46.5954|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Any()' could not be translated and will be evaluated locally.
+2020-07-17 22:01:22.9999|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where ([userData].Id == [profile].UserId)' could not be translated and will be evaluated locally.
+2020-07-17 22:01:23.1398|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Any()' could not be translated and will be evaluated locally.
+2020-07-17 22:01:23.1398|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where {from ApplicationUser userData in __users_0 where ([userData].Id == [profile].UserId) select [userData] => Any()}' could not be translated and will be evaluated locally.
+2020-07-17 22:01:23.1398|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where ([userData].Id == [profile].UserId)' could not be translated and will be evaluated locally.
+2020-07-17 22:01:23.1398|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Any()' could not be translated and will be evaluated locally.
+2020-07-17 22:01:25.3229|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where ([user].Id == [profile].UserId)' could not be translated and will be evaluated locally.
+2020-07-17 22:01:25.3229|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Any()' could not be translated and will be evaluated locally.
+2020-07-17 22:01:25.3229|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where {from ApplicationUser user in __users_0 where ([user].Id == [profile].UserId) select [user] => Any()}' could not be translated and will be evaluated locally.
+2020-07-17 22:01:25.3229|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where ([user].Id == [profile].UserId)' could not be translated and will be evaluated locally.
+2020-07-17 22:01:25.3269|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Any()' could not be translated and will be evaluated locally.
+2020-07-17 22:25:47.7458|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where ([userData].Id == [profile].UserId)' could not be translated and will be evaluated locally.
+2020-07-17 22:25:48.0603|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Any()' could not be translated and will be evaluated locally.
+2020-07-17 22:25:48.0603|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where {from ApplicationUser userData in __users_0 where ([userData].Id == [profile].UserId) select [userData] => Any()}' could not be translated and will be evaluated locally.
+2020-07-17 22:25:48.0811|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where ([userData].Id == [profile].UserId)' could not be translated and will be evaluated locally.
+2020-07-17 22:25:48.0811|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Any()' could not be translated and will be evaluated locally.

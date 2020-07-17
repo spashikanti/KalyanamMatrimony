@@ -57,7 +57,7 @@ namespace KalyanamMatrimony
 
             services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
             services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.IdleTimeout = TimeSpan.FromMinutes(20);
             });
         }
 
