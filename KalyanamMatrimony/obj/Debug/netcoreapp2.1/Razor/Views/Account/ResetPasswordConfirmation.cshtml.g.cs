@@ -81,7 +81,7 @@ using Microsoft.AspNetCore.Identity;
                             ");
             EndContext();
             BeginContext(736, 69, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8dc0e72aa97947b2af0940d88b421dd4", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1f801ea05d6047b6b540553bed3de66a", async() => {
                 BeginContext(782, 19, true);
                 WriteLiteral("Click here to login");
                 EndContext();

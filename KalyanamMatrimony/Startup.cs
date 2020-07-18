@@ -51,6 +51,7 @@ namespace KalyanamMatrimony
             //    options.AccessDeniedPath = new PathString("/Administration/AccessDenied");
             //});
 
+            //services.AddHttpContextAccessor();
             services.AddMvc().AddXmlSerializerFormatters();
             services.AddScoped<IMatrimonyRepository, MySqlMatrimonyRepository>();
             services.AddScoped<IEmailSender, EmailSender>();

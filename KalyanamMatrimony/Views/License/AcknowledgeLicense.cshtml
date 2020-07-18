@@ -1,0 +1,15 @@
+﻿@model IEnumerable<License>
+
+@{
+    ViewBag.Title = "Acknowledge License";
+    Layout = "~/Views/Shared/_LayoutLicense.cshtml";
+}
+
+    <h3>
+        Thank you for updating license with our matrimony services.<br />
+        We are excited to provide you industry best standard services.<br /><br />
+        Kindly login to start using our services.
+        <br /><br />Happy Matrimony!!!<br /><br />Regards,<br />The Matrimony Team.
+    </h3>
+
+<a asp-action="Logout" asp-controller="Account" class="btn btn-primary">Login</a>

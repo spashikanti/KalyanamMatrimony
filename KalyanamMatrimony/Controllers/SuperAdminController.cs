@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KalyanamMatrimony.Controllers
 {
+    [Authorize(Roles = "SuperAdmin")]
     public class SuperAdminController : BaseController
     {
         private readonly IMatrimonyRepository matrimonyRepository;

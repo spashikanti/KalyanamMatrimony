@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 
 namespace KalyanamMatrimony.Controllers
 {
+    //[RedirectingActionAttribute]
     [Authorize]
     public class ProfileController : BaseController
     {

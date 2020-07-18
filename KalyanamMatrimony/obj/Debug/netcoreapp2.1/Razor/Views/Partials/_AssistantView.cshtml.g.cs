@@ -81,7 +81,7 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("</h5>\r\n            </div>\r\n            <div class=\"col-md-2\">\r\n                ");
             EndContext();
             BeginContext(505, 158, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "06f92e1c13bc43c799abf1d779c904e1", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "95c9b5cb1dc148f5af0d1a5e2f4e9ec4", async() => {
                 BeginContext(586, 73, true);
                 WriteLiteral("\r\n                    <strong>Create Assistant</strong>\r\n                ");
                 EndContext();

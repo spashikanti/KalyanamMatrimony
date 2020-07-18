@@ -65,12 +65,12 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("\r\n    ");
             EndContext();
             BeginContext(68, 9182, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "73a62ff1987d400583e77645f79834b7", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "70a8a8dd4d8b41529f7f69032cba6902", async() => {
                 BeginContext(189, 109, true);
                 WriteLiteral("\r\n\r\n\r\n        <!-- Source: https://www.jssor.com/demos/different-size-photo-slider.slider/=edit -->\r\n        ");
                 EndContext();
                 BeginContext(298, 55, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8ae5274fb7af4d788fb05302cc4cfeb6", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "56269f909b2746e5bc8df3b20a8d3001", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -152,7 +152,7 @@ using Microsoft.AspNetCore.Identity;
                 WriteLiteral("ider);\r\n                $Jssor$.$AddEvent(window, \"resize\", ScaleSlider);\r\n                $Jssor$.$AddEvent(window, \"orientationchange\", ScaleSlider);\r\n                /*#endregion responsive code end*/\r\n            };\r\n        </script>\r\n        ");
                 EndContext();
                 BeginContext(5721, 62, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("link", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "55efb3a79d7044d290a4fcc4c66001ee", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("link", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "7cb1aa68a249453a9427bc3846ee434e", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -189,7 +189,7 @@ using Microsoft.AspNetCore.Identity;
                 WriteLiteral("                    <div>\r\n                        ");
                 EndContext();
                 BeginContext(6563, 86, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "dc227ce6dbd3457ca0eed4efeff9971c", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "044d52637f764d21a47c9608cf5334c3", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_TagHelpers_ImageTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.ImageTagHelper>();

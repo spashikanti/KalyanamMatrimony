@@ -277,3 +277,4 @@ F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\D
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\License\UpdateLicense.cshtml.g.cs
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Admin\CreateAssistant.cshtml.g.cs
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Admin\ViewAssistant.cshtml.g.cs
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\License\AcknowledgeLicense.cshtml.g.cs
