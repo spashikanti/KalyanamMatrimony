@@ -14,26 +14,34 @@
 <section id="hero" class="d-flex align-items-center">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+            <div class="col-lg-6 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
                 <h1 data-aos="fade-up">Together is a beautiful place to be...</h1>
                 <h2 data-aos="fade-up" data-aos-delay="400">
                     Marriage is not about age, it's about finding the right person.
                 </h2>
-                <div data-aos="fade-up" data-aos-delay="800">
-                    <a class="btn btn-success btn-lg" role="button" asp-controller="profile" asp-action="search">Search Profiles</a>
-                </div>
-                <div>&nbsp;</div>
-                @if (User.IsInRole(Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin)))
-                {
-                    <div data-aos="fade-up" data-aos-delay="800">
-                        <a class="btn btn-primary btn-lg" role="button" asp-controller="account" asp-action="updatelicense">
-                            Update License To Create Profile
-                        </a>
-                    </div>
-                }
-                </div>
+                
+            </div>
             <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="fade-left" data-aos-delay="200">
                 <img src="~/images/hero-img.png" class="img-fluid animated" alt="" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+                <div>
+                    <a class="btn btn-primary btn-lg" role="button" asp-controller="profile" asp-action="search" data-aos="fade-up" data-aos-delay="800" style="margin:5px; width:255px !important">Search Profiles</a>
+                    @if (!User.IsInRole(Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Profile)))
+                    {
+                        <a class="btn btn-success btn-lg" role="button" asp-controller="admin" asp-action="viewAssistant" data-aos="fade-up" data-aos-delay="1000" style="margin: 5px; width:255px !important">
+                            View Assistants
+                        </a>
+                        <a class="btn btn-primary btn-lg" role="button" asp-controller="profile" asp-action="index" data-aos="fade-up" data-aos-delay="1200" style="margin: 5px; width:255px !important">
+                            View Profiles
+                        </a>
+                        <a class="btn btn-danger btn-lg" role="button" asp-controller="license" asp-action="updatelicense" data-aos="fade-up" data-aos-delay="1400" style="margin:5px;width:255px !important">
+                            Update License
+                        </a>
+                    }
+                </div>
             </div>
         </div>
     </div>

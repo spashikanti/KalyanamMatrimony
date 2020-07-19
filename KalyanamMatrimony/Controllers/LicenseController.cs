@@ -25,23 +25,21 @@ namespace KalyanamMatrimony.Controllers
         public IActionResult UpdateLicense()
         {
             int licenseId = GetSessionLicenseId();
+            IEnumerable<License> licenses = null;
             if (licenseId == 0)
             {
-                ViewBag.LicenseTypes = matrimonyRepository.GetAllLicenses();
+                licenses = matrimonyRepository.GetAllActiveLicenses();
             }
             else
             {
-                ViewBag.LicenseTypes = matrimonyRepository.GetAllLicenses().Where(x => x.LicenseType != LicenseType.Free);
+                ViewBag.Message = "Your license is expired, please renew";
+                licenses = matrimonyRepository.GetAllActiveLicenses().Where(x => x.LicenseType != LicenseType.Free);
             }
-            //Get FullName, Phone, OrgId - GetOrganisation by OrgId
-            //Purpose is license Text
-            //Total amount is the amount
-
-            //GetLicenses
+            
             ViewBag.UsersCount = matrimonyRepository.GetAllActiveLicenses()
                                 .Select(uc => uc.UsersCount)
                                 .Distinct();
-            IEnumerable<License> licenses = matrimonyRepository.GetAllActiveLicenses();
+
             return View(licenses);
         }
 

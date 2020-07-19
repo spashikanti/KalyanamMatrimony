@@ -40,8 +40,9 @@
 
     <script>
         $(document).ready(function () {
+            debugger;
             $('.table').DataTable({
-                //"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
             });
 
             var qs = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);

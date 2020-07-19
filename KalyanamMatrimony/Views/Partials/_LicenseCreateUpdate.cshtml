@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="col-md-8">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label asp-for="Description" class="small mb-1"></label>
                             <textarea asp-for="Description" class="form-control" placeholder="Enter Description"></textarea>
@@ -67,30 +67,46 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
+                            <label asp-for="AssistantCount" class="small mb-1"></label>
+                            <input asp-for="AssistantCount" class="form-control" />
+                            <span asp-validation-for="AssistantCount" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-4">
+                        <div class="form-group">
                             <label asp-for="Price" class="small mb-1"></label>
                             <input asp-for="Price" class="form-control" />
                             <span asp-validation-for="Price" class="text-danger"></span>
                         </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success btn-block" id="btnCreateLicense">
-                                <strong>Save License</strong>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <a class="btn btn-danger btn-block" asp-controller="SuperAdmin" asp-action="ViewLicenses"><strong>Cancel</strong></a>
+                            <label asp-for="PayLink" class="small mb-1"></label>
+                            <input asp-for="PayLink" class="form-control" />
+                            <span asp-validation-for="PayLink" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
-                @if (@Model != null && @Model.LicenseId > 0)
-                {
-                    <input asp-for="LicenseId" type="hidden" />
-                }
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success btn-block" id="btnCreateLicense">
+                                    <strong>Save License</strong>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <a class="btn btn-danger btn-block" asp-controller="SuperAdmin" asp-action="ViewLicenses"><strong>Cancel</strong></a>
+                            </div>
+                        </div>
+                    </div>
+                    @if (@Model != null && @Model.LicenseId > 0)
+                    {
+                        <input asp-for="LicenseId" type="hidden" />
+                    }
             </form>
         </div>
     </div>

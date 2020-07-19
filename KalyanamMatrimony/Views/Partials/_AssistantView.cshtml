@@ -3,8 +3,16 @@
 @{
     ViewData["Title"] = "View Admin Assitants";
     string dataTableName = (string)ViewData["DataTable"];
+
+    bool isAssistantLimitReached = ViewBag.isAssistantLimitReached;
 }
 
+@if (isAssistantLimitReached)
+{
+    <div class="text-danger">
+        You cannot create a new Assistant as you have reached the maximum limit.
+    </div>
+}
 <div class="card shadow mb-4 border-primary">
     <div class="card-header bg-primary text-white">
         <div class="row">
@@ -12,9 +20,12 @@
                 <h5 class="font-weight-bold text-white">@ViewData["Title"]</h5>
             </div>
             <div class="col-md-2">
-                <a class="btn btn-success" asp-controller="account" asp-action="CreateAssistant">
-                    <strong>Create Assistant</strong>
-                </a>
+                @if (!isAssistantLimitReached)
+                {
+                    <a class="btn btn-success" asp-controller="admin" asp-action="CreateAssistant">
+                        <strong>Create Assistant</strong>
+                    </a>
+                }
             </div>
         </div>
     </div>
@@ -40,21 +51,22 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CreatedDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EndDate)
-                        </td>
-                        <td>
-                            @Html.ActionLink("View", "CreateAssistant", new { id = item.UserId, mode = "view" }) |
-                            @Html.ActionLink("Edit", "CreateAssistant", new { id = item.UserId })
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EndDate)
+                            </td>
+                            <td>
+                                @Html.ActionLink("View", "EditAssistant", new { id = item.UserId, mode = "view" }) |
+                                @Html.ActionLink("Edit", "EditAssistant", new { id = item.UserId }) |
+                                @Html.ActionLink("Delete", "EditAssistant", new { id = item.UserId, userId = item.UserId })
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>

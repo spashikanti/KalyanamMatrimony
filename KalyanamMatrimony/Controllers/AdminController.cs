@@ -12,13 +12,14 @@ using Microsoft.Extensions.Logging;
 
 namespace KalyanamMatrimony.Controllers
 {
+    [RedirectingActionAttribute]
     [Authorize(Roles ="SuperAdmin, Admin")]
     public class AdminController : BaseController
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly RoleManager<IdentityRole> roleManager;
-        private readonly ILogger<AccountController> logger;
+        private readonly ILogger<AdminController> logger;
         private readonly IEmailSender emailSender;
         private readonly IMatrimonyRepository matrimonyRepository;
         private readonly IConfiguration configuration;
@@ -31,7 +32,13 @@ namespace KalyanamMatrimony.Controllers
                                 IMatrimonyRepository matrimonyRepository,
                                 IConfiguration configuration)
         {
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+            this.roleManager = roleManager;
+            this.emailSender = emailSender;
             this.matrimonyRepository = matrimonyRepository;
+            this.configuration = configuration;
+            this.logger = logger;
         }
 
         public async Task<IActionResult> Index()
@@ -45,6 +52,12 @@ namespace KalyanamMatrimony.Controllers
                 adminDashboardViewModel.DeActivedProfilesCount = matrimonyRepository.GetDeActivedProfiles(orgId).Count();
                 adminDashboardViewModel.MaleProfilesCount = matrimonyRepository.GetTotalMaleProfilesCountForAdmin(orgId);
                 adminDashboardViewModel.FemaleProfilesCount = matrimonyRepository.GetTotalFemaleProfilesCountForAdmin(orgId);
+
+                AssistantListViewModel model = new AssistantListViewModel();
+                model.ActiveAssistants = await GetAdminAssistantUsers(matrimonyRepository.GetActiveAdminAssitants(orgId));
+                model.DeActivedAssistants = await GetAdminAssistantUsers(matrimonyRepository.GetDeActivedAdminAssitants(orgId));
+                adminDashboardViewModel.ActiveAssistantCount = model.ActiveAssistants.Count();
+                adminDashboardViewModel.DeActivedAssistantCount = model.DeActivedAssistants.Count();
             }
             return View(adminDashboardViewModel);
         }
@@ -54,10 +67,21 @@ namespace KalyanamMatrimony.Controllers
         {
             //Active Profiles Only
             ToasterServiceDisplay();
+            
             AssistantListViewModel model = new AssistantListViewModel();
             int orgId = GetSessionOrgId();
             model.ActiveAssistants = await GetAdminAssistantUsers(matrimonyRepository.GetActiveAdminAssitants(orgId));
             model.DeActivedAssistants = await GetAdminAssistantUsers(matrimonyRepository.GetDeActivedAdminAssitants(orgId));
+
+            bool isAssistantLimitReached = false;
+            License lic = GetSessionOrgLicense();
+            int assistantCount = model.ActiveAssistants.Count() + model.DeActivedAssistants.Count();
+            if (assistantCount >= lic.AssistantCount)
+            {
+                isAssistantLimitReached = true;
+            }
+            ViewBag.isAssistantLimitReached = isAssistantLimitReached;
+            SetSessionIsAssistantLimitReached(isAssistantLimitReached);
             return View(model);
         }
 
@@ -72,12 +96,22 @@ namespace KalyanamMatrimony.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateAssistant()
         {
+            bool isAssistantLimitReached = GetSessionIsAssistantLimitReached();
+            if (isAssistantLimitReached)
+            {
+                return RedirectToAction("ViewAssistant", "Admin");
+            }
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateAssistant(AssistantViewModel model)
         {
+            bool isAssistantLimitReached = GetSessionIsAssistantLimitReached();
+            if(isAssistantLimitReached)
+            {
+                return RedirectToAction("ViewAssistant", "Admin");
+            }
             if (ModelState.IsValid)
             {
                 //Insert Data Into User Table with OrgId
@@ -119,6 +153,7 @@ namespace KalyanamMatrimony.Controllers
                         await SendEmail(model.Email, confirmationLink, "Verify your Email");
 
                         ToasterServiceCreate("Please check your email and click on the confirmation link in the email shared by us.", CustomEnums.ToastType.Info);
+                        return RedirectToAction("ViewAssistant", "Admin");
                     }
                     else
                     {
@@ -137,14 +172,65 @@ namespace KalyanamMatrimony.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditAssistant(int id)
+        public async Task<IActionResult> EditAssistant(string id)
         {
-            //if (id != null)
-            //{
-            //    ToasterServiceDisplay();
-            //    License license = matrimonyRepository.GetLicenseById(id);
-            //    return View(license);
-            //}
+            if (!string.IsNullOrEmpty(id))
+            {
+                EditAssistantViewModel assistantViewModel = new EditAssistantViewModel();
+                ApplicationUser applicationUser = await userManager.FindByIdAsync(id);
+                assistantViewModel.Email = applicationUser.Email;
+                assistantViewModel.EndDate = applicationUser.EndDate;
+                assistantViewModel.UserId = applicationUser.Id;
+                return View(assistantViewModel);
+            }
+
+            return RedirectToAction("NotFound", "Error");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditAssistant(EditAssistantViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser applicationUser = await userManager.FindByIdAsync(model.UserId);
+                applicationUser.EndDate = model.EndDate;
+                var result = await userManager.UpdateAsync(applicationUser);
+                if (result.Succeeded)
+                {
+                    ToasterServiceCreate(model.Email + " account updated successfully", CustomEnums.ToastType.Success);
+                    return RedirectToAction("ViewAssistant", "Admin");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Unable to update assistant");
+                    ToasterServiceCreate(model.Email + " unable to update assistant", CustomEnums.ToastType.Error);
+                }
+            }
+
+            ModelState.AddModelError(string.Empty, "Unable to Update User");
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteAssistant(string id)
+        {
+            if (!string.IsNullOrEmpty(id))
+            {
+                ApplicationUser applicationUser = await userManager.FindByIdAsync(id);
+                string email = applicationUser.Email;
+                var result = await userManager.DeleteAsync(applicationUser);
+                if (result.Succeeded)
+                {
+                    ToasterServiceCreate(email + " assistant deleted successfully", CustomEnums.ToastType.Success);
+                    return RedirectToAction("ViewAssistant", "Admin");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Unable to delete assistant");
+                    ToasterServiceCreate(email + " unable to delete assistant", CustomEnums.ToastType.Error);
+                    return View();
+                }
+            }
 
             return RedirectToAction("NotFound", "Error");
         }

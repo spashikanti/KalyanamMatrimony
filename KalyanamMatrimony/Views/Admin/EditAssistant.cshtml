@@ -1,0 +1,138 @@
+﻿@model KalyanamMatrimony.ViewModels.EditAssistantViewModel
+
+@{
+
+    ViewData["Title"] = "Edit Assistant";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    string userId = Context.Request.Query["userId"].ToString();
+}
+
+<div class="container-fluid">
+    <div class="card shadow-lg border-0 rounded-lg">
+        <div class="card-header bg-primary text-white">
+            <div class="row">
+                <div class="col-md-10">
+                    <h5 class="font-weight-bold text-white">@ViewBag.Title</h5>
+                </div>
+                <div class="col-md-2">
+                    @if (userId == string.Empty)
+                    {
+                        <a class="btn btn-success" asp-controller="admin" asp-action="ViewAssistant"><strong>View Assistants</strong></a>
+                    }
+                    else
+                    {
+                        <a href="#" class="btn btn-danger" onclick="getProfileDetails(this)"
+                           data-toggle="modal" data-target="#deleteModal"
+                           data-id="@Model.UserId" data-fullname="@Model.Email">
+                            <strong>Delete Assistant</strong>
+                        </a>
+                    }
+
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="All" class="text-danger" id="validationSummary"></div>
+                <div class="form-group">
+                    <label asp-for="Email" class="small mb-1"></label>
+                    <input asp-for="Email" class="form-control" placeholder="Enter Email Address" disabled />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EndDate" class="small mb-1"></label>
+                    <input asp-for="EndDate" class="form-control" type="date" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success btn-block" id="btnSave">
+                                <strong>Save</strong>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <a class="btn btn-danger btn-block" id="btnCancel" asp-controller="admin" asp-action="ViewAssistant"><strong>Cancel</strong></a>
+                        </div>
+                    </div>
+                </div>
+                @if (@Model != null && !string.IsNullOrEmpty(@Model.UserId))
+                {
+                    <input asp-for="UserId" type="hidden" />
+                    <input asp-for="Email" type="hidden" />
+                }
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal-->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Are you sure, you want to delete?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Select <strong>"Delete"</strong> below if you want to delete the profile of:
+                <strong><div name="userFullName" id="userFullName"></div></strong>
+                <input type="hidden" name="userId" id="userId" value="" />
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <form method="post" asp-action="DeleteAssistant" asp-route-id="@Model.UserId">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Page level custom scripts -->
+    <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+    <script src="~/js/CustomScript.js"></script>
+    <script src="~/js/LoadJsonData.js"></script>
+    @*For toast*@
+    <link href="/lib/toastr/toastr.min.css" rel="stylesheet" />
+    <script src="/lib/toastr/toastr.min.js"></script>
+
+    <script>
+        //For toast
+        var msg = @Html.Raw(Json.Serialize(ViewBag.Message));
+        if (msg != null) {
+            displayToast(msg);
+        }
+
+        debugger;
+        var qs = location.search;
+
+        if (qs != null && qs != undefined) {
+            if (qs.split("=")[1] == "view") {
+                $("#btnSave").hide();
+                $(".btn-danger").hide();
+            }
+            else if (qs.split("=")[0].includes("userId")) {
+                $("#btnSave").hide();
+                $("#btnCancel").hide();
+            }
+        }
+
+        function getProfileDetails(obj) {
+            debugger;
+            var userId = $(obj).data('id');
+            var fullName = $(obj).data('fullname');
+            $(".modal-body #userId").val(userId);
+            $(".modal-body #userFullName").html(fullName);
+        }
+
+    </script>
+}

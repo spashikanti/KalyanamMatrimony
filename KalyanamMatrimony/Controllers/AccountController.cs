@@ -189,6 +189,8 @@ namespace KalyanamMatrimony.Controllers
                     {
                         SetSessionOrgName(org.OrgName);
                         SetSessionLicenseId(org.LicenseId);
+                        License lic = matrimonyRepository.GetLicenseById(org.LicenseId);
+                        SetSessionOrgLicense(lic);
                     }
                     else
                     {

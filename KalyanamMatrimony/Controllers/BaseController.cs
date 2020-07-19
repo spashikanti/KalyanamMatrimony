@@ -54,6 +54,19 @@ namespace KalyanamMatrimony.Controllers
             return HttpContext.Session.GetObject<Organisation>("Org");
         }
 
+        public License GetSessionOrgLicense()
+        {
+            return HttpContext.Session.GetObject<License>("License");
+        }
+        protected bool GetSessionIsAssistantLimitReached()
+        {
+            return HttpContext.Session.GetObject<bool>("IsAssistantLimitReached");
+        }
+        protected bool GetSessionIsProfileLimitReached()
+        {
+            return HttpContext.Session.GetObject<bool>("IsProfileLimitReached");
+        }
+
         protected void SetSessionUserRole(string userRole)
         {
             HttpContext.Session.SetString("UserRole", userRole);
@@ -82,6 +95,18 @@ namespace KalyanamMatrimony.Controllers
         protected void SetSessionOrgDetails(Organisation org)
         {
             HttpContext.Session.SetObject("Org", org);
+        }
+        protected void SetSessionOrgLicense(License lic)
+        {
+            HttpContext.Session.SetObject("License", lic);
+        }
+        protected void SetSessionIsAssistantLimitReached(bool result)
+        {
+            HttpContext.Session.SetObject("IsAssistantLimitReached", result);
+        }
+        protected void SetSessionIsProfileLimitReached(bool result)
+        {
+            HttpContext.Session.SetObject("IsProfileLimitReached", result);
         }
 
         public bool IsValidLicense()
@@ -114,93 +139,5 @@ namespace KalyanamMatrimony.Controllers
             }
             return result;
         }
-
-        public IActionResult ValidateUser()
-        {
-            //loggedin user admin or profile
-            string adminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin);
-            string adminAssistantRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.AdminAssistant);
-            string profileRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Profile);
-
-            if (GetSessionUserRole() == null)
-            {
-                return RedirectToAction("Logout", "Account");
-            }
-            else
-            {
-                string userRole = GetSessionUserRole();
-                Organisation org = GetSessionOrgDetails();
-
-                if (userRole.ToLower().Equals(adminRole.ToLower()))
-                {
-                    if (org.EndDate < DateTime.Now || org.LicenseId == 0)
-                    {
-                        return RedirectToAction("UpdateLicense", "License");
-                    }
-                }
-                else if (userRole.ToLower().Equals(profileRole.ToLower()) || userRole.ToLower().Equals(adminAssistantRole.ToLower()))
-                {
-                    //this code will never execute as we are restricting the profile at login action itself
-                    if (org.EndDate < DateTime.Now)
-                    {
-                        return RedirectToAction("AccessDenied", "Account");
-                    }
-                }
-            }
-
-            return RedirectToAction("AccessDenied", "Account");
-        }
-
-        //public class RedirectingActionAttribute : ActionFilterAttribute
-        //{
-        //    public override void OnActionExecuting(ActionExecutingContext filterContext)
-        //    {
-        //        base.OnActionExecuting(filterContext);
-
-        //        //loggedin user admin or profile
-        //        string adminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin);
-        //        string adminAssistantRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.AdminAssistant);
-        //        string profileRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Profile);
-
-        //        if (GetSessionUserRole() == null)
-        //        {
-        //            filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
-        //            {
-        //                controller = "Account",
-        //                action = "Logout"
-        //            }));
-        //        }
-        //        else
-        //        {
-        //            string userRole = GetSessionUserRole();
-        //            Organisation org = GetSessionOrgDetails();
-
-        //            if (userRole.ToLower().Equals(adminRole.ToLower()))
-        //            {
-        //                if (org.EndDate < DateTime.Now || org.LicenseId == 0)
-        //                {
-        //                    filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
-        //                    {
-        //                        controller = "License",
-        //                        action = "UpdateLicense"
-        //                    }));
-        //                }
-        //            }
-        //            else if (userRole.ToLower().Equals(profileRole.ToLower()) || userRole.ToLower().Equals(adminAssistantRole.ToLower()))
-        //            {
-        //                //this code will never execute as we are restricting the profile at login action itself
-        //                if (org.EndDate < DateTime.Now)
-        //                {
-        //                    filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
-        //                    {
-        //                        controller = "Account",
-        //                        action = "AccessDenied"
-        //                    }));
-        //                }
-        //            }
-        //        }
-
-        //    }
-        //}
     }
 }

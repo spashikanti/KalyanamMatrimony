@@ -9,5 +9,11 @@
             
             </summary>
         </member>
+        <member name="T:KalyanamMatrimony.Models.RedirectingActionAttribute">
+            <summary>
+            Dont use this attribute in all controllers else there is a chance of infinite loop
+            Use it only in ProfileController, HomeController, AdminController
+            </summary>
+        </member>
     </members>
 </doc>

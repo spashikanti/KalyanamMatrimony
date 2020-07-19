@@ -2,8 +2,16 @@
 
 @{
     string dataTableName = (string)ViewData["DataTable"];
+
+    bool isProfileLimitReached = ViewBag.isProfileLimitReached;
 }
 
+@if (isProfileLimitReached)
+{
+    <div class="text-danger">
+        You cannot create a new Profile as you have reached the maximum limit.
+    </div>
+}
 <div class="card shadow mb-4 border-primary">
     <div class="card-header bg-primary text-white">
         <div class="row">
@@ -11,9 +19,12 @@
                 <h5 class="font-weight-bold text-white">View Profiles</h5>
             </div>
             <div class="col-md-2">
-                <a class="btn btn-success" asp-controller="profile" asp-action="createprofile">
-                    <strong>Create Profile</strong>
-                </a>
+                @if (!isProfileLimitReached)
+                {
+                    <a class="btn btn-success" asp-controller="profile" asp-action="createprofile">
+                        <strong>Create Profile</strong>
+                    </a>
+                }
             </div>
         </div>
     </div>
@@ -63,9 +74,12 @@
                                 @Html.DisplayFor(modelItem => item.CreatedDate)
                             </td>
                             <td>
-                                @Html.ActionLink("Edit", "EditProfile", new { id = item.ProfileId }) |
                                 @Html.ActionLink("View", "ViewProfile", new { id = item.ProfileId }) |
-                                @Html.ActionLink("Delete", "ViewProfile", new { id = item.ProfileId, userId = item.UserId })
+                                @Html.ActionLink("Edit", "EditProfile", new { id = item.ProfileId })
+                                @if (!User.IsInRole(Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.AdminAssistant)))
+                                {
+                                    <span>|</span> @Html.ActionLink("Delete", "ViewProfile", new { id = item.ProfileId, userId = item.UserId })
+                                }
                             </td>
                         </tr>
                     }

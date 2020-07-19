@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace KalyanamMatrimony.Controllers
 {
-    //[RedirectingActionAttribute]
+    [RedirectingActionAttribute]
     [Authorize]
     public class HomeController : BaseController
     {

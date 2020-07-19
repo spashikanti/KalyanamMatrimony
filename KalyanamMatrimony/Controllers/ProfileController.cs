@@ -15,7 +15,7 @@ using Microsoft.Extensions.Logging;
 
 namespace KalyanamMatrimony.Controllers
 {
-    //[RedirectingActionAttribute]
+    [RedirectingActionAttribute]
     [Authorize]
     public class ProfileController : BaseController
     {
@@ -47,7 +47,7 @@ namespace KalyanamMatrimony.Controllers
             this.configuration = configuration;
         }
 
-        [Authorize(Roles = "SuperAdmin, Admin")]
+        [Authorize(Roles = "SuperAdmin, Admin, AdminAssistant")]
         public async Task<IActionResult> Index()
         {
             //Active Profiles Only
@@ -56,20 +56,41 @@ namespace KalyanamMatrimony.Controllers
             int orgId = GetSessionOrgId();
             profilesViewModel.ActiveProfiles = matrimonyRepository.GetActiveProfiles(orgId);
             profilesViewModel.DeActivedProfiles = matrimonyRepository.GetDeActivedProfiles(orgId);
+
+            bool isProfileLimitReached = false;
+            License lic = GetSessionOrgLicense();
+            int profileCount = profilesViewModel.ActiveProfiles.Count() + profilesViewModel.DeActivedProfiles.Count();
+            if (profileCount >= lic.UsersCount)
+            {
+                isProfileLimitReached = true;
+            }
+            ViewBag.isProfileLimitReached = isProfileLimitReached;
+            SetSessionIsProfileLimitReached(isProfileLimitReached);
+
             return View(profilesViewModel);
         }
 
-        [Authorize(Roles = "SuperAdmin, Admin")]
+        [Authorize(Roles = "SuperAdmin, Admin, AdminAssistant")]
         [HttpGet]
         public IActionResult CreateProfile()
         {
+            bool isProfileLimitReached = GetSessionIsProfileLimitReached();
+            if (isProfileLimitReached)
+            {
+                return RedirectToAction("Index", "Profile");
+            }
             return View();
         }
 
-        [Authorize(Roles = "SuperAdmin, Admin")]
+        [Authorize(Roles = "SuperAdmin, Admin, AdminAssistant")]
         [HttpPost]
         public async Task<IActionResult> CreateProfile(UserProfileViewModel model)
         {
+            bool isProfileLimitReached = GetSessionIsProfileLimitReached();
+            if (isProfileLimitReached)
+            {
+                return RedirectToAction("Index", "Profile");
+            }
             if (ModelState.IsValid)
             {
                 string orgType = configuration.GetSection("OrgConfiguration").GetSection("OrgType").Value;
@@ -185,7 +206,7 @@ namespace KalyanamMatrimony.Controllers
             return View(model);
         }
 
-        [Authorize(Roles = "SuperAdmin, Admin")]
+        [Authorize(Roles = "SuperAdmin, Admin, AdminAssistant")]
         [HttpGet]
         public async Task<IActionResult> EditProfile(string id)
         {
@@ -203,7 +224,7 @@ namespace KalyanamMatrimony.Controllers
             return View(userProfileViewModel);
         }
 
-        [Authorize(Roles = "SuperAdmin, Admin")]
+        [Authorize(Roles = "SuperAdmin, Admin, AdminAssistant")]
         [HttpPost]
         public async Task<IActionResult> EditProfile(EditUserProfileViewModel model)
         {

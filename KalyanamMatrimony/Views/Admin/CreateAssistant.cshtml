@@ -1,4 +1,4 @@
-﻿@model KalyanamMatrimony.ViewModels.UserProfileViewModel
+﻿@model KalyanamMatrimony.ViewModels.AssistantViewModel
 
 @{
     ViewData["Title"] = "Create Assistant";
@@ -14,4 +14,15 @@
 
     <script src="/js/CustomScript.js"></script>
     <script src="~/js/LoadJsonData.js"></script>
+
+    <script>
+        //For toast
+        var msg = @Html.Raw(Json.Serialize(ViewBag.Message));
+        if (msg != null) {
+            displayToast(msg);
+        }
+
+        
+
+    </script>
 }

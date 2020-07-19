@@ -9,7 +9,7 @@
                     <h5 class="font-weight-bold text-white">@ViewBag.Title</h5>
                 </div>
                 <div class="col-md-2">
-                    <a class="btn btn-success" asp-controller="account" asp-action="ViewAssistant"><strong>View Assistants</strong></a>
+                    <a class="btn btn-success" asp-controller="admin" asp-action="ViewAssistant"><strong>View Assistants</strong></a>
                 </div>
             </div>
         </div>
@@ -21,7 +21,7 @@
                     <input asp-for="Email" class="form-control" placeholder="Enter Email Address" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
-                <div class="form-row">
+                <div class="form-row" id="rowPassword">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label asp-for="Password" class="small mb-1"></label>
@@ -52,7 +52,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <a class="btn btn-danger btn-block" asp-controller="account" asp-action="ViewAssistant"><strong>Cancel</strong></a>
+                            <a class="btn btn-danger btn-block" asp-controller="admin" asp-action="ViewAssistant"><strong>Cancel</strong></a>
                         </div>
                     </div>
                 </div>

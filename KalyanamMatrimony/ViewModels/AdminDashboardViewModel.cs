@@ -12,5 +12,7 @@ namespace KalyanamMatrimony.ViewModels
         public int DeActivedProfilesCount { get; set; }
         public int MaleProfilesCount { get; set; }
         public int FemaleProfilesCount { get; set; }
+        public int ActiveAssistantCount { get; set; }
+        public int DeActivedAssistantCount { get; set; }
     }
 }
