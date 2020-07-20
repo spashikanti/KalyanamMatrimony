@@ -71,8 +71,8 @@ namespace KalyanamMatrimony.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
-                        new { Id = "a01fe416-3e93-4513-95fa-39174e38f6be", AccessFailedCount = 0, ConcurrencyStamp = "e7777f79-47db-4972-9075-e7631052ce98", Email = "sunil.pashikanti@gmail.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "SUNIL.PASHIKANTI@GMAIL.COM", NormalizedUserName = "SUNIL.PASHIKANTI@GMAIL.COM", OrgId = 0, PasswordHash = "AQAAAAEAACcQAAAAEFV9QgKrO9NWjuDFX9DSYrSfI4WAFVZj7n+qhh0wTCFCu4Y0r5LLyg4pZOxw2gBXVg==", PhoneNumberConfirmed = false, SecurityStamp = "TXEFASMBK2TBWRP42UFH6KKKHHLFKAXD", TwoFactorEnabled = false, UserName = "sunil.pashikanti@gmail.com" },
-                        new { Id = "04ab2f2f-6fa2-4ed1-9b31-c3c8e707ff5e", AccessFailedCount = 0, ConcurrencyStamp = "b8613dba-00ba-4458-954b-31a160196789", Email = "", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "", NormalizedUserName = "", OrgId = 0, PasswordHash = "AQAAAAEAACcQAAAAEMAS9rffYg+wbBS5S4k/NY/Tj1YyVcVWORYTJjz5M+Zdz05F1jwqPhH9qT3rK4yiaw==", PhoneNumberConfirmed = false, SecurityStamp = "UE2YZGPQD4ZJIX35FVVKTMKJT43XF3OM", TwoFactorEnabled = false, UserName = "" }
+                        new { Id = "882c48b0-c576-4e55-9f75-5bdbadf17984", AccessFailedCount = 0, ConcurrencyStamp = "e7777f79-47db-4972-9075-e7631052ce98", Email = "sunil.pashikanti@gmail.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "SUNIL.PASHIKANTI@GMAIL.COM", NormalizedUserName = "SUNIL.PASHIKANTI@GMAIL.COM", OrgId = 0, PasswordHash = "AQAAAAEAACcQAAAAEMVQ2KS92P28Ey5dkxOB2j350+h/KpOrwkk2AVvTWDVB1VJGAwCM5DFSYHXW7gnJDQ==", PhoneNumberConfirmed = false, SecurityStamp = "TXEFASMBK2TBWRP42UFH6KKKHHLFKAXD", TwoFactorEnabled = false, UserName = "sunil.pashikanti@gmail.com" },
+                        new { Id = "2cf71cb7-d417-45d9-8f02-e6c0dfb6d337", AccessFailedCount = 0, ConcurrencyStamp = "b8613dba-00ba-4458-954b-31a160196789", Email = "", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "", NormalizedUserName = "", OrgId = 0, PasswordHash = "AQAAAAEAACcQAAAAECl7YonDTp4i3s917GD+wSEv3YhSUQ/cXYiZ7XzvIWGW7cZc18ntu2bgSLinOrztyQ==", PhoneNumberConfirmed = false, SecurityStamp = "UE2YZGPQD4ZJIX35FVVKTMKJT43XF3OM", TwoFactorEnabled = false, UserName = "" }
                     );
                 });
 
@@ -128,6 +128,63 @@ namespace KalyanamMatrimony.Migrations
                     b.HasKey("OrgId");
 
                     b.ToTable("Organisations");
+                });
+
+            modelBuilder.Entity("KalyanamMatrimony.Models.PartnerPreference", b =>
+                {
+                    b.Property<int>("PartnerPreferenceId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("AgeFrom");
+
+                    b.Property<int?>("AgeTo");
+
+                    b.Property<string>("BodyType");
+
+                    b.Property<string>("Caste");
+
+                    b.Property<string>("Complexion");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Diet");
+
+                    b.Property<string>("Drink");
+
+                    b.Property<string>("Education");
+
+                    b.Property<int?>("Gender");
+
+                    b.Property<float?>("HeightFrom");
+
+                    b.Property<float?>("HeightTo");
+
+                    b.Property<string>("Location");
+
+                    b.Property<string>("Manglik");
+
+                    b.Property<string>("MaritalStatus");
+
+                    b.Property<string>("MotherTongue");
+
+                    b.Property<string>("Profession");
+
+                    b.Property<string>("ProfileId");
+
+                    b.Property<string>("Religion");
+
+                    b.Property<string>("Smoke");
+
+                    b.Property<string>("SubCaste");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("PartnerPreferenceId");
+
+                    b.HasIndex("ProfileId")
+                        .IsUnique();
+
+                    b.ToTable("PartnerPreferences");
                 });
 
             modelBuilder.Entity("KalyanamMatrimony.Models.Profile", b =>
@@ -278,10 +335,10 @@ namespace KalyanamMatrimony.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "1", ConcurrencyStamp = "65161d91-f034-42dc-8569-2a3412b7fc1b", Name = "SuperAdmin", NormalizedName = "SUPERADMIN" },
-                        new { Id = "2", ConcurrencyStamp = "686bd8fe-167a-47e7-a047-eee6027a1d45", Name = "Admin", NormalizedName = "ADMIN" },
-                        new { Id = "3", ConcurrencyStamp = "fb5e4db0-b778-44d7-a1a1-5344c5a9115e", Name = "AdminAssistant", NormalizedName = "ADMINASSISTANT" },
-                        new { Id = "4", ConcurrencyStamp = "56062032-1d1b-4488-b37c-801eeca856f2", Name = "Profile", NormalizedName = "PROFILE" }
+                        new { Id = "1", ConcurrencyStamp = "68b0f9c3-afce-4330-8d22-85b279ddeaf5", Name = "SuperAdmin", NormalizedName = "SUPERADMIN" },
+                        new { Id = "2", ConcurrencyStamp = "7851d4bd-4c74-4b7d-86c3-b68883e6e9bd", Name = "Admin", NormalizedName = "ADMIN" },
+                        new { Id = "3", ConcurrencyStamp = "3fdbe254-45c2-4e84-8c00-8f5d708c5a2d", Name = "AdminAssistant", NormalizedName = "ADMINASSISTANT" },
+                        new { Id = "4", ConcurrencyStamp = "f765f043-fb35-4c0a-a942-e92ffe6b8a58", Name = "Profile", NormalizedName = "PROFILE" }
                     );
                 });
 
@@ -354,7 +411,7 @@ namespace KalyanamMatrimony.Migrations
                     b.ToTable("AspNetUserRoles");
 
                     b.HasData(
-                        new { UserId = "a01fe416-3e93-4513-95fa-39174e38f6be", RoleId = "1" }
+                        new { UserId = "882c48b0-c576-4e55-9f75-5bdbadf17984", RoleId = "1" }
                     );
                 });
 
@@ -371,6 +428,13 @@ namespace KalyanamMatrimony.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("KalyanamMatrimony.Models.PartnerPreference", b =>
+                {
+                    b.HasOne("KalyanamMatrimony.Models.Profile")
+                        .WithOne("PartnerPreference")
+                        .HasForeignKey("KalyanamMatrimony.Models.PartnerPreference", "ProfileId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

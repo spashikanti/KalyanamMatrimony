@@ -32,13 +32,14 @@ namespace KalyanamMatrimony.Controllers
 
             var strSuperAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin);
             var strAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin);
+            var strAdminAssistantRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.AdminAssistant);
 
             if (userRole == strSuperAdminRole)
             {
                 profilesList = matrimonyRepository.GetLatestProfilesForSuperAdmin();
                 return View(profilesList);
             }
-            else if (userRole == strAdminRole)
+            else if (userRole == strAdminRole || userRole == strAdminAssistantRole)
             {
                 profilesList = matrimonyRepository.GetLatestProfilesForAdmin(orgId);
                 return View(profilesList);

@@ -9,6 +9,7 @@ namespace KalyanamMatrimony.Models
         public Profile()
         {
             DateOfBirth = new DateTime();
+            PartnerPreference = new PartnerPreference();
         }
         //UserInfo
         [Display(Name = "Profile Id")]
@@ -121,5 +122,7 @@ namespace KalyanamMatrimony.Models
         public string ContactPersonName { get; set; }
         [Display(Name = "Contact Person Relationship")]
         public string ContactPersonRelationShip { get; set; }
+
+        public PartnerPreference PartnerPreference { get; set; }
     }
 }

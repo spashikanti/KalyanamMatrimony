@@ -14,6 +14,7 @@ namespace KalyanamMatrimony.Models
         }
 
         public DbSet<Profile> Profiles { get; set; }
+        public DbSet<PartnerPreference> PartnerPreferences { get; set; }
         public DbSet<Organisation> Organisations { get; set; }
         public DbSet<License> Licenses { get; set; }
 

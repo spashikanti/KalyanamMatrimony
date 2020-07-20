@@ -99,6 +99,7 @@ namespace KalyanamMatrimony.Controllers
             bool isAssistantLimitReached = GetSessionIsAssistantLimitReached();
             if (isAssistantLimitReached)
             {
+                ToasterServiceCreate("You cannot create a new assistant as you have reached the maximum limit.", CustomEnums.ToastType.Error);
                 return RedirectToAction("ViewAssistant", "Admin");
             }
             return View();

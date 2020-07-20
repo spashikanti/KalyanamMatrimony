@@ -289,7 +289,7 @@ namespace KalyanamMatrimony.Controllers
                             SetSessionLicenseId(org.LicenseId);
                             SetSessionUserId(user.Id);
                             SetSessionUserRole(userRole);
-                            return View("UpdateLicense");
+                            return RedirectToAction("UpdateLicense", "License");
                         }
                     }
 
@@ -298,7 +298,7 @@ namespace KalyanamMatrimony.Controllers
             }
 
             ViewBag.ErrorTitle = "Email cannot be confirmed";
-            return View("Error");
+            return RedirectToAction("Error", "Error");
         }
 
         [HttpGet]
@@ -317,23 +317,37 @@ namespace KalyanamMatrimony.Controllers
                 // Find the user by email
                 var user = await userManager.FindByEmailAsync(model.Email);
                 // If the user is found AND Email is confirmed
-                if (user != null && await userManager.IsEmailConfirmedAsync(user))
+                if (user != null)
                 {
-                    // Generate the reset password token
-                    var token = await userManager.GeneratePasswordResetTokenAsync(user);
+                    if (await userManager.IsEmailConfirmedAsync(user))
+                    {
+                        // Generate the reset password token
+                        var token = await userManager.GeneratePasswordResetTokenAsync(user);
 
-                    // Build the password reset link
-                    var passwordResetLink = Url.Action("ResetPassword", "Account",
-                            new { email = model.Email, token = token }, Request.Scheme);
+                        // Build the password reset link
+                        var passwordResetLink = Url.Action("ResetPassword", "Account",
+                                new { email = model.Email, token = token }, Request.Scheme);
 
-                    // Log the password reset link
-                    logger.Log(LogLevel.Warning, passwordResetLink);
-                    await SendEmail(model.Email, passwordResetLink, "Reset your password");
+                        // Log the password reset link
+                        logger.Log(LogLevel.Warning, passwordResetLink);
+                        await SendEmail(model.Email, passwordResetLink, "Reset your password");
 
-                    // Send the user to Forgot Password Confirmation view
-                    return View("ForgotPasswordConfirmation");
+                        // Send the user to Forgot Password Confirmation view
+                        return View("ForgotPasswordConfirmation");
+
+                    }
+                    else
+                    {
+                        var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                        var confirmationLink = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, token = token }, Request.Scheme);
+
+                        // Log the password reset link
+                        logger.Log(LogLevel.Warning, confirmationLink);
+                        await SendEmail(model.Email, confirmationLink, "Email Confirmation");
+
+                        return RedirectToAction("Acknowledge");
+                    }
                 }
-
                 // To avoid account enumeration and brute force attacks, don't
                 // reveal that the user does not exist or is not confirmed
                 return View("ForgotPasswordConfirmation");
@@ -580,6 +594,15 @@ namespace KalyanamMatrimony.Controllers
                     "Happy Matrimony!!!<br/><br/>" +
                     "Regards,<br/>" +
                     "The Matrimony Team.";
+            }
+            else if (subject.Contains("Email Confirmation"))
+            {
+                content = "Hi " + email + ", <br/><br/>" +
+                    "Thank you for signing up with our portal! You must follow this link to activate your account:<br/><br/>" +
+                    "<a href='" + encryptedLink + "' >Confirm your email</a><br/><br/>" +
+                    "Happy Matrimony!!!<br/><br/>" +
+                    "Regards<br/>" +
+                    "The Matrimony Team";
             }
 
             var message = new Message(new string[] { email }, subject, content);

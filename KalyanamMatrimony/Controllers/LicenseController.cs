@@ -32,10 +32,14 @@ namespace KalyanamMatrimony.Controllers
             }
             else
             {
-                ViewBag.Message = "Your license is expired, please renew";
+                Organisation org = GetSessionOrgDetails();
+                if (org.EndDate < DateTime.Now)
+                {
+                    ViewBag.Message = "Your license is expired, please renew";
+                }
                 licenses = matrimonyRepository.GetAllActiveLicenses().Where(x => x.LicenseType != LicenseType.Free);
             }
-            
+
             ViewBag.UsersCount = matrimonyRepository.GetAllActiveLicenses()
                                 .Select(uc => uc.UsersCount)
                                 .Distinct();

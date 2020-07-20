@@ -37,6 +37,9 @@ namespace KalyanamMatrimony.Models
         Profile GetProfileById(string profileId);
         Profile GetProfileByUserId(string userId);
         Profile UpdateProfile(Profile profile);
+        PartnerPreference AddPartnerPreference(PartnerPreference partnerPreference);
+        PartnerPreference GetPartnerPreferenceByProfileId(string profileId);
+        PartnerPreference UpdatePartnerPreference(PartnerPreference partnerPreference);
         IEnumerable<Profile> GetActiveProfiles(int orgId);
         IEnumerable<Profile> GetDeActivedProfiles(int orgId);
         IEnumerable<Profile> GetActiveOrInActiveProfiles(bool isActive, IQueryable<ApplicationUser> usersList);

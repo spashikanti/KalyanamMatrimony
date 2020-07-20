@@ -31,7 +31,12 @@ namespace KalyanamMatrimony.Models
             context.SaveChanges();
             return profile;
         }
-
+        public PartnerPreference AddPartnerPreference(PartnerPreference partnerPreference)
+        {
+            context.PartnerPreferences.Add(partnerPreference);
+            context.SaveChanges();
+            return partnerPreference;
+        }
         public IEnumerable<Profile> GetActiveProfiles(int orgId)
         {
             return GetActiveOrInActiveProfiles(true, userManager.Users.Where(x => x.OrgId == orgId));
@@ -105,6 +110,11 @@ namespace KalyanamMatrimony.Models
             return context.Profiles.FirstOrDefault(x => x.ProfileId == profileId);
         }
 
+        public PartnerPreference GetPartnerPreferenceByProfileId(string profileId)
+        {
+            return context.PartnerPreferences.FirstOrDefault(x => x.ProfileId == profileId);
+        }
+
         public Profile GetProfileByUserId(string userId)
         {
             return context.Profiles.FirstOrDefault(x => x.UserId == userId);
@@ -117,10 +127,20 @@ namespace KalyanamMatrimony.Models
             context.SaveChanges();
             return profile;
         }
-
+        public PartnerPreference UpdatePartnerPreference(PartnerPreference partnerPreference)
+        {
+            context.PartnerPreferences.Update(partnerPreference);
+            context.Entry(partnerPreference).State = EntityState.Modified;
+            context.SaveChanges();
+            return partnerPreference;
+        }
         public int DeleteProfileById(string profileId)
         {
             var profile = GetProfileById(profileId);
+            if(profile.PartnerPreference != null)
+            {
+                context.PartnerPreferences.Remove(profile.PartnerPreference);
+            }
             context.Profiles.Remove(profile);
             return context.SaveChanges();
         }

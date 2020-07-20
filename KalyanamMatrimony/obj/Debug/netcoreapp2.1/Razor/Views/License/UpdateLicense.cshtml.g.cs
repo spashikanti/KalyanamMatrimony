@@ -180,12 +180,12 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("                            <label class=\"small mb-1\">Users Count</label>\r\n                            ");
             EndContext();
             BeginContext(5619, 246, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6a445c99d7324145ae1e614ec1800bd4", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "946b38746bb2421c85982edfd77dfb3d", async() => {
                 BeginContext(5752, 34, true);
                 WriteLiteral("\r\n                                ");
                 EndContext();
                 BeginContext(5786, 40, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "400843462ca64d35a8ebf9ab32f63140", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "56aaa8c013ad4ddabfbcd523b43fd027", async() => {
                     BeginContext(5814, 3, true);
                     WriteLiteral("All");
                     EndContext();
@@ -236,7 +236,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_SelectTagHelper.Items = (new SelectList(@V
                             ");
             EndContext();
             BeginContext(6134, 2929, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8bc7543600c94cdbae72f643030bcba7", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "df6521b921254576a93689ba0f471d51", async() => {
                 BeginContext(6184, 58, true);
                 WriteLiteral("\r\n                                <div class=\"form-row\">\r\n");
                 EndContext();
@@ -321,7 +321,7 @@ WriteAttributeValue("", 6725, newDivId, 6725, 9, false);
                 WriteLiteral("                                                            ");
                 EndContext();
                 BeginContext(7785, 494, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("button", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "67632323ea4f4dceac2faee6cd6bba2b", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("button", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "31720c230c294f2493a4ebf88cce0cda", async() => {
                     BeginContext(8119, 151, true);
                     WriteLiteral("\r\n                                                                <strong>Update</strong>\r\n                                                            ");
                     EndContext();

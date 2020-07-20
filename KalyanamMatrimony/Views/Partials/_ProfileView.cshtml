@@ -86,7 +86,7 @@
     <div class="card-columns">
         <div class="card shadow-lg border-0 rounded-lg">
             <div class="card-header py-3 bg-primary text-white">
-                    <strong>Education Details</strong>
+                <strong>Education Details</strong>
             </div>
             <div class="card-body">
                 <div class="col-lg-12 pt-4 pt-lg-0 content" data-aos="fade-left">
@@ -109,7 +109,7 @@
         </div>
         <div class="card shadow-lg border-0 rounded-lg">
             <div class="card-header py-3 bg-dark text-white">
-                    <strong>Hobbies</strong>
+                <strong>Hobbies</strong>
             </div>
             <div class="card-body">
                 <div class="col-lg-12 pt-4 pt-lg-0 content" data-aos="fade-left">
@@ -119,7 +119,7 @@
         </div>
         <div class="card shadow-lg border-0 rounded-lg">
             <div class="card-header py-3 bg-success text-white">
-                    <strong>Favorite Music</strong>
+                <strong>Favorite Music</strong>
             </div>
             <div class="card-body">
                 <div class="col-lg-12 pt-4 pt-lg-0 content" data-aos="fade-left">
@@ -129,7 +129,7 @@
         </div>
         <div class="card shadow-lg border-0 rounded-lg">
             <div class="card-header py-3 bg-primary text-white">
-                    <strong>Family Details</strong>
+                <strong>Family Details</strong>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -157,7 +157,7 @@
         </div>
         <div class="card shadow-lg border-0 rounded-lg">
             <div class="card-header py-3 bg-dark text-white">
-                    <strong>Favorite Movies</strong>
+                <strong>Favorite Movies</strong>
             </div>
             <div class="card-body">
                 <div class="col-lg-12 pt-4 pt-lg-0 content" data-aos="fade-left">
@@ -167,7 +167,7 @@
         </div>
         <div class="card shadow-lg border-0 rounded-lg">
             <div class="card-header py-3 bg-success text-white">
-                    <strong>Favorite Cuisine</strong>
+                <strong>Favorite Cuisine</strong>
             </div>
             <div class="card-body">
                 <div class="col-lg-12 pt-4 pt-lg-0 content" data-aos="fade-left">
@@ -177,7 +177,7 @@
         </div>
         <div class="card shadow-lg border-0 rounded-lg">
             <div class="card-header py-3 bg-primary text-white">
-                    <strong>Sports</strong>
+                <strong>Sports</strong>
             </div>
             <div class="card-body">
                 <div class="col-lg-12 pt-4 pt-lg-0 content" data-aos="fade-left">
@@ -187,7 +187,7 @@
         </div>
         <div class="card shadow-lg border-0 rounded-lg">
             <div class="card-header py-3 bg-dark text-white">
-                    <strong>Preferred Dress</strong>
+                <strong>Preferred Dress</strong>
             </div>
             <div class="card-body">
                 <div class="col-lg-12 pt-4 pt-lg-0 content" data-aos="fade-left">
@@ -197,7 +197,7 @@
         </div>
         <div class="card shadow-lg border-0 rounded-lg">
             <div class="card-header py-3 bg-success text-white">
-                    <strong>Horoscope</strong>
+                <strong>Horoscope</strong>
             </div>
             <div class="card-body">
                 <div class="col-lg-12 pt-4 pt-lg-0 content" data-aos="fade-left">
@@ -216,7 +216,38 @@
                 </div>
             </div>
         </div>
-
+        <div class="card shadow-lg border-0 rounded-lg">
+            <div class="card-header py-3 bg-primary text-white">
+                <strong>Partner Preference</strong>
+            </div>
+            <div class="card-body">
+                <div class="col-lg-12 pt-4 pt-lg-0 content" data-aos="fade-left">
+                    <ul>
+                        <li><i class="icofont-rounded-right"></i> <strong>Age:</strong> @Html.DisplayFor(model => model.PartnerPreference.AgeFrom) to  @Html.DisplayFor(model => model.PartnerPreference.AgeTo)</li>
+                        <li><i class="icofont-rounded-right"></i> <strong>Gender:</strong> @Html.DisplayFor(model => model.PartnerPreference.Gender)</li>
+                        <li><i class="icofont-rounded-right"></i> <strong>Marital Status:</strong> @Html.DisplayFor(model => model.PartnerPreference.MaritalStatus)</li>
+                        <li><i class="icofont-rounded-right"></i> <strong>Height:</strong> @Html.DisplayFor(model => model.PartnerPreference.HeightFrom) to  @Html.DisplayFor(model => model.PartnerPreference.HeightTo)</li>
+                        <li><i class="icofont-rounded-right"></i> <strong>Body Type:</strong> @Html.DisplayFor(model => model.PartnerPreference.BodyType)</li>
+                        <li><i class="icofont-rounded-right"></i> <strong>Complexion:</strong> @Html.DisplayFor(model => model.PartnerPreference.Complexion)</li>
+                        <li><i class="icofont-rounded-right"></i> <strong>Mother Tongue:</strong> @Html.DisplayFor(model => model.PartnerPreference.MotherTongue)</li>
+                        <li><i class="icofont-rounded-right"></i> <strong>Religion:</strong> @Html.DisplayFor(model => model.PartnerPreference.Religion)/@Html.DisplayFor(model => model.PartnerPreference.Caste)/@Html.DisplayFor(model => model.PartnerPreference.SubCaste)</li>
+                        <li><i class="icofont-rounded-right"></i> <strong>Diet:</strong> @Html.DisplayFor(model => model.PartnerPreference.Diet)</li>
+                        <li><i class="icofont-rounded-right"></i> <strong>Smoke:</strong> @Html.DisplayFor(model => model.PartnerPreference.Smoke)</li>
+                        <li><i class="icofont-rounded-right"></i> <strong>Drink:</strong> @Html.DisplayFor(model => model.PartnerPreference.Drink)</li>
+                        <li><i class="icofont-rounded-right"></i> <strong>Location:</strong> @Html.DisplayFor(model => model.PartnerPreference.Location)</li>
+                        <li><i class="icofont-rounded-right"></i> <strong>Manglik:</strong> @Html.DisplayFor(model => model.PartnerPreference.Manglik)</li>
+                        <li><i class="icofont-rounded-right"></i> <strong>Education:</strong> @Html.DisplayFor(model => model.PartnerPreference.Education)</li>
+                        <li><i class="icofont-rounded-right"></i> <strong>Profession:</strong> @Html.DisplayFor(model => model.PartnerPreference.Profession)</li>
+                    </ul>
+                    <div data-aos="fade-right">
+                        <div class="section-title">
+                            <strong>Summary:</strong>
+                        </div>
+                        @Html.DisplayFor(model => model.PartnerPreference.Description)
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 

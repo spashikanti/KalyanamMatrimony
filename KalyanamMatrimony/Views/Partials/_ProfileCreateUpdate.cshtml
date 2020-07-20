@@ -28,8 +28,18 @@
 <input type="hidden" id="hdFamilyValues" asp-for="FamilyValues" />
 <input type="hidden" id="hdRasi" asp-for="Rasi" />
 <input type="hidden" id="hdNakshatram" asp-for="Nakshatram" />
-
-
+@*Partner Preference*@
+<input type="hidden" id="hdPMaritalStatus" asp-for="PartnerPreference.MaritalStatus" />
+<input type="hidden" id="hdPBodyType" asp-for="PartnerPreference.BodyType" />
+<input type="hidden" id="hdPHeightFrom" asp-for="PartnerPreference.HeightFrom" />
+<input type="hidden" id="hdPHeightTo" asp-for="PartnerPreference.HeightTo" />
+<input type="hidden" id="hdPComplexion" asp-for="PartnerPreference.Complexion" />
+<input type="hidden" id="hdPMotherTongue" asp-for="PartnerPreference.MotherTongue" />
+<input type="hidden" id="hdPReligion" asp-for="PartnerPreference.Religion" />
+<input type="hidden" id="hdPCaste" asp-for="PartnerPreference.Caste" />
+<input type="hidden" id="hdPDiet" asp-for="PartnerPreference.Diet" />
+<input type="hidden" id="hdPSmoke" asp-for="PartnerPreference.Smoke" />
+<input type="hidden" id="hdPDrink" asp-for="PartnerPreference.Drink" />
 
 <div class="container-fluid">
     <div class="card shadow-lg border-0 rounded-lg">
@@ -52,13 +62,13 @@
                             <a class="nav-link" id="v-pills-familyInfo-tab" data-toggle="pill" href="#v-pills-familyInfo" role="tab" aria-controls="v-pills-familyInfo" aria-selected="false">Family</a>
                             <a class="nav-link" id="v-pills-hobbies-tab" data-toggle="pill" href="#v-pills-hobbies" role="tab" aria-controls="v-pills-hobbies" aria-selected="false">Hobby</a>
                             <a class="nav-link" id="v-pills-horoscope-tab" data-toggle="pill" href="#v-pills-horoscope" role="tab" aria-controls="v-pills-horoscope" aria-selected="false">Horoscope</a>
+                            <a class="nav-link" id="v-pills-partner-tab" data-toggle="pill" href="#v-pills-partner" role="tab" aria-controls="v-pills-partner" aria-selected="false">Partner Preference</a>
                             <a class="nav-link" id="v-pills-photos-tab" data-toggle="pill" href="#v-pills-photos" role="tab" aria-controls="v-pills-photos" aria-selected="false">Photo</a>
                         </div>
                     </div>
-                    <div class="col-10 card shadow-lg border-0 rounded-lg">
+                    <div class="col-10 card shadow-lg border-0 rounded-lg" style="padding:25px;">
                         <div class="tab-content" id="v-pills-tabContent">
                             <div class="tab-pane fade show active" id="v-pills-userinfo" role="tabpanel" aria-labelledby="v-pills-userinfo-tab">
-
                                 @*<div class="card-body">*@
                                 <div class="form-row">
                                     <div class="col-md-6">
@@ -82,36 +92,39 @@
                                     <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
                                 @*<div class="form-row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label asp-for="Password" class="small mb-1"></label>
-                                            <input asp-for="Password" class="form-control" placeholder="Enter Password" />
-                                            <span asp-validation-for="Password" class="text-danger"></span>
-                                        </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Password" class="small mb-1"></label>
+                    <input asp-for="Password" class="form-control" placeholder="Enter Password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword" class="small mb-1"></label>
+                    <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+        </div>*@
+                                @if (!User.IsInRole(Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Profile)))
+                                {
+                                    <div class="form-group">
+                                        <label asp-for="EndDate" class="small mb-1"></label>
+                                        <input asp-for="EndDate" class="form-control" type="date" />
+                                        <span asp-validation-for="EndDate" class="text-danger"></span>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label asp-for="ConfirmPassword" class="small mb-1"></label>
-                                            <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password" />
-                                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                                        </div>
+                                }
+
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-primary" disabled>Back</button>
+
+                                        <button type="button" class="btn btn-primary" onclick="moveNext(2);">Next</button>
                                     </div>
-                                </div>*@
-                                <div class="form-group">
-                                    <label asp-for="EndDate" class="small mb-1"></label>
-                                    <input asp-for="EndDate" class="form-control" type="date" />
-                                    <span asp-validation-for="EndDate" class="text-danger"></span>
+
+                                    @*</div>*@
+
                                 </div>
-
-                                <div class="form-group">
-                                    <button type="button" class="btn btn-primary" disabled>Back</button>
-
-                                    <button type="button" class="btn btn-primary" onclick="moveNext(2);">Next</button>
-                                </div>
-
-                                @*</div>*@
-
-                            </div>
                             <div class="tab-pane fade" id="v-pills-personalInfo" role="tabpanel" aria-labelledby="v-pills-personalInfo-tab">
                                 @*<div class="card-body">*@
                                 <div class="form-row">
@@ -217,8 +230,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             @*<label asp-for="Caste" class="small mb-1"></label>
-                                            <input asp-for="Caste" class="form-control" placeholder="Enter Caste" />
-                                            <span asp-validation-for="Caste" class="text-danger"></span>*@
+                                    <input asp-for="Caste" class="form-control" placeholder="Enter Caste" />
+                                    <span asp-validation-for="Caste" class="text-danger"></span>*@
 
                                             <label asp-for="Caste" class="small mb-1"></label>
                                             <select asp-for="Caste" class="custom-select mr-sm-2"></select>
@@ -497,8 +510,8 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             @*<label asp-for="Nakshatram" class="small mb-1"></label>
-                                            <input asp-for="Nakshatram" class="form-control " placeholder="Enter Nakshatram" />
-                                            <span asp-validation-for="Nakshatram" class="text-danger"></span>*@
+                                    <input asp-for="Nakshatram" class="form-control " placeholder="Enter Nakshatram" />
+                                    <span asp-validation-for="Nakshatram" class="text-danger"></span>*@
 
                                             <label asp-for="Nakshatram" class="small mb-1"></label>
                                             <select asp-for="Nakshatram" class="custom-select mr-sm-2"></select>
@@ -527,7 +540,169 @@
 
                                     <button type="button" class="btn btn-primary" onclick="moveNext(7);">Next</button>
                                 </div>
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-partner" role="tabpanel" aria-labelledby="v-pills-partner-tab">
+                                <div class="form-row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="PartnerPreference.AgeFrom" class="small mb-1"></label>
+                                            <input asp-for="PartnerPreference.AgeFrom" class="form-control" />
+                                            <span asp-validation-for="PartnerPreference.AgeFrom" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="PartnerPreference.AgeTo" class="small mb-1"></label>
+                                            <input asp-for="PartnerPreference.AgeTo" class="form-control" />
+                                            <span asp-validation-for="PartnerPreference.AgeTo" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="PartnerPreference.Gender" class="small mb-1"></label>
+                                            <select asp-for="PartnerPreference.Gender" class="custom-select mr-sm-2"
+                                                    asp-items="Html.GetEnumSelectList<KalyanamMatrimony.Models.CustomEnums.ProfileGender>()">
+                                            </select>
+                                            <span asp-validation-for="PartnerPreference.Gender" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="PartnerPreference.MaritalStatus" class="small mb-1"></label>
+                                            <select asp-for="PartnerPreference.MaritalStatus" class="custom-select mr-sm-2"></select>
+                                            <span asp-validation-for="PartnerPreference.MaritalStatus" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="PartnerPreference.HeightFrom" class="small mb-1"></label>
+                                            <select asp-for="PartnerPreference.HeightFrom" class="custom-select mr-sm-2"></select>
+                                            <span asp-validation-for="PartnerPreference.HeightFrom" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="PartnerPreference.HeightTo" class="small mb-1"></label>
+                                            <select asp-for="PartnerPreference.HeightTo" class="custom-select mr-sm-2"></select>
+                                            <span asp-validation-for="PartnerPreference.HeightTo" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="PartnerPreference.BodyType" class="small mb-1"></label>
+                                            <select asp-for="PartnerPreference.BodyType" class="custom-select mr-sm-2"></select>
+                                            <span asp-validation-for="PartnerPreference.BodyType" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="PartnerPreference.Complexion" class="small mb-1"></label>
+                                            <select asp-for="PartnerPreference.Complexion" class="custom-select mr-sm-2"></select>
+                                            <span asp-validation-for="PartnerPreference.Complexion" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="PartnerPreference.MotherTongue" class="small mb-1"></label>
+                                            <select asp-for="PartnerPreference.MotherTongue" class="custom-select mr-sm-2"></select>
+                                            <span asp-validation-for="PartnerPreference.MotherTongue" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="PartnerPreference.Religion" class="small mb-1"></label>
+                                            <select asp-for="PartnerPreference.Religion" class="custom-select mr-sm-2"></select>
+                                            <span asp-validation-for="PartnerPreference.Religion" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="PartnerPreference.Caste" class="small mb-1"></label>
+                                            <select asp-for="PartnerPreference.Caste" class="custom-select mr-sm-2"></select>
+                                            <span asp-validation-for="PartnerPreference.Caste" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="PartnerPreference.SubCaste" class="small mb-1"></label>
+                                            <input asp-for="PartnerPreference.SubCaste" class="form-control" placeholder="Enter Sub Caste" />
+                                            <span asp-validation-for="PartnerPreference.SubCaste" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="PartnerPreference.Diet" class="small mb-1"></label>
+                                            <select asp-for="PartnerPreference.Diet" class="custom-select mr-sm-2"></select>
+                                            <span asp-validation-for="PartnerPreference.Diet" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="PartnerPreference.Smoke" class="small mb-1"></label>
+                                            <select asp-for="PartnerPreference.Smoke" class="custom-select mr-sm-2"></select>
+                                            <span asp-validation-for="PartnerPreference.Smoke" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="PartnerPreference.Drink" class="small mb-1"></label>
+                                            <select asp-for="PartnerPreference.Drink" class="custom-select mr-sm-2"></select>
+                                            <span asp-validation-for="PartnerPreference.Drink" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="PartnerPreference.Location" class="small mb-1"></label>
+                                            <input asp-for="PartnerPreference.Location" class="form-control" placeholder="Enter Location" />
+                                            <span asp-validation-for="PartnerPreference.Location" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="PartnerPreference.Manglik" class="small mb-1"></label>
+                                            <input asp-for="PartnerPreference.Manglik" class="form-control" placeholder="Enter Manglik" />
+                                            <span asp-validation-for="PartnerPreference.Manglik" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="PartnerPreference.Education" class="small mb-1"></label>
+                                            <input asp-for="PartnerPreference.Education" class="form-control" placeholder="Enter Education" />
+                                            <span asp-validation-for="PartnerPreference.Education" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label asp-for="PartnerPreference.Profession" class="small mb-1"></label>
+                                            <input asp-for="PartnerPreference.Profession" class="form-control" placeholder="Enter Profession" />
+                                            <span asp-validation-for="PartnerPreference.Profession" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
 
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label asp-for="PartnerPreference.Description" class="small mb-1"></label>
+                                            <textarea asp-for="PartnerPreference.Description" class="form-control" placeholder="Enter Description"></textarea>
+                                            <span asp-validation-for="PartnerPreference.Description" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary" onclick="moveNext(6);">Back</button>
+                                    <button type="button" class="btn btn-primary" onclick="moveNext(8);">Next</button>
+                                </div>
                             </div>
                             <div class="tab-pane fade" id="v-pills-photos" role="tabpanel" aria-labelledby="v-pills-photos-tab">
                                 <div class="form-row">
@@ -581,7 +756,7 @@
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <button type="button" class="btn btn-primary" onclick="moveNext(6);">Back</button>
+                                            <button type="button" class="btn btn-primary" onclick="moveNext(7);">Back</button>
                                             <button type="button" class="btn btn-primary" disabled>Next</button>
                                         </div>
                                     </div>
@@ -609,6 +784,9 @@
                 <input type="hidden" id="hdExistingPhotoPath1" asp-for="ExistingPhotoPath1" />
                 <input type="hidden" id="hdExistingPhotoPath2" asp-for="ExistingPhotoPath2" />
                 <input type="hidden" id="hdExistingPhotoPath3" asp-for="ExistingPhotoPath3" />
+                <input type="hidden" id="hdPPartnerPreferenceId" asp-for="PartnerPreference.PartnerPreferenceId" />
+                <input type="hidden" id="hdPDrink" asp-for="PartnerPreference.UserId" />
+                <input type="hidden" id="hdPDrink" asp-for="PartnerPreference.ProfileId" />
             </form>
 
         </div>

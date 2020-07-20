@@ -64,6 +64,9 @@ function moveNext(showTab) {
             $('#v-pills-tab a[href="#v-pills-horoscope"]').tab('show');
             break;
         case 7:
+            $('#v-pills-tab a[href="#v-pills-partner"]').tab('show');
+            break;
+        case 8:
             $('#v-pills-tab a[href="#v-pills-photos"]').tab('show');
             break;
         default:

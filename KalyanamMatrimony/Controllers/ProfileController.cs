@@ -77,6 +77,7 @@ namespace KalyanamMatrimony.Controllers
             bool isProfileLimitReached = GetSessionIsProfileLimitReached();
             if (isProfileLimitReached)
             {
+                ToasterServiceCreate("You cannot create a new Profile as you have reached the maximum limit.", CustomEnums.ToastType.Error);
                 return RedirectToAction("Index", "Profile");
             }
             return View();
@@ -174,7 +175,22 @@ namespace KalyanamMatrimony.Controllers
                         }
                         else
                         {
-                            //ToasterServiceCreate(model.FirstName + " profile added successfully", CustomEnums.ToastType.Success);
+                            //add partner preference
+                            //model.PartnerPreference.UserId = model.UserId;
+                            //model.PartnerPreference.ProfileId = repoResult.ProfileId;
+                            //var partnerResult = matrimonyRepository.AddPartnerPreference(model.PartnerPreference);
+                            //if(partnerResult == null)
+                            //{
+                            //    ModelState.AddModelError(string.Empty, "Unable to create partner preference");
+                            //    ToasterServiceCreate(model.FirstName + " unable to create  partner preference", CustomEnums.ToastType.Error);
+                            //}
+                            //else
+                            //{
+                            //    //ToasterServiceCreate(model.FirstName + " profile added successfully", CustomEnums.ToastType.Success);
+                            //    ToasterServiceCreate(model.FirstName + " profile added successfully" + " Please ask user to check email to verify account.", CustomEnums.ToastType.Info);
+                            //    return RedirectToAction("index", "profile");
+                            //}
+
                             ToasterServiceCreate(model.FirstName + " profile added successfully" + " Please ask user to check email to verify account.", CustomEnums.ToastType.Info);
                             return RedirectToAction("index", "profile");
                         }
@@ -213,6 +229,7 @@ namespace KalyanamMatrimony.Controllers
             ToasterServiceDisplay();
 
             Profile profile = matrimonyRepository.GetProfileById(id);
+            profile.PartnerPreference = matrimonyRepository.GetPartnerPreferenceByProfileId(id);
             ApplicationUser userData = await userManager.FindByIdAsync(profile.UserId);
             EditUserProfileViewModel userProfileViewModel = EditUserProfileViewModel(profile);
             userProfileViewModel.Email = userData.Email;
@@ -311,6 +328,18 @@ namespace KalyanamMatrimony.Controllers
                 }
                 else
                 {
+                    //var partnerResult = matrimonyRepository.UpdatePartnerPreference(model.PartnerPreference);
+                    //if (repoResult == null)
+                    //{
+                    //    logger.Log(LogLevel.Error, "Unable to update partner preference");
+                    //    ModelState.AddModelError(string.Empty, "Unable to update partner preference");
+                    //    ToasterServiceCreate(model.FirstName + " unable to update partner preference", CustomEnums.ToastType.Error);
+                    //}
+                    //else
+                    //{
+                    //    ToasterServiceCreate(model.FirstName + " profile updated successfully", CustomEnums.ToastType.Success);
+                    //    return RedirectToAction("viewprofile", "profile", new { id = model.ProfileId });
+                    //}
                     ToasterServiceCreate(model.FirstName + " profile updated successfully", CustomEnums.ToastType.Success);
                     return RedirectToAction("viewprofile", "profile", new { id = model.ProfileId });
                 }
@@ -328,6 +357,7 @@ namespace KalyanamMatrimony.Controllers
             if (!string.IsNullOrEmpty(id))
             {
                 Profile profile = matrimonyRepository.GetProfileById(id);
+                profile.PartnerPreference = matrimonyRepository.GetPartnerPreferenceByProfileId(profile.ProfileId);
                 ApplicationUser userData = await userManager.FindByIdAsync(profile.UserId);
                 EditUserProfileViewModel userProfileViewModel = EditUserProfileViewModel(profile);
                 userProfileViewModel.Email = userData.Email;
@@ -377,6 +407,7 @@ namespace KalyanamMatrimony.Controllers
 
             if (profile != null)
             {
+                profile.PartnerPreference = matrimonyRepository.GetPartnerPreferenceByProfileId(profile.ProfileId);
                 userProfileViewModel = EditUserProfileViewModel(profile);
                 //userProfileViewModel.Email = userData.Email;
                 //userProfileViewModel.EndDate = userData.EndDate;
@@ -411,6 +442,7 @@ namespace KalyanamMatrimony.Controllers
             string currentUserId = GetSessionUserId();
             ApplicationUser userData = await userManager.FindByIdAsync(currentUserId);
             Profile profile = matrimonyRepository.GetProfileByUserId(currentUserId);
+            profile.PartnerPreference = matrimonyRepository.GetPartnerPreferenceByProfileId(profile.ProfileId);
             EditUserProfileViewModel userProfileViewModel = new EditUserProfileViewModel();
 
             if (profile != null)
@@ -642,6 +674,33 @@ namespace KalyanamMatrimony.Controllers
 
             profile.CreatedDate = DateTime.Now;
 
+            if (model.PartnerPreference != null)
+            {
+                profile.PartnerPreference.AgeFrom = model.PartnerPreference.AgeFrom;
+                profile.PartnerPreference.AgeTo = model.PartnerPreference.AgeTo;
+                profile.PartnerPreference.BodyType = model.PartnerPreference.BodyType;
+                profile.PartnerPreference.Caste = model.PartnerPreference.Caste;
+                profile.PartnerPreference.Complexion = model.PartnerPreference.Complexion;
+                profile.PartnerPreference.Description = model.PartnerPreference.Description;
+                profile.PartnerPreference.Diet = model.PartnerPreference.Diet;
+                profile.PartnerPreference.Drink = model.PartnerPreference.Drink;
+                profile.PartnerPreference.Education = model.PartnerPreference.Education;
+                profile.PartnerPreference.Gender = model.PartnerPreference.Gender;
+                profile.PartnerPreference.HeightFrom = model.PartnerPreference.HeightFrom;
+                profile.PartnerPreference.HeightTo = model.PartnerPreference.HeightTo;
+                profile.PartnerPreference.Location = model.PartnerPreference.Location;
+                profile.PartnerPreference.Manglik = model.PartnerPreference.Manglik;
+                profile.PartnerPreference.MaritalStatus = model.PartnerPreference.MaritalStatus;
+                profile.PartnerPreference.MotherTongue = model.PartnerPreference.MotherTongue;
+                profile.PartnerPreference.Profession = model.PartnerPreference.Profession;
+                profile.PartnerPreference.Religion = model.PartnerPreference.Religion;
+                profile.PartnerPreference.Smoke = model.PartnerPreference.Smoke;
+                profile.PartnerPreference.SubCaste = model.PartnerPreference.SubCaste;
+                profile.PartnerPreference.UserId = model.UserId;
+                profile.PartnerPreference.ProfileId = model.ProfileId;
+                profile.PartnerPreference.PartnerPreferenceId = model.PartnerPreference.PartnerPreferenceId;
+            }
+
             return profile;
         }
 
@@ -720,6 +779,33 @@ namespace KalyanamMatrimony.Controllers
             profile.strDateOfBirth = model.DateOfBirth != null ? model.DateOfBirth.Value.ToString("dd/MMM/yyyy") : "";
             profile.strHaveChildren = model.HaveChildren == true ? "Yes" : "No";
 
+            if (model.PartnerPreference != null)
+            {
+                profile.PartnerPreference.AgeFrom = model.PartnerPreference.AgeFrom;
+                profile.PartnerPreference.AgeTo = model.PartnerPreference.AgeTo;
+                profile.PartnerPreference.BodyType = model.PartnerPreference.BodyType;
+                profile.PartnerPreference.Caste = model.PartnerPreference.Caste;
+                profile.PartnerPreference.Complexion = model.PartnerPreference.Complexion;
+                profile.PartnerPreference.Description = model.PartnerPreference.Description;
+                profile.PartnerPreference.Diet = model.PartnerPreference.Diet;
+                profile.PartnerPreference.Drink = model.PartnerPreference.Drink;
+                profile.PartnerPreference.Education = model.PartnerPreference.Education;
+                profile.PartnerPreference.Gender = model.PartnerPreference.Gender;
+                profile.PartnerPreference.HeightFrom = model.PartnerPreference.HeightFrom;
+                profile.PartnerPreference.HeightTo = model.PartnerPreference.HeightTo;
+                profile.PartnerPreference.Location = model.PartnerPreference.Location;
+                profile.PartnerPreference.Manglik = model.PartnerPreference.Manglik;
+                profile.PartnerPreference.MaritalStatus = model.PartnerPreference.MaritalStatus;
+                profile.PartnerPreference.MotherTongue = model.PartnerPreference.MotherTongue;
+                profile.PartnerPreference.Profession = model.PartnerPreference.Profession;
+                profile.PartnerPreference.Religion = model.PartnerPreference.Religion;
+                profile.PartnerPreference.Smoke = model.PartnerPreference.Smoke;
+                profile.PartnerPreference.SubCaste = model.PartnerPreference.SubCaste;
+                profile.PartnerPreference.UserId = model.UserId;
+                profile.PartnerPreference.ProfileId = model.ProfileId;
+                profile.PartnerPreference.PartnerPreferenceId = model.PartnerPreference.PartnerPreferenceId;
+            }
+
             return profile;
         }
 
@@ -734,13 +820,14 @@ namespace KalyanamMatrimony.Controllers
 
             var strSuperAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin);
             var strAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin);
+            var strAdminAssistantRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.AdminAssistant);
 
             if (userRole == strSuperAdminRole)
             {
                 profilesList = matrimonyRepository.GetAllProfilesForSuperAdmin().ToList();
                 return View(profilesList);
             }
-            else if (userRole == strAdminRole)
+            else if (userRole == strAdminRole || userRole == strAdminAssistantRole)
             {
                 profilesList = matrimonyRepository.GetAllActiveProfilesForAdmin(orgId).ToList();
                 return View(profilesList);
@@ -773,6 +860,7 @@ namespace KalyanamMatrimony.Controllers
 
                 if (profile != null)
                 {
+                    profile.PartnerPreference = matrimonyRepository.GetPartnerPreferenceByProfileId(profile.ProfileId);
                     userProfileViewModel = EditUserProfileViewModel(profile);
                     userProfileViewModel.ExistingPhotoPath1 = userProfileViewModel.Photo1;
                     userProfileViewModel.ExistingPhotoPath2 = userProfileViewModel.Photo2;
@@ -820,20 +908,7 @@ namespace KalyanamMatrimony.Controllers
                 {
                     //Get User and Profile Details
                     var profile = matrimonyRepository.GetProfileByUserId(userId);
-
-                    //Delete images - DONE
-                    if (!string.IsNullOrEmpty(profile.Photo1))
-                    {
-                        DeleteImage(profile.Photo1);
-                    }
-                    if (!string.IsNullOrEmpty(profile.Photo2))
-                    {
-                        DeleteImage(profile.Photo2);
-                    }
-                    if (!string.IsNullOrEmpty(profile.Photo3))
-                    {
-                        DeleteImage(profile.Photo3);
-                    }
+                    profile.PartnerPreference = matrimonyRepository.GetPartnerPreferenceByProfileId(profile.ProfileId);
 
                     //Delete Profile
                     matrimonyRepository.DeleteProfileById(profile.ProfileId);
@@ -848,6 +923,20 @@ namespace KalyanamMatrimony.Controllers
                     }
                     else
                     {
+                        //Delete images - DONE
+                        if (!string.IsNullOrEmpty(profile.Photo1))
+                        {
+                            DeleteImage(profile.Photo1);
+                        }
+                        if (!string.IsNullOrEmpty(profile.Photo2))
+                        {
+                            DeleteImage(profile.Photo2);
+                        }
+                        if (!string.IsNullOrEmpty(profile.Photo3))
+                        {
+                            DeleteImage(profile.Photo3);
+                        }
+
                         //Delete User
                         var resultUser = await userManager.DeleteAsync(user);
 
@@ -870,7 +959,7 @@ namespace KalyanamMatrimony.Controllers
         private async Task SendEmail(string email, string encryptedLink, string subject)
         {
             var content = "";
-             if (subject.Contains("Email Confirmation"))
+            if (subject.Contains("Email Confirmation"))
             {
                 content = "Hi " + email + ", <br/><br/>" +
                     "Thank you for signing up with our portal! You must follow this link to activate your account:<br/><br/>" +
