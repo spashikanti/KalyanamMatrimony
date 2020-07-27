@@ -63,25 +63,35 @@ namespace KalyanamMatrimony.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ViewAssistant()
+        public async Task<IActionResult> ViewAllAssistants()
         {
             //Active Profiles Only
             ToasterServiceDisplay();
-            
             AssistantListViewModel model = new AssistantListViewModel();
-            int orgId = GetSessionOrgId();
-            model.ActiveAssistants = await GetAdminAssistantUsers(matrimonyRepository.GetActiveAdminAssitants(orgId));
-            model.DeActivedAssistants = await GetAdminAssistantUsers(matrimonyRepository.GetDeActivedAdminAssitants(orgId));
-
             bool isAssistantLimitReached = false;
-            License lic = GetSessionOrgLicense();
-            int assistantCount = model.ActiveAssistants.Count() + model.DeActivedAssistants.Count();
-            if (assistantCount >= lic.AssistantCount)
+
+            if (GetSessionUserRole() == Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin))
             {
-                isAssistantLimitReached = true;
+                model.ActiveAssistants = await GetAdminAssistantUsers(matrimonyRepository.GetAllActiveAdminAssitants());
+                model.DeActivedAssistants = await GetAdminAssistantUsers(matrimonyRepository.GetAllDeActivedAdminAssitants());
             }
+            else
+            {
+                int orgId = GetSessionOrgId();
+                model.ActiveAssistants = await GetAdminAssistantUsers(matrimonyRepository.GetActiveAdminAssitants(orgId));
+                model.DeActivedAssistants = await GetAdminAssistantUsers(matrimonyRepository.GetDeActivedAdminAssitants(orgId));
+                
+                License lic = GetSessionOrgLicense();
+                int assistantCount = model.ActiveAssistants.Count() + model.DeActivedAssistants.Count();
+                if (assistantCount >= lic.AssistantCount)
+                {
+                    isAssistantLimitReached = true;
+                }
+            }
+
             ViewBag.isAssistantLimitReached = isAssistantLimitReached;
             SetSessionIsAssistantLimitReached(isAssistantLimitReached);
+
             return View(model);
         }
 
@@ -100,7 +110,7 @@ namespace KalyanamMatrimony.Controllers
             if (isAssistantLimitReached)
             {
                 ToasterServiceCreate("You cannot create a new assistant as you have reached the maximum limit.", CustomEnums.ToastType.Error);
-                return RedirectToAction("ViewAssistant", "Admin");
+                return RedirectToAction("ViewAllAssistants", "Admin");
             }
             return View();
         }
@@ -111,7 +121,7 @@ namespace KalyanamMatrimony.Controllers
             bool isAssistantLimitReached = GetSessionIsAssistantLimitReached();
             if(isAssistantLimitReached)
             {
-                return RedirectToAction("ViewAssistant", "Admin");
+                return RedirectToAction("ViewAllAssistants", "Admin");
             }
             if (ModelState.IsValid)
             {
@@ -153,8 +163,8 @@ namespace KalyanamMatrimony.Controllers
                         logger.Log(LogLevel.Warning, confirmationLink);
                         await SendEmail(model.Email, confirmationLink, "Verify your Email");
 
-                        ToasterServiceCreate("Please check your email and click on the confirmation link in the email shared by us.", CustomEnums.ToastType.Info);
-                        return RedirectToAction("ViewAssistant", "Admin");
+                        ToasterServiceCreate("Please ask user to check email and click on the confirmation link in the email shared by us.", CustomEnums.ToastType.Info);
+                        return RedirectToAction("ViewAllAssistants", "Admin");
                     }
                     else
                     {
@@ -199,7 +209,7 @@ namespace KalyanamMatrimony.Controllers
                 if (result.Succeeded)
                 {
                     ToasterServiceCreate(model.Email + " account updated successfully", CustomEnums.ToastType.Success);
-                    return RedirectToAction("ViewAssistant", "Admin");
+                    return RedirectToAction("ViewAllAssistants", "Admin");
                 }
                 else
                 {
@@ -223,7 +233,7 @@ namespace KalyanamMatrimony.Controllers
                 if (result.Succeeded)
                 {
                     ToasterServiceCreate(email + " assistant deleted successfully", CustomEnums.ToastType.Success);
-                    return RedirectToAction("ViewAssistant", "Admin");
+                    return RedirectToAction("ViewAllAssistants", "Admin");
                 }
                 else
                 {

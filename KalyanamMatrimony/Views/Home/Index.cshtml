@@ -35,14 +35,17 @@
                             View Profiles
                         </a>
                         @if (User.IsInRole(Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin)) ||
-                           User.IsInRole(Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin)))
+                             User.IsInRole(Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin)))
                         {
-                            <a class="btn btn-primary btn-lg" role="button" asp-controller="admin" asp-action="viewAssistant" data-aos="fade-up" data-aos-delay="1200" style="margin: 5px; width:255px !important">
+                            <a class="btn btn-primary btn-lg" role="button" asp-controller="admin" asp-action="ViewAllAssistants" data-aos="fade-up" data-aos-delay="1200" style="margin: 5px; width:255px !important">
                                 View Assistants
                             </a>
-                            <a class="btn btn-danger btn-lg" role="button" asp-controller="license" asp-action="updatelicense" data-aos="fade-up" data-aos-delay="1400" style="margin:5px;width:255px !important">
-                                Update License
-                            </a>
+                            if (ViewBag.OrgType == "Shared")
+                            {
+                                <a class="btn btn-danger btn-lg" role="button" asp-controller="license" asp-action="ChooseLicense" data-aos="fade-up" data-aos-delay="1400" style="margin:5px;width:255px !important">
+                                    Update License
+                                </a>
+                            }
                         }
                     }
                 </div>

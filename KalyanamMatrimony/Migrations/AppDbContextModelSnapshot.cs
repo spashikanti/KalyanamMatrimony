@@ -71,8 +71,8 @@ namespace KalyanamMatrimony.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
-                        new { Id = "882c48b0-c576-4e55-9f75-5bdbadf17984", AccessFailedCount = 0, ConcurrencyStamp = "e7777f79-47db-4972-9075-e7631052ce98", Email = "sunil.pashikanti@gmail.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "SUNIL.PASHIKANTI@GMAIL.COM", NormalizedUserName = "SUNIL.PASHIKANTI@GMAIL.COM", OrgId = 0, PasswordHash = "AQAAAAEAACcQAAAAEMVQ2KS92P28Ey5dkxOB2j350+h/KpOrwkk2AVvTWDVB1VJGAwCM5DFSYHXW7gnJDQ==", PhoneNumberConfirmed = false, SecurityStamp = "TXEFASMBK2TBWRP42UFH6KKKHHLFKAXD", TwoFactorEnabled = false, UserName = "sunil.pashikanti@gmail.com" },
-                        new { Id = "2cf71cb7-d417-45d9-8f02-e6c0dfb6d337", AccessFailedCount = 0, ConcurrencyStamp = "b8613dba-00ba-4458-954b-31a160196789", Email = "", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "", NormalizedUserName = "", OrgId = 0, PasswordHash = "AQAAAAEAACcQAAAAECl7YonDTp4i3s917GD+wSEv3YhSUQ/cXYiZ7XzvIWGW7cZc18ntu2bgSLinOrztyQ==", PhoneNumberConfirmed = false, SecurityStamp = "UE2YZGPQD4ZJIX35FVVKTMKJT43XF3OM", TwoFactorEnabled = false, UserName = "" }
+                        new { Id = "00a8f76e-fc62-48a2-90d5-f44a49e4f922", AccessFailedCount = 0, ConcurrencyStamp = "e7777f79-47db-4972-9075-e7631052ce98", Email = "sunil.pashikanti@gmail.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "SUNIL.PASHIKANTI@GMAIL.COM", NormalizedUserName = "SUNIL.PASHIKANTI@GMAIL.COM", OrgId = 0, PasswordHash = "AQAAAAEAACcQAAAAENvNZI+f2A6X6jdHFnJJT2JpMKf0Hln1bdZUr+jntrty+tOAQnklZT+Dz7auzBkZLQ==", PhoneNumberConfirmed = false, SecurityStamp = "TXEFASMBK2TBWRP42UFH6KKKHHLFKAXD", TwoFactorEnabled = false, UserName = "sunil.pashikanti@gmail.com" },
+                        new { Id = "822166f0-1f47-4d2f-9c1e-0d6592b0b736", AccessFailedCount = 0, ConcurrencyStamp = "b8613dba-00ba-4458-954b-31a160196789", Email = "sunil8120@gmail.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "SUNIL8120@GMAIL.COM", NormalizedUserName = "SUNIL8120@GMAIL.COM", OrgId = 1, PasswordHash = "AQAAAAEAACcQAAAAEDdggPYudIr0Xfx1w02dD5Vgo4Y3J4Hcp/5tW/y5gcJu+ho+kPk8pHW855OGJmaOtw==", PhoneNumberConfirmed = false, SecurityStamp = "UE2YZGPQD4ZJIX35FVVKTMKJT43XF3OM", TwoFactorEnabled = false, UserName = "sunil8120@gmail.com" }
                     );
                 });
 
@@ -104,6 +104,10 @@ namespace KalyanamMatrimony.Migrations
                     b.HasKey("LicenseId");
 
                     b.ToTable("Licenses");
+
+                    b.HasData(
+                        new { LicenseId = 1, AssistantCount = 5, CreatedDate = new DateTime(2020, 7, 27, 7, 48, 31, 549, DateTimeKind.Local), Description = "Life Time 1 - Buy the product and host it in your own servers for life time. Pay only for new features or supporting services.", IsActive = true, LicenseName = "Life Time 1", LicenseType = 1, MonthsCount = -1f, Price = 15000f, UsersCount = 100 }
+                    );
                 });
 
             modelBuilder.Entity("KalyanamMatrimony.Models.Organisation", b =>
@@ -128,6 +132,10 @@ namespace KalyanamMatrimony.Migrations
                     b.HasKey("OrgId");
 
                     b.ToTable("Organisations");
+
+                    b.HasData(
+                        new { OrgId = 1, CreatedDate = new DateTime(2020, 7, 27, 7, 48, 31, 552, DateTimeKind.Local), EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), FullName = "Chiluka Narayana", LicenseId = 1, OrgDesc = "Narayana Matrimony Services", OrgName = "Narayana Matrimony", Phone = "8121958960" }
+                    );
                 });
 
             modelBuilder.Entity("KalyanamMatrimony.Models.PartnerPreference", b =>
@@ -185,6 +193,42 @@ namespace KalyanamMatrimony.Migrations
                         .IsUnique();
 
                     b.ToTable("PartnerPreferences");
+                });
+
+            modelBuilder.Entity("KalyanamMatrimony.Models.PaymentHistory", b =>
+                {
+                    b.Property<int>("PaymentHistoryId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<double>("Amount");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Email");
+
+                    b.Property<int>("LicenseId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("OrderId");
+
+                    b.Property<int>("OrgId");
+
+                    b.Property<string>("PaymentURL");
+
+                    b.Property<string>("Phone");
+
+                    b.Property<string>("RedirectURL");
+
+                    b.Property<string>("Status");
+
+                    b.Property<string>("TransactionId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("PaymentHistoryId");
+
+                    b.ToTable("PaymentHistory");
                 });
 
             modelBuilder.Entity("KalyanamMatrimony.Models.Profile", b =>
@@ -335,10 +379,10 @@ namespace KalyanamMatrimony.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "1", ConcurrencyStamp = "68b0f9c3-afce-4330-8d22-85b279ddeaf5", Name = "SuperAdmin", NormalizedName = "SUPERADMIN" },
-                        new { Id = "2", ConcurrencyStamp = "7851d4bd-4c74-4b7d-86c3-b68883e6e9bd", Name = "Admin", NormalizedName = "ADMIN" },
-                        new { Id = "3", ConcurrencyStamp = "3fdbe254-45c2-4e84-8c00-8f5d708c5a2d", Name = "AdminAssistant", NormalizedName = "ADMINASSISTANT" },
-                        new { Id = "4", ConcurrencyStamp = "f765f043-fb35-4c0a-a942-e92ffe6b8a58", Name = "Profile", NormalizedName = "PROFILE" }
+                        new { Id = "1", ConcurrencyStamp = "1770a3f0-298f-4b2c-bbe1-d4e529592c11", Name = "SuperAdmin", NormalizedName = "SUPERADMIN" },
+                        new { Id = "2", ConcurrencyStamp = "03167bf0-8347-4d9c-a16c-69f7845059e2", Name = "Admin", NormalizedName = "ADMIN" },
+                        new { Id = "3", ConcurrencyStamp = "6dc14ebd-68c5-431e-9279-3b086344aacb", Name = "AdminAssistant", NormalizedName = "ADMINASSISTANT" },
+                        new { Id = "4", ConcurrencyStamp = "453e05c1-3aeb-4450-bea6-a980b53ea955", Name = "Profile", NormalizedName = "PROFILE" }
                     );
                 });
 
@@ -411,7 +455,8 @@ namespace KalyanamMatrimony.Migrations
                     b.ToTable("AspNetUserRoles");
 
                     b.HasData(
-                        new { UserId = "882c48b0-c576-4e55-9f75-5bdbadf17984", RoleId = "1" }
+                        new { UserId = "00a8f76e-fc62-48a2-90d5-f44a49e4f922", RoleId = "1" },
+                        new { UserId = "822166f0-1f47-4d2f-9c1e-0d6592b0b736", RoleId = "2" }
                     );
                 });
 

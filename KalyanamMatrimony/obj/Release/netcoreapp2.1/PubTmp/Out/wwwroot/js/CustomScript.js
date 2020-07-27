@@ -64,7 +64,37 @@ function moveNext(showTab) {
             $('#v-pills-tab a[href="#v-pills-horoscope"]').tab('show');
             break;
         case 7:
+            $('#v-pills-tab a[href="#v-pills-partner"]').tab('show');
+            break;
+        case 8:
             $('#v-pills-tab a[href="#v-pills-photos"]').tab('show');
+            break;
+        default:
+    }
+}
+
+function profileMoveNext(showTab) {
+    switch (showTab) {
+        case 1:
+            $('#pills-tab a[href="#pills-userinfo"]').tab('show');
+            break;
+        case 2:
+            $('#pills-tab a[href="#pills-personalInfo"]').tab('show');
+            break;
+        case 3:
+            $('#pills-tab a[href="#pills-eduInfo"]').tab('show');
+            break;
+        case 4:
+            $('#pills-tab a[href="#pills-familyInfo"]').tab('show');
+            break;
+        case 5:
+            $('#pills-tab a[href="#pills-hobbies"]').tab('show');
+            break;
+        case 6:
+            $('#pills-tab a[href="#pills-horoscope"]').tab('show');
+            break;
+        case 7:
+            $('#pills-tab a[href="#pills-photos"]').tab('show');
             break;
         default:
     }

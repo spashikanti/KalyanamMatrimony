@@ -103,7 +103,7 @@ namespace KalyanamMatrimony.Controllers
         //Organisation
         [Authorize(Roles = "SuperAdmin")]
         [HttpGet]
-        public async Task<IActionResult> ViewOrganisations()
+        public async Task<IActionResult> ViewAllOrganisations()
         {
             ToasterServiceDisplay();
             OrgLicenseViewModel organisationModel = new OrgLicenseViewModel();
@@ -119,6 +119,23 @@ namespace KalyanamMatrimony.Controllers
         {
             ViewBag.LicenseTypes = matrimonyRepository.GetAllLicenses();
             return View();
+        }
+
+        [Authorize(Roles = "SuperAdmin")]
+        [HttpGet]
+        public async Task<IActionResult> ViewOrganisation(int id)
+        {
+            SignUpViewModel model = new SignUpViewModel();
+            Organisation organisation = matrimonyRepository.GetOrganisationById(id);
+            if (organisation != null)
+            {
+                model.OrgName = organisation.OrgName;
+                model.FullName = organisation.FullName;
+                model.Phone = organisation.Phone;
+                //model.Email = organisation.;
+            }
+
+            return View(model);
         }
     }
 }

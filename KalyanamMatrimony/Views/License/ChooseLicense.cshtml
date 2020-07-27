@@ -1,0 +1,189 @@
+﻿@model PaymentViewModel
+
+@{
+    ViewBag.Title = "Choose License";
+    Layout = "~/Views/Shared/_LayoutLicense.cshtml";
+}
+
+    <h3 class="text-danger">
+        @ViewBag.Message
+    </h3>
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="pills-Active-tab" data-toggle="pill" href="#pills-Active" role="tab" aria-controls="pills-Active" aria-selected="true">Details</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-DeActivated-tab" data-toggle="pill" href="#pills-DeActivated" role="tab" aria-controls="pills-DeActivated" aria-selected="false">License</a>
+    </li>
+</ul>
+<div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-Active" role="tabpanel" aria-labelledby="pills-Active-tab">
+        <div class="card shadow mb-4 border-primary">
+            <div class="card-header bg-primary text-white">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 class="font-weight-bold text-white">Details</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Name" class="small mb-1"></label>
+                            <input asp-for="Name" disabled class="form-control" placeholder="Enter Full Name" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Phone" class="small mb-1"></label>
+                            <input asp-for="Phone" disabled class="form-control" placeholder="Enter Phone" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="Email" class="small mb-1"></label>
+                            <input asp-for="Email" disabled class="form-control" placeholder="Enter Email" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="pills-DeActivated" role="tabpanel" aria-labelledby="pills-DeActivated-tab">
+        <div class="card shadow mb-4 border-primary">
+            <div class="card-header bg-primary text-white">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 class="font-weight-bold text-white">Choose License</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="small mb-1">Filter Licenses</label>
+                            <select id="UsersCount" class="form-control"
+                                    asp-items="@((List<SelectListItem>)@ViewBag.UsersCount)">
+                                <option selected="selected">All</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row" id="divUserCount10">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <form method="post" enctype="multipart/form-data">
+                                <div class="form-row">
+                                    @if (Model != null && Model.Licenses.Count() > 0)
+                                    {
+                                        var loopCount = 1;
+                                        @foreach (var item in Model.Licenses)
+                                        {
+                                            var newDivId = @item.UsersCount + "_" + @loopCount;
+                                            <div class="col-md-3 @item.UsersCount licenses" id="@newDivId" style="display:none">
+                                                <div class="card shadow mb-4 border-primary mb-3" style="max-width: 18rem;">
+                                                    <div class="card-header bg-primary text-white">
+                                                        <h5 class="card-title">@item.LicenseName</h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <p class="card-text">@item.Description</p>
+                                                        <p class="card-text">Price: ₹@item.Price</p>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        @*@if (!string.IsNullOrEmpty(item.PayLink))
+                                {*@
+                                                        <button type="submit" class="btn btn-success btn-block" id="btnChooseLicense"
+                                                                onclick="assignLicenseId(@item.LicenseId)"
+                                                                asp-action="ChooseLicense" asp-controller="License" asp-route-licenseId="@item.LicenseId">
+                                                            <strong>Buy</strong>
+                                                        </button>
+                                                        @*
+                                asp-route-licenseId="@item.LicenseId" asp-route-monthsCount="@item.MonthsCount"
+                                <a class="btn btn-success" asp-action="ChooseLicense" asp-controller="account" style="width:100%">Pay</a>*@
+
+                                                        @*}*@
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                                <input type="hidden" asp-for="Name" />
+                                <input type="hidden" asp-for="Phone" />
+                                <input type="hidden" asp-for="Email" />
+                                <input type="hidden" asp-for="LicenseId" id="LicenseId" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+<style>
+    .im-checkout {
+        max-width: 300px;
+        margin-bottom: 0px !important;
+    }
+</style>
+    <script>
+        $(document).ready(function () {
+            debugger;
+
+            //$("#LicenseId").on("change", function (e) {
+            //    debugger;
+            //    console.log(e);
+            //    var optionSelected = $("option:selected", this);
+            //    $("#lblPrice").text("₹" + this.value);// + this.value selected value
+            //    $("#amount").text("₹" + this.value);// + this.value selected value
+            //    $("#purpose").text(optionSelected[0].text);//selected text
+            //});
+
+            //$("#LicenseId").trigger("change");
+
+            $("#UsersCount").on("change", function (e) {
+                debugger;
+                hideLicenses(this.value);
+                var optionSelected = $("option:selected", this);
+                $("."+this.value).show();
+            });
+
+            $("#UsersCount").trigger("change");
+            
+        });
+
+        function assignLicenseId (licenseId) {
+            debugger;
+            $("#LicenseId").val(licenseId);
+        }
+
+        function hideLicenses(val) {
+            if (val != "All") {
+                $(".licenses").hide();
+            }
+            else {
+                $(".licenses").show();
+            }
+        }
+
+        function nextTab() {
+            $('.nav-pills a[href="#pills-DeActivated"]').tab('show');
+        }
+
+        @*//For toast
+        var msg = @Html.Raw(Json.Serialize(ViewBag.Message));
+        if (msg != null) {
+            displayToast(msg);
+        }*@
+
+    </script>
+}

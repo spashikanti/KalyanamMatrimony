@@ -8,7 +8,8 @@ namespace KalyanamMatrimony.Models
     {
         //SuperAdminRole
         IEnumerable<Profile> GetLatestProfilesForSuperAdmin();
-        IEnumerable<Profile> GetAllProfilesForSuperAdmin();
+        IEnumerable<Profile> GetAllActiveProfilesForSuperAdmin();
+        IEnumerable<Profile> GetAllDeActivedProfilesForSuperAdmin();
 
         IEnumerable<License> GetAllLicenses();
         IEnumerable<License> GetAllActiveLicenses();
@@ -25,6 +26,8 @@ namespace KalyanamMatrimony.Models
         Organisation AddOrganisation(Organisation organisation);
         Organisation GetOrganisationById(int orgId);
         Organisation UpdateOrganisation(Organisation organisation);
+        IEnumerable<AssistantViewModel> GetAllActiveAdminAssitants();
+        IEnumerable<AssistantViewModel> GetAllDeActivedAdminAssitants();
 
         //AdminRole
         IEnumerable<Profile> GetLatestProfilesForAdmin(int orgId);
@@ -47,6 +50,7 @@ namespace KalyanamMatrimony.Models
         IEnumerable<AssistantViewModel> GetActiveAdminAssitants(int orgId);
         IEnumerable<AssistantViewModel> GetDeActivedAdminAssitants(int orgId);
         int DeleteProfileById(string profileId);
+        PaymentHistory AddPaymentHistory(PaymentHistory paymentHistory);
 
         //Profile
         IEnumerable<Profile> GetLatestMaleProfiles(int orgId);

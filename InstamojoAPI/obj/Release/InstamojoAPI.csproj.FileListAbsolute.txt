@@ -1,0 +1,10 @@
+C:\Users\Sunil\Downloads\instamojo-csharp-master\InstamojoAPI\bin\Release\InstamojoAPI.dll
+C:\Users\Sunil\Downloads\instamojo-csharp-master\InstamojoAPI\obj\Release\InstamojoAPI.csprojAssemblyReference.cache
+C:\Users\Sunil\Downloads\instamojo-csharp-master\InstamojoAPI\obj\Release\InstamojoAPI.csproj.CoreCompileInputs.cache
+C:\Users\Sunil\Downloads\instamojo-csharp-master\InstamojoAPI\obj\Release\InstamojoAPI.dll
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\InstamojoAPI\bin\Release\InstamojoAPI.dll
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\InstamojoAPI\bin\Release\System.Web.Extensions.dll
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\InstamojoAPI\obj\Release\InstamojoAPI.csprojAssemblyReference.cache
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\InstamojoAPI\obj\Release\InstamojoAPI.csproj.CoreCompileInputs.cache
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\InstamojoAPI\obj\Release\InstamojoAPI.csproj.CopyComplete
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\InstamojoAPI\obj\Release\InstamojoAPI.dll

@@ -69,6 +69,62 @@
     ddlCaste.append('<option disabled>Choose Caste</option>');
     ddlCaste.prop('selectedIndex', 0);
 
+    //Partner Preference
+    var ddlPMaritalStatus = $('#PartnerPreference_MaritalStatus');
+    ddlPMaritalStatus.empty();
+    ddlPMaritalStatus.append('<option disabled>Choose Marital Status</option>');
+    ddlPMaritalStatus.prop('selectedIndex', 0);
+
+    var ddlPBodyType = $('#PartnerPreference_BodyType');
+    ddlPBodyType.empty();
+    ddlPBodyType.append('<option disabled>Choose Body Type</option>');
+    ddlPBodyType.prop('selectedIndex', 0);
+
+    var ddlPHeightFrom = $('#PartnerPreference_HeightFrom');
+    ddlPHeightFrom.empty();
+    ddlPHeightFrom.append('<option disabled>Choose Height From</option>');
+    ddlPHeightFrom.prop('selectedIndex', 0);
+
+    var ddlPHeightTo = $('#PartnerPreference_HeightTo');
+    ddlPHeightTo.empty();
+    ddlPHeightTo.append('<option disabled>Choose Height To</option>');
+    ddlPHeightTo.prop('selectedIndex', 0);
+
+    var ddlPComplexion = $('#PartnerPreference_Complexion');
+    ddlPComplexion.empty();
+    ddlPComplexion.append('<option disabled>Choose Complexion</option>');
+    ddlPComplexion.prop('selectedIndex', 0);
+
+    var ddlPMotherTongue = $('#PartnerPreference_MotherTongue');
+    ddlPMotherTongue.empty();
+    ddlPMotherTongue.append('<option disabled>Choose Mother Tongue</option>');
+    ddlPMotherTongue.prop('selectedIndex', 0);
+
+    var ddlPReligion = $('#PartnerPreference_Religion');
+    ddlPReligion.empty();
+    ddlPReligion.append('<option disabled>Choose Religion</option>');
+    ddlPReligion.prop('selectedIndex', 0);
+
+    var ddlPCaste = $('#PartnerPreference_Caste');
+    ddlPCaste.empty();
+    ddlPCaste.append('<option disabled>Choose Caste</option>');
+    ddlPCaste.prop('selectedIndex', 0);
+
+    var ddlPDiet = $('#PartnerPreference_Diet');
+    ddlPDiet.empty();
+    ddlPDiet.append('<option disabled>Choose Diet</option>');
+    ddlPDiet.prop('selectedIndex', 0);
+
+    var ddlPSmoke = $('#PartnerPreference_Smoke');
+    ddlPSmoke.empty();
+    ddlPSmoke.append('<option disabled>Choose Smoke</option>');
+    ddlPSmoke.prop('selectedIndex', 0);
+
+    var ddlPDrink = $('#PartnerPreference_Drink');
+    ddlPDrink.empty();
+    ddlPDrink.append('<option disabled>Choose Drink</option>');
+    ddlPDrink.prop('selectedIndex', 0);
+
     $("#Religion").on("change", function () {
         var religion = "";
         $("#Religion option:selected").each(function () {
@@ -93,6 +149,30 @@
 
     });
 
+    $("#PartnerPreference_Religion").on("change", function () {
+        var religion = "";
+        $("#PartnerPreference_Religion option:selected").each(function () {
+            religion = $(this).text();
+        });
+
+        $.getJSON('../../data/masterData.json', function (jd) {
+            $.each(jd.Religion, function (key, entry) {
+                if (entry.item == religion) {
+                    ddlPCaste.empty();
+                    ddlPCaste.append('<option disabled>Choose Caste</option>');
+                    ddlPCaste.prop('selectedIndex', 0);
+
+                    loadDropdowns(entry.Caste, ddlPCaste);
+                    //Set Dropdowns if hiddenfields has value
+                    if ($("#hdPCaste") != null && $("#hdPCaste").val() != undefined) {
+                        document.getElementById("PartnerPreference_Caste").value = $("#hdPCaste").val();
+                    }
+                }
+            });
+        });
+
+    });
+
     $.getJSON('../../data/masterData.json', function (jd) {
         loadDropdowns(jd.Height, ddlHeight);
         loadDropdowns(jd.MaritalStatus, ddlMaritalStatus);
@@ -105,8 +185,19 @@
         loadDropdowns(jd.Drink, ddlDrink);
         loadDropdowns(jd.FamilyValues, ddlFamilyValues);
         loadDropdowns(jd.Rasi, ddlRasi);
-        loadDropdowns(jd.Nakshatram, ddlNakshatram);    
+        loadDropdowns(jd.Nakshatram, ddlNakshatram);
         loadDropdowns(jd.Religion, ddlReligion);
+
+        loadDropdowns(jd.MaritalStatus, ddlPMaritalStatus);
+        loadDropdowns(jd.BodyType, ddlPBodyType);
+        loadDropdowns(jd.Height, ddlPHeightFrom);
+        loadDropdowns(jd.Height, ddlPHeightTo);
+        loadDropdowns(jd.Complexion, ddlPComplexion);
+        loadDropdowns(jd.MotherTongue, ddlPMotherTongue);
+        loadDropdowns(jd.Religion, ddlPReligion);
+        loadDropdowns(jd.Diet, ddlPDiet);
+        loadDropdowns(jd.Smoke, ddlPSmoke);
+        loadDropdowns(jd.Drink, ddlPDrink);
 
         //Set Dropdowns if hiddenfields has value
         if ($("#hdHeight") != null && $("#hdHeight").val() != undefined) {
@@ -148,6 +239,39 @@
         if ($("#hdReligion") != null && $("#hdReligion").val() != undefined) {
             document.getElementById("Religion").value = $("#hdReligion").val();
             $('#Religion').trigger('change');
+        }
+
+
+        if ($("#hdPMaritalStatus") != null && $("#hdPMaritalStatus").val() != undefined) {
+            document.getElementById("PartnerPreference_MaritalStatus").value = $("#hdPMaritalStatus").val();
+        }
+        if ($("#hdPBodyType") != null && $("#hdPBodyType").val() != undefined) {
+            document.getElementById("PartnerPreference_BodyType").value = $("#hdPBodyType").val();
+        }
+        if ($("#hdPHeightFrom") != null && $("#hdPHeightFrom").val() != undefined) {
+            document.getElementById("PartnerPreference_HeightFrom").value = $("#hdPHeightFrom").val();
+        }
+        if ($("#hdPHeightTo") != null && $("#hdPHeightTo").val() != undefined) {
+            document.getElementById("PartnerPreference_HeightTo").value = $("#hdPHeightTo").val();
+        }
+        if ($("#hdPComplexion") != null && $("#hdPComplexion").val() != undefined) {
+            document.getElementById("PartnerPreference_Complexion").value = $("#hdPComplexion").val();
+        }
+        if ($("#hdPMotherTongue") != null && $("#hdPMotherTongue").val() != undefined) {
+            document.getElementById("PartnerPreference_MotherTongue").value = $("#hdPMotherTongue").val();
+        }
+        if ($("#hdPReligion") != null && $("#hdPReligion").val() != undefined) {
+            document.getElementById("PartnerPreference_Religion").value = $("#hdPReligion").val();
+            $('#PartnerPreference_Religion').trigger('change');
+        }
+        if ($("#hdPDiet") != null && $("#hdPDiet").val() != undefined) {
+            document.getElementById("PartnerPreference_Diet").value = $("#hdPDiet").val();
+        }
+        if ($("#hdPSmoke") != null && $("#hdPSmoke").val() != undefined) {
+            document.getElementById("PartnerPreference_Smoke").value = $("#hdPSmoke").val();
+        }
+        if ($("#hdPDrink") != null && $("#hdPDrink").val() != undefined) {
+            document.getElementById("PartnerPreference_Drink").value = $("#hdPDrink").val();
         }
      });
 

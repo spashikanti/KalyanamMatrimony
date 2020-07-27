@@ -4971,6 +4971,15 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
+      },
+      "InstamojoAPI/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/InstamojoAPI.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/InstamojoAPI.dll": {}
+        }
       }
     }
   },
@@ -13463,10 +13472,16 @@
         "system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xpath.xdocument.nuspec"
       ]
+    },
+    "InstamojoAPI/1.0.0": {
+      "type": "project",
+      "path": "../InstamojoAPI/InstamojoAPI.csproj",
+      "msbuildProject": "../InstamojoAPI/InstamojoAPI.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
+      "InstamojoAPI >= 1.0.0",
       "Microsoft.AspNetCore.App >= 2.1.1",
       "Microsoft.AspNetCore.Cryptography.Internal >= 3.1.5",
       "Microsoft.AspNetCore.DataProtection.Abstractions >= 2.2.0",
@@ -13504,7 +13519,11 @@
       },
       "frameworks": {
         "netcoreapp2.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "F:\\Sunil\\Development\\AspNetCore\\Branch\\KalyanamMatrimony\\InstamojoAPI\\InstamojoAPI.csproj": {
+              "projectPath": "F:\\Sunil\\Development\\AspNetCore\\Branch\\KalyanamMatrimony\\InstamojoAPI\\InstamojoAPI.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

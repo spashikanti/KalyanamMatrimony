@@ -67,7 +67,7 @@
                             @Html.ActionLink(item.Description, "EditLicense", new { id = item.LicenseId, mode = "view" })
                         </td>
                         <td>
-                            @Html.ActionLink("View", "CreateOrganisation", new { id = item.OrgId, mode = "view" }) |
+                            @Html.ActionLink("View", "ViewOrganisation", new { id = item.OrgId, mode = "view" }) |
                             @Html.ActionLink("Renew", "EditLicense", new { id = item.OrgId })
                         </td>
                     </tr>

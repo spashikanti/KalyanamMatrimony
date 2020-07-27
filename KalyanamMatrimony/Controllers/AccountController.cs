@@ -200,7 +200,8 @@ namespace KalyanamMatrimony.Controllers
                     SetSessionUserRole(userRole);
 
                     //Validate license for shared 
-                    //string orgType = configuration.GetSection("OrgConfiguration").GetSection("OrgType").Value;
+                    string orgType = configuration.GetSection("OrgConfiguration").GetSection("OrgType").Value;
+                    SetSessionOrgType(orgType);
                     bool isValidLicense = IsValidLicense();
                     if (!isValidLicense && userRole != Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin))
                     {
@@ -208,10 +209,10 @@ namespace KalyanamMatrimony.Controllers
                     }
                     else if (!isValidLicense && userRole == Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin))
                     {
-                        return RedirectToAction("UpdateLicense", "License");
+                        return RedirectToAction("ChooseLicense", "License");
                     }
                     //Get User Roles and store it in Session object to get it in across application
-                    if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                    if (!string.IsNullOrEmpty(returnUrl) && returnUrl != "/" && Url.IsLocalUrl(returnUrl))
                     {
                         return Redirect(returnUrl);
                     }
@@ -289,7 +290,7 @@ namespace KalyanamMatrimony.Controllers
                             SetSessionLicenseId(org.LicenseId);
                             SetSessionUserId(user.Id);
                             SetSessionUserRole(userRole);
-                            return RedirectToAction("UpdateLicense", "License");
+                            return RedirectToAction("ChooseLicense", "License");
                         }
                     }
 

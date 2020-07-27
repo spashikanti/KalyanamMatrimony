@@ -18,6 +18,8 @@ namespace KalyanamMatrimony.Models
         public DbSet<Organisation> Organisations { get; set; }
         public DbSet<License> Licenses { get; set; }
 
+        public DbSet<PaymentHistory> PaymentHistory { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

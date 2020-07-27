@@ -60,6 +60,8 @@ namespace KalyanamMatrimony.Controllers
                 }
             }
 
+            ViewBag.OrgType = GetSessionOrgType();
+
             return View(profilesList);
         }
 

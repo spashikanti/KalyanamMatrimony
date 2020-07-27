@@ -56,7 +56,7 @@ namespace KalyanamMatrimony.Models
         public IEnumerable<ApplicationUser> GetActiveOrInActiveApplicationUsers(bool isActive, IQueryable<ApplicationUser> usersList)
         {
             IEnumerable<ApplicationUser> users = isActive == true ?
-                usersList.Where(x => x.EndDate != null && x.EndDate.Value > System.DateTime.Now).ToList() :
+                usersList.Where(x => x.EndDate != null && x.EndDate.Value >= System.DateTime.Now).ToList() :
                 usersList.Where(x => x.EndDate != null && x.EndDate.Value < System.DateTime.Now).ToList();
             return users;
         }
@@ -263,15 +263,62 @@ namespace KalyanamMatrimony.Models
         public IEnumerable<Profile> GetLatestProfilesForSuperAdmin()
         {
             //Get Top 10 latest active profiles across org
-            return GetAllProfilesForSuperAdmin().Take(10);
+            return GetAllActiveProfilesForSuperAdmin().Take(10);
         }
-        public IEnumerable<Profile> GetAllProfilesForSuperAdmin()
+        public IEnumerable<Profile> GetAllActiveProfilesForSuperAdmin()
         {
             //Get all active profiles across org
-            var users = userManager.Users.Where(x => x.EndDate.Value > System.DateTime.Now).ToList();
+            var users = userManager.Users.Where(x => x.EndDate.Value >= System.DateTime.Now).ToList();
             return context.Profiles
                 .Where(profile => users.Any(userData => userData.Id == profile.UserId))
                 .OrderBy(x => x.CreatedDate);
+        }
+        public IEnumerable<Profile> GetAllDeActivedProfilesForSuperAdmin()
+        {
+            //Get all active profiles across org
+            var users = userManager.Users.Where(x => x.EndDate.Value < System.DateTime.Now).ToList();
+            return context.Profiles
+                .Where(profile => users.Any(userData => userData.Id == profile.UserId))
+                .OrderBy(x => x.CreatedDate);
+        }
+        public IEnumerable<AssistantViewModel> GetAllActiveAdminAssitants()
+        {
+            List<AssistantViewModel> model = new List<AssistantViewModel>();
+            List<ApplicationUser> users = GetActiveOrInActiveApplicationUsers(true, userManager.Users).ToList();
+
+            if (users != null && users.Count() > 0)
+            {
+                foreach (var user in users)
+                {
+                    model.Add(new AssistantViewModel
+                    {
+                        Email = user.Email,
+                        UserId = user.Id,
+                        EndDate = user.EndDate
+                    });
+                }
+            }
+            return model;
+        }
+
+        public IEnumerable<AssistantViewModel> GetAllDeActivedAdminAssitants()
+        {
+            List<AssistantViewModel> model = new List<AssistantViewModel>();
+            List<ApplicationUser> users = GetActiveOrInActiveApplicationUsers(false, userManager.Users).ToList();
+
+            if (users != null && users.Count() > 0)
+            {
+                foreach (var user in users)
+                {
+                    model.Add(new AssistantViewModel
+                    {
+                        Email = user.Email,
+                        UserId = user.Id,
+                        EndDate = user.EndDate
+                    });
+                }
+            }
+            return model;
         }
 
         //Admin
@@ -283,7 +330,7 @@ namespace KalyanamMatrimony.Models
         public IEnumerable<Profile> GetAllActiveProfilesForAdmin(int orgId)
         {
             //Get all active profiles for the current org
-            var users = userManager.Users.Where(x => x.EndDate.Value > System.DateTime.Now && x.OrgId == orgId).ToList();
+            var users = userManager.Users.Where(x => x.EndDate.Value >= System.DateTime.Now && x.OrgId == orgId).ToList();
             return context.Profiles
                 .Where(profile => users.Any(userData => userData.Id == profile.UserId))
                 .OrderBy(x => x.CreatedDate);
@@ -304,6 +351,12 @@ namespace KalyanamMatrimony.Models
         {
             return GetAllProfilesForAdmin(orgId).Where(x => x.Gender == CustomEnums.ProfileGender.Female).Count();
         }
+        public PaymentHistory AddPaymentHistory(PaymentHistory paymentHistory)
+        {
+            context.PaymentHistory.Add(paymentHistory);
+            context.SaveChanges();
+            return paymentHistory;
+        }
 
         //Profiles
         public IEnumerable<Profile> GetLatestMaleProfiles(int orgId)
@@ -319,7 +372,7 @@ namespace KalyanamMatrimony.Models
         public IEnumerable<Profile> GetAllMaleProfiles(int orgId)
         {
             //Get all active male profiles for the current org
-            var users = userManager.Users.Where(x => x.EndDate.Value > System.DateTime.Now && x.OrgId == orgId);
+            var users = userManager.Users.Where(x => x.EndDate.Value >= System.DateTime.Now && x.OrgId == orgId);
             return context.Profiles
                 .Where(profile => users.Any(userdata => profile.UserId == userdata.Id) && profile.Gender == CustomEnums.ProfileGender.Male)
                 .OrderBy(x => x.CreatedDate);
@@ -327,12 +380,10 @@ namespace KalyanamMatrimony.Models
         public IEnumerable<Profile> GetAllFemaleProfiles(int orgId)
         {
             //Get all active female profiles for the current org
-            var users = userManager.Users.Where(x => x.EndDate.Value > System.DateTime.Now && x.OrgId == orgId);
+            var users = userManager.Users.Where(x => x.EndDate.Value >= System.DateTime.Now && x.OrgId == orgId);
             return context.Profiles
                 .Where(profile => users.Any(userdata => profile.UserId == userdata.Id) && profile.Gender == CustomEnums.ProfileGender.Female)
                 .OrderBy(x => x.CreatedDate);
         }
-
-        
     }
 }

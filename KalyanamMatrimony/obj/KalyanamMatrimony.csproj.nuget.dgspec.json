@@ -4,6 +4,16 @@
     "F:\\Sunil\\Development\\AspNetCore\\Branch\\KalyanamMatrimony\\KalyanamMatrimony\\KalyanamMatrimony.csproj": {}
   },
   "projects": {
+    "F:\\Sunil\\Development\\AspNetCore\\Branch\\KalyanamMatrimony\\InstamojoAPI\\InstamojoAPI.csproj": {
+      "restore": {
+        "projectUniqueName": "F:\\Sunil\\Development\\AspNetCore\\Branch\\KalyanamMatrimony\\InstamojoAPI\\InstamojoAPI.csproj",
+        "projectName": "InstamojoAPI",
+        "projectPath": "F:\\Sunil\\Development\\AspNetCore\\Branch\\KalyanamMatrimony\\InstamojoAPI\\InstamojoAPI.csproj"
+      },
+      "frameworks": {
+        "net40": {}
+      }
+    },
     "F:\\Sunil\\Development\\AspNetCore\\Branch\\KalyanamMatrimony\\KalyanamMatrimony\\KalyanamMatrimony.csproj": {
       "version": "1.1.0",
       "restore": {
@@ -26,7 +36,11 @@
         },
         "frameworks": {
           "netcoreapp2.1": {
-            "projectReferences": {}
+            "projectReferences": {
+              "F:\\Sunil\\Development\\AspNetCore\\Branch\\KalyanamMatrimony\\InstamojoAPI\\InstamojoAPI.csproj": {
+                "projectPath": "F:\\Sunil\\Development\\AspNetCore\\Branch\\KalyanamMatrimony\\InstamojoAPI\\InstamojoAPI.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

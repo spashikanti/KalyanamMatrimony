@@ -18,7 +18,6 @@ namespace KalyanamMatrimony.Models
         {
             base.OnActionExecuting(filterContext);
 
-            //string orgType = configuration.GetSection("OrgConfiguration").GetSection("OrgType").Value;
             if (filterContext.HttpContext.Session.GetString("UserRole") == null)
             {
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
@@ -29,35 +28,38 @@ namespace KalyanamMatrimony.Models
             }
             else
             {
-                //loggedin user admin or profile
-                string adminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin);
-                string adminAssistantRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.AdminAssistant);
-                string profileRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Profile);
-
-                string userRole = filterContext.HttpContext.Session.GetString("UserRole");
-                Organisation org = filterContext.HttpContext.Session.GetObject<Organisation>("Org");
-
-                if (userRole.ToLower().Equals(adminRole.ToLower()))
+                if (filterContext.HttpContext.Session.GetString("OrgType") == "Shared")
                 {
-                    if (org.EndDate < DateTime.Now || org.LicenseId == 0)
+                    //loggedin user admin or profile
+                    string adminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin);
+                    string adminAssistantRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.AdminAssistant);
+                    string profileRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Profile);
+
+                    string userRole = filterContext.HttpContext.Session.GetString("UserRole");
+                    Organisation org = filterContext.HttpContext.Session.GetObject<Organisation>("Org");
+
+                    if (userRole.ToLower().Equals(adminRole.ToLower()))
                     {
-                        filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
+                        if (org.EndDate < DateTime.Now || org.LicenseId == 0)
                         {
-                            controller = "License",
-                            action = "UpdateLicense"
-                        }));
+                            filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
+                            {
+                                controller = "License",
+                                action = "ChooseLicense"
+                            }));
+                        }
                     }
-                }
-                else if (userRole.ToLower().Equals(profileRole.ToLower()) || userRole.ToLower().Equals(adminAssistantRole.ToLower()))
-                {
-                    //this code will never execute as we are restricting the profile at login action itself
-                    if (org.EndDate < DateTime.Now)
+                    else if (userRole.ToLower().Equals(profileRole.ToLower()) || userRole.ToLower().Equals(adminAssistantRole.ToLower()))
                     {
-                        filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
+                        //this code will never execute as we are restricting the profile at login action itself
+                        if (org.EndDate < DateTime.Now)
                         {
-                            controller = "Account",
-                            action = "AccessDenied"
-                        }));
+                            filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
+                            {
+                                controller = "Account",
+                                action = "AccessDenied"
+                            }));
+                        }
                     }
                 }
             }

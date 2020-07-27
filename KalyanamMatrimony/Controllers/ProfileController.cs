@@ -53,20 +53,30 @@ namespace KalyanamMatrimony.Controllers
             //Active Profiles Only
             ToasterServiceDisplay();
             ProfilesViewModel profilesViewModel = new ProfilesViewModel();
-            int orgId = GetSessionOrgId();
-            profilesViewModel.ActiveProfiles = matrimonyRepository.GetActiveProfiles(orgId);
-            profilesViewModel.DeActivedProfiles = matrimonyRepository.GetDeActivedProfiles(orgId);
-
             bool isProfileLimitReached = false;
-            License lic = GetSessionOrgLicense();
-            int profileCount = profilesViewModel.ActiveProfiles.Count() + profilesViewModel.DeActivedProfiles.Count();
-            if (profileCount >= lic.UsersCount)
+
+            if (GetSessionUserRole() == Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin))
             {
-                isProfileLimitReached = true;
+                //Get all org profiles (active and deactivated)
+                profilesViewModel.ActiveProfiles = matrimonyRepository.GetAllActiveProfilesForSuperAdmin();
+                profilesViewModel.DeActivedProfiles = matrimonyRepository.GetAllDeActivedProfilesForSuperAdmin();
             }
+            else
+            {
+                int orgId = GetSessionOrgId();
+                profilesViewModel.ActiveProfiles = matrimonyRepository.GetActiveProfiles(orgId);
+                profilesViewModel.DeActivedProfiles = matrimonyRepository.GetDeActivedProfiles(orgId);
+                
+                License lic = GetSessionOrgLicense();
+                int profileCount = profilesViewModel.ActiveProfiles.Count() + profilesViewModel.DeActivedProfiles.Count();
+                if (profileCount >= lic.UsersCount)
+                {
+                    isProfileLimitReached = true;
+                }
+            }
+
             ViewBag.isProfileLimitReached = isProfileLimitReached;
             SetSessionIsProfileLimitReached(isProfileLimitReached);
-
             return View(profilesViewModel);
         }
 
@@ -824,7 +834,7 @@ namespace KalyanamMatrimony.Controllers
 
             if (userRole == strSuperAdminRole)
             {
-                profilesList = matrimonyRepository.GetAllProfilesForSuperAdmin().ToList();
+                profilesList = matrimonyRepository.GetAllActiveProfilesForSuperAdmin().ToList();
                 return View(profilesList);
             }
             else if (userRole == strAdminRole || userRole == strAdminAssistantRole)

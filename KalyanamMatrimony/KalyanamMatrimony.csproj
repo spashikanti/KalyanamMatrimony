@@ -34,6 +34,10 @@
     <Folder Include="wwwroot\wizard\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\InstamojoAPI\InstamojoAPI.csproj" />
+  </ItemGroup>
+
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <TypeScriptTarget>ES5</TypeScriptTarget>
     <TypeScriptJSXEmit>React</TypeScriptJSXEmit>

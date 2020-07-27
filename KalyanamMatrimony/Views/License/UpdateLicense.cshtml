@@ -5,9 +5,9 @@
     Layout = "~/Views/Shared/_LayoutLicense.cshtml";
 }
 
-    <div class="danger">
+    <h3 class="text-danger">
         @ViewBag.Message
-    </div>
+    </h3>
 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
     <li class="nav-item">
         <a class="nav-link active" id="pills-Active-tab" data-toggle="pill" href="#pills-Active" role="tab" aria-controls="pills-Active" aria-selected="true">License</a>
@@ -104,9 +104,9 @@
                                 <option value="100">100</option>
                             </select>*@
                             @*<span asp-validation-for="UsersCount" class="text-danger"></span>*@
-                            <label class="small mb-1">Users Count</label>
+                            <label class="small mb-1">Filter Licenses</label>
                             <select id="UsersCount" class="form-control"
-                                    asp-items="@(new SelectList(@ViewBag.UsersCount))">
+                                    asp-items="@((List<SelectListItem>)@ViewBag.UsersCount)">
                                 <option selected="selected">All</option>
                             </select>
                         </div>
