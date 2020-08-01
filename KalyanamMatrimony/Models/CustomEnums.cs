@@ -37,5 +37,11 @@
             Free,
             Paid
         }
+
+        public enum OrgType
+        {
+            Shared,
+            Individual
+        }
     }
 }

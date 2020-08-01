@@ -13,44 +13,46 @@
                         <form method="post" class="user">
                             <div asp-validation-summary="All" class="text-danger"></div>
                             <div class="form-row">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label asp-for="OrgName" class="small mb-1"></label>
                                         <input asp-for="OrgName" class="form-control " placeholder="Organization Name" />
                                         <span asp-validation-for="OrgName" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label asp-for="FullName" class="small mb-1"></label>
                                         <input asp-for="FullName" class="form-control " placeholder="Contact Person Name" />
                                         <span asp-validation-for="FullName" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label asp-for="Phone" class="small mb-1"></label>
                                         <input asp-for="Phone" class="form-control " placeholder="Contact Person Phone" />
                                         <span asp-validation-for="Phone" class="text-danger"></span>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label asp-for="Email" class="small mb-1"></label>
                                         <input asp-for="Email" class="form-control " placeholder="Email" />
                                         <span asp-validation-for="Email" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label asp-for="Password" class="small mb-1"></label>
                                         <input asp-for="Password" class="form-control" placeholder="Enter password" />
                                         <span asp-validation-for="Password" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label asp-for="ConfirmPassword" class="small mb-1"></label>
                                         <input asp-for="ConfirmPassword" class="form-control " placeholder="Confirm password" />
@@ -71,21 +73,21 @@
             </div>
         </div>*@
                             @*<button id="btnSignUp" type="submit" class="btn btn-primary btn-block">
-                                Save
-                            </button>*@
+            Save
+        </button>*@
                             <div class="form-row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-success btn-block" id="btnSignUp">
+                                        <button type="submit" class="btn btn-success btn-block" onclick="return doValidation()" id="btnSignUp">
                                             <strong>Save</strong>
                                         </button>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <a class="btn btn-danger btn-block" asp-controller="SuperAdmin" asp-action="ViewLicenses"><strong>Cancel</strong></a>
-                                    </div>
-                                </div>
+                                @*<div class="col-md-6">
+                <div class="form-group">
+                    <a class="btn btn-danger btn-block" asp-controller="SuperAdmin" asp-action="ViewLicenses"><strong>Cancel</strong></a>
+                </div>
+            </div>*@
                             </div>
                             @if (@Model != null && @Model.OrgId > 0)
                             {
@@ -101,16 +103,55 @@
             </div>
         </div>
 
-@section Scripts{
+
     <script>
-        document.getElementById("btnLogin").addEventListener("click", function (event) {
-            if (document.getElementById("Email").value == "" || document.getElementById("Password").value == "") {
+        debugger;
+        function createSpan(txt) {
+            var x = document.createElement("SPAN");
+            var y = document.createTextNode(txt);
+            var z = document.createElement("BR")
+            x.appendChild(y);
+            x.appendChild(z);
+            return x;
+        }
+        function doValidation() {
+            debugger;
+            var result = true;
+            var x = document.getElementsByClassName("validation-summary-valid")[0];
+            x.innerHTML = "";
+
+            if (document.getElementById("OrgName").value == "") {
                 event.preventDefault();
-                var x = document.getElementsByClassName("validation-summary-valid")[0];
-                x.innerHTML = "";
-                x.append("Please provide login credentials!!!");
+                x.append(createSpan("Please enter Organisation Name"));
+                result = false;
             }
-        });
+            if (document.getElementById("FullName").value == "") {
+                event.preventDefault();
+                x.append(createSpan("Please enter Full Name"));
+                result = false;
+            }
+            if (document.getElementById("Phone").value == "") {
+                event.preventDefault();
+                x.append(createSpan("Please enter Phone number"));
+                result = false;
+            }
+            if (document.getElementById("Email").value == "") {
+                event.preventDefault();
+                x.append(createSpan("Please enter Email"));
+                result = false;
+            }
+            if (document.getElementById("Password").value == "") {
+                event.preventDefault();
+                x.append(createSpan("Please enter Password"));
+                result = false;
+            }
+            if (document.getElementById("ConfirmPassword").value == "") {
+                event.preventDefault();
+                x.append(createSpan("Please enter ConfirmPassword"));
+                result = false;
+            }
+            return result;
+        }
 
         debugger;
         var qs = location.search;
@@ -123,4 +164,3 @@
         }
 
     </script>
-}

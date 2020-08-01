@@ -40,7 +40,7 @@
                             <a class="btn btn-primary btn-lg" role="button" asp-controller="admin" asp-action="ViewAllAssistants" data-aos="fade-up" data-aos-delay="1200" style="margin: 5px; width:255px !important">
                                 View Assistants
                             </a>
-                            if (ViewBag.OrgType == "Shared")
+                            if (ViewBag.OrgType == Enum.GetName(typeof(CustomEnums.OrgType), CustomEnums.OrgType.Shared))
                             {
                                 <a class="btn btn-danger btn-lg" role="button" asp-controller="license" asp-action="ChooseLicense" data-aos="fade-up" data-aos-delay="1400" style="margin:5px;width:255px !important">
                                     Update License

@@ -15,3 +15,12 @@ F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\InstaSharp\obj\Debug\ne
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\InstaSharp\obj\Debug\netcoreapp2.1\InstaSharp.csproj.CoreCompileInputs.cache
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\InstaSharp\obj\Debug\netcoreapp2.1\InstaSharp.dll
 F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\InstaSharp\obj\Debug\netcoreapp2.1\InstaSharp.pdb
+C:\Development\AspNetWebCore\Parinayam Matrimony\KalyanamMatrimony\InstaSharp\bin\Debug\netcoreapp2.1\InstaSharp.deps.json
+C:\Development\AspNetWebCore\Parinayam Matrimony\KalyanamMatrimony\InstaSharp\bin\Debug\netcoreapp2.1\InstaSharp.dll
+C:\Development\AspNetWebCore\Parinayam Matrimony\KalyanamMatrimony\InstaSharp\bin\Debug\netcoreapp2.1\InstaSharp.pdb
+C:\Development\AspNetWebCore\Parinayam Matrimony\KalyanamMatrimony\InstaSharp\obj\Debug\netcoreapp2.1\InstaSharp.csprojAssemblyReference.cache
+C:\Development\AspNetWebCore\Parinayam Matrimony\KalyanamMatrimony\InstaSharp\obj\Debug\netcoreapp2.1\InstaSharp.AssemblyInfoInputs.cache
+C:\Development\AspNetWebCore\Parinayam Matrimony\KalyanamMatrimony\InstaSharp\obj\Debug\netcoreapp2.1\InstaSharp.AssemblyInfo.cs
+C:\Development\AspNetWebCore\Parinayam Matrimony\KalyanamMatrimony\InstaSharp\obj\Debug\netcoreapp2.1\InstaSharp.csproj.CoreCompileInputs.cache
+C:\Development\AspNetWebCore\Parinayam Matrimony\KalyanamMatrimony\InstaSharp\obj\Debug\netcoreapp2.1\InstaSharp.dll
+C:\Development\AspNetWebCore\Parinayam Matrimony\KalyanamMatrimony\InstaSharp\obj\Debug\netcoreapp2.1\InstaSharp.pdb

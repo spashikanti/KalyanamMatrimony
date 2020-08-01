@@ -351,12 +351,6 @@ namespace KalyanamMatrimony.Models
         {
             return GetAllProfilesForAdmin(orgId).Where(x => x.Gender == CustomEnums.ProfileGender.Female).Count();
         }
-        public PaymentHistory AddPaymentHistory(PaymentHistory paymentHistory)
-        {
-            context.PaymentHistory.Add(paymentHistory);
-            context.SaveChanges();
-            return paymentHistory;
-        }
 
         //Profiles
         public IEnumerable<Profile> GetLatestMaleProfiles(int orgId)
@@ -384,6 +378,26 @@ namespace KalyanamMatrimony.Models
             return context.Profiles
                 .Where(profile => users.Any(userdata => profile.UserId == userdata.Id) && profile.Gender == CustomEnums.ProfileGender.Female)
                 .OrderBy(x => x.CreatedDate);
+        }
+
+        public PaymentHistory AddPaymentHistory(PaymentHistory paymentHistory)
+        {
+            context.PaymentHistory.Add(paymentHistory);
+            context.SaveChanges();
+            return paymentHistory;
+        }
+
+        public PaymentHistory UpdatePaymentHistory(PaymentHistory paymentHistory)
+        {
+            context.PaymentHistory.Update(paymentHistory);
+            context.Entry(paymentHistory).State = EntityState.Modified;
+            context.SaveChanges();
+            return paymentHistory;
+        }
+
+        public PaymentHistory GetPaymentHistoryById(int paymentHistoryId)
+        {
+            return context.PaymentHistory.FirstOrDefault(x => x.PaymentHistoryId == paymentHistoryId);
         }
     }
 }

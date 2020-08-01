@@ -28,7 +28,7 @@ namespace KalyanamMatrimony.Models
             }
             else
             {
-                if (filterContext.HttpContext.Session.GetString("OrgType") == "Shared")
+                if (filterContext.HttpContext.Session.GetString("OrgType") == Enum.GetName(typeof(CustomEnums.OrgType), CustomEnums.OrgType.Shared))
                 {
                     //loggedin user admin or profile
                     string adminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin);

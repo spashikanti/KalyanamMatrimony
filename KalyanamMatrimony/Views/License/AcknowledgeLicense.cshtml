@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_LayoutLicense.cshtml";
 }
 
-@if (Model.Status == "Credit" || Model.Status == "Completed")
+@if (Model.Status == Constants.InstamojoConstants.INSTA_STATUS_CREDIT || Model.Status == Constants.InstamojoConstants.INSTA_STATUS_COMPLETED)
 {
     <h3>
         Thank you for updating license with our matrimony services.<br />
@@ -15,14 +15,14 @@
     </h3>
     <a asp-action="Logout" asp-controller="Account" class="btn btn-primary">Login</a>
 }
-else if (Model.Status == "Failed")
+else if (Model.Status == Constants.InstamojoConstants.INSTA_STATUS_FAILED)
 {
     <h3>
         Transaction failed!!! Please try again.
     </h3>
     <a asp-action="ChooseLicense" asp-controller="License" class="btn btn-primary">Update License</a>
 }
-else if (Model.Status == "Pending")
+else if (Model.Status == Constants.InstamojoConstants.INSTA_STATUS_PENDING)
 {
     <h3>
         Transaction is pending.

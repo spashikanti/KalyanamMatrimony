@@ -49,7 +49,10 @@ namespace KalyanamMatrimony.Controllers
             //ViewBag.StackTrace = exceptionHandlerPathFeature.Error.StackTrace;
 
             // LogError() method logs the exception under Error category in the log
-            logger.LogError($"The path {exceptionHandlerPathFeature.Path} " +
+            //logger.LogError($"The path {exceptionHandlerPathFeature.Path} " +
+            //    $"threw an exception {exceptionHandlerPathFeature.Error}");
+
+            logger.Log(Microsoft.Extensions.Logging.LogLevel.Error, $"The path {exceptionHandlerPathFeature.Path} " +
                 $"threw an exception {exceptionHandlerPathFeature.Error}");
 
             return View("Error");

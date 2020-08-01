@@ -267,7 +267,7 @@ namespace KalyanamMatrimony.Controllers
             if (result.Succeeded)
             {
                 string orgType = configuration.GetSection("OrgConfiguration").GetSection("OrgType").Value;
-                if(orgType == "Shared")
+                if(orgType == Enum.GetName(typeof(CustomEnums.OrgType), CustomEnums.OrgType.Shared))
                 {
                     //if orgtype is shared
                     //check if logged in user is admin
@@ -507,7 +507,7 @@ namespace KalyanamMatrimony.Controllers
                     ModelState.AddModelError(string.Empty, "Unable to create org");
                     ToasterServiceCreate(model.OrgName + " unable to create org", CustomEnums.ToastType.Error);
 
-                    ViewBag.LicenseTypes = matrimonyRepository.GetAllLicenses();
+                    //ViewBag.LicenseTypes = matrimonyRepository.GetAllLicenses();
                     return View(model);
                 }
 
@@ -562,7 +562,7 @@ namespace KalyanamMatrimony.Controllers
                 }
             }
 
-            ViewBag.LicenseTypes = matrimonyRepository.GetAllLicenses();
+            //ViewBag.LicenseTypes = matrimonyRepository.GetAllLicenses();
             return View(model);
         }
 

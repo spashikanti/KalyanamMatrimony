@@ -121,7 +121,7 @@ namespace KalyanamMatrimony.Controllers
         {
             bool result = true;
 
-            if (GetSessionOrgType() == "Shared")
+            if (GetSessionOrgType() == Enum.GetName(typeof(CustomEnums.OrgType), CustomEnums.OrgType.Shared))
             {
                 //loggedin user admin or profile
                 string adminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin);

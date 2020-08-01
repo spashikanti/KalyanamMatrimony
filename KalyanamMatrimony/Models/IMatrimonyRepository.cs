@@ -51,6 +51,8 @@ namespace KalyanamMatrimony.Models
         IEnumerable<AssistantViewModel> GetDeActivedAdminAssitants(int orgId);
         int DeleteProfileById(string profileId);
         PaymentHistory AddPaymentHistory(PaymentHistory paymentHistory);
+        PaymentHistory UpdatePaymentHistory(PaymentHistory paymentHistory);
+        PaymentHistory GetPaymentHistoryById(int paymentHistoryId);
 
         //Profile
         IEnumerable<Profile> GetLatestMaleProfiles(int orgId);

@@ -10,7 +10,8 @@ namespace KalyanamMatrimony.Models
         public static void Seed(this ModelBuilder modelBuilder)
         {
             //PROVIDE ADMIN EMAIL ID IF IT IS INDIVIDUAL at line number 65
-            string licenseType = "Individual";//Shared
+            string orgType = Enum.GetName(typeof(CustomEnums.OrgType), CustomEnums.OrgType.Shared);
+            //string orgType = Enum.GetName(typeof(CustomEnums.OrgType), CustomEnums.OrgType.Individual);
 
             modelBuilder.Entity<IdentityRole>().HasData(
                 new IdentityRole
@@ -58,7 +59,7 @@ namespace KalyanamMatrimony.Models
                 }
             );
 
-            if (licenseType == "Individual")
+            if (orgType == Enum.GetName(typeof(CustomEnums.OrgType), CustomEnums.OrgType.Individual))
             {
                 //Add licenses
                 modelBuilder.Entity<License>().HasData(

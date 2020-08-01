@@ -127,12 +127,24 @@ namespace KalyanamMatrimony.Controllers
                 {
                     model.Description = license.Description;
                     model.Amount = license.Price;
+
+                    if(license.LicenseType == LicenseType.Free)
+                    {
+                        //Update org Table
+                        Organisation org = GetSessionOrgDetails();
+                        org.LicenseId = licenseId;
+                        matrimonyRepository.UpdateOrganisation(org);
+                        //Add data to payment history table
+                        AddPaymentHistory(model);
+                        return RedirectToAction("AcknowledgeLicense", "License", new { licenseType = "free" });
+                    }
+
                     model.RedirectURL = Constants.InstamojoConstants.INSTA_AFTER_PAYMENT_REDIRECT_URL;
                     
                     InstaSharp.Interface.IInstamojo objClass = GetInstamojoObj();
                     bool result = await CreatePaymentOrder(objClass, model, ModelState);
 
-                    if(string.IsNullOrEmpty(model.PaymentURL))
+                    if(result && string.IsNullOrEmpty(model.PaymentURL))
                     {
                         return View(model);
                     }
@@ -157,11 +169,38 @@ namespace KalyanamMatrimony.Controllers
         {
             //Get Transaction Details by OrderId
             PaymentViewModel paymentViewModel = GetSessionPaymentDetails();
-            paymentViewModel.Status = await GetPaymentDetailsByOrderId(paymentViewModel.OrderId);
 
+            //string payment_id, string payment_status, string id, string transaction_id
+            //Query strings
+            Microsoft.Extensions.Primitives.StringValues queryVal;
+            string status;
+            if (HttpContext.Request.Query.TryGetValue("licenseType", out queryVal) &&
+        queryVal.FirstOrDefault() == "free")
+            {
+                status = Constants.InstamojoConstants.INSTA_STATUS_COMPLETED;
+            }
+            else
+            {
+                HttpContext.Request.Query.TryGetValue("payment_status", out queryVal);
+                status = queryVal.FirstOrDefault();
+                status = await GetPaymentDetailsByOrderId(paymentViewModel.OrderId);
+            }
+
+            paymentViewModel.Status = status;
             //whatever the status, update the paymenthistory table with status
+            PaymentHistory paymentHistory = matrimonyRepository.GetPaymentHistoryById(paymentViewModel.PaymentHistoryId);
+            paymentHistory.Status = paymentViewModel.Status;
+            matrimonyRepository.UpdatePaymentHistory(paymentHistory);
             //if status is success (completed/credit) update license for the org
-
+            if(status == Constants.InstamojoConstants.INSTA_STATUS_CREDIT ||
+                status == Constants.InstamojoConstants.INSTA_STATUS_COMPLETED)
+            {
+                Organisation org = GetSessionOrgDetails();
+                org.LicenseId = paymentViewModel.LicenseId;
+                //update org
+                org = matrimonyRepository.UpdateOrganisation(org);
+                SetSessionOrgDetails(org);
+            }
             //url
             //AcknowledgeLicense?payment_id=MOJO0801V05N70158777&payment_status=Credit&id=30d7ec3b5f4b46e9947dc6b084efbaf0&transaction_id=pari_gjnvrrc2eaw
 
@@ -259,7 +298,7 @@ namespace KalyanamMatrimony.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError($"Transaction orderid: {orderId}. Error: {ex.Message}");
+                logger.Log(Microsoft.Extensions.Logging.LogLevel.Error, $"Transaction orderid: {orderId}. Error: {ex.Message}");
                 return "Failed";
             }
         }
