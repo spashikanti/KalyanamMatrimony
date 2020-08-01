@@ -60,6 +60,7 @@ namespace KalyanamMatrimony
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromMinutes(20);
             });
+            services.AddProgressiveWebApp();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

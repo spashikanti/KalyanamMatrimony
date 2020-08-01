@@ -67,6 +67,10 @@ namespace KalyanamMatrimony.Controllers
         {
             return HttpContext.Session.GetString("OrgType");
         }
+        protected PaymentViewModel GetSessionPaymentDetails()
+        {
+            return HttpContext.Session.GetObject<PaymentViewModel>("PaymentDetails");
+        }
 
         protected void SetSessionUserRole(string userRole)
         {

@@ -92,7 +92,7 @@ using Microsoft.AspNetCore.Identity;
                 ");
             EndContext();
             BeginContext(563, 699, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "491b829f3caa4194ae7a03f1522de28b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "50d16dcf614c4d32bf1fef4d47c1bde8", async() => {
                 BeginContext(645, 340, true);
                 WriteLiteral(@"
                     <div class=""row no-gutters align-items-center"">
@@ -145,7 +145,7 @@ using Microsoft.AspNetCore.Identity;
                 ");
             EndContext();
             BeginContext(1519, 711, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "40f1a0f00e0f4fec8119ca4e13854e96", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cce7b7f5abd548a0bda67fedeb66aafc", async() => {
                 BeginContext(1601, 344, true);
                 WriteLiteral(@"
                     <div class=""row no-gutters align-items-center"">

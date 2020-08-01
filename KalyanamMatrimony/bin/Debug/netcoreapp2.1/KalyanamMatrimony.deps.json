@@ -24,7 +24,7 @@
     ".NETCoreApp,Version=v2.1": {
       "KalyanamMatrimony/1.1.0": {
         "dependencies": {
-          "InstamojoAPI": "1.0.0",
+          "InstaSharp": "1.0.0",
           "Microsoft.AspNetCore.App": "2.1.1",
           "Microsoft.AspNetCore.Cryptography.Internal": "3.1.5",
           "Microsoft.AspNetCore.DataProtection.Abstractions": "2.2.0",
@@ -34,7 +34,8 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.1.10",
           "NETCore.MailKit": "1.1.0",
           "NLog.Web.AspNetCore": "4.9.2",
-          "Pomelo.EntityFrameworkCore.MySql": "2.1.4"
+          "Pomelo.EntityFrameworkCore.MySql": "2.1.4",
+          "WebEssentials.AspNetCore.PWA": "1.0.65"
         },
         "runtime": {
           "KalyanamMatrimony.dll": {}
@@ -407,6 +408,50 @@
           "lib/netstandard1.6/NuGet.Frameworks.dll": {}
         }
       },
+      "NWebsec.AspNetCore.Core/2.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "2.1.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/NWebsec.AspNetCore.Core.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/NWebsec.AspNetCore.Core.dll": {}
+        }
+      },
+      "NWebsec.AspNetCore.Mvc/2.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc.ViewFeatures": "2.1.1",
+          "NWebsec.AspNetCore.Core": "2.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/NWebsec.AspNetCore.Mvc.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/NWebsec.AspNetCore.Mvc.dll": {}
+        }
+      },
+      "NWebsec.AspNetCore.Mvc.TagHelpers/2.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Razor.Runtime": "2.1.1",
+          "NWebsec.AspNetCore.Mvc": "2.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/NWebsec.AspNetCore.Mvc.TagHelpers.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/NWebsec.AspNetCore.Mvc.TagHelpers.dll": {}
+        }
+      },
       "Pomelo.EntityFrameworkCore.MySql/2.1.4": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Relational": "2.1.4",
@@ -770,20 +815,37 @@
           "System.Runtime.Handles": "4.3.0"
         }
       },
-      "InstamojoAPI/1.0.0": {
+      "WebEssentials.AspNetCore.PWA/1.0.65": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Hosting.Abstractions": "2.1.1",
+          "Microsoft.AspNetCore.Mvc": "2.1.1",
+          "Microsoft.AspNetCore.Mvc.Abstractions": "2.1.1",
+          "Microsoft.AspNetCore.Mvc.TagHelpers": "2.1.1",
+          "Microsoft.AspNetCore.Razor.Runtime": "2.1.1",
+          "Microsoft.Extensions.Configuration": "2.1.1",
+          "Microsoft.Extensions.Options.ConfigurationExtensions": "2.1.1",
+          "NWebsec.AspNetCore.Mvc.TagHelpers": "2.0.0"
+        },
         "runtime": {
-          "InstamojoAPI.dll": {}
+          "lib/netstandard2.0/WebEssentials.AspNetCore.Pwa.dll": {
+            "assemblyVersion": "1.0.65.0",
+            "fileVersion": "1.0.65.0"
+          }
         },
         "compile": {
-          "InstamojoAPI.dll": {}
+          "lib/netstandard2.0/WebEssentials.AspNetCore.Pwa.dll": {}
         }
       },
-      "System.Web.Extensions/4.0.0.0": {
+      "InstaSharp/1.0.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "11.0.2",
+          "System.Runtime": "4.3.0"
+        },
         "runtime": {
-          "System.Web.Extensions.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.0.30319.1"
-          }
+          "InstaSharp.dll": {}
+        },
+        "compile": {
+          "InstaSharp.dll": {}
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.6": {
@@ -4004,6 +4066,27 @@
       "path": "nuget.frameworks/4.7.0",
       "hashPath": "nuget.frameworks.4.7.0.nupkg.sha512"
     },
+    "NWebsec.AspNetCore.Core/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rBzLHzTQx7X3vcLbhcHPVgNUALl1mb2zoiIqNw/M7z4lda7WkvMbsHrb4+hh1lZVgeYp4qZwDbO8gAoPdnXmrQ==",
+      "path": "nwebsec.aspnetcore.core/2.0.0",
+      "hashPath": "nwebsec.aspnetcore.core.2.0.0.nupkg.sha512"
+    },
+    "NWebsec.AspNetCore.Mvc/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/T2sg2GgvhkUg7hZDyfH8335e+vsMFkSxWm58WzAo9ixtDAPSykoluy5jxN6ljVxQNF3pqhnb4FUZ0EJsSAETA==",
+      "path": "nwebsec.aspnetcore.mvc/2.0.0",
+      "hashPath": "nwebsec.aspnetcore.mvc.2.0.0.nupkg.sha512"
+    },
+    "NWebsec.AspNetCore.Mvc.TagHelpers/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cIO4DjKEgIBOec0cTvHHCKmF3w8zi4YxHtdRGa/IG36295mECTu/a10o10BFMSrYNukQxviWPj4JGS0zL6D4DA==",
+      "path": "nwebsec.aspnetcore.mvc.taghelpers/2.0.0",
+      "hashPath": "nwebsec.aspnetcore.mvc.taghelpers.2.0.0.nupkg.sha512"
+    },
     "Pomelo.EntityFrameworkCore.MySql/2.1.4": {
       "type": "package",
       "serviceable": true,
@@ -4165,13 +4248,15 @@
       "path": "system.threading.threadpool/4.3.0",
       "hashPath": "system.threading.threadpool.4.3.0.nupkg.sha512"
     },
-    "InstamojoAPI/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
+    "WebEssentials.AspNetCore.PWA/1.0.65": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3UOHOeU05+B5nyMfO3dAWBXUU45GmnIxqBbiUi3DAr8ogzujX2otjN4Jugu9l1jBr42B7i8DkTNUWruso5G3LQ==",
+      "path": "webessentials.aspnetcore.pwa/1.0.65",
+      "hashPath": "webessentials.aspnetcore.pwa.1.0.65.nupkg.sha512"
     },
-    "System.Web.Extensions/4.0.0.0": {
-      "type": "reference",
+    "InstaSharp/1.0.0": {
+      "type": "project",
       "serviceable": false,
       "sha512": ""
     },

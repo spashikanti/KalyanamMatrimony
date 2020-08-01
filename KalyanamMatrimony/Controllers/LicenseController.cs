@@ -10,65 +10,32 @@ using Microsoft.AspNetCore.Http;
 using KalyanamMatrimony.ViewModels;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using InstamojoAPI;
+using InstaSharp;
 using System.IO;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Net;
+using NLog;
+using Microsoft.Extensions.Logging;
 
 namespace KalyanamMatrimony.Controllers
 {
     public class LicenseController : BaseController
     {
         private readonly IMatrimonyRepository matrimonyRepository;
+        private readonly ILogger<LicenseController> logger;
 
-        public LicenseController(IMatrimonyRepository matrimonyRepository)
+        public LicenseController(IMatrimonyRepository matrimonyRepository, ILogger<LicenseController> logger)
         {
             this.matrimonyRepository = matrimonyRepository;
+            this.logger = logger;
         }
 
         [HttpGet]
         [Authorize(Roles = "SuperAdmin, Admin")]
         public IActionResult UpdateLicense()
         {
-            int licenseId = GetSessionLicenseId();
-            IEnumerable<License> licenses = null;
-            if (licenseId == 0)
-            {
-                licenses = matrimonyRepository.GetAllActiveLicenses();
-                ViewBag.UsersCount = matrimonyRepository.GetAllActiveLicenses()
-                                .Select(n => new SelectListItem
-                                {
-                                    Value = n.UsersCount.ToString(),
-                                    Text = n.Description
-                                })
-                                .Distinct()
-                                .ToList();
-            }
-            else
-            {
-                Organisation org = GetSessionOrgDetails();
-                if (org.EndDate < DateTime.Now)
-                {
-                    ViewBag.Message = "Your license is expired, please renew";
-                }
-                licenses = matrimonyRepository.GetAllActiveLicenses().Where(x => x.LicenseType != LicenseType.Free);
-
-                ViewBag.UsersCount = matrimonyRepository.GetAllActiveLicenses()
-                                .Where(x => x.LicenseType != LicenseType.Free)
-                                .Select(n => new SelectListItem
-                                {
-                                    Value = n.UsersCount.ToString(),
-                                    Text = n.Description
-                                })
-                                .Distinct()
-                                .ToList();
-            }
-
-            //ViewBag.UsersCount = matrimonyRepository.GetAllActiveLicenses()
-            //                    .Select(uc => uc.UsersCount)
-            //                    .Distinct();
-
-            return View(licenses);
+            PaymentViewModel paymentViewModel = GetSessionPaymentDetails();
+            return View(paymentViewModel);
         }
 
         [HttpPost]
@@ -151,7 +118,7 @@ namespace KalyanamMatrimony.Controllers
 
         [HttpPost]
         [Authorize(Roles = "SuperAdmin, Admin")]
-        public IActionResult ChooseLicense(int licenseId, PaymentViewModel model)
+        public async Task<IActionResult> ChooseLicense(int licenseId, PaymentViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -160,13 +127,10 @@ namespace KalyanamMatrimony.Controllers
                 {
                     model.Description = license.Description;
                     model.Amount = license.Price;
-                    //Mojo Api, create payment order
-                    string Insta_client_id = "test_HB3puOS8s0eYFJKLUzCudIrM2BAGQTW4Tnp",
-                           Insta_client_secret = "test_BPW8BQCLzhdZ0ECSbFjtWVj97bgcvmDfVtdt6n5XA6yx1ZGAdqq90dc7uIaGay8DeXhQHbUzSBM52t0vb6E3UP2DajG0euygoaAJGw5CLObsTEWsbecY7sVbsNF",
-                           Insta_Endpoint = InstamojoConstants.INSTAMOJO_API_ENDPOINT,
-                           Insta_Auth_Endpoint = InstamojoConstants.INSTAMOJO_AUTH_ENDPOINT;
-                    Instamojo objClass = InstamojoImplementation.getApi(Insta_client_id, Insta_client_secret, Insta_Endpoint, Insta_Auth_Endpoint);
-                    CreatePaymentOrder(objClass, model, ModelState);
+                    model.RedirectURL = Constants.InstamojoConstants.INSTA_AFTER_PAYMENT_REDIRECT_URL;
+                    
+                    InstaSharp.Interface.IInstamojo objClass = GetInstamojoObj();
+                    bool result = await CreatePaymentOrder(objClass, model, ModelState);
 
                     if(string.IsNullOrEmpty(model.PaymentURL))
                     {
@@ -187,19 +151,28 @@ namespace KalyanamMatrimony.Controllers
             return View(model);
         }
 
-
-
-
         [HttpGet]
         [Authorize(Roles = "SuperAdmin, Admin")]
-        public IActionResult AcknowledgeLicense()
+        public async Task<IActionResult> AcknowledgeLicense()
         {
-            return View();
+            //Get Transaction Details by OrderId
+            PaymentViewModel paymentViewModel = GetSessionPaymentDetails();
+            paymentViewModel.Status = await GetPaymentDetailsByOrderId(paymentViewModel.OrderId);
+
+            //whatever the status, update the paymenthistory table with status
+            //if status is success (completed/credit) update license for the org
+
+            //url
+            //AcknowledgeLicense?payment_id=MOJO0801V05N70158777&payment_status=Credit&id=30d7ec3b5f4b46e9947dc6b084efbaf0&transaction_id=pari_gjnvrrc2eaw
+
+            return View(paymentViewModel);
         }
 
-        public void CreatePaymentOrder(Instamojo objClass, PaymentViewModel model, ModelStateDictionary ModelState)
+        public async Task<bool> CreatePaymentOrder(InstaSharp.Interface.IInstamojo objClass, PaymentViewModel model, ModelStateDictionary ModelState)
         {
-            PaymentOrder objPaymentRequest = new PaymentOrder();
+            bool result = false;
+            InstaSharp.Model.PaymentOrder objPaymentRequest = new InstaSharp.Model.PaymentOrder();
+            //PaymentOrder objPaymentRequest = new PaymentOrder();
             //Required POST parameters
             objPaymentRequest.name = model.Name;
             objPaymentRequest.email = model.Email;
@@ -212,17 +185,18 @@ namespace KalyanamMatrimony.Controllers
             randomName = randomName.Replace(".", string.Empty);
             objPaymentRequest.transaction_id = "pari_" + randomName;
 
-            objPaymentRequest.redirect_url = "http://localhost:49831/License/UpdateLicense";
-            //objPaymentRequest.webhook_url = "https://your.server.com/webhook";
+            objPaymentRequest.redirect_url = Constants.InstamojoConstants.INSTA_AFTER_PAYMENT_REDIRECT_URL;
+            objPaymentRequest.webhook_url = Constants.InstamojoConstants.INSTA_AFTER_PAYMENT_WEBHOOK_URL;
             //Extra POST parameters 
 
             try
             {
-                CreatePaymentOrderResponse objPaymentResponse = objClass.createNewPaymentRequest(objPaymentRequest);
+                InstaSharp.Response.CreatePaymentOrderResponse objPaymentResponse = objClass.CreateNewPaymentRequest(objPaymentRequest);
                 model.TransactionId = objPaymentRequest.transaction_id;
                 model.PaymentURL = objPaymentResponse.payment_options.payment_url;
                 model.Status = objPaymentResponse.order.status;
                 model.OrderId = objPaymentResponse.order.id;
+                result = true;
             }
             catch (ArgumentNullException ex)
             {
@@ -236,28 +210,26 @@ namespace KalyanamMatrimony.Controllers
             {
                 ModelState.AddModelError("", ex.Message);
             }
-            catch (InvalidPaymentOrderException ex)
+            catch (InstaSharp.Exceptions.InvalidPaymentOrderException ex)
             {
                 if (!ex.IsWebhookValid())
                 {
                     ModelState.AddModelError("", "Webhook is invalid");
                 }
-
                 if (!ex.IsCurrencyValid())
                 {
                     ModelState.AddModelError("", "Currency is Invalid");
                 }
-
                 if (!ex.IsTransactionIDValid())
                 {
                     ModelState.AddModelError("", "Transaction ID is Inavlid");
                 }
             }
-            catch (ConnectionException ex)
+            catch (InstaSharp.Exceptions.ConnectionException ex)
             {
                 ModelState.AddModelError("", ex.Message);
             }
-            catch (BaseException ex)
+            catch (InstaSharp.Exceptions.BaseException ex)
             {
                 ModelState.AddModelError("", ex.Message);
             }
@@ -265,6 +237,40 @@ namespace KalyanamMatrimony.Controllers
             {
                 ModelState.AddModelError("", ex.Message);
             }
+            return result;
+        }
+
+        public async Task<string> GetPaymentDetailsByOrderId(string orderId)
+        {
+            /***** Get Details of Payment order using OrderId. *******/
+            try
+            {
+                //string Insta_client_id = Constants.InstamojoConstants.INSTA_CLIENT_ID_TEST,
+                //           Insta_client_secret = Constants.InstamojoConstants.INSTA_CLIENT_SECRET_TEST,
+                //           Insta_Endpoint = Constants.InstamojoConstants.INSTAMOJO_API_ENDPOINT_TEST,
+                //           Insta_Auth_Endpoint = Constants.InstamojoConstants.INSTAMOJO_AUTH_ENDPOINT_TEST;
+                //PaymentGatewayAPI.Instamojo objClass = PaymentGatewayAPI.InstamojoImplementation.getApi(Insta_client_id, Insta_client_secret, Insta_Endpoint, Insta_Auth_Endpoint);
+                //PaymentGatewayAPI.PaymentOrderDetailsResponse objPaymentRequestDetailsResponse = objClass.getPaymentOrderDetails(orderId);
+                //return objPaymentRequestDetailsResponse.status;
+
+                InstaSharp.Interface.IInstamojo objClass = GetInstamojoObj();
+                InstaSharp.Response.PaymentOrderDetailsResponse objPaymentRequestDetailsResponse = objClass.GetPaymentOrderDetails(orderId);
+                return objPaymentRequestDetailsResponse.status;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Transaction orderid: {orderId}. Error: {ex.Message}");
+                return "Failed";
+            }
+        }
+
+        public InstaSharp.Interface.IInstamojo GetInstamojoObj()
+        {
+            string Insta_client_id = Constants.InstamojoConstants.INSTA_CLIENT_ID_TEST,
+                           Insta_client_secret = Constants.InstamojoConstants.INSTA_CLIENT_SECRET_TEST,
+                           Insta_Endpoint = Constants.InstamojoConstants.INSTAMOJO_API_ENDPOINT_TEST,
+                           Insta_Auth_Endpoint = Constants.InstamojoConstants.INSTAMOJO_AUTH_ENDPOINT_TEST;
+            return InstaSharp.InstamojoImplementation.getApi(Insta_client_id, Insta_client_secret, Insta_Endpoint, Insta_Auth_Endpoint);
         }
 
         public void AddPaymentHistory(PaymentViewModel model)

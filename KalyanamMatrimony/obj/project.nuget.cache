@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "qxDhs77604a96drkdPRnQEUJD/uEuykAYsE0K5GV2ePbZgZUGy+QqATVwz0q3KcqLwtR42N++twDjNtv1FqNTw==",
+  "dgSpecHash": "IAw55/PK3mmWvXalcnlr80EjOE7pt0ZGdYuk4IhBlqeMMvuMUbwoydpozMlIg/sgUCp8f5B7+Ted7PZYnJgkhg==",
   "success": true,
   "projectFilePath": "F:\\Sunil\\Development\\AspNetCore\\Branch\\KalyanamMatrimony\\KalyanamMatrimony\\KalyanamMatrimony.csproj",
   "expectedPackageFiles": [
@@ -191,6 +191,9 @@
     "C:\\Users\\Sunil\\.nuget\\packages\\nlog.extensions.logging\\1.6.2\\nlog.extensions.logging.1.6.2.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\nlog.web.aspnetcore\\4.9.2\\nlog.web.aspnetcore.4.9.2.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\nuget.frameworks\\4.7.0\\nuget.frameworks.4.7.0.nupkg.sha512",
+    "C:\\Users\\Sunil\\.nuget\\packages\\nwebsec.aspnetcore.core\\2.0.0\\nwebsec.aspnetcore.core.2.0.0.nupkg.sha512",
+    "C:\\Users\\Sunil\\.nuget\\packages\\nwebsec.aspnetcore.mvc\\2.0.0\\nwebsec.aspnetcore.mvc.2.0.0.nupkg.sha512",
+    "C:\\Users\\Sunil\\.nuget\\packages\\nwebsec.aspnetcore.mvc.taghelpers\\2.0.0\\nwebsec.aspnetcore.mvc.taghelpers.2.0.0.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\2.1.4\\pomelo.entityframeworkcore.mysql.2.1.4.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\pomelo.jsonobject\\2.0.0\\pomelo.jsonobject.2.0.0.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\portable.bouncycastle\\1.8.1.2\\portable.bouncycastle.1.8.1.2.nupkg.sha512",
@@ -317,7 +320,8 @@
     "C:\\Users\\Sunil\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
     "C:\\Users\\Sunil\\.nuget\\packages\\system.xml.xpath\\4.3.0\\system.xml.xpath.4.3.0.nupkg.sha512",
-    "C:\\Users\\Sunil\\.nuget\\packages\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512"
+    "C:\\Users\\Sunil\\.nuget\\packages\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\Sunil\\.nuget\\packages\\webessentials.aspnetcore.pwa\\1.0.65\\webessentials.aspnetcore.pwa.1.0.65.nupkg.sha512"
   ],
   "logs": [
     {

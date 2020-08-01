@@ -1,28 +1,18 @@
-﻿@model IEnumerable<License>
+﻿@model PaymentViewModel
 
 @{
     ViewBag.Title = "Update License";
     Layout = "~/Views/Shared/_LayoutLicense.cshtml";
 }
 
-    <h3 class="text-danger">
-        @ViewBag.Message
-    </h3>
-<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-    <li class="nav-item">
-        <a class="nav-link active" id="pills-Active-tab" data-toggle="pill" href="#pills-Active" role="tab" aria-controls="pills-Active" aria-selected="true">License</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="pills-DeActivated-tab" data-toggle="pill" href="#pills-DeActivated" role="tab" aria-controls="pills-DeActivated" aria-selected="false">Payment</a>
-    </li>
-</ul>
+
 <div class="tab-content" id="pills-tabContent">
     <div class="tab-pane fade show active" id="pills-Active" role="tabpanel" aria-labelledby="pills-Active-tab">
         <div class="card shadow mb-4 border-primary">
             <div class="card-header bg-primary text-white">
                 <div class="row">
                     <div class="col-md-12">
-                        <h5 class="font-weight-bold text-white">License</h5>
+                        <h5 class="font-weight-bold text-white">Payment</h5>
                     </div>
                 </div>
             </div>
@@ -47,12 +37,12 @@
                                     <div class="form-row">
                                         <div class="col-md-7">
                                             <div class="form-group">
-                                                <div id="purpose"></div>
+                                                <div id="purpose">@Model.Description</div>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <div id="lblPrice"></div>
+                                                <div id="lblPrice">@Model.Amount</div>
                                             </div>
                                         </div>
                                     </div>
@@ -65,93 +55,25 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <div id="amount"></div>
+                                                <div id="amount">@Model.Amount</div>
                                             </div>
                                         </div>
                                     </div>
                                     Subtotal does not include applicable taxes.
+                                    <hr/>
+                                    <div class="form-row right">
+                                        <div class="col-md-12">
+                                            <div class="text-right">
+                                                <a href="@Model.PaymentURL" rel="im-checkout" data-text="Pay" class="btn btn-success im-checkout">Pay</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group text-lg-right">
+                        @*<div class="form-group text-lg-right">
                             <button type="button" class="btn btn-primary" onclick="nextTab();">Next</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="tab-pane fade" id="pills-DeActivated" role="tabpanel" aria-labelledby="pills-DeActivated-tab">
-        <div class="card shadow mb-4 border-primary">
-            <div class="card-header bg-primary text-white">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h5 class="font-weight-bold text-white">Update License</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="form-row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            @*<label asp-for="UsersCount" class="small mb-1"></label>*@
-                            @*User Count:
-                            <select id="UsersCount" class="form-control">
-                                <option selected="selected" value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="75">75</option>
-                                <option value="100">100</option>
-                            </select>*@
-                            @*<span asp-validation-for="UsersCount" class="text-danger"></span>*@
-                            <label class="small mb-1">Filter Licenses</label>
-                            <select id="UsersCount" class="form-control"
-                                    asp-items="@((List<SelectListItem>)@ViewBag.UsersCount)">
-                                <option selected="selected">All</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-row" id="divUserCount10">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <form method="post" enctype="multipart/form-data">
-                                <div class="form-row">
-                                    @if (Model != null && Model.Count() > 0)
-                                    {
-                                        var loopCount = 1;
-                                        @foreach (var item in Model)
-                                        {
-                                            var newDivId = @item.UsersCount + "_" + @loopCount;
-                                            <div class="col-md-3 @item.UsersCount licenses" id="@newDivId" style="display:none">
-                                                <div class="card shadow mb-4 border-primary mb-3" style="max-width: 18rem;">
-                                                    <div class="card-header bg-primary text-white">
-                                                        <h5 class="card-title">@item.LicenseName</h5>
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <p class="card-text">@item.Description</p>
-                                                        <p class="card-text">Price: ₹@item.Price</p>
-                                                    </div>
-                                                    <div class="card-footer">
-                                                        @if (!string.IsNullOrEmpty(item.PayLink))
-                                                        {
-                                                            <button type="submit" class="btn btn-success btn-block" id="btnCreateLicense"
-                                                            asp-action="UpdateLicense" asp-controller="License" 
-                                                            asp-route-licenseId="@item.LicenseId" asp-route-monthsCount="@item.MonthsCount" >
-                                                                <strong>Update</strong>
-                                                            </button>
-                                                            @*<a class="btn btn-success" asp-action="updatelicense" asp-controller="account" style="width:100%">Pay</a>*@
-                                                            @*<a href="@item.PayLink" rel="im-checkout" data-text="Pay" class="btn btn-success"></a>
-            <script src="https://js.instamojo.com/v1/button.js"></script>*@
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-                                    }
-                                </div>
-                            </form>
-                        </div>
+                        </div>*@
                     </div>
                 </div>
             </div>
@@ -160,54 +82,17 @@
 </div>
 
 @section Scripts{
-<style>
-    .im-checkout {
-        max-width: 300px;
-        margin-bottom: 0px !important;
-    }
-</style>
+    <style>
+        .im-checkout {
+            max-width: 300px;
+            margin-bottom: 0px !important;
+        }
+    </style>
     <script>
-        $(document).ready(function () {
-            debugger;
-
-            $("#LicenseId").on("change", function (e) {
-                debugger;
-                console.log(e);
-                var optionSelected = $("option:selected", this);
-                $("#lblPrice").text("₹" + this.value);// + this.value selected value
-                $("#amount").text("₹" + this.value);// + this.value selected value
-                $("#purpose").text(optionSelected[0].text);//selected text
-            });
-
-            $("#LicenseId").trigger("change");
-
-            $("#UsersCount").on("change", function (e) {
-                hideLicenses(this.value);
-                var optionSelected = $("option:selected", this);
-                $("."+this.value).show();
-            });
-
-            $("#UsersCount").trigger("change");
-        });
-
-        function hideLicenses(val) {
-            if (val != "All") {
-                $(".licenses").hide();
-            }
-            else {
-                $(".licenses").show();
-            }
-        }
-
-        function nextTab() {
-            $('.nav-pills a[href="#pills-DeActivated"]').tab('show');
-        }
-
         //For toast
         var msg = @Html.Raw(Json.Serialize(ViewBag.Message));
         if (msg != null) {
             displayToast(msg);
         }
-
     </script>
 }
