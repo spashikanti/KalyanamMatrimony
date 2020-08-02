@@ -124,5 +124,13 @@ namespace KalyanamMatrimony.Models
         public string ContactPersonRelationShip { get; set; }
 
         public PartnerPreference PartnerPreference { get; set; }
+
+
+        [Display(Name = "Created By")]
+        public string CreatedBy { get; set; }
+        [Display(Name = "Modified By")]
+        public string ModifiedBy { get; set; }
+        [Display(Name = "Modified Date")]
+        public DateTime ModifiedDate { get; set; } = DateTime.Now;
     }
 }

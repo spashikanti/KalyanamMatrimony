@@ -23,11 +23,15 @@ namespace KalyanamMatrimony.Controllers
     {
         private readonly IMatrimonyRepository matrimonyRepository;
         private readonly ILogger<LicenseController> logger;
+        private readonly IEmailSender emailSender;
 
-        public LicenseController(IMatrimonyRepository matrimonyRepository, ILogger<LicenseController> logger)
+        public LicenseController(IMatrimonyRepository matrimonyRepository, 
+            ILogger<LicenseController> logger,
+            IEmailSender emailSender)
         {
             this.matrimonyRepository = matrimonyRepository;
             this.logger = logger;
+            this.emailSender = emailSender;
         }
 
         [HttpGet]
@@ -42,19 +46,18 @@ namespace KalyanamMatrimony.Controllers
         [Authorize(Roles = "SuperAdmin, Admin")]
         public IActionResult UpdateLicense(int licenseId, float monthsCount)
         {
+            //This block code never runs as we dont have any submit button in the screen
+            //we have only pay button and after payment it redirects to acknowlege page
             if (licenseId > 0)
             {
-                int orgId = GetSessionOrgId();
-                Organisation org = matrimonyRepository.GetOrganisationById(orgId);
+                Organisation org = GetSessionOrgDetails();
                 org.LicenseId = licenseId;
                 //Update org end date
                 float numOfDays = 31 * monthsCount;
                 org.EndDate = DateTime.Now.AddDays(numOfDays);
                 org = matrimonyRepository.UpdateOrganisation(org);
                 SetSessionOrgDetails(org);
-                //Update PaymentHistory Table for Org
-                //Navigate to acknowledge page for successful license update
-                return View("AcknowledgeLicense");
+                return RedirectToAction("AcknowledgeLicense", "License", new { licenseType = "free" });
             }
 
             //GetLicenses
@@ -70,10 +73,12 @@ namespace KalyanamMatrimony.Controllers
         [Authorize(Roles = "SuperAdmin, Admin")]
         public IActionResult ChooseLicense()
         {
+            ToasterServiceDisplay();
             PaymentViewModel paymentViewModel = new PaymentViewModel();
             int licenseId = GetSessionLicenseId();
             if (licenseId == 0)
             {
+                ViewBag.LicenseMessage = "Thanks for confirming your email account. Please complete the licencing process.";
                 paymentViewModel.Licenses = matrimonyRepository.GetAllActiveLicenses();
                 ViewBag.UsersCount = matrimonyRepository.GetAllActiveLicenses()
                                 .Select(x => x.UsersCount)
@@ -90,7 +95,7 @@ namespace KalyanamMatrimony.Controllers
                 Organisation org = GetSessionOrgDetails();
                 if (org.EndDate < DateTime.Now)
                 {
-                    ViewBag.Message = "Your license is expired, please renew";
+                    ViewBag.LicenseMessage = "Your license is expired, please renew";
                 }
                 paymentViewModel.Licenses = matrimonyRepository.GetAllActiveLicenses().Where(x => x.LicenseType != LicenseType.Free);
 
@@ -125,37 +130,43 @@ namespace KalyanamMatrimony.Controllers
                 License license = matrimonyRepository.GetLicenseById(licenseId);
                 if (license != null)
                 {
+                    model.LicenseId = licenseId;
                     model.Description = license.Description;
                     model.Amount = license.Price;
 
                     if(license.LicenseType == LicenseType.Free)
                     {
-                        //Update org Table
-                        Organisation org = GetSessionOrgDetails();
-                        org.LicenseId = licenseId;
-                        matrimonyRepository.UpdateOrganisation(org);
+                        //Send email with license details
+                        if (string.IsNullOrEmpty(model.OrderId))
+                        {
+                            model.OrderId = "FREE";
+                        }
                         //Add data to payment history table
                         AddPaymentHistory(model);
+                        //Add data to session
+                        SetSessionPaymentDetails(model);
+                        //await SendEmail(model.Email, model.OrderId, model.Description, org.EndDate.ToString(), model.Amount.ToString());
                         return RedirectToAction("AcknowledgeLicense", "License", new { licenseType = "free" });
-                    }
-
-                    model.RedirectURL = Constants.InstamojoConstants.INSTA_AFTER_PAYMENT_REDIRECT_URL;
-                    
-                    InstaSharp.Interface.IInstamojo objClass = GetInstamojoObj();
-                    bool result = await CreatePaymentOrder(objClass, model, ModelState);
-
-                    if(result && string.IsNullOrEmpty(model.PaymentURL))
-                    {
-                        return View(model);
                     }
                     else
                     {
-                        //Add data to session
-                        SetSessionPaymentDetails(model);
-                        //Add data to payment history table
-                        AddPaymentHistory(model);
-                        //Redirect to UpdateLicense
-                        return RedirectToAction("UpdateLicense", "License");
+                        model.RedirectURL = Constants.InstamojoConstants.INSTA_AFTER_PAYMENT_REDIRECT_URL;
+                        InstaSharp.Interface.IInstamojo objClass = GetInstamojoObj();
+                        bool result = await CreatePaymentOrder(objClass, model, ModelState);
+
+                        if (result && string.IsNullOrEmpty(model.PaymentURL))
+                        {
+                            return View(model);
+                        }
+                        else
+                        {
+                            //Add data to payment history table
+                            AddPaymentHistory(model);
+                            //Add data to session
+                            SetSessionPaymentDetails(model);
+                            //Redirect to UpdateLicense
+                            return RedirectToAction("UpdateLicense", "License");
+                        }
                     }
                 }
             }
@@ -168,7 +179,7 @@ namespace KalyanamMatrimony.Controllers
         public async Task<IActionResult> AcknowledgeLicense()
         {
             //Get Transaction Details by OrderId
-            PaymentViewModel paymentViewModel = GetSessionPaymentDetails();
+            PaymentViewModel model = GetSessionPaymentDetails();
 
             //string payment_id, string payment_status, string id, string transaction_id
             //Query strings
@@ -183,28 +194,42 @@ namespace KalyanamMatrimony.Controllers
             {
                 HttpContext.Request.Query.TryGetValue("payment_status", out queryVal);
                 status = queryVal.FirstOrDefault();
-                status = await GetPaymentDetailsByOrderId(paymentViewModel.OrderId);
+                //status = await GetPaymentDetailsByOrderId(paymentViewModel.OrderId);
             }
 
-            paymentViewModel.Status = status;
+            model.Status = status;
             //whatever the status, update the paymenthistory table with status
-            PaymentHistory paymentHistory = matrimonyRepository.GetPaymentHistoryById(paymentViewModel.PaymentHistoryId);
-            paymentHistory.Status = paymentViewModel.Status;
+            PaymentHistory paymentHistory = matrimonyRepository.GetPaymentHistoryById(model.PaymentHistoryId);
+            paymentHistory.Status = model.Status;
+            paymentHistory.ModifiedDate = DateTime.Now;
+            paymentHistory.ModifiedBy = GetSessionUserId();
             matrimonyRepository.UpdatePaymentHistory(paymentHistory);
+
             //if status is success (completed/credit) update license for the org
             if(status == Constants.InstamojoConstants.INSTA_STATUS_CREDIT ||
                 status == Constants.InstamojoConstants.INSTA_STATUS_COMPLETED)
             {
+                License license = matrimonyRepository.GetLicenseById(model.LicenseId);
                 Organisation org = GetSessionOrgDetails();
-                org.LicenseId = paymentViewModel.LicenseId;
-                //update org
+                float numOfDays = 31 * license.MonthsCount;
+                org.EndDate = DateTime.Now.AddDays(numOfDays);
+                org.LicenseId = model.LicenseId;
+                org.ModifiedDate = DateTime.Now;
+                org.ModifiedBy = GetSessionUserId();
                 org = matrimonyRepository.UpdateOrganisation(org);
                 SetSessionOrgDetails(org);
+                await SendEmail(model.Email, model.OrderId, model.Description, org.EndDate.ToString("dd/MMM/YYYY"), model.Amount.ToString());
+                return View(model);
+            }
+            else
+            {
+                //send email - failed status
+                await SendEmail(model.Email, model.OrderId, model.Description, model.Amount.ToString());
             }
             //url
             //AcknowledgeLicense?payment_id=MOJO0801V05N70158777&payment_status=Credit&id=30d7ec3b5f4b46e9947dc6b084efbaf0&transaction_id=pari_gjnvrrc2eaw
-
-            return View(paymentViewModel);
+            
+            return View(model);
         }
 
         public async Task<bool> CreatePaymentOrder(InstaSharp.Interface.IInstamojo objClass, PaymentViewModel model, ModelStateDictionary ModelState)
@@ -327,7 +352,52 @@ namespace KalyanamMatrimony.Controllers
             paymentHistory.Status = model.Status;
             paymentHistory.TransactionId = model.TransactionId;
             paymentHistory.UserId = model.UserId;
-            matrimonyRepository.AddPaymentHistory(paymentHistory);
+            paymentHistory.CreatedDate = DateTime.Now;
+            paymentHistory.CreatedBy = GetSessionUserId();
+            paymentHistory.ModifiedDate = DateTime.Now;
+            paymentHistory.ModifiedBy = GetSessionUserId();
+            paymentHistory = matrimonyRepository.AddPaymentHistory(paymentHistory);
+            model.PaymentHistoryId = paymentHistory.PaymentHistoryId;
+        }
+
+        private async Task SendEmail(string email, string orderId, string license, string endDate, string amount)
+        {
+            var subject = "Parinayam Matrimony Customer, thank you for your order.";
+            var content = "Dear " + email + ", <br/><br/>" +
+                "Thanks for your order. Here's your confirmation for order number " + orderId +
+                ". Review your receipt and get started using our product.<br/><br/>" +
+                "<h1>Order Number: " + orderId + "</h1>" +
+                "<table cellpadding='5' border='1'>" +
+                "<tr style='bgcolor:yellow'><td>License</td><td>Order Date</td><td>End Date</td><td>Amount</td></tr>" +
+                "<tr><td>" + license + "</td><td>" + DateTime.Now.ToString("dd/MMM/yyyy") +
+                "</td><td>" + endDate + "</td><td>" + amount + "</td></tr>" +
+                "</table>" +
+                "<br/><br/>" +
+                "Happy Matrimony!!!<br/><br/>" +
+                "Regards,<br/>" +
+                "The Parinayam Matrimony Team.";
+
+            var message = new Message(new string[] { email }, subject, content);
+            await emailSender.SendEmailAsync(message);
+        }
+
+        private async Task SendEmail(string email, string orderId, string license, string amount)
+        {
+            var subject = "Parinayam Matrimony Customer, your order transaction is cancelled.";
+            var content = "Dear " + email + ", <br/><br/>" +
+                "<h1>Order Number: " + orderId + "</h1>" +
+                "<table cellpadding='5' border='1'>" +
+                "<tr><td>License</td><td>Order Date</td><td>Amount</td></tr>" +
+                "<tr><td>" + license + "</td><td>" + DateTime.Now.ToString("dd/MMM/yyyy") +
+                "</td><td>" + amount + "</td></tr>" +
+                "</table>" +
+                "Please get in touch with admin if you need any assistance." +
+                "<br/><br/>" +
+                "Regards,<br/>" +
+                "The Parinayam Matrimony Team.";
+
+            var message = new Message(new string[] { email }, subject, content);
+            await emailSender.SendEmailAsync(message);
         }
     }
 }

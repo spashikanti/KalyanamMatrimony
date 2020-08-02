@@ -140,6 +140,12 @@ namespace KalyanamMatrimony.Controllers
                 user.UserName = model.Email;
                 user.Email = model.Email;
                 user.OrgId = GetSessionOrgId();
+
+                user.CreatedDate = DateTime.Now;
+                user.CreatedBy = GetSessionUserId();
+                user.ModifiedDate = DateTime.Now;
+                user.ModifiedBy = GetSessionUserId();
+
                 if (model.EndDate != null)
                 {
                     user.EndDate = model.EndDate;
@@ -205,6 +211,10 @@ namespace KalyanamMatrimony.Controllers
             {
                 ApplicationUser applicationUser = await userManager.FindByIdAsync(model.UserId);
                 applicationUser.EndDate = model.EndDate;
+
+                applicationUser.ModifiedDate = DateTime.Now;
+                applicationUser.ModifiedBy = GetSessionUserId();
+
                 var result = await userManager.UpdateAsync(applicationUser);
                 if (result.Succeeded)
                 {
@@ -251,22 +261,22 @@ namespace KalyanamMatrimony.Controllers
             var content = "";
             if (subject.Contains("Verify"))
             {
-                content = "Hi " + email + ", <br/><br/>" +
+                content = "Dear " + email + ", <br/><br/>" +
                     "Thank you for signing up with our matrimony services to run your business.<br/> We are excited to provide you industry best standard services.<br/><br/>" +
                     "To activate your account & to start using our services, please click on the below button to verify your email now.<br/><br/>" +
                     "<a href='" + encryptedLink + "'  class='btn btn-success'>Verify your email</a><br/><br/>" +
                     "Happy Matrimony!!!<br/><br/>" +
                     "Regards,<br/>" +
-                    "The Matrimony Team.";
+                    "The Parinayam Matrimony Team.";
             }
             else if (subject.Contains("Reset"))
             {
-                content = "Hi " + email + "<br/><br/>" +
+                content = "Dear " + email + "<br/><br/>" +
                     "We got a request to reset your password.<br/><br/>" +
                     "<a href='" + encryptedLink + "' >Click Here to Reset Password</a><br/><br/>" +
                     "Happy Matrimony!!!<br/><br/>" +
                     "Regards,<br/>" +
-                    "The Matrimony Team.";
+                    "The Parinayam Matrimony Team.";
             }
 
             var message = new Message(new string[] { email }, subject, content);

@@ -109,7 +109,7 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("                    ");
             EndContext();
             BeginContext(809, 164, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c2aa3e06956f4d5e84fcb9ad0a974d49", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f305f5ae36254b86ae6f366e4e465fc6", async() => {
                 BeginContext(888, 81, true);
                 WriteLiteral("\r\n                        <strong>Create Assistant</strong>\r\n                    ");
                 EndContext();

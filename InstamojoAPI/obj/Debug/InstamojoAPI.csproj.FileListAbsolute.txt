@@ -1,8 +1,0 @@
-F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\InstamojoAPI\bin\Debug\InstamojoAPI.dll
-F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\InstamojoAPI\bin\Debug\InstamojoAPI.pdb
-F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\InstamojoAPI\obj\Debug\InstamojoAPI.csproj.CoreCompileInputs.cache
-F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\InstamojoAPI\obj\Debug\InstamojoAPI.dll
-F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\InstamojoAPI\obj\Debug\InstamojoAPI.pdb
-F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\InstamojoAPI\bin\Debug\System.Web.Extensions.dll
-F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\InstamojoAPI\obj\Debug\InstamojoAPI.csproj.CopyComplete
-F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\InstamojoAPI\obj\Debug\InstamojoAPI.csprojAssemblyReference.cache

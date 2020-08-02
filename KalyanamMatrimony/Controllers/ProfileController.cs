@@ -104,14 +104,8 @@ namespace KalyanamMatrimony.Controllers
             }
             if (ModelState.IsValid)
             {
-                string orgType = configuration.GetSection("OrgConfiguration").GetSection("OrgType").Value;
-                //bool isValidLicense = IsValidLicense(orgType);
-                //if(!isValidLicense)
-                //{
-                //    ModelState.AddModelError("", "Your license is expired!!! Please renew your license.");
-                //    return RedirectToAction("UpdateLicense", "Account");
-                //}
-
+                //string orgType = configuration.GetSection("OrgConfiguration").GetSection("OrgType").Value;
+                
                 //assign Role to user
                 var role = await roleManager.FindByNameAsync(model.UserRole);
                 if (role == null)
@@ -124,6 +118,12 @@ namespace KalyanamMatrimony.Controllers
                 var user = new ApplicationUser();
                 user.UserName = model.Email;
                 user.Email = model.Email;
+
+                user.CreatedBy = GetSessionUserId();
+                user.CreatedDate = DateTime.Now;
+                user.ModifiedBy = GetSessionUserId();
+                user.ModifiedDate = DateTime.Now;
+
                 if (model.EndDate != null)
                 {
                     user.EndDate = model.EndDate;
@@ -263,6 +263,9 @@ namespace KalyanamMatrimony.Controllers
                     if (user.EndDate != model.EndDate)
                     {
                         user.EndDate = model.EndDate;
+                        user.ModifiedBy = GetSessionUserId();
+                        user.ModifiedDate = DateTime.Now;
+
                         var result = await userManager.UpdateAsync(user);
 
                         if (!result.Succeeded)
@@ -338,18 +341,6 @@ namespace KalyanamMatrimony.Controllers
                 }
                 else
                 {
-                    //var partnerResult = matrimonyRepository.UpdatePartnerPreference(model.PartnerPreference);
-                    //if (repoResult == null)
-                    //{
-                    //    logger.Log(LogLevel.Error, "Unable to update partner preference");
-                    //    ModelState.AddModelError(string.Empty, "Unable to update partner preference");
-                    //    ToasterServiceCreate(model.FirstName + " unable to update partner preference", CustomEnums.ToastType.Error);
-                    //}
-                    //else
-                    //{
-                    //    ToasterServiceCreate(model.FirstName + " profile updated successfully", CustomEnums.ToastType.Success);
-                    //    return RedirectToAction("viewprofile", "profile", new { id = model.ProfileId });
-                    //}
                     ToasterServiceCreate(model.FirstName + " profile updated successfully", CustomEnums.ToastType.Success);
                     return RedirectToAction("viewprofile", "profile", new { id = model.ProfileId });
                 }
@@ -494,6 +485,8 @@ namespace KalyanamMatrimony.Controllers
                     if (user.EndDate != model.EndDate)
                     {
                         user.EndDate = model.EndDate;
+                        user.ModifiedBy = GetSessionUserId();
+                        user.ModifiedDate = DateTime.Now;
                         var result = await userManager.UpdateAsync(user);
 
                         if (!result.Succeeded)
@@ -683,6 +676,9 @@ namespace KalyanamMatrimony.Controllers
             profile.ContactPersonRelationShip = model.ContactPersonRelationShip;
 
             profile.CreatedDate = DateTime.Now;
+            profile.ModifiedDate = DateTime.Now;
+            profile.CreatedBy = GetSessionUserId();
+            profile.ModifiedBy = GetSessionUserId();
 
             if (model.PartnerPreference != null)
             {
@@ -788,6 +784,9 @@ namespace KalyanamMatrimony.Controllers
 
             profile.strDateOfBirth = model.DateOfBirth != null ? model.DateOfBirth.Value.ToString("dd/MMM/yyyy") : "";
             profile.strHaveChildren = model.HaveChildren == true ? "Yes" : "No";
+
+            profile.ModifiedDate = DateTime.Now;
+            profile.ModifiedBy = GetSessionUserId();
 
             if (model.PartnerPreference != null)
             {
@@ -971,12 +970,12 @@ namespace KalyanamMatrimony.Controllers
             var content = "";
             if (subject.Contains("Email Confirmation"))
             {
-                content = "Hi " + email + ", <br/><br/>" +
+                content = "Dear " + email + ", <br/><br/>" +
                     "Thank you for signing up with our portal! You must follow this link to activate your account:<br/><br/>" +
                     "<a href='" + encryptedLink + "' >Confirm your email</a><br/><br/>" +
                     "Happy Matrimony!!!<br/><br/>" +
                     "Regards<br/>" +
-                    "The Matrimony Team";
+                    "The Parinayam Matrimony Team";
             }
 
             var message = new Message(new string[] { email }, subject, content);

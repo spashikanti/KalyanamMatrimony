@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,5 +22,14 @@ namespace KalyanamMatrimony.Models
         public string RedirectURL { get; set; }
         public string PaymentURL { get; set; }
         public string Status { get; set; }
+
+        [Display(Name = "Created Date")]
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        [Display(Name = "Created By")]
+        public string CreatedBy { get; set; }
+        [Display(Name = "Modified By")]
+        public string ModifiedBy { get; set; }
+        [Display(Name = "Modified Date")]
+        public DateTime ModifiedDate { get; set; } = DateTime.Now;
     }
 }

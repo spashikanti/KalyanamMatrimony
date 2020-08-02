@@ -331,7 +331,7 @@ namespace KalyanamMatrimony.Controllers
 
                         // Log the password reset link
                         logger.Log(LogLevel.Warning, passwordResetLink);
-                        await SendEmail(model.Email, passwordResetLink, "Reset your password");
+                        await SendEmail(model.Email, "", passwordResetLink, "Reset your password");
 
                         // Send the user to Forgot Password Confirmation view
                         return View("ForgotPasswordConfirmation");
@@ -344,7 +344,7 @@ namespace KalyanamMatrimony.Controllers
 
                         // Log the password reset link
                         logger.Log(LogLevel.Warning, confirmationLink);
-                        await SendEmail(model.Email, confirmationLink, "Email Confirmation");
+                        await SendEmail(model.Email, "", confirmationLink, "Email Confirmation");
 
                         return RedirectToAction("Acknowledge");
                     }
@@ -472,7 +472,7 @@ namespace KalyanamMatrimony.Controllers
             //ViewBag.LicenseTypes = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(matrimonyRepository.GetAllLicenses(), "LicenseId", "Description");
             ViewData["Title"] = configuration.GetSection("OrgConfiguration").GetSection("OrgName").Value;
             SetSessionOrgName(configuration.GetSection("OrgConfiguration").GetSection("OrgName").Value);
-            ViewBag.LicenseTypes = matrimonyRepository.GetAllLicenses();
+            //ViewBag.LicenseTypes = matrimonyRepository.GetAllLicenses();
             return View();
         }
 
@@ -498,6 +498,8 @@ namespace KalyanamMatrimony.Controllers
                 org.OrgDesc = model.OrgDesc;
                 org.FullName = model.FullName;
                 org.Phone = model.Phone;
+                org.CreatedDate = DateTime.Now;
+                org.ModifiedDate = DateTime.Now;
 
                 //Insert Data Into Organisation table - get OrgId
                 var repoResult = matrimonyRepository.AddOrganisation(org);
@@ -526,6 +528,8 @@ namespace KalyanamMatrimony.Controllers
                 user.UserName = model.Email;
                 user.Email = model.Email;
                 user.OrgId = repoResult.OrgId;
+                user.CreatedDate = DateTime.Now;
+                user.ModifiedDate = DateTime.Now;
                 //No end date for admin, he should login for renewal
 
                 // Store user data in AspNetUsers database table
@@ -542,9 +546,9 @@ namespace KalyanamMatrimony.Controllers
                         var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
                         var confirmationLink = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, token = token }, Request.Scheme);
 
-                        // Log the password reset link
+                        // Log the singup confirmation link
                         logger.Log(LogLevel.Warning, confirmationLink);
-                        await SendEmail(model.Email, confirmationLink, "Verify your Email");
+                        await SendEmail(model.Email, model.Password, confirmationLink, "Verify your Email");
 
                         ToasterServiceCreate("Please check your email and click on the confirmation link in the email shared by us.", CustomEnums.ToastType.Info);
                         return RedirectToAction("acknowledge", "account");
@@ -574,36 +578,40 @@ namespace KalyanamMatrimony.Controllers
         }
 
         
-        private async Task SendEmail(string email, string encryptedLink, string subject)
+        private async Task SendEmail(string email, string pwd, string encryptedLink, string subject)
         {
             var content = "";
             if (subject.Contains("Verify"))
             {
-                content = "Hi " + email + ", <br/><br/>" +
+                content = "Dear " + email + ", <br/><br/>" +
                     "Thank you for signing up with our matrimony services to run your business.<br/> We are excited to provide you industry best standard services.<br/><br/>" +
                     "To activate your account & to start using our services, please click on the below button to verify your email now.<br/><br/>" +
+                    "Email: " + email + "<br/>" +
+                    "Password: " + pwd + "<br/><br/>" +
                     "<a href='" + encryptedLink + "'  class='btn btn-success'>Verify your email</a><br/><br/>" +
                     "Happy Matrimony!!!<br/><br/>" +
                     "Regards,<br/>" +
-                    "The Matrimony Team.";
+                    "The Parinayam Matrimony Team.";
             }
             else if (subject.Contains("Reset"))
             {
-                content = "Hi " + email + "<br/><br/>" +
+                content = "Dear " + email + "<br/><br/>" +
                     "We got a request to reset your password.<br/><br/>" +
                     "<a href='" + encryptedLink + "' >Click Here to Reset Password</a><br/><br/>" +
                     "Happy Matrimony!!!<br/><br/>" +
                     "Regards,<br/>" +
-                    "The Matrimony Team.";
+                    "The Parinayam Matrimony Team.";
             }
             else if (subject.Contains("Email Confirmation"))
             {
-                content = "Hi " + email + ", <br/><br/>" +
+                content = "Dear " + email + ", <br/><br/>" +
                     "Thank you for signing up with our portal! You must follow this link to activate your account:<br/><br/>" +
+                    "Email: " + email + "<br/>" +
+                    "Password: " + pwd + "<br/><br/>" +
                     "<a href='" + encryptedLink + "' >Confirm your email</a><br/><br/>" +
                     "Happy Matrimony!!!<br/><br/>" +
                     "Regards<br/>" +
-                    "The Matrimony Team";
+                    "The Parinayam Matrimony Team";
             }
 
             var message = new Message(new string[] { email }, subject, content);

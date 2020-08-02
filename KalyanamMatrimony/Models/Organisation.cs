@@ -25,5 +25,10 @@ namespace KalyanamMatrimony.Models
         public DateTime EndDate { get; set; }
         [Display(Name = "License Id")]
         public int LicenseId { get; set; }
+
+        [Display(Name = "Modified By")]
+        public string  ModifiedBy { get; set; }
+        [Display(Name = "Modified Date")]
+        public DateTime ModifiedDate { get; set; } = DateTime.Now;
     }
 }
