@@ -91,8 +91,23 @@
             </div>
 
             @if (User.IsInRole(Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin)) ||
-               User.IsInRole(Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin)))
+              User.IsInRole(Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin)))
             {
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLicense" aria-expanded="true" aria-controls="collapseLicense">
+                        <i class="fas fa-fw fa-user"></i>
+                        <span>License</span>
+                    </a>
+                    <div id="collapseLicense" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">License Components:</h6>
+                            <a class="collapse-item" asp-controller="license" asp-action="ChooseLicense">View License</a>
+                            <a class="collapse-item" asp-controller="admin" asp-action="createAssistant">Payments History</a>
+                        </div>
+                    </div>
+                </li>
+
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAssistant" aria-expanded="true" aria-controls="collapseAssistant">

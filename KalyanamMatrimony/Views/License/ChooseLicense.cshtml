@@ -30,11 +30,20 @@
                 <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group">
+                            <label asp-for="OrgName" class="small mb-1"></label>
+                            <input asp-for="OrgName" disabled class="form-control" placeholder="Enter Org Name" />
+                            <span asp-validation-for="OrgName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <label asp-for="Name" class="small mb-1"></label>
                             <input asp-for="Name" disabled class="form-control" placeholder="Enter Full Name" />
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
                     </div>
+                </div>
+                <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label asp-for="Phone" class="small mb-1"></label>
@@ -42,13 +51,27 @@
                             <span asp-validation-for="Phone" class="text-danger"></span>
                         </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label asp-for="Email" class="small mb-1"></label>
                             <input asp-for="Email" disabled class="form-control" placeholder="Enter Email" />
                             <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="LicenseDesc" class="small mb-1"></label>
+                            <input asp-for="LicenseDesc" disabled class="form-control" />
+                            <span asp-validation-for="LicenseDesc" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="EndDate" class="small mb-1"></label>
+                            <input asp-for="EndDate" disabled class="form-control" />
+                            <span asp-validation-for="EndDate" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
@@ -188,9 +211,11 @@
 
         debugger;
         //For toast
-        var msg = @Html.Raw(Json.Serialize(ViewBag.Message));
-        if (msg != null) {
-            displayToast(msg);
+        if (ViewBag.Message != null) {
+            var msg = @Html.Raw(Json.Serialize(ViewBag.Message));
+            if (msg != null) {
+                displayToast(msg);
+            }
         }
 
     </script>

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace KalyanamMatrimony.Migrations
 {
-    public partial class FirstStep : Migration
+    public partial class initailstep : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -42,7 +42,11 @@ namespace KalyanamMatrimony.Migrations
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: true),
-                    OrgId = table.Column<int>(nullable: false)
+                    OrgId = table.Column<int>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,7 +87,9 @@ namespace KalyanamMatrimony.Migrations
                     Phone = table.Column<string>(nullable: true),
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false),
-                    LicenseId = table.Column<int>(nullable: false)
+                    LicenseId = table.Column<int>(nullable: false),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -108,7 +114,11 @@ namespace KalyanamMatrimony.Migrations
                     OrderId = table.Column<string>(nullable: true),
                     RedirectURL = table.Column<string>(nullable: true),
                     PaymentURL = table.Column<string>(nullable: true),
-                    Status = table.Column<string>(nullable: true)
+                    Status = table.Column<string>(nullable: true),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -174,7 +184,10 @@ namespace KalyanamMatrimony.Migrations
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     PhoneNumber = table.Column<string>(nullable: true),
                     ContactPersonName = table.Column<string>(nullable: true),
-                    ContactPersonRelationShip = table.Column<string>(nullable: true)
+                    ContactPersonRelationShip = table.Column<string>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -332,40 +345,40 @@ namespace KalyanamMatrimony.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "4", "96ccf17e-54e6-4493-aea4-fcbcc63d0322", "Profile", "PROFILE" },
-                    { "2", "255b6a9b-049e-4850-8942-54c2bcadc044", "Admin", "ADMIN" },
-                    { "1", "80dd6a7f-bcc1-405e-bd38-47691e9da570", "SuperAdmin", "SUPERADMIN" },
-                    { "3", "77d0bae2-9220-45f5-a0f0-4f9d1e2723c6", "AdminAssistant", "ADMINASSISTANT" }
+                    { "4", "d637f953-751c-4bfa-bdf5-cc4609b4a249", "Profile", "PROFILE" },
+                    { "2", "64691293-a1c9-471e-8d41-16519d5a3a0e", "Admin", "ADMIN" },
+                    { "1", "16315202-a31c-451a-a772-d8c88ad9408c", "SuperAdmin", "SUPERADMIN" },
+                    { "3", "1d1009a0-0f3e-4e83-b4fe-026f1216e53d", "AdminAssistant", "ADMINASSISTANT" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "EndDate", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "OrgId", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "f928927f-32a8-4c4f-bbca-dc2a2605c900", 0, "e7777f79-47db-4972-9075-e7631052ce98", "sunil.pashikanti@gmail.com", true, null, false, null, "SUNIL.PASHIKANTI@GMAIL.COM", "SUNIL.PASHIKANTI@GMAIL.COM", 0, "AQAAAAEAACcQAAAAEKOxDKoa+XqIA/lRQDkZD1MyGLLEaC1lD0B1VaGEU68HwmV7aEbveLexXGT6qfChQQ==", null, false, "TXEFASMBK2TBWRP42UFH6KKKHHLFKAXD", false, "sunil.pashikanti@gmail.com" });
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedBy", "CreatedDate", "Email", "EmailConfirmed", "EndDate", "LockoutEnabled", "LockoutEnd", "ModifiedBy", "ModifiedDate", "NormalizedEmail", "NormalizedUserName", "OrgId", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "20ccc3b9-75e7-4bd4-94df-c8a63a204d41", 0, "e7777f79-47db-4972-9075-e7631052ce98", null, new DateTime(2020, 8, 4, 7, 39, 27, 459, DateTimeKind.Local), "sunil.pashikanti@gmail.com", true, null, false, null, null, new DateTime(2020, 8, 4, 7, 39, 27, 460, DateTimeKind.Local), "SUNIL.PASHIKANTI@GMAIL.COM", "SUNIL.PASHIKANTI@GMAIL.COM", 0, "AQAAAAEAACcQAAAAEM0yv8lgbVLteHVtYYQqMnP+ykPwSwXY9ntcbJ8gEp1Br/Z7YbCAUXf6s2jlvdTNyA==", null, false, "TXEFASMBK2TBWRP42UFH6KKKHHLFKAXD", false, "sunil.pashikanti@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "Licenses",
                 columns: new[] { "LicenseId", "AssistantCount", "CreatedDate", "Description", "IsActive", "LicenseName", "LicenseType", "MonthsCount", "PayLink", "Price", "UsersCount" },
                 values: new object[,]
                 {
-                    { 5, 1, new DateTime(2020, 8, 1, 9, 46, 7, 351, DateTimeKind.Local), "Silver - 25 Users Per Year", true, "25 Users Per Year", 1, 12f, null, 4000f, 25 },
-                    { 6, 2, new DateTime(2020, 8, 1, 9, 46, 7, 351, DateTimeKind.Local), "Golden - 50 Users Per Month", true, "50 Users Per Month", 1, 1f, null, 600f, 50 },
-                    { 7, 2, new DateTime(2020, 8, 1, 9, 46, 7, 351, DateTimeKind.Local), "Golden - 50 Users Per Year", true, "50 Users Per Year", 1, 12f, null, 6000f, 50 },
-                    { 3, 0, new DateTime(2020, 8, 1, 9, 46, 7, 351, DateTimeKind.Local), "Starter - 10 Users Per Year", true, "10 Users Per Year", 1, 12f, null, 2000f, 10 },
-                    { 9, 3, new DateTime(2020, 8, 1, 9, 46, 7, 351, DateTimeKind.Local), "Diamond - 75 Users Per Year", true, "75 Users Per Year", 1, 12f, null, 8000f, 75 },
-                    { 10, 4, new DateTime(2020, 8, 1, 9, 46, 7, 351, DateTimeKind.Local), "Platinum - 100 Users Per Month", true, "100 Users Per Month", 1, 1f, null, 1000f, 100 },
-                    { 11, 4, new DateTime(2020, 8, 1, 9, 46, 7, 351, DateTimeKind.Local), "Platinum - 100 Users Per Year", true, "100 Users Per Year", 1, 12f, null, 10000f, 100 },
-                    { 12, 5, new DateTime(2020, 8, 1, 9, 46, 7, 351, DateTimeKind.Local), "Life Time 1 - Buy the product and host it in your own servers for life time. Pay only for new features or supporting services.", true, "Life Time 1", 1, -1f, null, 15000f, 100 },
-                    { 2, 0, new DateTime(2020, 8, 1, 9, 46, 7, 351, DateTimeKind.Local), "Starter - 10 Users Per Month", true, "10 Users Per Month", 1, 1f, null, 200f, 10 },
-                    { 1, 2, new DateTime(2020, 8, 1, 9, 46, 7, 350, DateTimeKind.Local), "Free Trial", true, "Free Trial", 0, 0.16f, null, 0f, 6 },
-                    { 4, 1, new DateTime(2020, 8, 1, 9, 46, 7, 351, DateTimeKind.Local), "Silver - 25 Users Per Month", true, "25 Users Per Month", 1, 1f, null, 400f, 25 },
-                    { 8, 3, new DateTime(2020, 8, 1, 9, 46, 7, 351, DateTimeKind.Local), "Diamond - 75 Users Per Month", true, "75 Users Per Month", 1, 1f, null, 800f, 75 }
+                    { 5, 1, new DateTime(2020, 8, 4, 7, 39, 27, 500, DateTimeKind.Local), "Silver - 25 Users Per Year", true, "25 Users Per Year", 1, 12f, null, 4000f, 25 },
+                    { 6, 2, new DateTime(2020, 8, 4, 7, 39, 27, 500, DateTimeKind.Local), "Golden - 50 Users Per Month", true, "50 Users Per Month", 1, 1f, null, 600f, 50 },
+                    { 7, 2, new DateTime(2020, 8, 4, 7, 39, 27, 500, DateTimeKind.Local), "Golden - 50 Users Per Year", true, "50 Users Per Year", 1, 12f, null, 6000f, 50 },
+                    { 3, 0, new DateTime(2020, 8, 4, 7, 39, 27, 500, DateTimeKind.Local), "Starter - 10 Users Per Year", true, "10 Users Per Year", 1, 12f, null, 2000f, 10 },
+                    { 9, 3, new DateTime(2020, 8, 4, 7, 39, 27, 500, DateTimeKind.Local), "Diamond - 75 Users Per Year", true, "75 Users Per Year", 1, 12f, null, 8000f, 75 },
+                    { 10, 4, new DateTime(2020, 8, 4, 7, 39, 27, 500, DateTimeKind.Local), "Platinum - 100 Users Per Month", true, "100 Users Per Month", 1, 1f, null, 1000f, 100 },
+                    { 11, 4, new DateTime(2020, 8, 4, 7, 39, 27, 500, DateTimeKind.Local), "Platinum - 100 Users Per Year", true, "100 Users Per Year", 1, 12f, null, 10000f, 100 },
+                    { 12, 5, new DateTime(2020, 8, 4, 7, 39, 27, 500, DateTimeKind.Local), "Life Time 1 - Buy the product and host it in your own servers for life time. Pay only for new features or supporting services.", true, "Life Time 1", 1, -1f, null, 15000f, 100 },
+                    { 2, 0, new DateTime(2020, 8, 4, 7, 39, 27, 500, DateTimeKind.Local), "Starter - 10 Users Per Month", true, "10 Users Per Month", 1, 1f, null, 200f, 10 },
+                    { 1, 2, new DateTime(2020, 8, 4, 7, 39, 27, 498, DateTimeKind.Local), "Free Trial", true, "Free Trial", 0, 0.16f, null, 0f, 6 },
+                    { 4, 1, new DateTime(2020, 8, 4, 7, 39, 27, 500, DateTimeKind.Local), "Silver - 25 Users Per Month", true, "25 Users Per Month", 1, 1f, null, 400f, 25 },
+                    { 8, 3, new DateTime(2020, 8, 4, 7, 39, 27, 500, DateTimeKind.Local), "Diamond - 75 Users Per Month", true, "75 Users Per Month", 1, 1f, null, 800f, 75 }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "UserId", "RoleId" },
-                values: new object[] { "f928927f-32a8-4c4f-bbca-dc2a2605c900", "1" });
+                values: new object[] { "20ccc3b9-75e7-4bd4-94df-c8a63a204d41", "1" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

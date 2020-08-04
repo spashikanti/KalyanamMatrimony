@@ -29,7 +29,7 @@ namespace KalyanamMatrimony.Controllers
             string userRole = GetSessionUserRole();
             string userId = GetSessionUserId();
             int orgId = GetSessionOrgId();
-
+            ViewBag.OrgType = GetSessionOrgType();
             var strSuperAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin);
             var strAdminRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin);
             var strAdminAssistantRole = Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.AdminAssistant);
@@ -59,8 +59,6 @@ namespace KalyanamMatrimony.Controllers
                     profilesList = matrimonyRepository.GetLatestMaleProfiles(orgId);
                 }
             }
-
-            ViewBag.OrgType = GetSessionOrgType();
 
             return View(profilesList);
         }

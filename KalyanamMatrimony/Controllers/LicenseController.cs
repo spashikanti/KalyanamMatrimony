@@ -46,19 +46,25 @@ namespace KalyanamMatrimony.Controllers
         [Authorize(Roles = "SuperAdmin, Admin")]
         public IActionResult UpdateLicense(int licenseId, float monthsCount)
         {
-            //This block code never runs as we dont have any submit button in the screen
-            //we have only pay button and after payment it redirects to acknowlege page
-            if (licenseId > 0)
-            {
-                Organisation org = GetSessionOrgDetails();
-                org.LicenseId = licenseId;
-                //Update org end date
-                float numOfDays = 31 * monthsCount;
-                org.EndDate = DateTime.Now.AddDays(numOfDays);
-                org = matrimonyRepository.UpdateOrganisation(org);
-                SetSessionOrgDetails(org);
-                return RedirectToAction("AcknowledgeLicense", "License", new { licenseType = "free" });
-            }
+            ////This block code never runs as we dont have any submit button in the screen
+            ////we have only pay button and after payment it redirects to acknowlege page
+            //if (licenseId > 0)
+            //{
+            //    Organisation org = GetSessionOrgDetails();
+            //    org.LicenseId = licenseId;
+            //    //Update org end date
+            //    float numOfDays = 31 * monthsCount;
+            //    //existing org end date or current date, which ever is greater
+            //    DateTime existingEndDate = DateTime.Now;
+            //    //if (org.EndDate > DateTime.Now)
+            //    //{
+            //    //    existingEndDate = org.EndDate;
+            //    //}
+            //    org.EndDate = existingEndDate.AddDays(numOfDays);
+            //    org = matrimonyRepository.UpdateOrganisation(org);
+            //    SetSessionOrgDetails(org);
+            //    return RedirectToAction("AcknowledgeLicense", "License", new { licenseType = "free" });
+            //}
 
             //GetLicenses
             ViewBag.UsersCount = matrimonyRepository.GetAllActiveLicenses()
@@ -73,9 +79,11 @@ namespace KalyanamMatrimony.Controllers
         [Authorize(Roles = "SuperAdmin, Admin")]
         public IActionResult ChooseLicense()
         {
-            ToasterServiceDisplay();
+            //ToasterServiceDisplay();
             PaymentViewModel paymentViewModel = new PaymentViewModel();
-            int licenseId = GetSessionLicenseId();
+            Organisation organisation = GetSessionOrgDetails();
+            int licenseId = organisation.LicenseId;
+
             if (licenseId == 0)
             {
                 ViewBag.LicenseMessage = "Thanks for confirming your email account. Please complete the licencing process.";
@@ -92,8 +100,7 @@ namespace KalyanamMatrimony.Controllers
             }
             else
             {
-                Organisation org = GetSessionOrgDetails();
-                if (org.EndDate < DateTime.Now)
+                if (organisation.EndDate < DateTime.Now)
                 {
                     ViewBag.LicenseMessage = "Your license is expired, please renew";
                 }
@@ -110,13 +117,16 @@ namespace KalyanamMatrimony.Controllers
                                 })
                                 .ToList();
             }
-
-            Organisation organisation = GetSessionOrgDetails();
+            
             paymentViewModel.OrgId = organisation.OrgId;
             paymentViewModel.Name = organisation.FullName;
             paymentViewModel.Phone = organisation.Phone;
             paymentViewModel.UserId = GetSessionUserId();
             paymentViewModel.Email = User.Identity.Name;
+            paymentViewModel.OrgName = organisation.OrgName;
+            paymentViewModel.EndDate = organisation.EndDate.ToString("dd/MMM/yyyy hh:mm:ss tt");
+            License license = matrimonyRepository.GetLicenseById(organisation.LicenseId);
+            paymentViewModel.LicenseDesc = license.Description;
             SetSessionPaymentDetails(paymentViewModel);
             return View(paymentViewModel);
         }
@@ -212,13 +222,20 @@ namespace KalyanamMatrimony.Controllers
                 License license = matrimonyRepository.GetLicenseById(model.LicenseId);
                 Organisation org = GetSessionOrgDetails();
                 float numOfDays = 31 * license.MonthsCount;
-                org.EndDate = DateTime.Now.AddDays(numOfDays);
+                DateTime existingEndDate = DateTime.Now;
+
+                //    //if (org.EndDate > DateTime.Now)
+                //    //{
+                //    //    existingEndDate = org.EndDate;
+                //    //}
+                
+                org.EndDate = existingEndDate.AddDays(numOfDays);
                 org.LicenseId = model.LicenseId;
                 org.ModifiedDate = DateTime.Now;
                 org.ModifiedBy = GetSessionUserId();
                 org = matrimonyRepository.UpdateOrganisation(org);
                 SetSessionOrgDetails(org);
-                await SendEmail(model.Email, model.OrderId, model.Description, org.EndDate.ToString("dd/MMM/YYYY"), model.Amount.ToString());
+                await SendEmail(model.Email, model.OrderId, model.Description, org.EndDate.ToString("dd/MMM/yyyy"), model.Amount.ToString());
                 return View(model);
             }
             else
@@ -364,9 +381,9 @@ namespace KalyanamMatrimony.Controllers
         {
             var subject = "Parinayam Matrimony Customer, thank you for your order.";
             var content = "Dear " + email + ", <br/><br/>" +
-                "Thanks for your order. Here's your confirmation for order number " + orderId +
+                "Thanks for your order. Here's your confirmation for order # " + orderId +
                 ". Review your receipt and get started using our product.<br/><br/>" +
-                "<h1>Order Number: " + orderId + "</h1>" +
+                "<h1>Order #: " + orderId + "</h1>" +
                 "<table cellpadding='5' border='1'>" +
                 "<tr style='bgcolor:yellow'><td>License</td><td>Order Date</td><td>End Date</td><td>Amount</td></tr>" +
                 "<tr><td>" + license + "</td><td>" + DateTime.Now.ToString("dd/MMM/yyyy") +
@@ -385,7 +402,7 @@ namespace KalyanamMatrimony.Controllers
         {
             var subject = "Parinayam Matrimony Customer, your order transaction is cancelled.";
             var content = "Dear " + email + ", <br/><br/>" +
-                "<h1>Order Number: " + orderId + "</h1>" +
+                "<h1>Order #: " + orderId + "</h1>" +
                 "<table cellpadding='5' border='1'>" +
                 "<tr><td>License</td><td>Order Date</td><td>Amount</td></tr>" +
                 "<tr><td>" + license + "</td><td>" + DateTime.Now.ToString("dd/MMM/yyyy") +

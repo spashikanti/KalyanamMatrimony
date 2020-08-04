@@ -1,26 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Development\\AspNetWebCore\\Parinayam Matrimony\\KalyanamMatrimony\\InstaSharp\\InstaSharp.csproj": {}
+    "F:\\Sunil\\Development\\AspNetCore\\Branch\\KalyanamMatrimony\\InstaSharp\\InstaSharp.csproj": {}
   },
   "projects": {
-    "C:\\Development\\AspNetWebCore\\Parinayam Matrimony\\KalyanamMatrimony\\InstaSharp\\InstaSharp.csproj": {
+    "F:\\Sunil\\Development\\AspNetCore\\Branch\\KalyanamMatrimony\\InstaSharp\\InstaSharp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Development\\AspNetWebCore\\Parinayam Matrimony\\KalyanamMatrimony\\InstaSharp\\InstaSharp.csproj",
+        "projectUniqueName": "F:\\Sunil\\Development\\AspNetCore\\Branch\\KalyanamMatrimony\\InstaSharp\\InstaSharp.csproj",
         "projectName": "InstaSharp",
-        "projectPath": "C:\\Development\\AspNetWebCore\\Parinayam Matrimony\\KalyanamMatrimony\\InstaSharp\\InstaSharp.csproj",
-        "packagesPath": "C:\\Users\\developer\\.nuget\\packages\\",
-        "outputPath": "C:\\Development\\AspNetWebCore\\Parinayam Matrimony\\KalyanamMatrimony\\InstaSharp\\obj\\",
+        "projectPath": "F:\\Sunil\\Development\\AspNetCore\\Branch\\KalyanamMatrimony\\InstaSharp\\InstaSharp.csproj",
+        "packagesPath": "C:\\Users\\Sunil\\.nuget\\packages\\",
+        "outputPath": "F:\\Sunil\\Development\\AspNetCore\\Branch\\KalyanamMatrimony\\InstaSharp\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\developer\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Sunil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.1"

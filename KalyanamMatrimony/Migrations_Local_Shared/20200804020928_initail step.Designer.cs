@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KalyanamMatrimony.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200801094607_First Step")]
-    partial class FirstStep
+    [Migration("20200804020928_initail step")]
+    partial class initailstep
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,6 +29,10 @@ namespace KalyanamMatrimony.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -39,6 +43,10 @@ namespace KalyanamMatrimony.Migrations
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("ModifiedBy");
+
+                    b.Property<DateTime>("ModifiedDate");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -73,7 +81,7 @@ namespace KalyanamMatrimony.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
-                        new { Id = "f928927f-32a8-4c4f-bbca-dc2a2605c900", AccessFailedCount = 0, ConcurrencyStamp = "e7777f79-47db-4972-9075-e7631052ce98", Email = "sunil.pashikanti@gmail.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "SUNIL.PASHIKANTI@GMAIL.COM", NormalizedUserName = "SUNIL.PASHIKANTI@GMAIL.COM", OrgId = 0, PasswordHash = "AQAAAAEAACcQAAAAEKOxDKoa+XqIA/lRQDkZD1MyGLLEaC1lD0B1VaGEU68HwmV7aEbveLexXGT6qfChQQ==", PhoneNumberConfirmed = false, SecurityStamp = "TXEFASMBK2TBWRP42UFH6KKKHHLFKAXD", TwoFactorEnabled = false, UserName = "sunil.pashikanti@gmail.com" }
+                        new { Id = "20ccc3b9-75e7-4bd4-94df-c8a63a204d41", AccessFailedCount = 0, ConcurrencyStamp = "e7777f79-47db-4972-9075-e7631052ce98", CreatedDate = new DateTime(2020, 8, 4, 7, 39, 27, 459, DateTimeKind.Local), Email = "sunil.pashikanti@gmail.com", EmailConfirmed = true, LockoutEnabled = false, ModifiedDate = new DateTime(2020, 8, 4, 7, 39, 27, 460, DateTimeKind.Local), NormalizedEmail = "SUNIL.PASHIKANTI@GMAIL.COM", NormalizedUserName = "SUNIL.PASHIKANTI@GMAIL.COM", OrgId = 0, PasswordHash = "AQAAAAEAACcQAAAAEM0yv8lgbVLteHVtYYQqMnP+ykPwSwXY9ntcbJ8gEp1Br/Z7YbCAUXf6s2jlvdTNyA==", PhoneNumberConfirmed = false, SecurityStamp = "TXEFASMBK2TBWRP42UFH6KKKHHLFKAXD", TwoFactorEnabled = false, UserName = "sunil.pashikanti@gmail.com" }
                     );
                 });
 
@@ -107,18 +115,18 @@ namespace KalyanamMatrimony.Migrations
                     b.ToTable("Licenses");
 
                     b.HasData(
-                        new { LicenseId = 1, AssistantCount = 2, CreatedDate = new DateTime(2020, 8, 1, 9, 46, 7, 350, DateTimeKind.Local), Description = "Free Trial", IsActive = true, LicenseName = "Free Trial", LicenseType = 0, MonthsCount = 0.16f, Price = 0f, UsersCount = 6 },
-                        new { LicenseId = 2, AssistantCount = 0, CreatedDate = new DateTime(2020, 8, 1, 9, 46, 7, 351, DateTimeKind.Local), Description = "Starter - 10 Users Per Month", IsActive = true, LicenseName = "10 Users Per Month", LicenseType = 1, MonthsCount = 1f, Price = 200f, UsersCount = 10 },
-                        new { LicenseId = 3, AssistantCount = 0, CreatedDate = new DateTime(2020, 8, 1, 9, 46, 7, 351, DateTimeKind.Local), Description = "Starter - 10 Users Per Year", IsActive = true, LicenseName = "10 Users Per Year", LicenseType = 1, MonthsCount = 12f, Price = 2000f, UsersCount = 10 },
-                        new { LicenseId = 4, AssistantCount = 1, CreatedDate = new DateTime(2020, 8, 1, 9, 46, 7, 351, DateTimeKind.Local), Description = "Silver - 25 Users Per Month", IsActive = true, LicenseName = "25 Users Per Month", LicenseType = 1, MonthsCount = 1f, Price = 400f, UsersCount = 25 },
-                        new { LicenseId = 5, AssistantCount = 1, CreatedDate = new DateTime(2020, 8, 1, 9, 46, 7, 351, DateTimeKind.Local), Description = "Silver - 25 Users Per Year", IsActive = true, LicenseName = "25 Users Per Year", LicenseType = 1, MonthsCount = 12f, Price = 4000f, UsersCount = 25 },
-                        new { LicenseId = 6, AssistantCount = 2, CreatedDate = new DateTime(2020, 8, 1, 9, 46, 7, 351, DateTimeKind.Local), Description = "Golden - 50 Users Per Month", IsActive = true, LicenseName = "50 Users Per Month", LicenseType = 1, MonthsCount = 1f, Price = 600f, UsersCount = 50 },
-                        new { LicenseId = 7, AssistantCount = 2, CreatedDate = new DateTime(2020, 8, 1, 9, 46, 7, 351, DateTimeKind.Local), Description = "Golden - 50 Users Per Year", IsActive = true, LicenseName = "50 Users Per Year", LicenseType = 1, MonthsCount = 12f, Price = 6000f, UsersCount = 50 },
-                        new { LicenseId = 8, AssistantCount = 3, CreatedDate = new DateTime(2020, 8, 1, 9, 46, 7, 351, DateTimeKind.Local), Description = "Diamond - 75 Users Per Month", IsActive = true, LicenseName = "75 Users Per Month", LicenseType = 1, MonthsCount = 1f, Price = 800f, UsersCount = 75 },
-                        new { LicenseId = 9, AssistantCount = 3, CreatedDate = new DateTime(2020, 8, 1, 9, 46, 7, 351, DateTimeKind.Local), Description = "Diamond - 75 Users Per Year", IsActive = true, LicenseName = "75 Users Per Year", LicenseType = 1, MonthsCount = 12f, Price = 8000f, UsersCount = 75 },
-                        new { LicenseId = 10, AssistantCount = 4, CreatedDate = new DateTime(2020, 8, 1, 9, 46, 7, 351, DateTimeKind.Local), Description = "Platinum - 100 Users Per Month", IsActive = true, LicenseName = "100 Users Per Month", LicenseType = 1, MonthsCount = 1f, Price = 1000f, UsersCount = 100 },
-                        new { LicenseId = 11, AssistantCount = 4, CreatedDate = new DateTime(2020, 8, 1, 9, 46, 7, 351, DateTimeKind.Local), Description = "Platinum - 100 Users Per Year", IsActive = true, LicenseName = "100 Users Per Year", LicenseType = 1, MonthsCount = 12f, Price = 10000f, UsersCount = 100 },
-                        new { LicenseId = 12, AssistantCount = 5, CreatedDate = new DateTime(2020, 8, 1, 9, 46, 7, 351, DateTimeKind.Local), Description = "Life Time 1 - Buy the product and host it in your own servers for life time. Pay only for new features or supporting services.", IsActive = true, LicenseName = "Life Time 1", LicenseType = 1, MonthsCount = -1f, Price = 15000f, UsersCount = 100 }
+                        new { LicenseId = 1, AssistantCount = 2, CreatedDate = new DateTime(2020, 8, 4, 7, 39, 27, 498, DateTimeKind.Local), Description = "Free Trial", IsActive = true, LicenseName = "Free Trial", LicenseType = 0, MonthsCount = 0.16f, Price = 0f, UsersCount = 6 },
+                        new { LicenseId = 2, AssistantCount = 0, CreatedDate = new DateTime(2020, 8, 4, 7, 39, 27, 500, DateTimeKind.Local), Description = "Starter - 10 Users Per Month", IsActive = true, LicenseName = "10 Users Per Month", LicenseType = 1, MonthsCount = 1f, Price = 200f, UsersCount = 10 },
+                        new { LicenseId = 3, AssistantCount = 0, CreatedDate = new DateTime(2020, 8, 4, 7, 39, 27, 500, DateTimeKind.Local), Description = "Starter - 10 Users Per Year", IsActive = true, LicenseName = "10 Users Per Year", LicenseType = 1, MonthsCount = 12f, Price = 2000f, UsersCount = 10 },
+                        new { LicenseId = 4, AssistantCount = 1, CreatedDate = new DateTime(2020, 8, 4, 7, 39, 27, 500, DateTimeKind.Local), Description = "Silver - 25 Users Per Month", IsActive = true, LicenseName = "25 Users Per Month", LicenseType = 1, MonthsCount = 1f, Price = 400f, UsersCount = 25 },
+                        new { LicenseId = 5, AssistantCount = 1, CreatedDate = new DateTime(2020, 8, 4, 7, 39, 27, 500, DateTimeKind.Local), Description = "Silver - 25 Users Per Year", IsActive = true, LicenseName = "25 Users Per Year", LicenseType = 1, MonthsCount = 12f, Price = 4000f, UsersCount = 25 },
+                        new { LicenseId = 6, AssistantCount = 2, CreatedDate = new DateTime(2020, 8, 4, 7, 39, 27, 500, DateTimeKind.Local), Description = "Golden - 50 Users Per Month", IsActive = true, LicenseName = "50 Users Per Month", LicenseType = 1, MonthsCount = 1f, Price = 600f, UsersCount = 50 },
+                        new { LicenseId = 7, AssistantCount = 2, CreatedDate = new DateTime(2020, 8, 4, 7, 39, 27, 500, DateTimeKind.Local), Description = "Golden - 50 Users Per Year", IsActive = true, LicenseName = "50 Users Per Year", LicenseType = 1, MonthsCount = 12f, Price = 6000f, UsersCount = 50 },
+                        new { LicenseId = 8, AssistantCount = 3, CreatedDate = new DateTime(2020, 8, 4, 7, 39, 27, 500, DateTimeKind.Local), Description = "Diamond - 75 Users Per Month", IsActive = true, LicenseName = "75 Users Per Month", LicenseType = 1, MonthsCount = 1f, Price = 800f, UsersCount = 75 },
+                        new { LicenseId = 9, AssistantCount = 3, CreatedDate = new DateTime(2020, 8, 4, 7, 39, 27, 500, DateTimeKind.Local), Description = "Diamond - 75 Users Per Year", IsActive = true, LicenseName = "75 Users Per Year", LicenseType = 1, MonthsCount = 12f, Price = 8000f, UsersCount = 75 },
+                        new { LicenseId = 10, AssistantCount = 4, CreatedDate = new DateTime(2020, 8, 4, 7, 39, 27, 500, DateTimeKind.Local), Description = "Platinum - 100 Users Per Month", IsActive = true, LicenseName = "100 Users Per Month", LicenseType = 1, MonthsCount = 1f, Price = 1000f, UsersCount = 100 },
+                        new { LicenseId = 11, AssistantCount = 4, CreatedDate = new DateTime(2020, 8, 4, 7, 39, 27, 500, DateTimeKind.Local), Description = "Platinum - 100 Users Per Year", IsActive = true, LicenseName = "100 Users Per Year", LicenseType = 1, MonthsCount = 12f, Price = 10000f, UsersCount = 100 },
+                        new { LicenseId = 12, AssistantCount = 5, CreatedDate = new DateTime(2020, 8, 4, 7, 39, 27, 500, DateTimeKind.Local), Description = "Life Time 1 - Buy the product and host it in your own servers for life time. Pay only for new features or supporting services.", IsActive = true, LicenseName = "Life Time 1", LicenseType = 1, MonthsCount = -1f, Price = 15000f, UsersCount = 100 }
                     );
                 });
 
@@ -134,6 +142,10 @@ namespace KalyanamMatrimony.Migrations
                     b.Property<string>("FullName");
 
                     b.Property<int>("LicenseId");
+
+                    b.Property<string>("ModifiedBy");
+
+                    b.Property<DateTime>("ModifiedDate");
 
                     b.Property<string>("OrgDesc");
 
@@ -210,11 +222,19 @@ namespace KalyanamMatrimony.Migrations
 
                     b.Property<double>("Amount");
 
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("Description");
 
                     b.Property<string>("Email");
 
                     b.Property<int>("LicenseId");
+
+                    b.Property<string>("ModifiedBy");
+
+                    b.Property<DateTime>("ModifiedDate");
 
                     b.Property<string>("Name");
 
@@ -271,6 +291,8 @@ namespace KalyanamMatrimony.Migrations
 
                     b.Property<string>("ContactPersonRelationShip");
 
+                    b.Property<string>("CreatedBy");
+
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<string>("CurrentLocation");
@@ -318,6 +340,10 @@ namespace KalyanamMatrimony.Migrations
                     b.Property<int?>("MarriedBrothers");
 
                     b.Property<int?>("MarriedSisters");
+
+                    b.Property<string>("ModifiedBy");
+
+                    b.Property<DateTime>("ModifiedDate");
 
                     b.Property<string>("MotherName");
 
@@ -387,10 +413,10 @@ namespace KalyanamMatrimony.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "1", ConcurrencyStamp = "80dd6a7f-bcc1-405e-bd38-47691e9da570", Name = "SuperAdmin", NormalizedName = "SUPERADMIN" },
-                        new { Id = "2", ConcurrencyStamp = "255b6a9b-049e-4850-8942-54c2bcadc044", Name = "Admin", NormalizedName = "ADMIN" },
-                        new { Id = "3", ConcurrencyStamp = "77d0bae2-9220-45f5-a0f0-4f9d1e2723c6", Name = "AdminAssistant", NormalizedName = "ADMINASSISTANT" },
-                        new { Id = "4", ConcurrencyStamp = "96ccf17e-54e6-4493-aea4-fcbcc63d0322", Name = "Profile", NormalizedName = "PROFILE" }
+                        new { Id = "1", ConcurrencyStamp = "16315202-a31c-451a-a772-d8c88ad9408c", Name = "SuperAdmin", NormalizedName = "SUPERADMIN" },
+                        new { Id = "2", ConcurrencyStamp = "64691293-a1c9-471e-8d41-16519d5a3a0e", Name = "Admin", NormalizedName = "ADMIN" },
+                        new { Id = "3", ConcurrencyStamp = "1d1009a0-0f3e-4e83-b4fe-026f1216e53d", Name = "AdminAssistant", NormalizedName = "ADMINASSISTANT" },
+                        new { Id = "4", ConcurrencyStamp = "d637f953-751c-4bfa-bdf5-cc4609b4a249", Name = "Profile", NormalizedName = "PROFILE" }
                     );
                 });
 
@@ -463,7 +489,7 @@ namespace KalyanamMatrimony.Migrations
                     b.ToTable("AspNetUserRoles");
 
                     b.HasData(
-                        new { UserId = "f928927f-32a8-4c4f-bbca-dc2a2605c900", RoleId = "1" }
+                        new { UserId = "20ccc3b9-75e7-4bd4-94df-c8a63a204d41", RoleId = "1" }
                     );
                 });
 
