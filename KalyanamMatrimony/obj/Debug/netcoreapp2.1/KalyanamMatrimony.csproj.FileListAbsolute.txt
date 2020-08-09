@@ -374,3 +374,4 @@ C:\Development\AspNetWebCore\Parinayam Matrimony\KalyanamMatrimony\KalyanamMatri
 C:\Development\AspNetWebCore\Parinayam Matrimony\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.dll
 C:\Development\AspNetWebCore\Parinayam Matrimony\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.pdb
 C:\Development\AspNetWebCore\Parinayam Matrimony\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\KalyanamMatrimony.genruntimeconfig.cache
+F:\Sunil\Development\AspNetCore\Branch\KalyanamMatrimony\KalyanamMatrimony\obj\Debug\netcoreapp2.1\Razor\Views\Admin\SiteSettings.cshtml.g.cs

@@ -53,12 +53,15 @@ namespace KalyanamMatrimony.Models
         PaymentHistory AddPaymentHistory(PaymentHistory paymentHistory);
         PaymentHistory UpdatePaymentHistory(PaymentHistory paymentHistory);
         PaymentHistory GetPaymentHistoryById(int paymentHistoryId);
+        SiteSettings GetSiteSettingsByOrgId(int orgId);
+        SiteSettings AddUpdateSiteSettings(SiteSettings siteSettings);
 
         //Profile
         IEnumerable<Profile> GetLatestMaleProfiles(int orgId);
         IEnumerable<Profile> GetLatestFemaleProfiles(int orgId);
         IEnumerable<Profile> GetAllMaleProfiles(int orgId);
         IEnumerable<Profile> GetAllFemaleProfiles(int orgId);
+
 
     }
 }

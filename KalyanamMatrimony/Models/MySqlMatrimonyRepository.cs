@@ -399,5 +399,27 @@ namespace KalyanamMatrimony.Models
         {
             return context.PaymentHistory.FirstOrDefault(x => x.PaymentHistoryId == paymentHistoryId);
         }
+
+        public SiteSettings GetSiteSettingsByOrgId(int orgId)
+        {
+            return context.SiteSettings.FirstOrDefault(x => x.OrgId == orgId);
+        }
+
+        public SiteSettings AddUpdateSiteSettings(SiteSettings siteSettings)
+        {
+            if(siteSettings.SiteSettingsId == 0)
+            {
+                //Add
+                context.SiteSettings.Add(siteSettings);
+            }
+            else
+            {
+                //Update
+                context.SiteSettings.Update(siteSettings);
+                context.Entry(siteSettings).State = EntityState.Modified;
+            }
+            context.SaveChanges();
+            return siteSettings;
+        }
     }
 }

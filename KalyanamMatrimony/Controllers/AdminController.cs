@@ -256,6 +256,45 @@ namespace KalyanamMatrimony.Controllers
             return RedirectToAction("NotFound", "Error");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> SiteSettings()
+        {
+            ToasterServiceDisplay();
+            int orgId = GetSessionOrgId();
+            SiteSettings siteSettings = matrimonyRepository.GetSiteSettingsByOrgId(orgId);
+            if(siteSettings == null)
+            {
+                siteSettings = new SiteSettings();
+                siteSettings.OrgId = GetSessionOrgId();
+                siteSettings.ProfileVerificationMessage = "";
+            }
+            return View(siteSettings);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SiteSettings(SiteSettings siteSettings)
+        {
+            try
+            {
+                if(siteSettings.CreatedBy == null)
+                {
+                    siteSettings.CreatedBy = User.Identity.Name;
+                    siteSettings.CreatedDate = DateTime.Now;
+                }
+                siteSettings.ModifiedBy = User.Identity.Name;
+                siteSettings.ModifiedDate = DateTime.Now;
+                siteSettings = matrimonyRepository.AddUpdateSiteSettings(siteSettings);
+                ToasterServiceCreate("Site Settings updated successfully", CustomEnums.ToastType.Success);
+            }
+            catch (Exception ex)
+            {
+                logger.Log(LogLevel.Error, ex.Message);
+                ToasterServiceCreate("Unable to update site settings", CustomEnums.ToastType.Error);
+            }
+
+            return RedirectToAction("SiteSettings", "Admin");
+        }
+
         private async Task SendEmail(string email, string encryptedLink, string subject)
         {
             var content = "";

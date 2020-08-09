@@ -88,7 +88,7 @@ using Microsoft.AspNetCore.Identity;
     ");
             EndContext();
             BeginContext(600, 81, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5c2d3654fb3a43dea3295db3a4c3bb2e", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2c5907bfb9df488f8a9deaaf0056087d", async() => {
                 BeginContext(672, 5, true);
                 WriteLiteral("Login");
                 EndContext();
@@ -123,7 +123,7 @@ else if (Model.Status == Constants.InstamojoConstants.INSTA_STATUS_FAILED)
             WriteLiteral("    <h3>\r\n        Transaction failed!!! Please try again.\r\n    </h3>\r\n    ");
             EndContext();
             BeginContext(839, 97, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7b5fee38765f4c60adca93df897439cd", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d08c213d989b490eb495f3e1b548458d", async() => {
                 BeginContext(918, 14, true);
                 WriteLiteral("Update License");
                 EndContext();
