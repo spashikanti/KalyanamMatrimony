@@ -77,8 +77,20 @@ namespace KalyanamMatrimony.Controllers
 
         [HttpGet]
         [Authorize(Roles = "SuperAdmin, Admin")]
-        public IActionResult ChooseLicense()
+        public IActionResult ChooseLicense(string id, string from)
         {
+            Microsoft.Extensions.Primitives.StringValues queryVal;
+            if (HttpContext.Request.Query.TryGetValue("id", out queryVal) &&
+        queryVal.FirstOrDefault() == "admin")
+            {
+                ViewData["showAdmin"] = true;
+            }
+
+            if(string.IsNullOrEmpty(from) && from == "admin")
+            {
+                ViewData["showAdmin"] = "admin";
+            }
+
             //ToasterServiceDisplay();
             PaymentViewModel paymentViewModel = new PaymentViewModel();
             Organisation organisation = GetSessionOrgDetails();

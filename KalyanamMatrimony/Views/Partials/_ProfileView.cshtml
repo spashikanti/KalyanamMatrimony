@@ -9,25 +9,28 @@
 }
 
     <div class="card shadow-lg border-0 rounded-lg" style="width:100%">
+        <div class="alert alert-danger" role="alert">
+            @ViewData["ProfileVerificationMessage"]
+        </div>
         <div class="card-header bg-dark text-white">
             <div class="row">
-                <div class="col-md-10">
+                <div class="col-md-8">
                     <h5 class="text-white">
                         <strong>
                             @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)
                         </strong>- @Html.DisplayFor(model => model.ProfileId)
                     </h5>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-4">
                     @if (userId == string.Empty)
                     {
-                        <a class="btn btn-success" asp-controller="profile" asp-action="Search">
+                        <a class="btn btn-success float-right" asp-controller="profile" asp-action="Search">
                             <strong>Search Profiles</strong>
                         </a>
                     }
                     else
                     {
-                        <a href="#" class="btn btn-danger" onclick="getProfileDetails(this)"
+                        <a href="#" class="btn btn-danger float-right" onclick="getProfileDetails(this)"
                            data-toggle="modal" data-target="#deleteModal"
                            data-id="@Model.UserId" data-fullname="@Model.FirstName @Model.LastName">
                             <strong>Delete Profile</strong>
@@ -36,7 +39,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="card-body">
             <p class="card-text" data-aos="fade-right">
                 @Html.DisplayFor(model => model.AboutYourself)

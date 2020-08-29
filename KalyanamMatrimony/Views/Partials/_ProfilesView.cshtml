@@ -15,13 +15,13 @@
 <div class="card shadow mb-4 border-primary">
     <div class="card-header bg-primary text-white">
         <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-8">
                 <h5 class="font-weight-bold text-white">View Profiles</h5>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
                 @if (!isProfileLimitReached)
                 {
-                    <a class="btn btn-success" asp-controller="profile" asp-action="createprofile">
+                    <a class="btn btn-success float-right" asp-controller="profile" asp-action="createprofile">
                         <strong>Create Profile</strong>
                     </a>
                 }
@@ -75,7 +75,10 @@
                             </td>
                             <td>
                                 @Html.ActionLink("View", "ViewProfile", new { id = item.ProfileId }) |
-                                @Html.ActionLink("Edit", "EditProfile", new { id = item.ProfileId })
+                                @Html.ActionLink("Edit", "EditProfile", new { id = item.ProfileId }) |
+                                <a href="@Url.Action("ManagePermissions", "Admin")/@item.UserId">
+                                    <i class="fas fa-user-cog"></i>
+                                </a>
                                 @if (!User.IsInRole(Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.AdminAssistant)))
                                 {
                                     <span>|</span> @Html.ActionLink("Delete", "ViewProfile", new { id = item.ProfileId, userId = item.UserId })

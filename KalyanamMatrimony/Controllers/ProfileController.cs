@@ -90,7 +90,8 @@ namespace KalyanamMatrimony.Controllers
                 ToasterServiceCreate("You cannot create a new Profile as you have reached the maximum limit.", CustomEnums.ToastType.Error);
                 return RedirectToAction("Index", "Profile");
             }
-            return View();
+            UserProfileViewModel uv = new UserProfileViewModel();
+            return View(uv);
         }
 
         [Authorize(Roles = "SuperAdmin, Admin, AdminAssistant")]
@@ -381,10 +382,19 @@ namespace KalyanamMatrimony.Controllers
                     userProfileViewModel.profileImages.Add(userProfileViewModel.Photo3);
                 }
 
+                LoadProfileVerificationMessage();
+
                 return View(userProfileViewModel);
             }
 
             return RedirectToAction("NotFound", "Error", new { statusCode = 404 });
+        }
+
+        private void LoadProfileVerificationMessage()
+        {
+            int orgId = GetSessionOrgId();
+            SiteSettings siteSettings = matrimonyRepository.GetSiteSettingsByOrgId(orgId);
+            ViewData["ProfileVerificationMessage"] = siteSettings.ProfileVerificationMessage;
         }
 
         [Authorize]
@@ -889,6 +899,8 @@ namespace KalyanamMatrimony.Controllers
                         userProfileViewModel.profileImages.Add(userProfileViewModel.Photo3);
                     }
 
+                    LoadProfileVerificationMessage();
+
                     return View(userProfileViewModel);
                 }
             }
@@ -896,7 +908,8 @@ namespace KalyanamMatrimony.Controllers
             return RedirectToAction("NotFound", "Error");
         }
 
-        [Authorize(Roles = "SuperAdmin, Admin")]
+        //[Authorize(Roles = "SuperAdmin, Admin")]
+        [Authorize(Policy = "DeleteProfilePolicy")]
         [HttpPost]
         public async Task<IActionResult> DeleteProfile(string userId)
         {

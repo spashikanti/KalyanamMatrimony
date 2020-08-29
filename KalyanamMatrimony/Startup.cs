@@ -53,6 +53,12 @@ namespace KalyanamMatrimony
 
             //services.AddHttpContextAccessor();
             services.AddMvc().AddXmlSerializerFormatters();
+
+            services.AddAuthorization(options => {
+                options.AddPolicy("DeleteProfilePolicy",
+                    policy => policy.RequireClaim("Delete Profile"));
+            });
+
             services.AddScoped<IMatrimonyRepository, MySqlMatrimonyRepository>();
             services.AddScoped<IEmailSender, EmailSender>();
 

@@ -9,6 +9,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Routing;
 
 namespace KalyanamMatrimony.Controllers
 {
@@ -39,6 +41,83 @@ namespace KalyanamMatrimony.Controllers
             this.matrimonyRepository = matrimonyRepository;
             this.configuration = configuration;
             this.logger = logger;
+        }
+
+        
+        [HttpGet]
+        public async Task<IActionResult> ManagePermissions(string id)
+        {
+            ToasterServiceDisplay();
+            var user = await userManager.FindByIdAsync(id);
+
+            if(user == null)
+            {
+                ViewBag.ErrorMessage = $"User with Id = {id} not found";
+                return View("Not Found");
+            }
+
+            var existingUserClaims = await userManager.GetClaimsAsync(user);
+
+            var model = new UserClaimsViewModel
+            {
+                UserId = id,
+                EmailId = user.Email
+            };
+
+            foreach (Claim claim in ClaimsStore.AllClaims)
+            {
+                UserClaim userClaim = new UserClaim
+                {
+                    ClaimType = claim.Type
+                };
+
+                if(existingUserClaims.Any(c => c.Type == claim.Type))
+                {
+                    userClaim.IsSelected = true;
+                }
+                model.Claims.Add(userClaim);
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ManagePermissions(UserClaimsViewModel model)
+        {
+            var user = await userManager.FindByIdAsync(model.UserId);
+
+            if (user == null)
+            {
+                ToasterServiceCreate($"User with Id = {model.UserId} not found", CustomEnums.ToastType.Error);
+                ViewBag.ErrorMessage = $"User with Id = {model.UserId} not found";
+                return View("NotFound");
+            }
+
+            // Get all the user existing claims and delete them
+            var claims = await userManager.GetClaimsAsync(user);
+            var result = await userManager.RemoveClaimsAsync(user, claims);
+
+            if (!result.Succeeded)
+            {
+                ToasterServiceCreate("Cannot remove user existing claims", CustomEnums.ToastType.Error);
+                ModelState.AddModelError("", "Cannot remove user existing claims");
+                return View(model);
+            }
+
+            // Add all the claims that are selected on the UI
+            result = await userManager.AddClaimsAsync(user,
+                model.Claims.Where(c => c.IsSelected).Select(c => new Claim(c.ClaimType, c.ClaimType)));
+
+            if (!result.Succeeded)
+            {
+                ToasterServiceCreate("Cannot add selected claims to user", CustomEnums.ToastType.Error);
+                ModelState.AddModelError("", "Cannot add selected claims to user");
+                return View(model);
+            }
+
+            ToasterServiceCreate("Updated user permissions", CustomEnums.ToastType.Success);
+            return RedirectToAction("ManagePermissions", new { id = user.Id });
+
         }
 
         public async Task<IActionResult> Index()

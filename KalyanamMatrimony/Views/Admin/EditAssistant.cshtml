@@ -12,17 +12,17 @@
     <div class="card shadow-lg border-0 rounded-lg">
         <div class="card-header bg-primary text-white">
             <div class="row">
-                <div class="col-md-10">
+                <div class="col-md-8">
                     <h5 class="font-weight-bold text-white">@ViewBag.Title</h5>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-4">
                     @if (userId == string.Empty)
                     {
-                        <a class="btn btn-success" asp-controller="admin" asp-action="ViewAllAssistants"><strong>View Assistants</strong></a>
+                        <a class="btn btn-success float-right" asp-controller="admin" asp-action="ViewAllAssistants"><strong>View Assistants</strong></a>
                     }
                     else
                     {
-                        <a href="#" class="btn btn-danger" onclick="getProfileDetails(this)"
+                        <a href="#" class="btn btn-danger float-right" onclick="getProfileDetails(this)"
                            data-toggle="modal" data-target="#deleteModal"
                            data-id="@Model.UserId" data-fullname="@Model.Email">
                             <strong>Delete Assistant</strong>

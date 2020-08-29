@@ -10,11 +10,11 @@
     <div class="card shadow-lg border-0 rounded-lg">
         <div class="card-header bg-primary text-white">
             <div class="row">
-                <div class="col-md-10">
+                <div class="col-md-8">
                     <h5 class="font-weight-bold text-white">@ViewBag.Title</h5>
                 </div>
-                <div class="col-md-2">
-                    <a class="btn btn-success" asp-controller="profile" asp-action="index"><strong>View Profiles</strong></a>
+                <div class="col-md-4">
+                    <a class="btn btn-success float-right" asp-controller="profile" asp-action="index"><strong>View Profiles</strong></a>
                 </div>
             </div>
         </div>
@@ -1254,17 +1254,18 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="col-md-3"></div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <div class="form-group">
-                                                <button type="submit" class="btn btn-success btn-block" id="btnCreateProfile">
-                                                    <strong>Save Profile</strong>
-                                                </button>
-                                            </div>
+                                            <button type="submit" class="btn btn-success btn-block" id="btnCreateProfile">
+                                                <strong>Save</strong>
+                                            </button>
                                         </div>
                                     </div>
-                                    <div class="col-md-3"></div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <a class="btn btn-danger btn-block" asp-controller="profile" asp-action="index"><strong>Cancel</strong></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

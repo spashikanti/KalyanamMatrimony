@@ -163,20 +163,20 @@ namespace KalyanamMatrimony.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await userManager.FindByEmailAsync(model.Email);
+                var user = await userManager.FindByEmailAsync(model.UserEmail);
 
-                if (user != null && !user.EmailConfirmed &&(await userManager.CheckPasswordAsync(user, model.Password)))
+                if (user != null && !user.EmailConfirmed &&(await userManager.CheckPasswordAsync(user, model.UserPassword)))
                 {
                     ModelState.AddModelError(string.Empty, "Email not confirmed yet");
                     return View(model);
                 }
-                if (user != null && (user.EndDate != null && user.EndDate.Value < DateTime.Now) && (await userManager.CheckPasswordAsync(user, model.Password)))
+                if (user != null && (user.EndDate != null && user.EndDate.Value < DateTime.Now) && (await userManager.CheckPasswordAsync(user, model.UserPassword)))
                 {
                     ModelState.AddModelError(string.Empty, "Your account is not active, please contact administrator");
                     return View(model);
                 }
 
-                var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                var result = await signInManager.PasswordSignInAsync(model.UserEmail, model.UserPassword, model.RememberMe, false);
 
                 if (result.Succeeded)
                 {

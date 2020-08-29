@@ -16,13 +16,13 @@
 <div class="card shadow mb-4 border-primary">
     <div class="card-header bg-primary text-white">
         <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-8">
                 <h5 class="font-weight-bold text-white">@ViewData["Title"]</h5>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
                 @if (!isAssistantLimitReached)
                 {
-                    <a class="btn btn-success" asp-controller="admin" asp-action="CreateAssistant">
+                    <a class="btn btn-success float-right" asp-controller="admin" asp-action="CreateAssistant">
                         <strong>Create Assistant</strong>
                     </a>
                 }

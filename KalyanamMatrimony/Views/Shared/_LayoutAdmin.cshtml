@@ -51,17 +51,11 @@
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
                 <a class="nav-link" asp-controller="home" asp-action="index">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="fas fa-fw fa-backward"></i>
                     <span>Back To Portal</span>
                 </a>
             </li>
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" asp-controller="admin" asp-action="sitesettings">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Settings</span>
-                </a>
-            </li>
+           
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -81,7 +75,7 @@
                     <div id="collapseLicense" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">License Components:</h6>
-                            <a class="collapse-item" asp-controller="superadmin" asp-action="ViewLicenses">View Licenses</a>
+                            <a class="collapse-item" asp-controller="superadmin" asp-action="ViewLicenses" asp-route-id="admin" asp-route-from="admin" >View Licenses</a>
                             <a class="collapse-item" asp-controller="superadmin" asp-action="ViewAllOrganisations">View All Organisations</a>
                         </div>
                     </div>
@@ -98,19 +92,42 @@
             </div>
 
             @if (User.IsInRole(Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin)) ||
-             User.IsInRole(Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin)))
+            User.IsInRole(Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin)))
             {
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSettings" aria-expanded="true" aria-controls="collapseSettings">
+                        <i class="fas fa-fw fa-cogs"></i>
+                        <span>Settings</span>
+                    </a>
+                    <div id="collapseSettings" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Settings Components:</h6>
+                            <a class="collapse-item" asp-controller="admin" asp-action="sitesettings">
+                                <i class="fas fa-fw fa-cog"></i>
+                                <span>Site Settings</span>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLicense" aria-expanded="true" aria-controls="collapseLicense">
-                        <i class="fas fa-fw fa-user"></i>
+                        <i class="fas fa-fw fa-id-badge"></i>
                         <span>License</span>
                     </a>
                     <div id="collapseLicense" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">License Components:</h6>
-                            <a class="collapse-item" asp-controller="license" asp-action="ChooseLicense">View License</a>
-                            <a class="collapse-item" asp-controller="admin" asp-action="createAssistant">Payments History</a>
+                            <a class="collapse-item" asp-controller="license" asp-action="ChooseLicense">
+                                <i class="fas fa-fw fa-id-badge"></i>
+                                <span>View License</span>
+                            </a>
+                            <a class="collapse-item" asp-controller="admin" asp-action="createAssistant">
+                                <i class="fas fa-fw fa-history"></i>
+                                <span>Payments History</span>
+                            </a>
                         </div>
                     </div>
                 </li>
@@ -118,14 +135,20 @@
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAssistant" aria-expanded="true" aria-controls="collapseAssistant">
-                        <i class="fas fa-fw fa-user"></i>
+                        <i class="fas fa-fw fa-user-secret"></i>
                         <span>Assistants</span>
                     </a>
                     <div id="collapseAssistant" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Assistant Components:</h6>
-                            <a class="collapse-item" asp-controller="admin" asp-action="ViewAllAssistants">View Assistants</a>
-                            <a class="collapse-item" asp-controller="admin" asp-action="createAssistant">Create Assistant</a>
+                            <a class="collapse-item" asp-controller="admin" asp-action="ViewAllAssistants">
+                                <i class="fas fa-fw fa-user-secret"></i>
+                                <span>View Assistants</span>
+                            </a>
+                            <a class="collapse-item" asp-controller="admin" asp-action="createAssistant">
+                                <i class="fas fa-fw fa-user-plus"></i>
+                                <span>Create Assistant</span>
+                            </a>
                         </div>
                     </div>
                 </li>
@@ -134,14 +157,20 @@
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProfile" aria-expanded="true" aria-controls="collapseProfile">
-                    <i class="fas fa-fw fa-user"></i>
+                    <i class="fas fa-fw fa-users"></i>
                     <span>Profiles</span>
                 </a>
                 <div id="collapseProfile" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Profile Components:</h6>
-                        <a class="collapse-item" asp-controller="profile" asp-action="index">View Profiles</a>
-                        <a class="collapse-item" asp-controller="profile" asp-action="createprofile">Create Profile</a>
+                        <a class="collapse-item" asp-controller="profile" asp-action="index">
+                            <i class="fas fa-fw fa-users"></i>
+                            <span>View Profiles</span>
+                        </a>
+                        <a class="collapse-item" asp-controller="profile" asp-action="createprofile">
+                            <i class="fas fa-fw fa-user-plus"></i>
+                            <span>Create Profile</span>
+                        </a>
                     </div>
                 </div>
             </li>

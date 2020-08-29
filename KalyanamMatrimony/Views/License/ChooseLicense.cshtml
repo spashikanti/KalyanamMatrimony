@@ -2,7 +2,14 @@
 
 @{
     ViewBag.Title = "Choose License";
-    Layout = "~/Views/Shared/_LayoutLicense.cshtml";
+    if(ViewData["showAdmin"] != null)
+    {
+        Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_LayoutLicense.cshtml";
+    }
 }
 
 <h3 class="text-danger">
