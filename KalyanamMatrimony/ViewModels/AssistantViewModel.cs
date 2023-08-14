@@ -1,14 +1,17 @@
-﻿using KalyanamMatrimony.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 using static KalyanamMatrimony.Models.CustomEnums;
 
 namespace KalyanamMatrimony.ViewModels
 {
-    public class UserProfileViewModel : Profile
+    public class AssistantViewModel
     {
+        [Display(Name = "User Id")]
+        public string UserId { get; set; }
         [Required]
         [EmailAddress]
         [Remote(action: "IsEmailInUse", controller: "Account")]
@@ -24,17 +27,14 @@ namespace KalyanamMatrimony.ViewModels
             ErrorMessage = "Password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
+        [Display(Name = "Created Date")]
+        public DateTime? CreatedDate { get; set; } = DateTime.Now;
+
         [Display(Name = "End Date")]
         public DateTime? EndDate { get; set; }
 
-        public string UserRole { get; set; } = Enum.GetName(typeof(CustomRole), CustomRole.Profile);
+        public string UserRole { get; set; } = Enum.GetName(typeof(CustomRole), CustomRole.AdminAssistant);
 
-        public IFormFile PhotoFile1 { get; set; }
-        public IFormFile PhotoFile2 { get; set; }
-        public IFormFile PhotoFile3 { get; set; }
-
-        public string ExistingPhotoPath1 { get; set; }
-        public string ExistingPhotoPath2 { get; set; }
-        public string ExistingPhotoPath3 { get; set; }
+        public int OrgId { get; set; }
     }
 }

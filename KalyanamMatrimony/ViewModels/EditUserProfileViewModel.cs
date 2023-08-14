@@ -1,16 +1,13 @@
 ﻿using KalyanamMatrimony.Models;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using static KalyanamMatrimony.Models.CustomEnums;
 
 namespace KalyanamMatrimony.ViewModels
 {
-    public class EditUserProfileViewModel: Profile
+    public class EditUserProfileViewModel : Profile
     {
         public string Email { get; set; }
 
