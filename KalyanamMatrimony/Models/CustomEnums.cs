@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace KalyanamMatrimony.Models
+﻿namespace KalyanamMatrimony.Models
 {
     public static class CustomEnums
     {
@@ -18,7 +13,8 @@ namespace KalyanamMatrimony.Models
         {
             SuperAdmin = 1,
             Admin = 2,
-            Profile = 3
+            AdminAssistant = 3,
+            Profile = 4
         }
 
         public enum ProfileGender
@@ -34,6 +30,18 @@ namespace KalyanamMatrimony.Models
             Warning,
             Error,
             Success
+        }
+
+        public enum LicenseType
+        {
+            Free,
+            Paid
+        }
+
+        public enum OrgType
+        {
+            Shared,
+            Individual
         }
     }
 }

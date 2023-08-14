@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Threading.Tasks;
 using static KalyanamMatrimony.Models.CustomEnums;
 
 namespace KalyanamMatrimony.Models
@@ -13,11 +9,12 @@ namespace KalyanamMatrimony.Models
         public Profile()
         {
             DateOfBirth = new DateTime();
+            PartnerPreference = new PartnerPreference();
         }
         //UserInfo
         [Display(Name = "Profile Id")]
-        public string  ProfileId { get; set; }
-        public string  UserId { get; set; }
+        public string ProfileId { get; set; }
+        public string UserId { get; set; }
 
         [Required]
         [Display(Name = "Frist Name")]
@@ -50,6 +47,7 @@ namespace KalyanamMatrimony.Models
         public string Smoke { get; set; }
         public string Drink { get; set; }
         [Display(Name = "About Yourself")]
+        [StringLength(200, ErrorMessage = "The About Yourself value cannot exceed 200 characters. ")]
         public string AboutYourself { get; set; }
         [Display(Name = "Blood Group")]
         public string BloodGroup { get; set; }
@@ -85,6 +83,7 @@ namespace KalyanamMatrimony.Models
         [Display(Name = "Family Values")]
         public string FamilyValues { get; set; }
         [Display(Name = "About Family")]
+        [StringLength(200, ErrorMessage = "The About Family value cannot exceed 200 characters. ")]
         public string AboutFamily { get; set; }
 
         //Hobbies
@@ -105,6 +104,7 @@ namespace KalyanamMatrimony.Models
         public string Nakshatram { get; set; }
         public string Manglik { get; set; }
         [Display(Name = "Astrology Profile")]
+        [StringLength(200, ErrorMessage = "The Astrology Profile value cannot exceed 200 characters. ")]
         public string AstroProfile { get; set; }
 
         //Photos
@@ -112,14 +112,25 @@ namespace KalyanamMatrimony.Models
         public string Photo2 { get; set; }
         public string Photo3 { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        [Display(Name = "Created Date")]
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         //Contact Details
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
-        [Display(Name ="Contact Person Name")]
+        [Display(Name = "Contact Person Name")]
         public string ContactPersonName { get; set; }
         [Display(Name = "Contact Person Relationship")]
         public string ContactPersonRelationShip { get; set; }
+
+        public PartnerPreference PartnerPreference { get; set; }
+
+
+        [Display(Name = "Created By")]
+        public string CreatedBy { get; set; }
+        [Display(Name = "Modified By")]
+        public string ModifiedBy { get; set; }
+        [Display(Name = "Modified Date")]
+        public DateTime ModifiedDate { get; set; } = DateTime.Now;
     }
 }
