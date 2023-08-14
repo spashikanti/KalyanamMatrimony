@@ -1,0 +1,9 @@
+2023-08-14 18:43:59.3537|WARN|Microsoft.AspNetCore.Identity.UserManager|Invalid password for user 5a9749b3-416b-4307-99be-f53bcc63106d.
+2023-08-14 18:43:59.4676|WARN|Microsoft.AspNetCore.Identity.SignInManager|User 5a9749b3-416b-4307-99be-f53bcc63106d failed to provide the correct password.
+2023-08-14 18:44:10.9947|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where ([userData].Id == [profile].UserId)' could not be translated and will be evaluated locally.
+2023-08-14 18:44:10.9947|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Any()' could not be translated and will be evaluated locally.
+2023-08-14 18:44:10.9947|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where {from ApplicationUser userData in __users_0 where ([userData].Id == [profile].UserId) select [userData] => Any()}' could not be translated and will be evaluated locally.
+2023-08-14 18:44:10.9947|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where ([userData].Id == [profile].UserId)' could not be translated and will be evaluated locally.
+2023-08-14 18:44:11.0010|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Any()' could not be translated and will be evaluated locally.
+2023-08-14 18:44:50.4967|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2023-08-14 18:45:59.8627|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
