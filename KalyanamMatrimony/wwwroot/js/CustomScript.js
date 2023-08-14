@@ -1,7 +1,7 @@
 ﻿
 $(document).ready(function () {
-
     $("#btnCreateProfile").click(function (event) {
+        displayProgressBar(true);
         $('#v-pills-tab a[href="#v-pills-userinfo"]').tab('show');
         validateCreateProfile(event);
     });
@@ -11,15 +11,14 @@ $(document).ready(function () {
     });
 
     $.getJSON('../../data/masterData.json', function (jd) {
-        debugger;
         $("#hdFileSizeLimit").val(jd.FileSizeLimit);
     });
 
+    displayProgressBar(false);
 });
 
 function readURL(input) {
     if (input.files && input.files[0]) {
-        debugger;
         var fileSizeLimit = $("#hdFileSizeLimit").val();
         if (input.files[0].size > fileSizeLimit) {
             var actualSizeLimit = parseInt(fileSizeLimit) / 1024;
@@ -45,7 +44,6 @@ function readURL(input) {
 }
 
 function moveNext(showTab) {
-    debugger;
     switch (showTab) {
         case 1:
             $('#v-pills-tab a[href="#v-pills-userinfo"]').tab('show');
@@ -66,7 +64,37 @@ function moveNext(showTab) {
             $('#v-pills-tab a[href="#v-pills-horoscope"]').tab('show');
             break;
         case 7:
+            $('#v-pills-tab a[href="#v-pills-partner"]').tab('show');
+            break;
+        case 8:
             $('#v-pills-tab a[href="#v-pills-photos"]').tab('show');
+            break;
+        default:
+    }
+}
+
+function profileMoveNext(showTab) {
+    switch (showTab) {
+        case 1:
+            $('#pills-tab a[href="#pills-userinfo"]').tab('show');
+            break;
+        case 2:
+            $('#pills-tab a[href="#pills-personalInfo"]').tab('show');
+            break;
+        case 3:
+            $('#pills-tab a[href="#pills-eduInfo"]').tab('show');
+            break;
+        case 4:
+            $('#pills-tab a[href="#pills-familyInfo"]').tab('show');
+            break;
+        case 5:
+            $('#pills-tab a[href="#pills-hobbies"]').tab('show');
+            break;
+        case 6:
+            $('#pills-tab a[href="#pills-horoscope"]').tab('show');
+            break;
+        case 7:
+            $('#pills-tab a[href="#pills-photos"]').tab('show');
             break;
         default:
     }
@@ -85,10 +113,19 @@ function validateCreateProfile(event) {
     if (document.getElementById('Email').value == "") {
         errors.Messages.push("The Email field is required.");
     }
-    if (document.getElementById('Password').value == "") {
+    if (document.getElementById('Password') != null && document.getElementById('Password').value == "") {
         errors.Messages.push("The Password field is required.");
     }
-
+    if (document.getElementById('AboutYourself').value.length > 200) {
+        errors.Messages.push("The About Yourself field value cannot exceed 200 characters.");
+    }
+    if (document.getElementById('AboutFamily').value.length > 200) {
+        errors.Messages.push("The About Family field value cannot exceed 200 characters.");
+    }
+    if (document.getElementById('AstroProfile').value.length > 200) {
+        errors.Messages.push("The Astrology Profile field value cannot exceed 200 characters.");
+    }
+    
     if (errors.Messages.length > 0) {
         var ul = document.createElement('ul');
         for (var i = 0; i < errors.Messages.length; i++) {
@@ -96,10 +133,11 @@ function validateCreateProfile(event) {
             li.innerHTML = errors.Messages[i];
             ul.appendChild(li);
         }
+        $("#validationSummary").empty();
         $("#validationSummary").append(ul);
         event.preventDefault();
+        displayProgressBar(false);
     }
-    
 }
 
 function displayToast(jsonObj) {
@@ -122,4 +160,11 @@ function displayToast(jsonObj) {
         }
     }
     
+}
+
+function displayProgressBar(isTrue) {
+    if (isTrue)
+        $("#divProgressBar").css("display", "block");
+    else
+        $("#divProgressBar").css("display", "none");
 }
