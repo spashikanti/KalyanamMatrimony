@@ -1,0 +1,30 @@
+﻿@model PaymentViewModel
+
+@{
+    ViewBag.Title = "Acknowledge License";
+    Layout = "~/Views/Shared/_LayoutLicense.cshtml";
+}
+
+@if (Model.Status == Constants.InstamojoConstants.INSTA_STATUS_CREDIT || Model.Status == Constants.InstamojoConstants.INSTA_STATUS_COMPLETED)
+{
+    <h3>
+        Thank you for updating license with our matrimony services.<br />
+        We are excited to provide you industry best standard services.<br /><br />
+        Kindly login to start using our services.
+        <br /><br />Happy Matrimony!!!<br /><br />Regards,<br />The Matrimony Team.
+    </h3>
+    <a asp-action="Logout" asp-controller="Account" class="btn btn-primary">Login</a>
+}
+else if (Model.Status == Constants.InstamojoConstants.INSTA_STATUS_FAILED)
+{
+    <h3>
+        Transaction failed!!! Please try again.
+    </h3>
+    <a asp-action="ChooseLicense" asp-controller="License" class="btn btn-primary">Update License</a>
+}
+else if (Model.Status == Constants.InstamojoConstants.INSTA_STATUS_PENDING)
+{
+    <h3>
+        Transaction is pending.
+    </h3>
+}

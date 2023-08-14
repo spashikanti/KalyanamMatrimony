@@ -1,7 +1,7 @@
-﻿@model ProfilesViewModel
+﻿@model AssistantListViewModel
 
 @{
-    ViewData["Title"] = "View Profiles";
+    ViewData["Title"] = "View Assistants";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -9,10 +9,12 @@
 
 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
     <li class="nav-item">
-        <a class="nav-link active" id="pills-Active-tab" data-toggle="pill" href="#pills-Active" role="tab" aria-controls="pills-Active" aria-selected="true">Active Profiles</a>
+        <a class="nav-link active" id="pills-Active-tab" data-toggle="pill" href="#pills-Active" 
+           role="tab" aria-controls="pills-Active" aria-selected="true">Active Assistants</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="pills-DeActivated-tab" data-toggle="pill" href="#pills-DeActivated" role="tab" aria-controls="pills-DeActivated" aria-selected="false">DeActivated Profiles</a>
+        <a class="nav-link" id="pills-DeActivated-tab" data-toggle="pill" href="#pills-DeActivated"
+           role="tab" aria-controls="pills-DeActivated" aria-selected="false">DeActivated Assistants</a>
     </li>
 </ul>
 <div class="tab-content" id="pills-tabContent">
@@ -20,13 +22,13 @@
         @{
             ViewData["DataTable"] = "DataTableActive";
         }
-        <partial name="~/Views/Partials/_ProfilesView.cshtml" model="Model.ActiveProfiles" view-data="ViewData" />
+        <partial name="~/Views/Partials/_AssistantView.cshtml" model="Model.ActiveAssistants" view-data="ViewData" />
     </div>
     <div class="tab-pane fade" id="pills-DeActivated" role="tabpanel" aria-labelledby="pills-DeActivated-tab">
         @{
             ViewData["DataTable"] = "DataTableDeActived";
         }
-        <partial name="~/Views/Partials/_ProfilesView.cshtml" model="Model.DeActivedProfiles" view-data="ViewData" />
+        <partial name="~/Views/Partials/_AssistantView.cshtml" model="Model.DeActivedAssistants" view-data="ViewData" />
     </div>
 </div>
 
@@ -41,7 +43,7 @@
     <script>
         $(document).ready(function () {
             $('.table').DataTable({
-                "order": [[4, "desc"]],//order by createddate desc - 4th column
+                "order": [[1, "desc"]],//order by createddate desc - 4th column
                 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
             });
 

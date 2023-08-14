@@ -1,7 +1,7 @@
 ﻿@model KalyanamMatrimony.ViewModels.EditUserProfileViewModel
 
 @{
-    ViewData["Title"] = "ViewProfile";
+    ViewData["Title"] = "View Profile";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -20,7 +20,6 @@
         //For toast
         var msg = @Html.Raw(Json.Serialize(ViewBag.Message));
         if (msg != null) {
-            debugger;
             displayToast(msg);
         }
 

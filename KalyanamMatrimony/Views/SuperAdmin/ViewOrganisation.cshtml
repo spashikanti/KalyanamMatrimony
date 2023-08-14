@@ -1,0 +1,22 @@
+﻿@model SignUpViewModel
+
+@{
+    ViewData["Title"] = "View Organisation";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="card shadow-lg border-0 rounded-lg">
+        <div class="card-header bg-primary text-white">
+            <div class="row">
+                <div class="col-md-10">
+                    <h5 class="font-weight-bold text-white">@ViewBag.Title</h5>
+                </div>
+                <div class="col-md-2">
+                    <a class="btn btn-success" asp-controller="superadmin" asp-action="viewallorganisations"><strong>View Organisations</strong></a>
+                </div>
+            </div>
+        </div>
+        <partial name="~/Views/Partials/_SignUpCreateUpdate.cshtml" model="Model" view-data="ViewData" />
+    </div>
+</div>

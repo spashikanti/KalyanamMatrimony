@@ -1,0 +1,107 @@
+﻿@model SuperAdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Super Admin Dashboard";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">@ViewData["Title"]</h1>
+</div>
+
+<!-- Content Row -->
+<div class="row">
+
+    <!-- Active Organisations Card -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <a asp-controller="superadmin" asp-action="viewallorganisations" asp-route-id="1">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Active Organisations</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800 counter-count">@Model.ActiveOrganisationsCount</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- InActivate Organisations Card -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <a asp-controller="superadmin" asp-action="viewallorganisations" asp-route-id="2">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">InActivate Organisations</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800 counter-count">@Model.InActiveOrganisationsCount</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users-slash fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- License Not Mapped Organisations Card -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">License Not Mapped Organisations</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800 counter-count">@Model.LicenseNotMappedOrganisationsCount</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-male fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Male Users Card -->
+    @*<div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Female Users</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800 counter-count">@Model.FemaleProfilesCount</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-female fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>*@
+</div>
+
+<!-- Content Row -->
+
+@section Scripts {
+    <script>
+
+        $('.counter-count').each(function () {
+            $(this).prop('Counter', 0).animate({
+                Counter: $(this).text()
+            }, {
+                duration: 5000,
+                easing: 'swing',
+                step: function (now) {
+                    $(this).text(Math.ceil(now));
+                }
+            });
+        });
+
+    </script>
+}

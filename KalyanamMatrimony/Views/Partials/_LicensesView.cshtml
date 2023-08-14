@@ -1,0 +1,92 @@
+﻿@model IEnumerable<KalyanamMatrimony.Models.License>
+
+@{
+    string dataTableName = (string)ViewData["DataTable"];
+}
+
+<div class="card shadow mb-4 border-primary">
+    <div class="card-header bg-primary text-white">
+        <div class="row">
+            <div class="col-md-10">
+                <h5 class="font-weight-bold text-white">View Licenses</h5>
+            </div>
+            <div class="col-md-2">
+                <a class="btn btn-success" asp-controller="superadmin" asp-action="createlicense">
+                    <strong>Create License</strong>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered border-dark" id="@dataTableName" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>License Name</th>
+                        <th>@Html.DisplayNameFor(model => model.Description)</th>
+                        <th>@Html.DisplayNameFor(model => model.UsersCount)</th>
+                        <th>@Html.DisplayNameFor(model => model.AssistantCount)</th>
+                        <th>@Html.DisplayNameFor(model => model.MonthsCount)</th>
+                        <th>@Html.DisplayNameFor(model => model.LicenseType)</th>
+                        <th>@Html.DisplayNameFor(model => model.Price)</th>
+                        <th>@Html.DisplayNameFor(model => model.PayLink)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Id</th>
+                        <th>License Name</th>
+                        <th>@Html.DisplayNameFor(model => model.Description)</th>
+                        <th>@Html.DisplayNameFor(model => model.UsersCount)</th>
+                        <th>@Html.DisplayNameFor(model => model.AssistantCount)</th>
+                        <th>@Html.DisplayNameFor(model => model.MonthsCount)</th>
+                        <th>@Html.DisplayNameFor(model => model.LicenseType)</th>
+                        <th>@Html.DisplayNameFor(model => model.Price)</th>
+                        <th>@Html.DisplayNameFor(model => model.PayLink)</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LicenseId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LicenseName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UsersCount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AssistantCount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MonthsCount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LicenseType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PayLink)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "EditLicense", new { id = item.LicenseId }) |
+                            @Html.ActionLink("View", "EditLicense", new { id = item.LicenseId, mode = "view" })
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

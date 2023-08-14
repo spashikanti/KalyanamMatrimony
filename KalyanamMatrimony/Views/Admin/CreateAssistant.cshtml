@@ -1,22 +1,19 @@
-﻿@{
+﻿@model KalyanamMatrimony.ViewModels.AssistantViewModel
 
-    ViewData["Title"] = "Edit Profile";
+@{
+    ViewData["Title"] = "Create Assistant";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<partial name="~/Views/Partials/_ProfileCreateUpdate.cshtml" />
-
+<partial name="~/Views/Partials/_AssistantCreateUpdate.cshtml" model="Model" />
 
 @section Scripts {
     <!-- Page level custom scripts -->
     <script src="~/lib/jquery-validate/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 
-    <script src="~/js/CustomScript.js"></script>
+    <script src="/js/CustomScript.js"></script>
     <script src="~/js/LoadJsonData.js"></script>
-    @*For toast*@
-    <link href="/lib/toastr/toastr.min.css" rel="stylesheet" />
-    <script src="/lib/toastr/toastr.min.js"></script>
 
     <script>
         //For toast
@@ -24,6 +21,8 @@
         if (msg != null) {
             displayToast(msg);
         }
+
+        
 
     </script>
 }

@@ -1,10 +1,10 @@
 ﻿@{
 
-    ViewData["Title"] = "Edit Profile";
+    ViewData["Title"] = "Edit License";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<partial name="~/Views/Partials/_ProfileCreateUpdate.cshtml" />
+<partial name="~/Views/Partials/_LicenseCreateUpdate.cshtml" />
 
 
 @section Scripts {
@@ -23,6 +23,16 @@
         var msg = @Html.Raw(Json.Serialize(ViewBag.Message));
         if (msg != null) {
             displayToast(msg);
+        }
+
+        debugger;
+        var qs = location.search;
+
+        if (qs != null && qs != undefined) {
+            if (qs.split("=")[1] == "view") {
+                $("#btnCreateLicense").hide();
+                $(".btn-danger").hide();
+            }
         }
 
     </script>

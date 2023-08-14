@@ -6,6 +6,7 @@
 
 <partial name="~/Views/Partials/_ProfileCreateUpdate.cshtml" />
 
+
 @section Scripts {
     <!-- Page level custom scripts -->
     <script src="~/lib/jquery-validate/jquery.validate.js"></script>
@@ -21,7 +22,6 @@
         //For toast
         var msg = @Html.Raw(Json.Serialize(ViewBag.Message));
         if (msg != null) {
-            debugger;
             displayToast(msg);
         }
 

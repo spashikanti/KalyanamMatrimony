@@ -1,30 +1,165 @@
-﻿@model IEnumerable<Employee>
+﻿@*@model IEnumerable<Employee>*@
+@model IEnumerable<Profile>
+@inject UserManager<ApplicationUser> userManager;
 
 @{
-    ViewBag.Title = "Employee List";
+    ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_LayoutProfile.cshtml";
 }
-<div class="card-deck">
-    @if (Model.Any())
-    {
-        @foreach (var employee in Model)
-        {
-            <div class="card m-3">
-                <div class="card-header">
-                    <h3>@employee.Name</h3>
-                </div>
-                <img class="card-img-top" src="~/images/noimage.jpg" asp-append-version="true" />
-                <div class="card-footer text-center">
-                    <a asp-controller="home" asp-action="details"
-                       asp-route-id="@employee.Id" class="btn btn-primary">View</a>
-                    <a href="#" class="btn btn-primary">Edit</a>
-                    <a href="#" class="btn btn-danger">Delete</a>
+
+<link href="~/css/ProfileViewCarousel.css" rel="stylesheet" />
+<link href="~/css/aos.css" rel="stylesheet" />
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex align-items-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+                <h1 data-aos="fade-up">Together is a beautiful place to be...</h1>
+                <h2 data-aos="fade-up" data-aos-delay="400">
+                    Marriage is not about age, it's about finding the right person.
+                </h2>
+                
+            </div>
+            <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="fade-left" data-aos-delay="200">
+                <img src="~/images/hero-img.png" class="img-fluid animated" alt="" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+                <div>
+                    <a class="btn btn-primary btn-lg" role="button" asp-controller="profile" asp-action="search" data-aos="fade-up" data-aos-delay="800" style="margin:5px; width:255px !important">Search Profiles</a>
+                    @if (!User.IsInRole(Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Profile)))
+                    {
+                        <a class="btn btn-success btn-lg" role="button" asp-controller="profile" asp-action="index" data-aos="fade-up" data-aos-delay="1000" style="margin: 5px; width:255px !important">
+                            View Profiles
+                        </a>
+                        @if (User.IsInRole(Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.SuperAdmin)) ||
+                             User.IsInRole(Enum.GetName(typeof(CustomEnums.CustomRole), CustomEnums.CustomRole.Admin)))
+                        {
+                            <a class="btn btn-primary btn-lg" role="button" asp-controller="admin" asp-action="ViewAllAssistants" data-aos="fade-up" data-aos-delay="1200" style="margin: 5px; width:255px !important">
+                                View Assistants
+                            </a>
+                            if (ViewBag.OrgType == Enum.GetName(typeof(CustomEnums.OrgType), CustomEnums.OrgType.Shared))
+                            {
+                                <a class="btn btn-danger btn-lg" role="button" asp-controller="license" asp-action="ChooseLicense" data-aos="fade-up" data-aos-delay="1400" style="margin:5px;width:255px !important">
+                                    Update License
+                                </a>
+                            }
+                        }
+                    }
                 </div>
             </div>
-        }
-    }
-    else
-    {
-        <div>No Records</div>
-    }
+        </div>
+    </div>
+</section>
+<!-- End Hero -->
+
+@if (Model.Any())
+{
+<div class="card my-3 border-primary">
+    <div class="card-header py-3 bg-primary">
+        <div class="carousel slide w-100">
+            <h5 class="m-0 font-weight-bold text-white">Latest Profiles</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
+            <div class="carousel-inner w-100" role="listbox">
+                @{
+                    var loopCount = 0;
+                }
+                @foreach (var profile in Model)
+                {
+                    var photoPath1 = "/images/" + (profile.Photo1 ?? "noimageThumb400.jpg");
+                    var className = "carousel-item";
+                    if (loopCount == 0)
+                    {
+                        className = "carousel-item active";
+
+                    }
+                    <div class="@className">
+                        <div class="col-md-4">
+                            <div class="card card-body border-dark">
+                                <a asp-controller="profile" asp-action="ViewSearchProfile"
+                                   asp-route-id="@profile.ProfileId">
+                                    <img class="img-fluid" style="width:312px; height:244px" src="@photoPath1" asp-append-version="true">
+                                </a>
+                            </div>
+                            <div class="card-header text-white bg-dark mb-3 text-center">
+                                <h5 class="card-title">@profile.FirstName @profile.LastName</h5>
+                                <p class="card-text">Age: @profile.Age | Profession: @profile.Profession</p>
+                            </div>
+                        </div>
+                    </div>
+                    loopCount++;
+                }
+
+            </div>
+            <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next w-auto" href="#recipeCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
 </div>
+}
+else
+{
+    <div>No Latest Profiles</div>
+}
+
+<div>
+    &nbsp;
+</div>
+@section Scripts{
+    <link href="~/css/site.css" rel="stylesheet" />
+    <script src="~/js/aos/aos.js"></script>
+    <script>
+
+        $('#recipeCarousel').carousel({
+            interval: 5000
+        })
+
+        $('.carousel .carousel-item').each(function () {
+            var minPerSlide = 3;
+            var next = $(this).next();
+            if (!next.length) {
+                next = $(this).siblings(':first');
+            }
+            next.children(':first-child').clone().appendTo($(this));
+
+            for (var i = 0; i < minPerSlide; i++) {
+                next = next.next();
+                if (!next.length) {
+                    next = $(this).siblings(':first');
+                }
+
+                next.children(':first-child').clone().appendTo($(this));
+            }
+        });
+
+        AOS.init({
+            duration: 1000,
+            easing: "ease-in-out",
+            once: true,
+            mirror: false
+        });
+
+    </script>
+
+}
+
+<style>
+    .card-img-overlay {
+        top: 65% !important;
+    }
+
+    .btn {
+        width: 200px !important;
+    }
+</style>

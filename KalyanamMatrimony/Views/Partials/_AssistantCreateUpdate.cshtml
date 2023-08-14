@@ -1,0 +1,66 @@
+﻿@model KalyanamMatrimony.ViewModels.AssistantViewModel
+
+
+<div class="container-fluid">
+    <div class="card shadow-lg border-0 rounded-lg">
+        <div class="card-header bg-primary text-white">
+            <div class="row">
+                <div class="col-md-8">
+                    <h5 class="font-weight-bold text-white">@ViewBag.Title</h5>
+                </div>
+                <div class="col-md-4">
+                    <a class="btn btn-success float-right" asp-controller="admin" asp-action="ViewAllAssistants"><strong>View Assistants</strong></a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="All" class="text-danger" id="validationSummary"></div>
+                <div class="form-group">
+                    <label asp-for="Email" class="small mb-1"></label>
+                    <input asp-for="Email" class="form-control" placeholder="Enter Email Address" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-row" id="rowPassword">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Password" class="small mb-1"></label>
+                            <input asp-for="Password" class="form-control" placeholder="Enter Password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="ConfirmPassword" class="small mb-1"></label>
+                            <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EndDate" class="small mb-1"></label>
+                    <input asp-for="EndDate" class="form-control" type="date" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success btn-block" id="btnSave">
+                                <strong>Save</strong>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <a class="btn btn-danger btn-block" asp-controller="admin" asp-action="ViewAllAssistants"><strong>Cancel</strong></a>
+                        </div>
+                    </div>
+                </div>
+                @if (@Model != null && !string.IsNullOrEmpty(@Model.UserId))
+                {
+                    <input asp-for="UserId" type="hidden" />
+                }
+            </form>
+        </div>
+    </div>
+</div>
